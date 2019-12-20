@@ -5,15 +5,26 @@
 </template>
 
 <script>
+import { postFormatData } from '@/config/format-data'
 export default {
   name: 'app',
   components: {},
   data() {
     return {}
   },
-  methods: {},
+  methods: {
+    getList() {
+      return postFormatData('/api/task/v1/task/list', {
+        task_type: '2',
+      })
+    },
+  },
   created: function() {},
-  mounted: function() {},
+  mounted: function() {
+    this.getList().then(res => {
+      console.log('data', res)
+    })
+  },
 }
 </script>
 

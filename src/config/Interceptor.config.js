@@ -1,27 +1,20 @@
 import axios from 'axios'
-import BROWSER from '@/utils/browser'
-import { getQueryObject, getAppVersion } from '@/utils/url'
-import webViewBridge, { showToast } from '@/utils/native'
-const { channel, platform, token } = getQueryObject()
+import { Base64 } from 'js-base64'
+import { getCookie } from '@/utils/utils'
 axios.defaults.retry = 3 //设置默认重发送次数
 axios.defaults.retryDelay = 1000 // 设置重发送间隔时间
 axios.defaults.timeout = 5000 // 设置请求超时时间
 axios.defaults.validateStatus = function(status) {
   return status >= 200 && status < 300
 }
-function getToken() {
-  //兼容之前介绍页iOS未在queryString上配置token情况
-  if (BROWSER.isiOS && !token) {
-    return new Promise(resolve => {
-      webViewBridge.callNative(
-        'browserGETToken',
-        { data: {}, ok: true },
-        res => {
-          const token = res.token
-          resolve(token)
-        }
-      )
-    })
+
+function setHeader() {
+  let xClient =
+    getCookie('xclient') ||
+    'c3Y9OTtwbT1NSSs4K1VEO3NzPTEwODAqMjAyOTtpbWVpPTg2OTc4NTAzMTkzNTk1NjtpbXNpPTQ2MDAyNTMwMjYwMzk4ODttYWM9MDI6MDA6MDA6MDA6MDA6MDA7ZElEPTU1MjYyNTI4YWU2YzU5MDI7dmVyc2lvbj01LjEuMzAuMi4xMDt1c2VybmFtZT1jODc5M2RkNDc2ZDM0NjEyOGQ0OWM4Yzg4OTRjYzY0NztzaWduVmVyc2lvbj0yO3dlYlZlcnNpb249bmV3O29haWQ9bnVsbDtwa3Y9MTs='
+  if (xClient !== null && typeof xClient !== 'undefined' && xClient !== '') {
+    var xstr = Base64.decode(xClient)
+    return xstr
   }
 }
 /**
@@ -29,13 +22,14 @@ function getToken() {
  */
 axios.interceptors.request.use(
   async config => {
-    let nowToken = await getToken()
-    nowToken = nowToken ? nowToken : token
-    config.headers.common['eventTime'] = Date.now()
-    config.headers.common['client-version'] = getAppVersion()
-    config.headers.common['client-channel'] = channel
-    config.headers.common['client-type'] = platform || 'h5'
-    config.headers.common['Authorization'] = decodeURIComponent(nowToken)
+    config.headers.common['Cache-Control'] = 'no-cache'
+    config.headers['Accept'] =
+      'application/json, text/plain, */*; charset=utf-8'
+    config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    // config.headers.common['Content-Type'] =
+    //   'application/x-www-form-urlencoded; charset=utf-8'
+    config.headers.common['Pragma'] = 'no-cache'
+    config.headers.common['X-client'] = setHeader()
     return config
   },
   error => {
@@ -50,23 +44,9 @@ axios.interceptors.response.use(
     let response = error.response
     console.log(error)
     if (response === undefined) {
-      showToast('网络异常, 请稍后重试')
+      console.error('网络异常, 请稍后重试')
     }
     return Promise.reject(error)
-    // var config = error.config || {}
-    // config.__retryCount = config.__retryCount || 0
-    // if (config.__retryCount >= config.retry) {
-    //   return Promise.reject(error)
-    // }
-    // config.__retryCount += 1
-    // var backoff = new Promise(function(resolve) {
-    //   setTimeout(function() {
-    //     resolve()
-    //   }, config.retryDelay || 1)
-    // })
-    // return backoff.then(function() {
-    //   return axios(config)
-    // })
   }
 )
 export default axios

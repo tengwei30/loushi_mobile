@@ -1,4 +1,3 @@
-import { nBuryPoint } from '@/utils/buryPoint'
 /**
  * 防抖函数 - 我们希望频繁事件的回调函数在某段连续时间内，在事件触发后只执行一次
  * @param fn {Function}   实际要执行的函数
@@ -99,6 +98,34 @@ export function getType(obj) {
     return 'Object'
   }
   return null
+}
+
+/**
+ * 获取cookie
+ * @param {*} cookie的key 值
+ * @param {*} min
+ * @param {*} max
+ */
+export function getCookie(cname) {
+  let arr = []
+  const reg = new RegExp(`(^| )${cname}=([^;]*)(;|$)`)
+  // const reg = new RegExp("(^| )" + cname + "=([^;]*)(;|$)");
+  if ((arr = document.cookie.match(reg))) return arr[2]
+  else return null
+}
+
+/**
+ * md5 加密排序
+ *
+ */
+export function objKeySort(obj) {
+  //排序的函数
+  let newkey = Object.keys(obj).sort()
+  const newObj = {} //创建一个新的对象，用于存放排好序的键值对
+  for (var i = 0; i < newkey.length; i++) {
+    newObj[newkey[i]] = decodeURIComponent(obj[newkey[i]])
+  }
+  return newObj
 }
 
 export const randomString = (randomFlag, min, max) => {
@@ -202,14 +229,6 @@ export const performance = () => {
           timing,
         }
         console.log(info)
-        nBuryPoint(
-          'dev_LogInfo',
-          {
-            position: 'vip-payment',
-            info: info,
-          },
-          'setting'
-        )
       }, 0)
     })
   }

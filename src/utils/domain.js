@@ -5,7 +5,8 @@ const env =
 
 export const domainConfig = {
   development: {
-    domain: 'http://testapi.ibreader.com/',
+    // domain: 'http://testapi.ibreader.com/',
+    domain: 'http://localhost:8081',
   },
   production: {
     domain: 'http://api.ibreader.com/',

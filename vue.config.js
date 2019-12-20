@@ -10,7 +10,7 @@ const isProd = process.env.VUE_APP_DEVELOP_ENV === 'false'
 const isDev = process.env.VUE_APP_DEVELOP_ENV === 'true'
 
 // CDN 地址
-const bkReadCDN = '' 
+const bkReadCDN = ''
 
 let globMatch = '*'
 if (!isProd && process.env.BK_H5_PAGES) {
@@ -107,5 +107,12 @@ module.exports = {
     hotOnly: true,
     host: '0.0.0.0',
     port: '8081',
+    proxy: {
+      '/api': {
+        target: 'http://testapi.ibreader.com/',
+        ws: true,
+        changeOrigin: true,
+      },
+    },
   },
 }
