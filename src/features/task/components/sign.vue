@@ -1,0 +1,94 @@
+<template lang="pug">
+#Sign
+  .sign__num
+    h4 已签到5天
+  ul.sign__days
+    li(
+      v-for="item in signdays"
+    )
+      span {{ item.day }} 
+      span.icon icon
+      span +{{ item.gold }}
+</template>
+<script>
+export default {
+  data() {
+    return {
+      signdays: [
+        {
+          day: '第一天',
+          is_finish: false,
+          num: 0,
+          gold: 10,
+        },
+        {
+          day: '第二天',
+          is_finish: false,
+          num: 0,
+          gold: 20,
+        },
+        {
+          day: '第三天',
+          is_finish: false,
+          num: 0,
+          gold: 30,
+        },
+        {
+          day: '第四天',
+          is_finish: false,
+          num: 0,
+          gold: 40,
+        },
+        {
+          day: '第五天',
+          is_finish: false,
+          num: 0,
+          gold: 50,
+        },
+        {
+          day: '第六天',
+          is_finish: false,
+          num: 0,
+          gold: 60,
+        },
+        {
+          day: '第七天',
+          is_finish: false,
+          num: 0,
+          gold: 70,
+        },
+      ],
+    }
+  },
+}
+</script>
+<style lang="stylus">
+@import '../../../styles/index.styl';
+#Sign
+  size(100%, 132px)
+  box-shadow 0 1px 2px 0 rgba(0, 0, 0, 0.2)
+  border-radius 4px
+  .sign__num
+    background #6388FE
+    height 38px
+    line-height 38px
+    border-radius 4px 4px 0 0
+    h4
+      text-align center
+      font-size 14px
+      color #ffffff
+  .sign__days
+    height 94px
+    display flex
+    padding 15px 15px 0
+    box-sizing border-box
+    li
+      flex 1
+      font-size 12px
+      display flex
+      flex-direction column
+      align-items center
+      .icon
+        size(30px 30px)
+        margin 6px 0
+</style>
