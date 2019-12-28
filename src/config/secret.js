@@ -1,3 +1,7 @@
+/**
+ * 数据加密处理
+ */
+
 const NodeRSA = require('node-rsa')
 import CryptoJS from 'crypto-js'
 

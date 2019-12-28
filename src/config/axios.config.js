@@ -6,13 +6,6 @@ import Qs from 'qs'
 import md5 from 'md5'
 // import secret from './secret'
 
-// const DEFAULT_CONFIG = {
-//   isAutoMsg: true, // 报错是否自动toast
-//   isLoading: true, //是否加载loading
-//   isRemoveField: false, //是否删除无用字段
-//   removeField: [], //动态指定要过滤的参数
-//   cache: false, //是否需要缓存
-// }
 /**
  * 移除提交请求中 列为空 null undefined 的值
  * @param {Object} params  传递过来的参数
@@ -65,6 +58,14 @@ export function get(url, params = {}, config = {}) {
   const api = filterApi(url)
   const opts = { ...config }
   params = filterParams(params, opts)
+  const timedata = Date.parse(new Date())
+  params.time = timedata
+  params = objKeySort(params)
+  let data = changeStr(sinkey) + '&' + Qs.stringify(params)
+  data = decodeURIComponent(data)
+  params.sign = md5(data).toUpperCase()
+  params = objKeySort(params)
+  params = Qs.stringify(params)
   return fetch({
     url: api,
     method: 'get',
@@ -72,6 +73,17 @@ export function get(url, params = {}, config = {}) {
     headers: opts,
   })
 }
+// export function get(url, params = {}, config = {}) {
+//   const api = filterApi(url)
+//   const opts = { ...config }
+//   params = filterParams(params, opts)
+//   return fetch({
+//     url: api,
+//     method: 'get',
+//     params: params,
+//     headers: opts,
+//   })
+// }
 /**
  *
  * @param {*} url

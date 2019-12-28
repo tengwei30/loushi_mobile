@@ -11,5 +11,3 @@ export const publicKey = 'publicKey'
 export const pkv = 'pkv'
 export const sinkey =
   Base64.decode(sinkey1) + Base64.decode(sinkey2) + Base64.decode(sinkey3)
-
-// export default sinkey

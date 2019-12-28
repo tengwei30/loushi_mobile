@@ -2,16 +2,23 @@
 #Sign
   .sign__num
     h4 已签到5天
+  //- .rivet-left
+  //- .rivet-right
   ul.sign__days
     li(
       v-for="item in signdays"
     )
       span {{ item.day }} 
-      span.icon icon
+      span.icon
+        img(src="../../../assets/task/gold_coin_false.png")
       span +{{ item.gold }}
 </template>
 <script>
+import rivet from '../../../icons/rivet.vue'
 export default {
+  components: {
+    rivet,
+  },
   data() {
     return {
       signdays: [
@@ -77,6 +84,14 @@ export default {
       text-align center
       font-size 14px
       color #ffffff
+  // .rivet-left
+  //   size(0.26rem, 0.26rem)
+  //   absolute(top 0.67rem left 1.6rem)
+  //   z-index 2
+  // .rivet-right
+  //   size(0.26rem, 0.26rem)
+  //   absolute(top 0.67rem right 1.6rem)
+  //   z-index 2
   .sign__days
     height 94px
     display flex
@@ -91,4 +106,6 @@ export default {
       .icon
         size(30px 30px)
         margin 6px 0
+        img
+          width 100%
 </style>

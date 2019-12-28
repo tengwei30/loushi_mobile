@@ -1,19 +1,29 @@
 <template lang="pug">
 #taskList
   .title
-    h2.task__name 新手任务
+    h2.task__name {{ taskname }}
   ul.task__list
-    li.item
+    li.item(
+      v-for="item in tasklists"
+    )
       .item__left
         .item__award
-          span.item__award__name 加入书架
-          span.item__award__gold 200金币
-        .item__desc 我是一个描述
+          span.item__award__name {{ item.name }}
+          span.item__award__gold {{ item.reward_num }}金币
+        .item__desc {{ item.description }}
       .item__right
-        button.task__btn 开始任务
+        button.task__btn {{ item.button_hint }}
 </template>
 <script>
-export default {}
+export default {
+  props: ['taskname', 'tasklists'],
+  watch: {
+    tasklists: lists => {
+      this.tasklists = lists
+    },
+  },
+  mounted() {},
+}
 </script>
 <style lang="stylus">
 @import '../../../styles/index.styl';

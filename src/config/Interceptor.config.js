@@ -26,8 +26,6 @@ axios.interceptors.request.use(
     config.headers['Accept'] =
       'application/json, text/plain, */*; charset=utf-8'
     config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    // config.headers.common['Content-Type'] =
-    //   'application/x-www-form-urlencoded; charset=utf-8'
     config.headers.common['Pragma'] = 'no-cache'
     config.headers.common['X-client'] = setHeader()
     return config
