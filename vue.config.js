@@ -106,7 +106,7 @@ module.exports = {
     open: true,
     hotOnly: true,
     host: '0.0.0.0',
-    port: '8081',
+    port: '8000',
     proxy: {
       '*': {
         target: 'http://testapi.ibreader.com/',
