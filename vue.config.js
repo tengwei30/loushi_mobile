@@ -107,12 +107,12 @@ module.exports = {
     hotOnly: true,
     host: '0.0.0.0',
     port: '8000',
-    proxy: {
-      '*': {
-        target: 'http://testapi.ibreader.com/',
-        ws: true,
-        changeOrigin: true,
-      },
-    },
+    // proxy: {
+    //   '*': {
+    //     target: 'http://testapi.ibreader.com/',
+    //     ws: true,
+    //     changeOrigin: true,
+    //   },
+    // },
   },
 }
