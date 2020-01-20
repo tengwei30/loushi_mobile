@@ -10,7 +10,7 @@ const isProd = process.env.VUE_APP_DEVELOP_ENV === 'false'
 const isDev = process.env.VUE_APP_DEVELOP_ENV === 'true'
 
 // CDN 地址
-const bkReadCDN = ''
+const bkReadCDN = 'https://scdn.ibreader.com'
 
 let globMatch = '*'
 if (!isProd && process.env.BK_H5_PAGES) {
