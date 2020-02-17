@@ -47,7 +47,6 @@ export default {
   mounted() {
     Promise.all([this.gettasks(1), this.gettasks(2), this.gettasks(3)])
       .then(res => {
-        console.log('resss')
         this.showFlag = true
         this.newlists = res[0].data.list.filter(val => val.is_finish === 0)
         this.daylists = res[1].data.list
