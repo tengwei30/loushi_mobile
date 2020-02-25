@@ -6,10 +6,7 @@ const windowURL = window.location.origin
 export const domainConfig = {
   development: {
     // domain: 'http://testapi.ibreader.com',
-    domain:
-      windowURL === 'http://localhost:8000'
-        ? 'http://localhost:8000'
-        : 'http://testapi.ibreader.com',
+    domain: windowURL,
   },
   production: {
     domain: 'https://api.ibreader.com',
