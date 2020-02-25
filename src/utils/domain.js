@@ -2,11 +2,14 @@ import axios from 'axios'
 
 const env =
   process.env.VUE_APP_DEVELOP_ENV === 'true' ? 'development' : 'production'
-
+const windowURL = window.location.origin
 export const domainConfig = {
   development: {
     // domain: 'http://testapi.ibreader.com',
-    domain: 'http://localhost:8000',
+    domain:
+      windowURL === 'http://localhost:8000'
+        ? 'http://localhost:8000'
+        : 'http://testapi.ibreader.com',
   },
   production: {
     domain: 'https://api.ibreader.com',
