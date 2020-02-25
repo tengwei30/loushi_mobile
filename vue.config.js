@@ -38,7 +38,7 @@ const pagesMaker = () => {
 const pages = pagesMaker()
 module.exports = {
   publicPath: isDev ? '/' : bkReadCDN,
-  assetsDir: 'bkh5-static',
+  assetsDir: isDev ? 'bkh5-static' : 'Breader_Task_H5',
   indexPath: 'index.html',
   pages,
   lintOnSave: isDev ? 'error' : true,
