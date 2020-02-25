@@ -11,7 +11,7 @@ import { get } from '@/config/axios.config'
 export default {
   data() {
     return {
-      source: getQueryString('source'),
+      source: getQueryString('source') || '',
     }
   },
   methods: {
@@ -22,7 +22,7 @@ export default {
   },
   mounted() {
     console.log('source', this.source)
-    get(`api/operation/statistics?source=${this.source}&type=vip`)
+    get(`/api/operation/statistics?source=${this.source}&type=vip`)
       .then(() => {
         console.info('埋点成功')
       })
