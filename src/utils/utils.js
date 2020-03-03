@@ -59,7 +59,7 @@ export function throttle(fn, threshhold) {
 
 export function isIPhoneXCallback() {
   var u = navigator.userAgent
-  var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) //ios终端
+  var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) // ios终端
   if (isIOS) {
     if (screen.height === 812 && screen.width === 375) {
       return 1
@@ -119,10 +119,10 @@ export function getCookie(cname) {
  *
  */
 export function objKeySort(obj) {
-  //排序的函数
+  // 排序的函数
   let newkey = Object.keys(obj).sort()
-  const newObj = {} //创建一个新的对象，用于存放排好序的键值对
-  for (var i = 0; i < newkey.length; i++) {
+  const newObj = {} // 创建一个新的对象，用于存放排好序的键值对
+  for (var i = 0;i < newkey.length;i++) {
     newObj[newkey[i]] = decodeURIComponent(obj[newkey[i]])
   }
   return newObj
@@ -200,7 +200,7 @@ export const randomString = (randomFlag, min, max) => {
   if (randomFlag) {
     range = Math.round(Math.random() * (max - min)) + min
   }
-  for (var i = 0; i < range; i++) {
+  for (var i = 0;i < range;i++) {
     let pos = Math.round(Math.random() * (arr.length - 1))
     str += arr[pos]
   }
@@ -213,16 +213,16 @@ export const performance = () => {
       const timing = window.performance.timing
       setTimeout(() => {
         let obj = {
-          emptyTime: timing.domLoading - timing.fetchStart, //白屏时间
+          emptyTime: timing.domLoading - timing.fetchStart, // 白屏时间
           tcpT: timing.connectEnd - timing.connectStart, // TCP建立连接完成握手的时间
-          unloadT: timing.unloadEventEnd - timing.unloadEventStart, //卸载页面时间
-          dnsCacheT: timing.domainLookupStart - timing.fetchStart, //DNS缓存时间
+          unloadT: timing.unloadEventEnd - timing.unloadEventStart, // 卸载页面时间
+          dnsCacheT: timing.domainLookupStart - timing.fetchStart, // DNS缓存时间
           onloadT: timing.loadEventEnd - timing.fetchStart, // 页面总加载时间
           requestT: timing.responseEnd - timing.responseStart, // 资源加载完成的时间（考虑资源压缩）
           ttfT: timing.responseStart - timing.navigationStart, // 读取页面第一个字节的时间
           dnsT: timing.domainLookupEnd - timing.domainLookupStart, // DNS 查询时间
           redirectT: timing.redirectEnd - timing.redirectStart, // 重定向时间
-          domReadyT: timing.domComplete - timing.domInteractive, //解析DOM树的时间
+          domReadyT: timing.domComplete - timing.domInteractive, // 解析DOM树的时间
         }
         let info = {
           baseLog: obj,

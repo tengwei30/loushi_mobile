@@ -2,43 +2,43 @@
  * vue.config.js 配置参考
  * https://cli.vuejs.org/zh/config
  */
-const path = require('path')
-const getEntry = require('./build/pageEntry')
-const resolve = dir => path.join(__dirname, dir)
+const path = require('path');
+const getEntry = require('./build/pageEntry');
+const resolve = dir => path.join(__dirname, dir);
 
-const isProd = process.env.VUE_APP_DEVELOP_ENV === 'false'
-const isDev = process.env.VUE_APP_DEVELOP_ENV === 'true'
+const isProd = process.env.VUE_APP_DEVELOP_ENV === 'false';
+const isDev = process.env.VUE_APP_DEVELOP_ENV === 'true';
 
 // CDN 地址
-const bkReadCDN = 'https://scdn.ibreader.com'
+const bkReadCDN = 'https://scdn.ibreader.com';
 
-let globMatch = '*'
+let globMatch = '*';
 if (!isProd && process.env.BK_H5_PAGES) {
-  globMatch = process.env.BK_H5_PAGES
+  globMatch = process.env.BK_H5_PAGES;
 }
 
 const pagesMaker = () => {
-  let pagesObj = {}
-  let pages = getEntry(`src/features/${globMatch}/index.pug`)
+  let pagesObj = {};
+  let pages = getEntry(`src/features/${globMatch}/index.pug`);
   for (let pathname in pages) {
-    let pathInfo = pages[pathname]
-    const folderName = pathInfo.split('/').splice(-2)[0]
-    const fileName = `${folderName}.html`
-    const filePrefix = 'BKH5-'
+    let pathInfo = pages[pathname];
+    const folderName = pathInfo.split('/').splice(-2)[0];
+    const fileName = `${folderName}.html`;
+    const filePrefix = 'BKH5-';
     let conf = {
       template: pathInfo,
       filename: `${filePrefix}${fileName}`,
       entry: `src/features/${pathname}/index.js`,
       chunks: ['chunk-vendors', 'chunk-common', pathname],
-    }
-    pagesObj[folderName] = conf
+    };
+    pagesObj[folderName] = conf;
   }
-  return pagesObj
-}
-const pages = pagesMaker()
+  return pagesObj;
+};
+const pages = pagesMaker();
 module.exports = {
   publicPath: isDev ? '/' : bkReadCDN,
-  assetsDir: 'Breader_Task_H5', //isDev ? 'bkh5-static' :
+  assetsDir: 'Breader_Task_H5', // isDev ? 'bkh5-static' :
   indexPath: 'index.html',
   pages,
   lintOnSave: isDev ? 'error' : true,
@@ -49,7 +49,7 @@ module.exports = {
   configureWebpack: config => {
     const newRules = config.module.rules.map(rule => {
       if (rule.test.test('.pug') === false) {
-        return rule
+        return rule;
       } else {
         return {
           test: /\.pug$/,
@@ -75,16 +75,16 @@ module.exports = {
               ],
             },
           ],
-        }
+        };
       }
-    })
-    config.module.rules = newRules
+    });
+    config.module.rules = newRules;
   },
   chainWebpack: config => {
-    config.resolve.alias.set('@', resolve('src'))
+    config.resolve.alias.set('@', resolve('src'));
     config.plugin('copy').tap(args => {
-      const { toType, ignore } = args[0][0]
-      args[0] = []
+      const { toType, ignore } = args[0][0];
+      args[0] = [];
       args[0].push(
         {
           from: resolve('public'),
@@ -97,9 +97,9 @@ module.exports = {
           to: resolve('dist/Breader_Task_H5/others'),
           toType,
         }
-      )
-      return args
-    })
+      );
+      return args;
+    });
     // config.plugin('analyzer').use(BundleAnalyzerPlugin)
   },
   devServer: {
@@ -115,4 +115,4 @@ module.exports = {
       },
     },
   },
-}
+};

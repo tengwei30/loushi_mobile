@@ -14,7 +14,7 @@ function Encrypt(word, key) {
   var passwordMd5 = CryptoJS.enc.Utf8.parse(key)
   var iv = CryptoJS.enc.Utf8.parse('16-Bytes--String')
   var encrypted = CryptoJS.AES.encrypt(word, passwordMd5, {
-    iv: iv,
+    iv,
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7,
   })
@@ -30,7 +30,7 @@ function Decrypt(word, key) {
   var passwordMd5 = CryptoJS.enc.Utf8.parse(key)
   var iv = CryptoJS.enc.Utf8.parse('16-Bytes--String')
   var decrypt = CryptoJS.AES.decrypt(word, passwordMd5, {
-    iv: iv,
+    iv,
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7,
   })

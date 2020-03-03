@@ -14,7 +14,7 @@ const BROWSER = (function() {
     isWeChat: ua.indexOf('micromessenger') !== -1 ? 1 : 0,
     isQQ: !!ua.match(/QQ/i),
     isWeiBo: !!ua.match(/Weibo/i),
-    androidVersion: isAndroid ? ua.substr(ua.indexOf('android') + 8, 1) : false,
+    androidVersion: isAndroid ? ua.substr(ua.indexOf('android') + 8, 1) : false
   }
 })()
 export function isIphoneX() {
