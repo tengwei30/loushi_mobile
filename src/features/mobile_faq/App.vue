@@ -23,7 +23,7 @@
 import { routerToNative } from '@/utils/native'
 import { post } from '@/config/axios.config'
 import List from './components/list'
-import data from './data.js'
+import config from './data.js'
 import { getUrlParamsByObject } from '@/utils/url'
 export default {
   components: {
@@ -32,8 +32,8 @@ export default {
   data() {
     return {
       clickFlag: true,
-      commondatas: [],
-      classesdatas: [],
+      commondatas: config.common,
+      classesdatas: config.classes,
       userInfo: {}
     }
   },
@@ -55,10 +55,12 @@ export default {
       if (!this.clickFlag) return
       const { username, nickname, phoneNum } = this.userInfo
       const params = {
+        sysnum: '97eed5af7ee44513b227658750dc0981',
+        channelid: '2',
         uname: username,
         realname: nickname,
         tel: phoneNum,
-        type: '1',
+        type: '3',
         msg_flag: '0',
         level_msg_flag: '1',
         feedback_flag: '1',
@@ -69,28 +71,18 @@ export default {
         top_bar_flag: '1',
         guide_flag: '1',
         time: '2880',
-        channelid: '2',
-        sysnum: '97eed5af7ee44513b227658750dc0981'
+        artificial: true
       }
       const url = `https://chat.sobot.com/chat/h5/v2/index.html${getUrlParamsByObject(params)}`
-      routerToNative(url)
+      window.location.assign(url)
+      // routerToNative(url)
       this.clickFlag = false
       setTimeout(() => {
         this.clickFlag = true
       }, 2000)
     },
   },
-  created() {
-    let config
-    if (sessionStorage.getItem('config')) {
-      config = JSON.parse(sessionStorage.getItem('config'))
-    } else {
-      sessionStorage.setItem('config', JSON.stringify(data))
-      config = data
-    }
-    this.commondatas = config.common
-    this.classesdatas = config.classes
-  },
+  created() {},
   mounted() {
     post('/api/user/userInfoQuickApp').then(res => {
       if (!res.data) return
