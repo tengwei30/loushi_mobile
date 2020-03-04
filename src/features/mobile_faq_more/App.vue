@@ -8,7 +8,7 @@
 </template>
 <script>
 import List from '../mobile_faq/components/list'
-// import config from '../mobile_faq/data.js'
+import config from '../mobile_faq/data.js'
 import { getQueryString } from '@/utils/url'
 import { routerToNative } from '@/utils/native'
 export default {
@@ -21,7 +21,6 @@ export default {
       classesId: getQueryString('classesId') || '',
       key: getQueryString('key') || '',
       list: [],
-      config: JSON.parse(sessionStorage.getItem('config'))
     }
   },
   methods: {
@@ -31,7 +30,7 @@ export default {
     }
   },
   created() {
-    const data = this.config[this.key].filter(item => item.id === this.classesId)
+    const data = config[this.key].filter(item => item.id === this.classesId)
     document.title = data[0].title
     this.list = data[0].list
   },
