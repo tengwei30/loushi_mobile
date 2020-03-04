@@ -1,20 +1,23 @@
 <template lang="pug">
 #mobile__faq
-  h2.title {{ title }}
+  h2.title(:class="title ? '' : 'hide' ") {{ title }}
   ul.list(:class="classStyle ? classStyle : ''")
-    li.item
-      | 金币是什么？
-      span.icon >
-    li.item
-      | 金币是什么？
-      span.icon >
-    li.item
-      | 金币是什么？
+    li.item(v-for="val in data" @click="clickQuestion(val)")
+      | {{ val.question || val.title }}
       span.icon >
 </template>
 <script>
 export default {
-  props: ['title', 'classStyle'],
+  props: ['title', 'classStyle', 'data'],
+  methods: {
+    clickQuestion(val) {
+      this.$emit('clickQuestion', val)
+    }
+  },
+  // mounted() {
+  //   this.$nextTick(() => {
+  //   })
+  // }
 }
 </script>
 <style lang="stylus">
@@ -26,6 +29,8 @@ export default {
   font-weight bold
   line-height 18px
   padding 10px 20px
+.hide
+  display none
 .list
   display flex
   flex-direction column

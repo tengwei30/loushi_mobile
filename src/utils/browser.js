@@ -7,7 +7,7 @@ const BROWSER = (function() {
   var isAndroid = ua.indexOf('android') !== -1 ? 1 : 0
 
   return {
-    isAndroid: isAndroid,
+    isAndroid,
     isiOS: !!ua.match(/\(i[^;]+;( u;)? cpu.+mac os x/),
     isiPhone: ua.indexOf('iphone') > -1 || ua.indexOf('mac') > -1,
     isiPad: ua.indexOf('ipad') > -1,

@@ -1,38 +1,56 @@
 <template lang="pug">
 #app
   .content
-    h4.title 金币是什么？
-    p.desc 金币是必看免费小说里的虚拟货币单位，金币可以兑换现金，10000金币=1元
+    h4.title {{ questionObj[0].question }}
+    p.desc
+      | {{ questionObj[0].anwser }}
+      span.list(
+        v-if="questionObj[0].anwserlist.length !== 0"
+        v-for="val in questionObj[0].anwserlist"
+        ) {{ val }}
     p.contact
       span 问题没有解决？
       span.contact__customer(@click="callOnline") 联系客服 》
 </template>
 
 <script>
+import { getQueryString } from '@/utils/url'
+import { routerToNative } from '@/utils/native'
+// import config from '../mobile_faq/data.js'
 export default {
   data() {
     return {
-      platformId: localStorage.getItem('platformId'), // 平台号
-      clickFlag: true
+      clickFlag: true,
+      questionId: getQueryString('questionId') || '',
+      classesId: getQueryString('classesId') || '',
+      key: getQueryString('key') || '',
+      questionObj: [{
+        question: '',
+        anwser: '',
+        anwserlist: []
+      }],
+      config: JSON.parse(sessionStorage.getItem('config'))
     }
   },
   methods: {
-    callOnline() {
+    callOnline() {  // 点击跳转在线客服
       if (!this.clickFlag) return
-      let url
-      if (this.platformId !== 3) {
-        url = `breader://common/browser?url=${encodeURIComponent('https://chat.sobot.com/chat/h5/v2/index.html?sysnum=97eed5af7ee44513b227658750dc0981&channelid=2')}`
-      } else {
-        url = 'https://chat.sobot.com/chat/h5/v2/index.html?sysnum=97eed5af7ee44513b227658750dc0981&channelid=2'
-      }
-      window.location.href = url
+      const url = 'https://chat.sobot.com/chat/h5/v2/index.html?sysnum=97eed5af7ee44513b227658750dc0981&channelid=2'
+      routerToNative(url)
       this.clickFlag = false
       setTimeout(() => {
         this.clickFlag = true
       }, 2000)
     }
   },
-  mounted() {
+  created() {
+    if (this.key === 'common') {
+      this.questionObj = this.config[this.key].filter(item => item.id === this.questionId)
+    }
+    if (this.key === 'classes') {
+      const data = this.config[this.key].filter(item => item.id === this.classesId)
+      this.questionObj = data[0].list.filter(val => val.id === this.questionId)
+    }
   },
 }
 </script>
@@ -68,6 +86,8 @@ body, html
       line-height 21px
       padding 15px 0 50px 0
       border-bottom 1px solid #E8EDED
+      .list
+        display inline-block
     p.contact
       text-align center
       padding 27px 0 37px 0

@@ -4,10 +4,14 @@
     List(
       title="常见问题"
       classStyle="default__list"
+      :data="commondatas"
+      v-on:clickQuestion="clickQuestion"
     )
     List(
       title="问题分类"
       classStyle="list__class"
+      :data="classesdatas"
+      v-on:clickQuestion="clickQuestion"
     )
   .mobile__footer__space
   .mobile__faq__footer
@@ -16,37 +20,61 @@
 </template>
 
 <script>
+import { routerToNative } from '@/utils/native'
+import { get } from '@/config/axios.config'
 import List from './components/list'
+import data from './data.js'
 export default {
   components: {
     List,
   },
   data() {
     return {
-      platformId: localStorage.getItem('platformId'), // 平台号
-      clickFlag: true
+      clickFlag: true,
+      commondatas: [],
+      classesdatas: []
     }
   },
   methods: {
-    callPhone() {
+    clickQuestion(val) { // 点击问题跳转详情
+      let routeurl
+      if (val.key === 'common') {
+        routeurl = `${window.location.origin}/BKH5-mobile_faq_detail.html?key=${val.key}&questionId=${val.id}`
+      }
+      if (val.key === 'classes') {
+        routeurl = `${window.location.origin}/BKH5-mobile_faq_more.html?key=${val.key}&classesId=${val.id}`
+      }
+      routerToNative(`${routeurl}`)
+    },
+    callPhone() { // 吊起电话
       window.location='tel:13331136299'
     },
-    callOnline() {
+    callOnline() { // 跳转在线客服
       if (!this.clickFlag) return
-      let url
-      if (this.platformId !== 3) {
-        url = `breader://common/browser?url=${encodeURIComponent('https://chat.sobot.com/chat/h5/v2/index.html?sysnum=97eed5af7ee44513b227658750dc0981&channelid=2')}`
-      } else {
-        url = 'https://chat.sobot.com/chat/h5/v2/index.html?sysnum=97eed5af7ee44513b227658750dc0981&channelid=2'
-      }
-      window.location.href = url
+      const url = 'https://chat.sobot.com/chat/h5/v2/index.html?sysnum=97eed5af7ee44513b227658750dc0981&channelid=2'
+      routerToNative(url)
       this.clickFlag = false
       setTimeout(() => {
         this.clickFlag = true
       }, 2000)
     },
   },
-  mounted() {},
+  created() {
+    let config
+    if (sessionStorage.getItem('config')) {
+      config = JSON.parse(sessionStorage.getItem('config'))
+    } else {
+      sessionStorage.setItem('config', JSON.stringify(data))
+      config = data
+    }
+    this.commondatas = config.common
+    this.classesdatas = config.classes
+  },
+  mounted() {
+    get('/api/user/userInfo').then(res => {
+      console.log('dddddd', res)
+    })
+  }
 }
 </script>
 
