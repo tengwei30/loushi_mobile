@@ -38,7 +38,7 @@ const pagesMaker = () => {
 const pages = pagesMaker()
 module.exports = {
   publicPath: isDev ? '/' : bkReadCDN,
-  assetsDir: 'Breader_Task_H5', //isDev ? 'bkh5-static' :
+  assetsDir: 'Breader_Task_H5', // isDev ? 'bkh5-static' :
   indexPath: 'index.html',
   pages,
   lintOnSave: isDev ? 'error' : true,
@@ -110,6 +110,11 @@ module.exports = {
     proxy: {
       '/*': {
         target: 'http://testapi.ibreader.com/',
+        // ws: true,
+        changeOrigin: true,
+      },
+      '/*': {
+        target: 'http://testtask.ibreader.com/',
         // ws: true,
         changeOrigin: true,
       },
