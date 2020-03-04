@@ -76,6 +76,7 @@ body, html
       color #333333
       line-height 21px
       padding 15px 0
+      background #ffffff
       border-bottom 1px solid #E8EDED
     p.desc,p.contact
       font-size 15px
