@@ -69,7 +69,7 @@ export function get(url, params = {}, config = {}) {
   return fetch({
     url: api,
     method: 'get',
-    params: params,
+    params,
     headers: opts,
   })
 }
@@ -126,7 +126,7 @@ export function deleteOption(url, params = {}, config = {}) {
   return fetch({
     url: api,
     method: 'delete',
-    params: params,
+    params,
     headers: opts,
   })
 }
