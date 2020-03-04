@@ -21,9 +21,10 @@
 
 <script>
 import { routerToNative } from '@/utils/native'
-import { get } from '@/config/axios.config'
+import { post } from '@/config/axios.config'
 import List from './components/list'
 import data from './data.js'
+import { getUrlParamsByObject } from '@/utils/url'
 export default {
   components: {
     List,
@@ -32,7 +33,8 @@ export default {
     return {
       clickFlag: true,
       commondatas: [],
-      classesdatas: []
+      classesdatas: [],
+      userInfo: {}
     }
   },
   methods: {
@@ -51,7 +53,26 @@ export default {
     },
     callOnline() { // 跳转在线客服
       if (!this.clickFlag) return
-      const url = 'https://chat.sobot.com/chat/h5/v2/index.html?sysnum=97eed5af7ee44513b227658750dc0981&channelid=2'
+      const { username, nickname, phoneNum } = this.userInfo
+      const params = {
+        uname: username,
+        realname: nickname,
+        tel: phoneNum,
+        type: '1',
+        msg_flag: '0',
+        level_msg_flag: '1',
+        feedback_flag: '1',
+        photo_flag: '1',
+        to_customsys_open_style: '0',
+        leave_customsys_flag: '1',
+        agent_mode_flag: '1',
+        top_bar_flag: '1',
+        guide_flag: '1',
+        time: '2880',
+        channelid: '2',
+        sysnum: '97eed5af7ee44513b227658750dc0981'
+      }
+      const url = `https://chat.sobot.com/chat/h5/v2/index.html${getUrlParamsByObject(params)}`
       routerToNative(url)
       this.clickFlag = false
       setTimeout(() => {
@@ -71,8 +92,10 @@ export default {
     this.classesdatas = config.classes
   },
   mounted() {
-    get('/api/user/userInfo').then(res => {
-      console.log('dddddd', res)
+    post('/api/user/userInfoQuickApp').then(res => {
+      if (!res.data) return
+      const { vipInfo, userInfo } = res.data
+      this.userInfo = { ...vipInfo, ...userInfo }
     })
   }
 }

@@ -8,7 +8,6 @@ const platformId = Number(localStorage.getItem('platformId')) // 平台号
  */
 
 export function routerToNative(url) {
-  console.log('aaaa', url, platformId)
   if (platformId === 3) {
     window.location.assign(url)
   } else {
