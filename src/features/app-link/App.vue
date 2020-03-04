@@ -19,8 +19,8 @@ export default {
       })
     },
   },
-  created: function() {},
-  mounted: function() {
+  created() {},
+  mounted() {
     this.getList().then(res => {
       console.log('data', res)
     })
