@@ -16,7 +16,7 @@
 <script>
 import { getQueryString } from '@/utils/url'
 import { routerToNative } from '@/utils/native'
-// import config from '../mobile_faq/data.js'
+import config from '../mobile_faq/data.js'
 export default {
   data() {
     return {
@@ -29,7 +29,6 @@ export default {
         anwser: '',
         anwserlist: []
       }],
-      config: JSON.parse(sessionStorage.getItem('config'))
     }
   },
   methods: {
@@ -45,10 +44,10 @@ export default {
   },
   created() {
     if (this.key === 'common') {
-      this.questionObj = this.config[this.key].filter(item => item.id === this.questionId)
+      this.questionObj = config[this.key].filter(item => item.id === this.questionId)
     }
     if (this.key === 'classes') {
-      const data = this.config[this.key].filter(item => item.id === this.classesId)
+      const data = config[this.key].filter(item => item.id === this.classesId)
       this.questionObj = data[0].list.filter(val => val.id === this.questionId)
     }
   },
