@@ -14,8 +14,10 @@
 </template>
 
 <script>
-import { getQueryString } from '@/utils/url'
+import { getQueryString, getUrlParamsByObject } from '@/utils/url'
 import { routerToNative } from '@/utils/native'
+import { getCookie } from '@/utils/utils'
+import { post } from '@/config/axios.config'
 import config from '../mobile_faq/data.js'
 export default {
   data() {
@@ -29,12 +31,36 @@ export default {
         anwser: '',
         anwserlist: []
       }],
+      userInfo: {}
     }
   },
   methods: {
     callOnline() {  // 点击跳转在线客服
       if (!this.clickFlag) return
-      const url = 'https://chat.sobot.com/chat/h5/v2/index.html?sysnum=97eed5af7ee44513b227658750dc0981&channelid=2'
+      const vId = getCookie('vId')
+      const sessionId = getCookie('sessionid') // sessionId 存在～说明用户已经登录
+      const { username, nickname, phoneNum } = this.userInfo
+      const params = {
+        sysnum: '97eed5af7ee44513b227658750dc0981',
+        channelid: '2',
+        partnerid: sessionId ? sessionId : vId,
+        uname: username,
+        realname: nickname,
+        tel: phoneNum,
+        type: '3',
+        msg_flag: '0',
+        level_msg_flag: '1',
+        feedback_flag: '1',
+        photo_flag: '1',
+        to_customsys_open_style: '0',
+        leave_customsys_flag: '1',
+        agent_mode_flag: '1',
+        top_bar_flag: '1',
+        guide_flag: '1',
+        time: '2880',
+        artificial: true
+      }
+      const url = `https://chat.sobot.com/chat/h5/v2/index.html${getUrlParamsByObject(params)}`
       routerToNative(url)
       this.clickFlag = false
       setTimeout(() => {
@@ -43,6 +69,11 @@ export default {
     }
   },
   created() {
+    post('/api/user/userInfoQuickApp').then(res => {
+      if (!res.data) return
+      const { vipInfo, userInfo } = res.data
+      this.userInfo = { ...vipInfo, ...userInfo }
+    })
     if (this.key === 'common') {
       this.questionObj = config[this.key].filter(item => item.id === this.questionId)
     }

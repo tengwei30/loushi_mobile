@@ -25,6 +25,7 @@ import { post } from '@/config/axios.config'
 import List from './components/list'
 import config from './data.js'
 import { getUrlParamsByObject } from '@/utils/url'
+import { getCookie } from '@/utils/utils'
 export default {
   components: {
     List,
@@ -53,10 +54,13 @@ export default {
     },
     callOnline() { // 跳转在线客服
       if (!this.clickFlag) return
+      const vId = getCookie('vId')
+      const sessionId = getCookie('sessionid') // sessionId 存在～说明用户已经登录
       const { username, nickname, phoneNum } = this.userInfo
       const params = {
         sysnum: '97eed5af7ee44513b227658750dc0981',
         channelid: '2',
+        partnerid: sessionId ? sessionId : vId,
         uname: username,
         realname: nickname,
         tel: phoneNum,
@@ -74,8 +78,7 @@ export default {
         artificial: true
       }
       const url = `https://chat.sobot.com/chat/h5/v2/index.html${getUrlParamsByObject(params)}`
-      window.location.assign(url)
-      // routerToNative(url)
+      routerToNative(url)
       this.clickFlag = false
       setTimeout(() => {
         this.clickFlag = true
