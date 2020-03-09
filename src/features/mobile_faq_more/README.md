@@ -5,3 +5,5 @@ zhangsong<zhangsong@bayread.com>
 ## [更新日志]
 2020-03-03
   - 创建页面
+2020-03-09
+  - 添加埋点

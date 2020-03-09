@@ -26,6 +26,7 @@ import List from './components/list'
 import config from './data.js'
 import { getUrlParamsByObject } from '@/utils/url'
 import { getCookie } from '@/utils/utils'
+import { mBuryPoint } from '@/utils/buryPoint'
 export default {
   components: {
     List,
@@ -42,18 +43,36 @@ export default {
     clickQuestion(val) { // 点击问题跳转详情
       let routeurl
       if (val.key === 'common') {
-        routeurl = `${window.location.origin}/BKH5-mobile_faq_detail.html?key=${val.key}&questionId=${val.id}`
+        mBuryPoint({
+          source: 'help_center',
+          type: 'common',
+          question_id: val.id
+        })
+        routeurl = `${window.location.origin}/BKH5-mobile_faq_detail.html?key=${val.key}&questionId=${val.id}&from=helpcenter`
       }
       if (val.key === 'classes') {
+        mBuryPoint({
+          source: 'help_center',
+          type: 'class',
+          class_id: val.id,
+        })
         routeurl = `${window.location.origin}/BKH5-mobile_faq_more.html?key=${val.key}&classesId=${val.id}`
       }
       routerToNative(`${routeurl}`)
     },
     callPhone() { // 吊起电话
+      mBuryPoint({
+        source: 'help_center',
+        type: 'phone_click'
+      })
       window.location='tel:13331136299'
     },
     callOnline() { // 跳转在线客服
       if (!this.clickFlag) return
+      mBuryPoint({
+        source: 'help_center',
+        type: 'online_click'
+      })
       const vId = getCookie('vId')
       const sessionId = getCookie('sessionid') // sessionId 存在～说明用户已经登录
       const { username, nickname, phoneNum } = this.userInfo
@@ -87,6 +106,10 @@ export default {
   },
   created() {},
   mounted() {
+    mBuryPoint({ // 进入帮助中心的埋点
+      source: 'help_center',
+      type: 'open'
+    })
     post('/api/user/userInfoQuickApp').then(res => {
       if (!res.data) return
       const { vipInfo, userInfo } = res.data

@@ -8,7 +8,7 @@
     li(
       v-for="item in signdays"
     )
-      span {{ item.day }} 
+      span {{ item.day }}
       span.icon
         img(src="../../../assets/task/gold_coin_false.png")
       span +{{ item.gold }}
