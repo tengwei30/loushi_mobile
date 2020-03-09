@@ -19,6 +19,7 @@ import { routerToNative } from '@/utils/native'
 import { getCookie } from '@/utils/utils'
 import { post } from '@/config/axios.config'
 import config from '../mobile_faq/data.js'
+import { mBuryPoint } from '@/utils/buryPoint'
 export default {
   data() {
     return {
@@ -37,6 +38,10 @@ export default {
   methods: {
     callOnline() {  // 点击跳转在线客服
       if (!this.clickFlag) return
+      mBuryPoint({
+        source: 'question_detail',
+        type: 'online_click'
+      })
       const vId = getCookie('vId')
       const sessionId = getCookie('sessionid') // sessionId 存在～说明用户已经登录
       const { username, nickname, phoneNum } = this.userInfo
@@ -73,6 +78,13 @@ export default {
       if (!res.data) return
       const { vipInfo, userInfo } = res.data
       this.userInfo = { ...vipInfo, ...userInfo }
+    })
+    mBuryPoint({
+      source: 'question_detail',
+      from: getQueryString('from'),
+      type: 'open',
+      class_id: this.classesId,
+      question_id: questionId
     })
     if (this.key === 'common') {
       this.questionObj = config[this.key].filter(item => item.id === this.questionId)
