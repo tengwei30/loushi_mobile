@@ -84,7 +84,7 @@ export default {
       from: getQueryString('from'),
       type: 'open',
       class_id: this.classesId,
-      question_id: questionId
+      question_id: this.questionId
     })
     if (this.key === 'common') {
       this.questionObj = config[this.key].filter(item => item.id === this.questionId)
