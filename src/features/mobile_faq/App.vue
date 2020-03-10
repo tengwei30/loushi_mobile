@@ -94,7 +94,7 @@ export default {
         top_bar_flag: '1',
         guide_flag: '1',
         time: '2880',
-        artificial: true
+        // artificial: true
       }
       const url = `https://chat.sobot.com/chat/h5/v2/index.html${getUrlParamsByObject(params)}`
       routerToNative(url)
