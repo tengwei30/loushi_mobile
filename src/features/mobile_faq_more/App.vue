@@ -22,6 +22,7 @@ export default {
       classesId: getQueryString('classesId') || '',
       key: getQueryString('key') || '',
       list: [],
+      title: ''
     }
   },
   methods: {
@@ -31,7 +32,7 @@ export default {
         type: 'click',
         class_id: this.classesId,
         question_id: val.id,
-        title: data[0].title
+        title: this.title
       })
       const url = `${window.location.origin}/BKH5-mobile_faq_detail.html?key=${this.key}&questionId=${val.id}&classesId=${this.classesId}&from=morequestion`
       routerToNative(url)
@@ -41,6 +42,7 @@ export default {
     if (!config[this.key]) return
     const data = config[this.key].filter(item => item.id === this.classesId)
     document.title = data[0].title
+    this.title = data[0].title
     this.list = data[0].list
     mBuryPoint({
       source: 'more_question',
