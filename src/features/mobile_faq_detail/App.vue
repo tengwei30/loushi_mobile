@@ -58,7 +58,7 @@ export default {
         feedback_flag: '1',
         photo_flag: '1',
         to_customsys_open_style: '0',
-        leave_customsys_flag: '1',
+        // leave_customsys_flag: '1',
         agent_mode_flag: '1',
         top_bar_flag: '0',
         guide_flag: '1',
