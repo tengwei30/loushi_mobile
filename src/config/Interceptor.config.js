@@ -18,8 +18,8 @@ function setHeader() {
     let str = xstr.replace(/[;\s]+/mg, '&')
     let obj = Qs.parse(str)
     let coupVersion = obj.version.split('.')
-    // localStorage.setItem('platformId', coupVersion[0])
-    localStorage.setItem('platformId', 3)
+    localStorage.setItem('platformId', coupVersion[0])
+    // localStorage.setItem('platformId', 3)
     window.localStorage.setItem('appVersion', coupVersion[1]*100 + coupVersion[2]*1)
     if (obj.webVersion != null &&  obj.webVersion == 'new' && typeof obj.webVersion != 'undefined') {
       window.localStorage.setItem('webVersion', obj.webVersion)
