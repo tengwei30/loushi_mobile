@@ -77,6 +77,7 @@ export default {
       const vId = getCookie('vId')
       const sessionId = getCookie('sessionid') // sessionId 存在～说明用户已经登录
       const { username, nickname, phoneNum } = this.userInfo
+      const userID = sessionId ? sessionId : vId
       const params = {
         sysnum: '97eed5af7ee44513b227658750dc0981',
         channelid: '2',
@@ -84,7 +85,7 @@ export default {
         uname: username,
         realname: nickname,
         tel: phoneNum,
-        params: '{"版本号":"'+ this.appVersion +'"}',
+        params: '{"版本号":"'+ this.appVersion +'","用户ID":"'+ userID +'"}',
         type: '3', // 客服接待模式  1 -- 仅机器人客服  2 -- 仅人工客服 3 -- 机器人优先  4 -- 人工优先
         msg_flag: '0', // 结束会话是否显示留言窗口  1 -- off  0 -- on
         level_msg_flag: '1', // 控制面板中留言按钮 1 -- on   1 -- off
