@@ -36,7 +36,8 @@ export default {
       clickFlag: true,
       commondatas: config.common,
       classesdatas: config.classes,
-      userInfo: {}
+      userInfo: {},
+      appVersion: localStorage.getItem('appVersion')
     }
   },
   methods: {
@@ -83,6 +84,7 @@ export default {
         uname: username,
         realname: nickname,
         tel: phoneNum,
+        params: '{"版本号":"'+ this.appVersion +'"}',
         type: '3', // 客服接待模式  1 -- 仅机器人客服  2 -- 仅人工客服 3 -- 机器人优先  4 -- 人工优先
         msg_flag: '0', // 结束会话是否显示留言窗口  1 -- off  0 -- on
         level_msg_flag: '1', // 控制面板中留言按钮 1 -- on   1 -- off
