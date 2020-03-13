@@ -90,7 +90,7 @@ export default {
         msg_flag: '0', // 结束会话是否显示留言窗口  1 -- off  0 -- on
         level_msg_flag: '1', // 控制面板中留言按钮 1 -- on   1 -- off
         feedback_flag: '1',  // 评价按钮 1 -- on  0 -- off
-        photo_flag: '1',  // 上传附件按钮 1 -- on  0 -- off 仅H5
+        photo_flag: '0',  // 上传附件按钮 1 -- on  0 -- off 仅H5
         to_customsys_open_style: '0', // 转人工时跳第三方页面按钮 1 -- on 0 -- off
         // leave_customsys_flag: '1', // 是否开启留言转第三方系统  1 -- on 0 -- off  仅H5
         agent_mode_flag: '1', // 指定客服接待模式, 1 -- 客服不在线则正常提示 0 --客服不在线则接到其他客服
