@@ -14,10 +14,6 @@ export default {
       this.$emit('clickQuestion', val)
     }
   },
-  // mounted() {
-  //   this.$nextTick(() => {
-  //   })
-  // }
 }
 </script>
 <style lang="stylus">
@@ -40,11 +36,11 @@ export default {
     color #333333
     line-height 21px
     padding 15px 0
-    font-weight bold
+    // font-weight bold
     border-bottom 1px solid #E8EDED
     &:last-child
       border none
     span.icon
-      color #999999
+      color #cfcfcf
       float right
 </style>
