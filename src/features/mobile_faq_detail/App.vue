@@ -134,6 +134,7 @@ body, html
     p.contact
       text-align center
       padding 27px 0 37px 0
+      border-bottom none
       .contact__customer
         color #FFB250
 </style>
