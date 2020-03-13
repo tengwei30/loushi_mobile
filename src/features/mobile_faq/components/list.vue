@@ -4,7 +4,7 @@
   ul.list(:class="classStyle ? classStyle : ''")
     li.item(v-for="val in data" @click="clickQuestion(val)")
       | {{ val.question || val.title }}
-      span.icon >
+      span.icon
 </template>
 <script>
 export default {
@@ -36,11 +36,17 @@ export default {
     color #333333
     line-height 21px
     padding 15px 0
-    // font-weight bold
     border-bottom 1px solid #E8EDED
+    display flex
+    align-items center
+    justify-content space-between
     &:last-child
       border none
     span.icon
       color #cfcfcf
       float right
+      display inlin-block
+      size(8.18px, 13.18px)
+      background url('../../../assets/mobileFaq/icon_go.png') no-repeat center center;
+      background-size 100% 100%
 </style>
