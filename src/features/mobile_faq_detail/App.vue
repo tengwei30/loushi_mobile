@@ -10,7 +10,8 @@
         ) {{ val }}
     p.contact
       span 问题没有解决？
-      span.contact__customer(@click="callOnline") 联系客服 》
+      span.contact__customer(@click="callOnline") 联系客服
+        span.icon__arrow
 </template>
 
 <script>
@@ -137,4 +138,10 @@ body, html
       border-bottom none
       .contact__customer
         color #FFB250
+        .icon__arrow
+          margin-left 4px
+          size(10px 11px)
+          display inline-block
+          background url(../../assets/mobileFaq/xiangyouhui@3x.png) no-repeat center center
+          background-size 100% 100%
 </style>
