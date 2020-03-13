@@ -124,7 +124,7 @@ body, html
     p.desc,p.contact
       font-size 15px
       font-family PingFangSC-Regular,PingFang SC
-      font-weight bold
+      // font-weight bold
       color rgba(102,102,102,1)
       line-height 21px
       padding 15px 0 50px 0
