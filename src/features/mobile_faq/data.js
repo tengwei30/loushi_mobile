@@ -134,7 +134,7 @@ export default {
     },
     {
       title: '内容问题',
-      id: '4',
+      id: '5',
       key: 'classes',
       list: [{
         id: '1',
@@ -151,7 +151,7 @@ export default {
       }]
     }, {
       title: '邀请问题',
-      id: '5',
+      id: '6',
       key: 'classes',
       list: [{
         id: '1',
