@@ -6,5 +6,5 @@ import '@/common/index'
 new Vue({
   el: '#app',
   template: '<App/>',
-  components: { App },
+  components: { App }
 })

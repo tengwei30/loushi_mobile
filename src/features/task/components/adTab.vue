@@ -2,8 +2,8 @@
 #adTab
   ul.adtab__list
     li(v-for="item in 4")
-      p 
-      span 大转盘
+      p
+        span 大转盘
 </template>
 <script>
 export default {}
