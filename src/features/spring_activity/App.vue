@@ -64,7 +64,7 @@ export default {
       },
       userInfo: {},
       toastShow: false,
-      loginUrl: null
+      loginUrl: ''
     }
   },
   computed: {
@@ -81,7 +81,7 @@ export default {
   },
   methods: {
     gotoMall() {
-      if (!this.loginUrl) return
+      if (this.loginUrl === '') return
       mBuryPoint('clickGoMall')
       routerToNative(this.loginUrl)
     },
