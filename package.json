@@ -24,7 +24,9 @@
     "lottie-web": "^5.4.4",
     "postcss-px2rem": "^0.3.0",
     "raven-js": "^3.27.2",
-    "vue": "^2.6.9"
+    "swiper": "^5.3.6",
+    "vue": "^2.6.9",
+    "vue-awesome-swiper": "^4.0.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.5.1",
