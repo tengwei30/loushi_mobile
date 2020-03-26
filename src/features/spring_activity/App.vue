@@ -26,6 +26,7 @@
 <script>
 import { post } from '@/config/axios.config'
 import { routerToNative } from '@/utils/native'
+import { mBuryPoint } from '@/utils/buryPoint'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
 
@@ -75,18 +76,28 @@ export default {
     this.getUserInfo()
     this.getMallScheme()
   },
+  mounted() {
+    mBuryPoint('enterSpring')
+  },
   methods: {
     gotoMall() {
+      mBuryPoint('clickGoMall')
       routerToNative(this.loginUrl)
     },
     bindPhone() {
       if (this.userInfo.phoneNum !== '') {
+        mBuryPoint('clickBindPhone', {
+          isBindPhone: 0
+        })
         this.toastShow = true
         setTimeout(() => {
           this.toastShow = false
         }, 2500)
         return
       } else {
+        mBuryPoint('clickBindPhone', {
+          isBindPhone: 1
+        })
         window.location.assign('breader://common/login?isBindPhone=true')
         return
       }
@@ -103,9 +114,7 @@ export default {
         this.loginUrl = res.loginUrl
       })
     },
-  },
-  mounted() {
-  },
+  }
 }
 </script>
 
@@ -116,29 +125,29 @@ body, html
   margin 0 auto
 #app
   width 100%
-  padding 59px 0 57px
+  padding 30px 0 29px
   background url('../../assets/Spring/bg.png') no-repeat center center
   background-size 100% 100%
   img
     width 100%
   .spring
-    padding 0 47px
+    padding 0 24px
     box-sizing border-box
   .content
-    margin 34px 0 22px
+    margin 17px 0 11px
     .btn
-      size(431px 100px)
+      size(215px 50px)
       background url('../../assets/Spring/btn_phone.png') no-repeat center center
       background-size 100% 100%
       margin 0 auto
     .btn_mall
-      size(431px 100px)
+      size(215px 50px)
       background url('../../assets/Spring/btn_mall.png') no-repeat center center
       background-size 100% 100%
       margin 0 auto
   .footer
-    padding 68px 59px 0 49px
-    font-size 28px
+    padding 34px 30px 0 25px
+    font-size 14px
     font-family PingFang SC
     font-weight 600
     color rgba(102,102,102,1)
@@ -148,12 +157,16 @@ body, html
     align-items center
     fixed(top 0 bottom 0 left 0 right 0)
     z-index 9999
+    font-weight bold
     span
-      font-size 13px
-      padding 10px 50px
+      font-size 14px
+      padding 5px 25px
       background rgba(0,0,0,0.6)
       color #ffffff
-      border-radius 30px
+      border-radius 15px
+  .swiper_content
+    .learn_page img
+      border-radius 6px
 .swiper-slide
   display flex
   align-items center
@@ -162,8 +175,9 @@ body, html
   position relative!important
   &::before
     content ''
-    absolute(top 0 left 0 right 0 bottom 0)
+    absolute(top 0 left 0 right 0 bottom 8px)
     background rgba(0,0,0,0.2)
+    border-radius 6px
 .swiper-slide-active,.swiper-slide-duplicate-active
   transform: scale(1)!important
   &::before
@@ -173,9 +187,9 @@ body, html
 .swiperTab .swiper-button-prev,.swiperTab .swiper-button-next
   &:after
     color #ffffff
-    transform scale(0.6)
+    transform scale(0.3)
 .swiperTab .swiper-button-prev
-  left 60px
+  left 20px
 .swiperTab .swiper-button-next
-  right 60px
+  right 20px
 </style>

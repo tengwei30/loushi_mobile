@@ -39,7 +39,7 @@ export default {
   methods: {
     callOnline() {  // 点击跳转在线客服
       if (!this.clickFlag) return
-      mBuryPoint({
+      mBuryPoint(null, {
         source: 'question_detail',
         type: 'online_click'
       })
@@ -80,7 +80,7 @@ export default {
       const { vipInfo, userInfo } = res.data
       this.userInfo = { ...vipInfo, ...userInfo }
     })
-    mBuryPoint({
+    mBuryPoint(null, {
       source: 'question_detail',
       from: getQueryString('from'),
       type: 'open',

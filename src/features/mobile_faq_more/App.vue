@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     clickQuestion(val) { // 点击问题跳转详情
-      mBuryPoint({
+      mBuryPoint(null, {
         source: 'more_question',
         type: 'click',
         class_id: this.classesId,
@@ -44,7 +44,7 @@ export default {
     document.title = data[0].title
     this.title = data[0].title
     this.list = data[0].list
-    mBuryPoint({
+    mBuryPoint(null, {
       source: 'more_question',
       type: 'open',
       class_id: this.classesId,
