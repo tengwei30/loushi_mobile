@@ -73,6 +73,7 @@ export default {
     },
   },
   created() {
+    window.callRouterReload = this.callRouterReload
     this.getUserInfo()
     this.getMallScheme()
   },
@@ -80,6 +81,9 @@ export default {
     mBuryPoint('enterSpring')
   },
   methods: {
+    callRouterReload() {
+      this.getUserInfo()
+    },
     gotoMall() {
       if (this.loginUrl === '') return
       mBuryPoint('clickGoMall')
