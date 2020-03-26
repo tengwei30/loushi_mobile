@@ -6,7 +6,8 @@ const windowURL = window.location.origin
 export const domainConfig = {
   development: {
     // domain: 'http://testapi.ibreader.com',
-    domain: process.env.VUE_APP_DEVELOP_ENV && process.env.NODE_ENV ===  'production' ? 'http://testtask.ibreader.com' :  windowURL,
+    // domain: process.env.VUE_APP_DEVELOP_ENV && process.env.NODE_ENV ===  'production' ? 'http://testtask.ibreader.com' :  windowURL,
+    domain: windowURL,
   },
   production: {
     domain: 'https://api.ibreader.com',
