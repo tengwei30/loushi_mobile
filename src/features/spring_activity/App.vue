@@ -135,7 +135,7 @@ body, html
     padding 0 24px
     box-sizing border-box
   .content
-    margin 17px 0 11px
+    margin 17px 0 15px
     .btn
       size(215px 50px)
       background url('../../assets/Spring/btn_phone.png') no-repeat center center
@@ -176,7 +176,7 @@ body, html
   position relative!important
   &::before
     content ''
-    absolute(top 0 left 0 right 0 bottom 8px)
+    absolute(top 0 left 0 right 0 bottom 6px)
     background rgba(0,0,0,0.2)
     border-radius 6px
 .swiper-slide-active,.swiper-slide-duplicate-active
@@ -189,6 +189,7 @@ body, html
   &:after
     color #ffffff
     transform scale(0.3)
+    font-weight bold
 .swiperTab .swiper-button-prev
   left 20px
 .swiperTab .swiper-button-next
