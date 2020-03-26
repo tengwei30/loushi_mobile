@@ -44,7 +44,7 @@ export default {
     clickQuestion(val) { // 点击问题跳转详情
       let routeurl
       if (val.key === 'common') {
-        mBuryPoint({
+        mBuryPoint(null, {
           source: 'help_center',
           type: 'common',
           question_id: val.id
@@ -52,7 +52,7 @@ export default {
         routeurl = `${window.location.origin}/BKH5-mobile_faq_detail.html?key=${val.key}&questionId=${val.id}&from=helpcenter`
       }
       if (val.key === 'classes') {
-        mBuryPoint({
+        mBuryPoint(null, {
           source: 'help_center',
           type: 'class',
           class_id: val.id,
@@ -62,7 +62,7 @@ export default {
       routerToNative(`${routeurl}`)
     },
     callPhone() { // 吊起电话
-      mBuryPoint({
+      mBuryPoint(null, {
         source: 'help_center',
         type: 'phone_click'
       })
@@ -70,7 +70,7 @@ export default {
     },
     callOnline() { // 跳转在线客服
       if (!this.clickFlag) return
-      mBuryPoint({
+      mBuryPoint(null, {
         source: 'help_center',
         type: 'online_click'
       })
@@ -109,7 +109,7 @@ export default {
   },
   created() {},
   mounted() {
-    mBuryPoint({ // 进入帮助中心的埋点
+    mBuryPoint(null, { // 进入帮助中心的埋点
       source: 'help_center',
       type: 'open'
     })

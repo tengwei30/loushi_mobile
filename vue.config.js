@@ -108,12 +108,12 @@ module.exports = {
     host: '0.0.0.0',
     port: '8000',
     proxy: {
-      '/*': {
+      '/api': {
         target: 'http://testapi.ibreader.com/',
         // ws: true,
         changeOrigin: true,
       },
-      '/*': {
+      '/task_api': {
         target: 'http://testtask.ibreader.com/',
         // ws: true,
         changeOrigin: true,

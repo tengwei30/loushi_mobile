@@ -26,13 +26,15 @@ function getOsType() {
 
 /**
  * H5自己发埋点
+ * @param {String} eventKey 埋点字段
  * @param {object} eventValue 埋点字段
  */
-export function mBuryPoint(eventValue = {}) {
+export function mBuryPoint(eventKey=null, eventValue = {}) {
   const defaultData = {
     device: getOsType(),
     eventTime: Date.now(),
     url: window.location.href,
+    eventKey
   }
 
   axios.get('/api/operation/statistics', {
