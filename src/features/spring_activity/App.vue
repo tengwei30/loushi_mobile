@@ -87,6 +87,7 @@ export default {
     gotoMall() {
       if (this.loginUrl === '') return
       mBuryPoint('clickGoMall')
+      console.log('------', this.loginUrl)
       window.location.href = `breader://common/browser?url=${encodeURIComponent(
         this.loginUrl
       )}`
