@@ -25,7 +25,7 @@
 
 <script>
 import { post } from '@/config/axios.config'
-import { routerToNative } from '@/utils/native'
+// import { routerToNative } from '@/utils/native'
 import { mBuryPoint } from '@/utils/buryPoint'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
@@ -87,7 +87,10 @@ export default {
     gotoMall() {
       if (this.loginUrl === '') return
       mBuryPoint('clickGoMall')
-      routerToNative(this.loginUrl)
+      window.location.href = `breader://common/browser?url=${encodeURIComponent(
+        this.loginUrl
+      )}`
+      // routerToNative(this.loginUrl)
     },
     bindPhone() {
       if (this.userInfo.phoneNum !== '') {
