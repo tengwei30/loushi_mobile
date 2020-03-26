@@ -95,13 +95,11 @@ export default {
           this.toastShow = false
         }, 2500)
         return
-      } else {
-        mBuryPoint('clickBindPhone', {
-          isBindPhone: 1
-        })
-        window.location.assign('breader://common/login?isBindPhone=true')
-        return
       }
+      mBuryPoint('clickBindPhone', {
+        isBindPhone: 1
+      })
+      window.location.assign('breader://common/login?isBindPhone=true')
     },
     getUserInfo() {
       post('/api/user/userInfoQuickApp').then(res => {
