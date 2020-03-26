@@ -87,7 +87,6 @@ export default {
     gotoMall() {
       if (this.loginUrl === '') return
       mBuryPoint('clickGoMall')
-      console.log('------', this.loginUrl)
       window.location.href = `breader://common/browser?url=${encodeURIComponent(
         this.loginUrl
       )}`
@@ -118,7 +117,7 @@ export default {
     },
     getMallScheme() {
       post('/api/coinmall/login').then(res => {
-        this.loginUrl = res.loginUrl
+        this.loginUrl = res.data.loginUrl
       })
     },
   }
