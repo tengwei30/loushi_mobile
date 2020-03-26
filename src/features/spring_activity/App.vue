@@ -145,7 +145,7 @@ body, html
       background-size 100% 100%
       margin 0 auto
   .footer
-    padding 34px 30px 0 25px
+    padding 28px 30px 0 25px
     font-size 14px
     font-family PingFang SC
     font-weight 600
