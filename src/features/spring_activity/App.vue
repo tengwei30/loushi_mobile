@@ -81,6 +81,7 @@ export default {
   },
   methods: {
     gotoMall() {
+      if (!this.loginUrl) return
       mBuryPoint('clickGoMall')
       routerToNative(this.loginUrl)
     },
