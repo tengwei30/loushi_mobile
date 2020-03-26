@@ -87,7 +87,10 @@ export default {
       this.getUserInfo()
     },
     gotoMall() {
-      if (this.loginUrl === '') return
+      if (this.loginUrl === '') {
+        window.location.assign('breader://common/login?isBindPhone=true')
+        return
+      }
       mBuryPoint('clickGoMall')
       routerToNative(this.loginUrl)
     },
