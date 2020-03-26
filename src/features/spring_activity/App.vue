@@ -25,7 +25,7 @@
 
 <script>
 import { post } from '@/config/axios.config'
-// import { routerToNative } from '@/utils/native'
+import { routerToNative } from '@/utils/native'
 import { mBuryPoint } from '@/utils/buryPoint'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
@@ -64,7 +64,9 @@ export default {
       },
       userInfo: {},
       toastShow: false,
-      loginUrl: ''
+      loginUrl: '',
+      timer: null,
+      state: true // 设置停止论询
     }
   },
   computed: {
@@ -87,10 +89,7 @@ export default {
     gotoMall() {
       if (this.loginUrl === '') return
       mBuryPoint('clickGoMall')
-      window.location.href = `breader://common/browser?url=${encodeURIComponent(
-        this.loginUrl
-      )}`
-      // routerToNative(this.loginUrl)
+      routerToNative(this.loginUrl)
     },
     bindPhone() {
       if (this.userInfo.phoneNum !== '') {
@@ -107,12 +106,21 @@ export default {
         isBindPhone: 1
       })
       window.location.assign('breader://common/login?isBindPhone=true')
+      setTimeout(() => {
+        this.state = false
+      }, 120000)
     },
     getUserInfo() {
       post('/api/user/userInfoQuickApp').then(res => {
         if (!res.data) return
         const { userInfo } = res.data
         this.userInfo =  userInfo
+        if (this.state) {
+          clearInterval(timer)
+          timer = setTimeout(() => {
+            this.getUserInfo()
+          }, 1000)
+        }
       })
     },
     getMallScheme() {
