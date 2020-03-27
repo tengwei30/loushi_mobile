@@ -1,6 +1,7 @@
 <template lang="pug">
 #app
   h2 iOS test 页面
+  h3 {{taskId}}
   content {{ res }}
 </template>
 
@@ -17,7 +18,7 @@ export default {
   methods: {
     getRecord() {
       post('/task_api/task/record', { taskId: this.taskId }).then(res => {
-        this.res = res.data
+        this.res = res
       }).catch(err => {
         this.res = err
       })
