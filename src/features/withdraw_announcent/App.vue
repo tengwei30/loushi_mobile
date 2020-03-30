@@ -47,7 +47,7 @@ body, html
       font-weight bold
     p
       font-size 13px
-      color #333333
+      color #666666
       padding 12px 0 7px
       text-indent 28px
     p.desc
