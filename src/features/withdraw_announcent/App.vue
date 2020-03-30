@@ -11,6 +11,7 @@
       | 位老用户依旧可以拥有一次“提现100元”的机会（老用
       | 户为：**年**月**日之前下载《必看免费小说》APP的
       | 用户）。
+    p.footer 本次行为最终解释权归本公司所有。
 </template>
 
 <script>
@@ -29,15 +30,17 @@ body, html
   size(100%, 100%)
 #app
   width 100%
-  min-height 100%
+  height 100%
   padding 16px 13px 42px
   background #F7F7F7
   box-sizing border-box
   .content
     padding 20px 13px 20px 19px
     box-sizing border-box
-    width 100%
+    size(100% 100%)
     background #fff
+    position relative
+    border-radius 11px
     h3
       font-size 16px
       color #333333
@@ -49,4 +52,12 @@ body, html
       text-indent 28px
     p.desc
       padding 0
+    p.footer
+      font-size 13px
+      font-family PingFangSC-Regular,PingFang SC
+      font-weight 400
+      color rgba(153,153,153,1)
+      text-align center
+      text-indent 0
+      absolute(bottom 10px left 0 right 0)
 </style>
