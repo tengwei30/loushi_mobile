@@ -22,6 +22,7 @@
     "fastclick": "^1.0.6",
     "latest": "^0.2.0",
     "lottie-web": "^5.4.4",
+    "moment": "^2.24.0",
     "postcss-px2rem": "^0.3.0",
     "raven-js": "^3.27.2",
     "swiper": "^5.3.6",
