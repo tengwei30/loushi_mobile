@@ -106,7 +106,9 @@ module.exports = {
     open: true,
     hotOnly: true,
     host: '0.0.0.0',
-    port: '8000',
+    port: '8080',
+    filename: path.resolve(__dirname, './src/common/dev_index.pug'),
+    // index: path.resolve(__dirname, './src/common/dev_index.pug'),
     proxy: {
       // '/api': {
       //   target: 'http://testapi.ibreader.com/',
