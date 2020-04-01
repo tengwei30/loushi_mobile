@@ -1,36 +1,23 @@
 <template lang="pug">
 #Sign
   .sign__num
-    h4 已签到5天
-  rivet.rivet-left
-  rivet.rivet-right
+    .sign_date
+      span.sign_tip 已签到
+      span.color_tip {{days}}天
+    .sign_record(v-if="isShow",@click="gotoSignRecord()") 连续签到记录 &gt;
   ul.sign__days
     li(
-      v-for="item in signdays"
+      v-for="item in signLists"
     )
+      span.icon(:class="item.is_finish?'item-true':'item-false'")
+        //- img(src="../../../assets/task/gold_coin_false.png")
+        span.number_count +{{ item.gold }}
       span {{ item.day }}
-      span.icon
-        img(src="../../../assets/task/gold_coin_false.png")
-      span(:class="item.is_finish?'item-true':'item-false'") +{{ item.gold }}
-  .retro_content(v-if="isShow")
-    .retro_top
-      h4.retro_charge_title(v-if="entrolists.length!==0") 有补签机会
-      p.retro_sign_list(:style="entrolists.length !== 0 ? 'textAlign:right' : ''",@click="gotoSignRecord()") 连续签到记录 &gt;
-    ul.retro_bottom(:style="entrolists.length!==3?'justifyContent:space-around':'justifyContent:space-between'",v-show="entrolists.length!==3")
-      li(
-        v-for="item in entrolists"
-        :style="item.status===0?retroStyleNoSign:retroStyleSign"
-        @click="submitRetro(item)"
-      )
-        p.retro_bottom_date {{momenMonth(item.time)}}月{{momentDay(item.time)}}日
-        p.retro_bottom_repeat
-          span.retro_bottom_repeat_img(v-if="item.status===0")
-            img(src="../../../assets/task/video_icon@3x.png")
-          span {{item.status===0?'补签':item.status===1?'补签成功':'明日再来'}}
+  .toast(v-if='toastShow')
+     span {{errortext}}
 </template>
 <script>
 import moment from 'moment'
-import rivet from '../../../icons/rivet.vue'
 export default {
   props: {
     signday: {
@@ -39,49 +26,48 @@ export default {
     }
   },
   components: {
-    rivet,
   },
   data() {
     return {
-      signdays: [
+      signLists: [
         {
-          day: '第一天',
+          day: '1天',
           is_finish: false,
           num: 0,
           gold: 10,
         },
         {
-          day: '第二天',
+          day: '2天',
           is_finish: false,
           num: 0,
           gold: 20,
         },
         {
-          day: '第三天',
+          day: '3天',
           is_finish: false,
           num: 0,
           gold: 30,
         },
         {
-          day: '第四天',
+          day: '4天',
           is_finish: false,
           num: 0,
           gold: 40,
         },
         {
-          day: '第五天',
+          day: '5天',
           is_finish: false,
           num: 0,
           gold: 50,
         },
         {
-          day: '第六天',
+          day: '6天',
           is_finish: false,
           num: 0,
           gold: 60,
         },
         {
-          day: '第七天',
+          day: '7天',
           is_finish: false,
           num: 0,
           gold: 70,
@@ -93,13 +79,51 @@ export default {
       retroStyleSign: {
         backgroundImage: `url(${require('../../../assets/task/huibeijing@3x.png')})`
       },
-      isShow: true,
-      entrolists: []
+      isShow: false,
+      entrolists: [],
+      appVersion: localStorage.getItem('version'),
+      days: 0,
+      clickFlag: true,
+      taskId: 1,
+      isloading: false,
+      toastShow: false,
+      errortext: ''
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      let day = this.signday[0].extraData
+      if (!day) return
+      if (day && day.alert && day.gold) {
+        this.$emit('finishpopu', '签到任务完成', day.gold)
+      }
+      if (day && day.hasOwnProperty('checkInDays')) {
+        this.isShow = true
+        this.isloading = false
+      }
+      this.entrolists = this.signday[0].extraResultList
+      this.days = day && day.checkInDays
+      this.taskId = this.signday[0].id
+      for (let i = 0; i < this.signLists.length; i++) {
+        let data = this.signLists[i]
+        if (i < day.weekCheckInDays) {
+          data.is_finish = true
+        }
+        data.num = parseInt(day.startWeekGold) + i * 10
+      }
+    })
+
   },
   methods: {
     gotoSignRecord() {
-      console.log('23')
+      if (this.clickFlag) {
+        const url = `${window.location.href}signrecord?taskId=${this.taskId}`
+        window.location.href = `breader://common/browser?url=${encodeURIComponent(url)}`
+        this.clickFlag = false
+      }
+      setTimeout(() => {
+        this.clickFlag = true
+      }, 1000)
     },
     submitRetro() { },
     momenMonth(time) {
@@ -107,7 +131,7 @@ export default {
     },
     momentDay(time) {
       return moment(time).format('DD')
-    },
+    }
   }
 }
 </script>
@@ -117,37 +141,42 @@ export default {
 #Sign {
   width: 100%;
   min-height: 3.52rem;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 5px 5px 8px 0px rgba(255, 119, 65, 0.05), -5px 5px 8px 0px rgba(255, 119, 65, 0.05);
   position: relative;
+  border-radius: 12px;
+  padding: 0px 5px;
+  box-sizing: border-box;
 
   .sign__num {
-    background: #6388FE;
-    height: 38px;
-    line-height: 38px;
-    border-radius: 4px 4px 0 0;
+    padding: 20px 5px;
+    border-bottom: 1px dashed rgba(215, 216, 215, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-    h4 {
-      text-align: center;
-      font-size: 14px;
-      color: #ffffff;
+  .sign_date {
+    font-size: 0px;
+    font-family: PingFangSC-Semibold, PingFang SC;
+    font-weight: 600;
+    color: #333;
+
+    span {
+      font-size: 16px;
+    }
+
+    .color_tip {
+      color: #E91A0E;
     }
   }
 
-  .rivet-left {
-    size(0.26rem, 0.69rem);
-    position: absolute;
-    top: 0.67rem;
-    left: 1.7rem;
-    z-index: 2;
-  }
-
-  .rivet-right {
-    size(0.26rem, 0.69rem);
-    position: absolute;
-    top: 0.67rem;
-    right: 1.7rem;
-    z-index: 2;
+  .sign_record {
+    font-size: 12px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #333;
+    line-height: 17px;
   }
 
   .sign__days {
@@ -155,7 +184,6 @@ export default {
     display: flex;
     margin: 15px 15px 0;
     box-sizing: border-box;
-    border-bottom: 1px dashed #e9e9e9;
 
     li {
       flex: 1;
@@ -165,8 +193,9 @@ export default {
       align-items: center;
 
       .icon {
-        size(30px 30px);
+        size(40px 40px);
         margin: 6px 0;
+        position: relative;
 
         img {
           width: 100%;
@@ -174,79 +203,55 @@ export default {
       }
     }
 
-    li span:first-child {
+    li>span:last-child {
       color: #666;
     }
-  }
 
-  .retro_content {
-    min-height: 1.25rem;
-  }
-
-  .retro_top {
-    width: 100%;
-    float: left;
-    padding: 0.32rem 0.4rem;
-
-    .retro_charge_title {
-      color: #333333;
-      font-size: 0.45rem;
-      line-height: 0.64rem;
-      font-weight: bold;
-      float: left;
+    .item-true {
+      background: #FBE945;
+      border-radius: 50%;
     }
 
-    .retro_sign_list {
-      font-size: 0.35rem;
-      color: #333333;
-      line-height: 0.48rem;
-      padding-top: 0.08rem;
-      text-align: center;
+    .item-false {
+      background: #D6D6D6;
+      border-radius: 50%;
+
+      .number_count {
+        text-shadow: none;
+      }
     }
 
-    .retro_bottom {
-      clear: both;
-      display: flex;
-      flex-direction: row;
-      padding: 0rem 0 0.53rem 0;
-      justify-content: space-between;
-    }
-
-    .retro_bottom li {
-      width: 2.35rem;
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      font-size: 0.4rem;
-      font-weight: 500;
-      line-height: 0.56rem;
-      height: 1.68rem;
-      position: relative;
-    }
-
-    .retro_bottom_date {
-      columns: #000000;
+    .number_count {
       position: absolute;
-      top: 0.245rem;
-      left: 0;
-      right: 0;
-      text-align: center;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+      font-family: PingFangSC-Semibold, PingFang SC;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 1);
+      line-height: 17px;
+      text-shadow: 0px 1px 1px rgba(251, 177, 27, 1);
     }
+  }
+}
 
-    .retro_bottom_repeat {
-      color: #FFFFFF;
-      position: absolute;
-      top: 0.96rem;
-      left: 0;
-      right: 0;
-      text-align: center;
-    }
+.toast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  fixed(top 0 bottom 0 left 0 right 0);
+  z-index: 9999;
+  font-weight: bold;
+  max-width: 80%;
+  margin: 0 auto;
 
-    .retro_bottom_repeat_img {
-      width: 0.6rem;
-      height: 0.39rem;
-      display: inline-block;
-    }
+  span {
+    font-size: 14px;
+    padding: 5px 25px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    border-radius: 15px;
   }
 }
 </style>
