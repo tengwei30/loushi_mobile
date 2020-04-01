@@ -16,6 +16,8 @@
     "commit": "npx git-cz"
   },
   "dependencies": {
+    "@sentry/browser": "^5.15.4",
+    "@sentry/integrations": "^5.15.4",
     "alife-logger": "^1.7.10",
     "axios": "^0.18.0",
     "eslint-plugin-html": "^6.0.0",
