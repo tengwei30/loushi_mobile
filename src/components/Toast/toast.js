@@ -2,7 +2,7 @@
  * 封装全局的toast弹窗
  */
 
-import toast from './toast'
+import toast from './toast.vue'
 
 export default {
   install(Vue) {
