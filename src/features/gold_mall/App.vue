@@ -76,11 +76,12 @@ export default {
   },
   mounted() {
     getWalletInfo(res => {
+      // 初始化数据
       if (res.code === 100) {
         this.walletInfo = { ...res.data }
       } else {
         // console.log('errrr', res.msg)
-        // this.$showToast(res.msg)
+        this.$showToast(res.msg)
       }
     })
   },
