@@ -22,7 +22,7 @@
 
 <script>
 import { getWalletInfo, getMallUrl } from './request'
-import { routerToNative } from '@/utils/native'
+// import { routerToNative } from '@/utils/native'
 import BROWSER from '@/utils/browser'
 export default {
   data() {
@@ -49,7 +49,8 @@ export default {
       // if (window.location.origin === 'http://testincrease.ibeader.com') {
       let routerUrl = 'http://testtask.ibeader.com/#/walletrecord'
       // }
-      routerToNative(routerUrl)
+      window.location.assign(`breader://common/browser?url=${encodeURIComponent(routerUrl)}`)
+      // routerToNative(routerUrl)
     },
     goToWithDraw() {
       // 跳转提现页面
@@ -57,7 +58,8 @@ export default {
       // if (window.location.origin === 'http://testincrease.ibeader.com') {
       let withdrawUrl = 'http://testtask.ibeader.com/#/withdraw'
       // }
-      routerToNative(withdrawUrl)
+      window.location.assign(`breader://common/browser?url=${encodeURIComponent(withdrawUrl)}`)
+      // routerToNative(withdrawUrl)
     },
     goMall() {
       // 跳转积分商城
