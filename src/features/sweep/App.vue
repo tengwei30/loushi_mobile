@@ -1,6 +1,6 @@
 <template lang="pug">
 #app
-  img(src="@/assets/sweep/sweep.jpg")
+  img(src="@/assets/sweep/sweep.png")
 </template>
 
 <script>
