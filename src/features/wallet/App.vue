@@ -45,19 +45,19 @@ export default {
     },
     gotoRecord() {
       // 跳转金币流水
+      let routerUrl = `${window.location.origin}/#/walletrecord`
       if (window.location.origin === 'http://testincrease.ibeader.com') {
-        window.location.origin = 'http://testtask.ibeader.com'
+        routerUrl = 'http://testtask.ibeader.com/#/walletrecord'
       }
-      const url = `${window.location.origin}/#/walletrecord`
-      routerToNative(url)
+      routerToNative(routerUrl)
     },
     goToWithDraw() {
       // 跳转提现页面
+      let withdrawUrl =  `${window.location.origin}/#/withdraw`
       if (window.location.origin === 'http://testincrease.ibeader.com') {
-        window.location.origin = 'http://testtask.ibeader.com'
+        withdrawUrl = 'http://testtask.ibeader.com/#/withdraw'
       }
-      const url = `${window.location.origin}/#/withdraw`
-      routerToNative(url)
+      routerToNative(withdrawUrl)
     },
     goMall() {
       // 跳转积分商城
