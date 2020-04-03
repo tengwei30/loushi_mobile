@@ -45,18 +45,18 @@ export default {
     },
     gotoRecord() {
       // 跳转金币流水
-      let routerUrl = `${window.location.origin}/#/walletrecord`
-      if (window.location.origin === 'http://testincrease.ibeader.com') {
-        routerUrl = 'http://testtask.ibeader.com/#/walletrecord'
-      }
+      // let routerUrl = `${window.location.origin}/#/walletrecord`
+      // if (window.location.origin === 'http://testincrease.ibeader.com') {
+      let routerUrl = 'http://testtask.ibeader.com/#/walletrecord'
+      // }
       routerToNative(routerUrl)
     },
     goToWithDraw() {
       // 跳转提现页面
-      let withdrawUrl =  `${window.location.origin}/#/withdraw`
-      if (window.location.origin === 'http://testincrease.ibeader.com') {
-        withdrawUrl = 'http://testtask.ibeader.com/#/withdraw'
-      }
+      // let withdrawUrl =  `${window.location.origin}/#/withdraw`
+      // if (window.location.origin === 'http://testincrease.ibeader.com') {
+      let withdrawUrl = 'http://testtask.ibeader.com/#/withdraw'
+      // }
       routerToNative(withdrawUrl)
     },
     goMall() {
