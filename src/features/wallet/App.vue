@@ -22,7 +22,8 @@
 
 <script>
 import { getWalletInfo, getMallUrl } from './request'
-// import { routerToNative } from '@/utils/native'
+import { routerToNative } from '@/utils/native'
+import { mBuryPoint } from '@/utils/buryPoint'
 import BROWSER from '@/utils/browser'
 export default {
   data() {
@@ -45,21 +46,23 @@ export default {
     },
     gotoRecord() {
       // 跳转金币流水
-      // let routerUrl = `${window.location.origin}/#/walletrecord`
-      // if (window.location.origin === 'http://testincrease.ibeader.com') {
-      let routerUrl = 'http://testtask.ibeader.com/#/walletrecord'
-      // }
-      window.location.assign(`breader://common/browser?url=${encodeURIComponent(routerUrl)}`)
-      // routerToNative(routerUrl)
+      let routerUrl = `${window.location.origin}/#/walletrecord`
+      if (window.location.origin === 'http://testincrease.ibreader.com') {
+        routerUrl = 'http://testtask.ibreader.com/#/walletrecord'
+      }
+      mBuryPoint('clickWalletWater')
+      // window.location.assign(`breader://common/browser?url=${encodeURIComponent(routerUrl)}`)
+      routerToNative(routerUrl)
     },
     goToWithDraw() {
       // 跳转提现页面
-      // let withdrawUrl =  `${window.location.origin}/#/withdraw`
-      // if (window.location.origin === 'http://testincrease.ibeader.com') {
-      let withdrawUrl = 'http://testtask.ibeader.com/#/withdraw'
-      // }
-      window.location.assign(`breader://common/browser?url=${encodeURIComponent(withdrawUrl)}`)
-      // routerToNative(withdrawUrl)
+      let withdrawUrl =  `${window.location.origin}/#/withdraw`
+      if (window.location.origin === 'http://testincrease.ibreader.com') {
+        withdrawUrl = 'http://testtask.ibreader.com/#/withdraw'
+      }
+      mBuryPoint('clickMoney')
+      // window.location.assign(`breader://common/browser?url=${encodeURIComponent(withdrawUrl)}`)
+      routerToNative(withdrawUrl)
     },
     goMall() {
       // 跳转积分商城
@@ -71,6 +74,7 @@ export default {
       getMallUrl(appType, transfer).then(res => {
         if (res.data.loginUrl) {
           const { loginUrl } = res.data
+          mBuryPoint('clickWalletMall')
           routerToNative(loginUrl)
         }
       })
@@ -78,6 +82,7 @@ export default {
   },
   mounted() {
     getWalletInfo(res => {
+      mBuryPoint('enterWallet')
       // 初始化数据
       if (res.code === 100) {
         this.walletInfo = { ...res.data }
