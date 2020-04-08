@@ -18,7 +18,7 @@
   "dependencies": {
     "@sentry/browser": "^5.15.4",
     "@sentry/integrations": "^5.15.4",
-    "alife-logger": "^1.7.10",
+    "alife-logger": "^1.8.13",
     "axios": "^0.18.0",
     "eslint-plugin-html": "^6.0.0",
     "fastclick": "^1.0.6",

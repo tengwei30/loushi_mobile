@@ -60,3 +60,16 @@ html
   body(style="touch-action: manipulation")
     #app
     block footJS
+      script.
+        window.__bl = {
+          config: {
+            pid: "iiabd5we3q@7f045d08f353a77",
+            appType:"web",
+            imgUrl:"https://arms-retcode.aliyuncs.com/r.png?",
+            sendResource:true,
+            enableLinkTrace:true,
+            behavior:true,
+            useFmp:true
+          }
+        }
+      script(src="https://retcode.alicdn.com/retcode/bl.js" crossorigin)
