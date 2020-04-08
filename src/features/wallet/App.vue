@@ -14,8 +14,8 @@
           span 累计获取金币
           span.coin_common  {{ walletInfo.total }}
     .header_right
-      button(@click="goToWithDraw()") 立即提现
-      button(@click="gotoRecord()") 金币流水
+      span(@click="goToWithDraw()") 立即提现
+      span(@click="gotoRecord()") 金币流水
   h2.mall_title 金币商城
   img.mall_img(@click="goMall()" src="@/assets/withdraw/mall_bg.png")
 </template>
@@ -169,7 +169,8 @@ body, html
       absolute(right -6px top 56px)
       display flex
       flex-direction column
-      button
+      span
+        display block
         margin-bottom 23px
         height 24px
         background rgba(255,255,255,1)
@@ -180,7 +181,7 @@ body, html
         font-weight bold
         color rgba(255,128,37,1)
         line-height 24px
-        padding 3px 8px
+        padding 0px 8px
   h2.mall_title
     font-size 18px
     font-weight bold
