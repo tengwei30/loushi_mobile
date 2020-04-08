@@ -114,7 +114,7 @@ body, html
     flex-direction row
     line-height 0
     position relative
-    p, span
+    p, .coin_all span, .coin_num span
       font-size 14px
       font-weight 400
       color:rgba(255,255,255,1);
@@ -180,7 +180,7 @@ body, html
         font-family PingFangSC-Medium,PingFang SC
         font-weight bold
         color rgba(255,128,37,1)
-        line-height 24px
+        line-height 27.5px
         padding 0px 8px
   h2.mall_title
     font-size 18px
