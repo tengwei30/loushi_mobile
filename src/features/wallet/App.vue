@@ -171,7 +171,6 @@ body, html
       flex-direction column
       button
         margin-bottom 23px
-        width 67px
         height 24px
         background rgba(255,255,255,1)
         box-shadow 0px 2px 4px 0px rgba(120,120,120,0.29),0px 1px 6px 0px rgba(0,0,0,0.1)
@@ -180,8 +179,8 @@ body, html
         font-family PingFangSC-Medium,PingFang SC
         font-weight bold
         color rgba(255,128,37,1)
-        line-height 24px
-        // text-shadow 0px 2px 4px rgba(120,120,120,0.29)
+        line-height 18px
+        padding 3px 8px
   h2.mall_title
     font-size 18px
     font-weight bold
