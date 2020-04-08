@@ -121,7 +121,8 @@ body, html
       line-height 20px
     p.coin_all
       display flex
-      align-items center
+      // align-items center
+      height 40px
       span
         font-size 28px
         font-weight 400
@@ -129,9 +130,10 @@ body, html
         line-height 40px
       span.amount
         display inline-block
-        padding 0 6.5px
-        line-height 20px
-        height 20px
+        margin-top 8px
+        line-height 17px
+        padding 2px 7px 1px 6px
+        height 17px
         margin-left 4px
         font-size 12px
         border-radius 10px
@@ -176,10 +178,10 @@ body, html
         border-radius 4px
         font-size 13px
         font-family PingFangSC-Medium,PingFang SC
-        font-weight 500
+        font-weight bold
         color rgba(255,128,37,1)
         line-height 18px
-        text-shadow 0px 2px 4px rgba(120,120,120,0.29)
+        // text-shadow 0px 2px 4px rgba(120,120,120,0.29)
   h2.mall_title
     font-size 18px
     font-weight bold
