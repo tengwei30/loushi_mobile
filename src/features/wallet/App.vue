@@ -180,7 +180,7 @@ body, html
         font-family PingFangSC-Medium,PingFang SC
         font-weight bold
         color rgba(255,128,37,1)
-        line-height 18px
+        line-height 20px
         // text-shadow 0px 2px 4px rgba(120,120,120,0.29)
   h2.mall_title
     font-size 18px
