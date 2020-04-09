@@ -6,7 +6,6 @@ import Toast from '@/components/Toast/toast.js'
 
 Vue.use(Toast)
 Vue.config.errorHandler = (err, vm, info) => {
-  console.log(err, { filename: `${vm.$vnode.tag}, ${info}` })
   arms.error(err, { filename: `${vm.$vnode.tag}, ${info}` })
 }
 
