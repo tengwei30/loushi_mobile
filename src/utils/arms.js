@@ -8,7 +8,7 @@ import packageConfig from '../../package.json'
 const isProd = process.env.VUE_APP_DEVELOP_ENV === 'false'
 
 const logger = (() => {
-  if (!isProd) {
+  if (isProd) {
     try {
       return BrowerLogger.singleton({
         pid: 'iiabd5we3q@9b13646576a4cd7', // 项目ID
