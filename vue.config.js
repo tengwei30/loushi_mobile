@@ -45,7 +45,7 @@ module.exports = {
   // https://cli.vuejs.org/zh/config/#lintonsave
   runtimeCompiler: true,
   // 是否使用包含运行时编译器的 Vue 构建版本。https://cli.vuejs.org/zh/config/#runtimecompiler
-  productionSourceMap: isDev,
+  productionSourceMap: true,
   configureWebpack: config => {
     const newRules = config.module.rules.map(rule => {
       if (rule.test.test('.pug') === false) {

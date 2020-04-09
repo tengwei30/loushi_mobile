@@ -10,9 +10,7 @@ axios.defaults.validateStatus = function(status) {
 }
 
 function setHeader() {
-  let xClient =
-    getCookie('xclient') ||
-    'c3Y9OTtwbT1NSSs4K1VEO3NzPTEwODAqMjAyOTtpbWVpPTg2OTc4NTAzMTkzNTk1NjtpbXNpPTQ2MDAyNTMwMjYwMzk4ODttYWM9MDI6MDA6MDA6MDA6MDA6MDA7ZElEPTU1MjYyNTI4YWU2YzU5MDI7dmVyc2lvbj01LjEuMzAuMi4xMDt1c2VybmFtZT1jODc5M2RkNDc2ZDM0NjEyOGQ0OWM4Yzg4OTRjYzY0NztzaWduVmVyc2lvbj0yO3dlYlZlcnNpb249bmV3O29haWQ9bnVsbDtwa3Y9MTs='
+  let xClient = getCookie('xclient')
   if (xClient !== null && typeof xClient !== 'undefined' && xClient !== '') {
     var xstr = Base64.decode(xClient)
     let str = xstr.replace(/[;\s]+/mg, '&')

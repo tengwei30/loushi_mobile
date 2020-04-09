@@ -51,7 +51,6 @@ export default {
         routerUrl = 'http://testtask.ibreader.com/#/walletrecord'
       }
       mBuryPoint('clickWalletWater')
-      // window.location.assign(`breader://common/browser?url=${encodeURIComponent(routerUrl)}`)
       routerToNative(routerUrl)
     },
     goToWithDraw() {
@@ -61,7 +60,6 @@ export default {
         withdrawUrl = 'http://testtask.ibreader.com/#/withdraw'
       }
       mBuryPoint('clickMoney')
-      // window.location.assign(`breader://common/browser?url=${encodeURIComponent(withdrawUrl)}`)
       routerToNative(withdrawUrl)
     },
     goMall() {
