@@ -4,8 +4,10 @@ import { post } from '@/config/axios.config'
  */
 export const getWalletInfo = (cb) => {
   post('/api/task/v1/wallet/user/info').then(res => {
+    window.__bl && __bl.api('/api/task/v1/wallet/user/info', true, 0, response.code, response.data)
     return cb && cb(res)
   }).catch(err => {
+    window.__bl && __bl.api('/api/task/v1/wallet/user/info', false, 0, 'ERROR', error)
     console.error('error ----> ', err)
   })
 }
