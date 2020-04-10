@@ -44,7 +44,10 @@
 ```
 
 ### 开发规范
-  待完善
+  需求分支基于master去创建feature/*
+  feature/* 开发完成之后合并到develop 进行测试，
+  develop测试通过后将feature/*分支合并到master
+  基于master 打tag上线
 
 ### 常用命令
 

@@ -62,14 +62,15 @@ module.exports = {
     'object-shorthand': [1, 'always'], // 强制对象字面量缩写语法
     'array-bracket-spacing': [2, 'never'], // 是否允许非空数组里面有多余的空格
     'operator-linebreak': [2, 'after'], // 换行时运算符在行尾还是行首
-    'semi-spacing': [2, { 'before': false, 'after': false }], // 分号前后空格
+    // 'semi-spacing': [2, { 'before': false, 'after': false }], // 分号前后空格
     'keyword-spacing': ['error'],
     'space-before-blocks': 2, // 不以新行开始的块{前面要不要有空格
     'block-spacing': [2, 'always'],
     'space-before-function-paren': [2, 'never'], // 函数定义时括号前面要不要有空格
     'space-in-parens': [2, 'never'], // 小括号里面要不要有空格
     'spaced-comment': [1, 'always',
-      { 'exceptions': ['-', '*', '+']
+      {
+        'exceptions': ['-', '*', '+']
       }], // 注释风格要不要有空格什么的
     'arrow-parens': 0,
     // allow async-await

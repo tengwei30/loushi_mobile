@@ -1,6 +1,6 @@
 {
-  "name": "fresh-mobile-h5",
-  "version": "1.0.13",
+  "name": "Breader_Task_H5",
+  "version": "1.1.0",
   "author": "zhangsong@bayread.com",
   "private": true,
   "scripts": {
@@ -18,12 +18,13 @@
   "dependencies": {
     "@sentry/browser": "^5.15.4",
     "@sentry/integrations": "^5.15.4",
-    "alife-logger": "^1.7.10",
+    "alife-logger": "^1.8.13",
     "axios": "^0.18.0",
     "eslint-plugin-html": "^6.0.0",
     "fastclick": "^1.0.6",
     "latest": "^0.2.0",
     "lottie-web": "^5.4.4",
+    "moment": "^2.24.0",
     "postcss-px2rem": "^0.3.0",
     "raven-js": "^3.27.2",
     "swiper": "^5.3.6",
