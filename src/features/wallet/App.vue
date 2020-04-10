@@ -14,7 +14,7 @@
           span 累计获取金币
           span.coin_common  {{ walletInfo.total }}
     .header_right
-      span(@click="goToWithDraw()" v-if="!isiOS") 立即提现
+      span(@click="goToWithDraw()") 立即提现
       span(@click="gotoRecord()") 金币流水
   h2.mall_title 金币商城
   img.mall_img(@click="goMall()" src="@/assets/withdraw/mall_bg.png")
