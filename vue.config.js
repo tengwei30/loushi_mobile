@@ -3,6 +3,8 @@
  * https://cli.vuejs.org/zh/config
  */
 const path = require('path')
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const getEntry = require('./build/pageEntry')
 const resolve = dir => path.join(__dirname, dir)
 
@@ -47,6 +49,9 @@ module.exports = {
   // 是否使用包含运行时编译器的 Vue 构建版本。https://cli.vuejs.org/zh/config/#runtimecompiler
   productionSourceMap: true,
   configureWebpack: config => {
+    if (isProd) {
+      config.optimization.minimizer = [new TerserPlugin()]
+    }
     const newRules = config.module.rules.map(rule => {
       if (rule.test.test('.pug') === false) {
         return rule
