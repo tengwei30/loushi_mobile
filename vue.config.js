@@ -39,7 +39,7 @@ const pagesMaker = () => {
 }
 const pages = pagesMaker()
 module.exports = {
-  publicPath: isDev ? '/' : bkReadCDN,
+  publicPath: isDev ? './' : bkReadCDN,
   assetsDir: 'Breader_Task_H5', // isDev ? 'bkh5-static' :
   indexPath: 'index.html',
   pages,
@@ -50,7 +50,13 @@ module.exports = {
   productionSourceMap: true,
   configureWebpack: config => {
     if (isProd) {
-      config.optimization.minimizer = [new TerserPlugin()]
+      config.optimization.minimizer = [new TerserPlugin({
+        // parallel: true,
+        // sourceMap: true,
+        mangle: {
+          safari10: true
+        }
+      })]
     }
     const newRules = config.module.rules.map(rule => {
       if (rule.test.test('.pug') === false) {

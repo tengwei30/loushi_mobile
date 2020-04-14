@@ -26,9 +26,9 @@ export function hasClass(element, className) {
  */
 export function addClass(element, className) {
   if (!hasClass(element, className)) {
-    element.className = element.className
-      ? [element.className, className].join(' ')
-      : className
+    element.className = element.className ?
+      [element.className, className].join(' ') :
+      className
   }
 }
 
