@@ -93,7 +93,7 @@ module.exports = {
   },
   chainWebpack: config => {
     config.resolve.alias.set('@', resolve('src'))
-    config.module.rule('js').include.add(/node_modules\/(dom7|swiper)\/.*/)
+    // config.module.rule('js').include.add(/node_modules\/(dom7|swiper)\/.*/)
     config.plugin('copy').tap(args => {
       const { toType, ignore } = args[0][0]
       args[0] = []
