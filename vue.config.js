@@ -49,15 +49,6 @@ module.exports = {
   // 是否使用包含运行时编译器的 Vue 构建版本。https://cli.vuejs.org/zh/config/#runtimecompiler
   productionSourceMap: true,
   configureWebpack: config => {
-    // if (isProd) {
-    //   config.optimization.minimizer = [new TerserPlugin({
-    //     parallel: true,
-    //     sourceMap: true,
-    //     mangle: {
-    //       safari10: true
-    //     }
-    //   })]
-    // }
     const newRules = config.module.rules.map(rule => {
       if (rule.test.test('.pug') === false) {
         return rule
@@ -93,7 +84,7 @@ module.exports = {
   },
   chainWebpack: config => {
     config.resolve.alias.set('@', resolve('src'))
-    // config.module.rule('js').include.add(/node_modules\/(dom7|swiper)\/.*/)
+    config.module.rule('js').include.add(/node_modules\/(dom7|swiper)\/.*/)
     config.plugin('copy').tap(args => {
       const { toType, ignore } = args[0][0]
       args[0] = []
