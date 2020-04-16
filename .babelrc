@@ -8,6 +8,7 @@
    ]
   ],  // 预设
   "plugins": [
+    "@babel/plugin-transform-exponentiation-operator",
     [
       "@babel/plugin-transform-runtime",
       {
