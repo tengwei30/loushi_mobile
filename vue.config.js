@@ -98,6 +98,7 @@ module.exports = {
       .use('babel')
       .loader('babel-loader')
       .options({
+        sourceType: 'unambiguous',
         presets: [
           ['@babel/preset-env', {
             modules: false
