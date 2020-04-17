@@ -271,3 +271,47 @@ export function throttled(func, wait, options) {
   }
   return throttled
 }
+
+/**
+ * 倒计时功能
+ * @param time {Date} 倒计时时间，毫秒数
+ * @param fn {Function} 回调函数
+ */
+export function countDown(time, fn) {
+  try {
+    function add0(n) {
+      return n > 9 ? n : '0' + n
+    }
+    let timer
+    let seconds = time = parseInt(time / 1000) // 秒数
+    clearInterval(timer)
+    function freedjs() {
+      if (time < 0) {
+        return
+      }
+      var d = parseInt(time / 86400)
+      time %= 86400
+      var h = parseInt(time / 3600)
+      time %= 3600
+      var m = parseInt(time / 60)
+      var s = time % 60;
+      (typeof fn === 'function') && fn({
+        day: add0(d),
+        hour: add0(h),
+        min: add0(m),
+        sec: add0(s)
+      })
+    }
+    freedjs()
+    timer = setInterval(function() {
+      seconds--
+      time = seconds
+      if (time < 1) {
+        clearInterval(timer)
+      }
+      freedjs()
+    }, 1000)
+  } catch (err) {
+    console.log(err)
+  }
+}
