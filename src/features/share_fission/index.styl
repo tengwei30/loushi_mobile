@@ -35,6 +35,7 @@ body, html
     border-radius 19.5px
     .list
       animation: li_move 42s linear infinite;
+      padding 0
       .item
         text-align center
         size(253px,39px)
@@ -45,6 +46,8 @@ body, html
         color rgba(255,255,255,1)
         display flex
         justify-content space-evenly
+        padding 0
+        border 0
         span
           display flex
           align-items center
@@ -70,6 +73,8 @@ body, html
       position absolute
       left 50%
       transform translateX(-50%)
+      background transparent
+      padding 0
       &::before
         content ''
         position absolute
