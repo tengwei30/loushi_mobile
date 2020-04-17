@@ -30,7 +30,7 @@ const pagesMaker = () => {
     let conf = {
       template: pathInfo,
       filename: `${filePrefix}${fileName}`,
-      entry: `src/features/${pathname}/index.js`,
+      entry: [`src/features/${pathname}/index.js`],
       chunks: ['chunk-vendors', 'chunk-common', pathname],
     }
     pagesObj[folderName] = conf
@@ -47,8 +47,12 @@ module.exports = {
   // https://cli.vuejs.org/zh/config/#lintonsave
   runtimeCompiler: true,
   // 是否使用包含运行时编译器的 Vue 构建版本。https://cli.vuejs.org/zh/config/#runtimecompiler
-  productionSourceMap: true,
+  productionSourceMap: false,
   configureWebpack: config => {
+    for (let keys in config.entry) {
+      config.entry[keys].unshift('babel-polyfill')
+    }
+
     const newRules = config.module.rules.map(rule => {
       if (rule.test.test('.pug') === false) {
         return rule
@@ -84,7 +88,27 @@ module.exports = {
   },
   chainWebpack: config => {
     config.resolve.alias.set('@', resolve('src'))
-    config.module.rule('js').include.add(/node_modules\/(dom7|swiper)\/.*/)
+    config.module
+      .rule('compile')
+      .test(/\.js$/)
+      .include
+      .add(resolve('src'))
+      .add(resolve('/node_modules/swiper/'))
+      .end()
+      .use('babel')
+      .loader('babel-loader')
+      .options({
+        presets: [
+          ['@babel/preset-env', {
+            modules: false
+          }]
+        ],
+        plugins: [
+          '@babel/plugin-transform-exponentiation-operator',
+          '@babel/plugin-transform-runtime',
+        ]
+      })
+    // config.module.rule('js').include.add(/node_modules\/(dom7|swiper)\/.*/)
     config.plugin('copy').tap(args => {
       const { toType, ignore } = args[0][0]
       args[0] = []
