@@ -146,7 +146,7 @@ export default {
       try {
         if (res.code === 100) {
           wxInit({ ...res.data, debug: true })
-          wxShareMoentsAndFriend({ title: '帮我点一下，这是一个好看又能赚钱的有趣应用', content: '一个边看小说边赚钱的有趣应用', url: this.getShareUrl(), desc: '海量小说免费看，躺在家里就能赚钱。', imgUrl: window.location.origin + '/' + require('@/assets/share_fission/share_icon.png') })
+          wxShareMoentsAndFriend({ title: '帮我点一下，这是一个好看又能赚钱的有趣应用', content: '一个边看小说边赚钱的有趣应用', url: encodeURIComponent(location.href.split('#')[0]), desc: '海量小说免费看，躺在家里就能赚钱。', imgUrl: window.location.origin + '/' + require('@/assets/share_fission/share_icon.png') })
         }
       } catch (err) {
         console.log(err)
