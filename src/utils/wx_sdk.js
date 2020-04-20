@@ -14,8 +14,7 @@ export const wxInit = async(wxJson={}) => {
     signature: wxSignature,
     jsApiList: [
       'onMenuShareTimeline',
-      'onMenuShareAppMessage',
-      'updateTimelineShareData'
+      'onMenuShareAppMessage'
     ]
   })
 }
@@ -55,14 +54,6 @@ export const wxShareMoentsAndFriend = async(wxJson={}) => {
         },
         cancel() {
           console.log('取消分享')
-        }
-      })
-      wx.updateTimelineShareData({
-        title: wxTitle,
-        link: wxUrl,
-        imgUrl: wxImgUrl,
-        success() {
-          console.log('成功')
         }
       })
     })
