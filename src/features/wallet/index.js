@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './App'
 import '@/common/index'
-import 'babel-polyfill'
 import arms from '@/utils/arms'
 import Toast from '@/components/Toast/toast.js'
 
