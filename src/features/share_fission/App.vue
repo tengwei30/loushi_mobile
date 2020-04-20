@@ -93,7 +93,7 @@ export default {
   },
   methods: {
     shareCountDown(time) {
-      countDown(time/1000, ({ day, hour, min, sec }) => {
+      countDown(time, ({ day, hour, min, sec }) => {
         this.day = day
         this.hour = hour
         this.min = min
@@ -156,7 +156,7 @@ export default {
       let res = await getPageInfoFetch(getQueryString('recordId'))
       try {
         if (res.code === 100) {
-          this.shareCountDown(res.data.expireTime)
+          this.shareCountDown(res.data.expireTime - new Date().getTime())
           this.money = res.data.rewardNum
         }
       } catch (err) {
