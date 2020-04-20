@@ -14,7 +14,8 @@ export const wxInit = async(wxJson={}) => {
     signature: wxSignature,
     jsApiList: [
       'onMenuShareTimeline',
-      'onMenuShareAppMessage'
+      'onMenuShareAppMessage',
+      'updateTimelineShareData'
     ]
   })
 }
