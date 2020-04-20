@@ -56,6 +56,14 @@ export const wxShareMoentsAndFriend = async(wxJson={}) => {
           console.log('取消分享')
         }
       })
+      wx.updateTimelineShareData({
+        title: wxTitle,
+        link: wxUrl,
+        imgUrl: wxImgUrl,
+        success() {
+          console.log('成功')
+        }
+      })
     })
     wx.error(function(res) {
       console.log(res)
