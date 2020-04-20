@@ -22,11 +22,12 @@
           span 免费看小说+赚钱
         div.book-list
           swiper(ref='mySwiper' :options='swiperOptions')
-            swiper-slide(v-for='item in bookList' :key='item.bookId')
+            swiper-slide(v-for='(item, index) in bookList' :key='item.bookId')
               div.slider-item
                 img.book-cover(:src='item.imgUrl')
                 div.book-info
-                  div.book-title {{item.name}}
+                  div.book-title(v-if='index == 0') aaaaace测试内容试试看{{item.name}}
+                  div.book-title(v-else) {{item.name}}
                   div.book-intro {{item.intro}}
             div.swiper-pagination(slot="pagination")
       div.get-award-btn(@click='handleGetNow')

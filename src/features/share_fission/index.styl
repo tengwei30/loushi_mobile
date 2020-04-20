@@ -156,13 +156,20 @@ body, html
               font-family PingFang SC
               font-weight 600
               color rgba(255,255,255,1)
-              margin 6px 0
+              margin 10px 0 12px
+              overflow hidden
+              text-overflow ellipsis
+              white-space nowrap
             .book-intro
               font-size 14px
+              line-height 17px
               font-family PingFang SC
               font-weight 400
               color rgba(255,255,255,1)
-              height 56px
+              // height 56px
+              display -webkit-box
+              -webkit-box-orient vertical
+              -webkit-line-clamp 3
               overflow hidden
         .swiper-pagination
           margin-top 100px
