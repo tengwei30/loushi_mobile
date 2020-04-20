@@ -145,8 +145,8 @@ export default {
       let res = await initWxSdkApiFetch(this.disHost())
       try {
         if (res.code === 100) {
-          wxInit({ ...res.data })
-          wxShareMoentsAndFriend({ title: '帮我点一下，这是一个好看又能赚钱的有趣应用', content: '一个边看小说边赚钱的有趣应用', url: this.getShareUrl(), desc: '海量小说免费看，躺在家里就能赚钱。', imgUrl: 'http://test_pubshare.bkan.fun/Breader_Task_H5/img/icon@2x.35f6e9f5.png' })
+          wxInit({ ...res.data, debug: true })
+          wxShareMoentsAndFriend({ title: '帮我点一下，这是一个好看又能赚钱的有趣应用', content: '一个边看小说边赚钱的有趣应用', url: this.getShareUrl(), desc: '海量小说免费看，躺在家里就能赚钱。', imgUrl: window.location.origin + '/' + require('@/assets/share_fission/share_icon.png') })
         }
       } catch (err) {
         console.log(err)
