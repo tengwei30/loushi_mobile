@@ -51,7 +51,7 @@ module.exports = {
   productionSourceMap: false,
   configureWebpack: config => {
     for (let keys in config.entry) {
-      config.entry[keys].unshift('@babel/polyfill')
+      config.entry[keys].unshift('babel-polyfill')
     }
 
     const newRules = config.module.rules.map(rule => {
@@ -94,8 +94,8 @@ module.exports = {
       .test(/\.js$/)
       .include
       .add(resolve('src'))
-      .add(resolve('node_modules/swiper/'))
-      .add(resolve('node_modules/dom7/'))
+      .add(resolve('node_modules/swiper'))
+      .add(resolve('node_modules/dom7'))
       .end()
       .use('babel')
       .loader('babel-loader')
