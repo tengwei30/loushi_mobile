@@ -50,9 +50,9 @@ module.exports = {
   // 是否使用包含运行时编译器的 Vue 构建版本。https://cli.vuejs.org/zh/config/#runtimecompiler
   productionSourceMap: false,
   configureWebpack: config => {
-    // for (let keys in config.entry) {
-    //   config.entry[keys].unshift('babel-polyfill')
-    // }
+    for (let keys in config.entry) {
+      config.entry[keys].unshift('@babel/polyfill')
+    }
 
     const newRules = config.module.rules.map(rule => {
       if (rule.test.test('.pug') === false) {
