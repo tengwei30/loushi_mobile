@@ -93,6 +93,7 @@ export default {
   },
   methods: {
     shareCountDown(time) {
+      console.log(time)
       countDown(time, ({ day, hour, min, sec }) => {
         this.day = day
         this.hour = hour
