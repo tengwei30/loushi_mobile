@@ -32,13 +32,13 @@
             div.swiper-pagination(slot="pagination")
       div.get-award-btn(@click='handleGetNow')
       div.count-down
-        span.time {{day}}
-        |:
         span.time {{hour}}
         |:
         span.time {{min}}
         |:
         span.time {{sec}}
+        |:
+        span.time {{ms}}
         span.time-tip 后红包失效请尽快收钱
   div.pop-fixed(v-show='isShowPop')
     img.pop-icon(src='@/assets/share_fission/pop_icon.png')
@@ -54,7 +54,7 @@ import { downLoadApp } from '@/utils/common'
 import { interviewReportFetch, initWxSdkApiFetch, getPageInfoFetch } from './request'
 import { wxAuthorize, wxInit, wxShareMoentsAndFriend } from '@/utils/wx_sdk.js'
 import BROWSER from '@/utils/browser.js'
-import { countDown } from '@/utils/utils.js'
+import { countDown, applink } from '@/utils/utils.js'
 import { getQueryString } from '@/utils/url'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
@@ -70,6 +70,7 @@ export default {
       hour: '00',
       min: '00',
       sec: '00',
+      ms: '00',
       money: '0.00',
       swiperOptions: {
         pagination: {
@@ -95,12 +96,13 @@ export default {
   methods: {
     shareCountDown(time) {
       console.log(time)
-      countDown(time, ({ day, hour, min, sec }) => {
+      countDown(time, ({ day, hour, min, sec, ms }) => {
         this.day = day
         this.hour = hour
         this.min = min
         this.sec = sec
-      })
+        this.ms = ms
+      }, 50)
     },
     // 立即领取函数
     handleGetNow() {
@@ -108,11 +110,15 @@ export default {
       if (BROWSER.isWeChat) {
         // 微信环境打开
         this.isShowPop = true
+        return
+      }
+      if (BROWSER.isiOS || BROWSER.isiPhone) {
+        this.$showToast('下载《必看免费小说》领取奖励', 5000)
+        downLoadApp('', iosCarefreeAppStoreUrl, 5000)
       } else {
-        if (BROWSER.isiOS || BROWSER.isiPhone) {
-          this.$showToast('下载《必看免费小说》领取奖励', 5000)
-        }
-        downLoadApp(andoridApk, iosCarefreeAppStoreUrl, 5000)
+        applink(() => {
+          downLoadApp(andoridApk, '', 5000)
+        })
       }
     },
     // 微信授权

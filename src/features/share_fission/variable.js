@@ -1,5 +1,5 @@
 export const iosCarefreeAppStoreUrl = 'https://itunes.apple.com/cn/app/jie-zou-da-shi/id1500717212?mt=8'
-export const andoridApk = window.location.origin + '/Breader_Task_H5/others/apk/BDReaderApp-appTask-debug.apk.1'
+export const andoridApk = 'http://dl.ibreader.com/api/download/137'
 
 export const bookList = [
   {
