@@ -94,8 +94,9 @@ module.exports = {
       .test(/\.js$/)
       .include
       .add(resolve('src'))
-      .add(resolve('node_modules/swiper'))
-      .add(resolve('node_modules/dom7'))
+      // .add(resolve('node_modules/swiper'))
+      // .add(resolve('node_modules/dom7'))
+      .add(/node_modules\/(dom7|swiper)\/.*/)
       .end()
       .use('babel')
       .loader('babel-loader')
