@@ -8,6 +8,7 @@ const path = require('path')
 const getEntry = require('./build/pageEntry')
 const resolve = dir => path.join(__dirname, dir)
 
+
 const isProd = process.env.VUE_APP_DEVELOP_ENV === 'false'
 const isDev = process.env.VUE_APP_DEVELOP_ENV === 'true'
 
@@ -93,7 +94,8 @@ module.exports = {
       .test(/\.js$/)
       .include
       .add(resolve('src'))
-      .add(resolve(/node_modules\/(dom7|swiper)\/.*/))
+      .add(resolve('node_modules/swiper/'))
+      .add(resolve('node_modules/dom7/'))
       .end()
       .use('babel')
       .loader('babel-loader')

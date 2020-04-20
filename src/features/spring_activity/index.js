@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from './App'
+// import App from './App'
 import '@/common/index'
 
 /* eslint-disable no-new */
