@@ -291,7 +291,7 @@ export function countDown(time, fn, delayTime = 1000) {
       if (!innerTime || innerTime < 0) {
         return
       }
-      let tempTime = parseInt(innerTime / 1000)
+      let tempTime = Math.floor(innerTime / 1000)
       var d = parseInt(tempTime / 86400)
       tempTime %= 86400
       var h = parseInt(tempTime / 3600)
@@ -309,7 +309,7 @@ export function countDown(time, fn, delayTime = 1000) {
     }
     freedjs()
     timer = setInterval(function() {
-      seconds -= 1000/delayTime
+      seconds -= delayTime
       time = seconds
       if (time < 20) {
         clearInterval(timer)
