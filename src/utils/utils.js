@@ -325,7 +325,7 @@ export function countDown(time, fn, delayTime = 1000) {
  * 唤起android的app，直接唤起首页
  */
 export function applink(cb) {
-  window.location = 'breader://handle/gohome'
+  window.location = 'breader://www.bayread.com'
   var clickedAt = +new Date
   setTimeout(function() {
     !window.document.webkitHidden && setTimeout(function() {
