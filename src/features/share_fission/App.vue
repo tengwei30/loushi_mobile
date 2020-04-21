@@ -80,7 +80,7 @@ export default {
         initialSlide: 0,
         autoplay: {
           disableOnInteraction: false, // 手动滑动之后不打断播放
-          delay: 2000
+          delay: 3000
         },
         speed: 300
       },
@@ -140,7 +140,7 @@ export default {
             code: getQueryString('code'),
             recordId: getQueryString('recordId')
           })
-        }, 10000)
+        }, 5000)
         this.initWxSdkApi()
       } else {
         this.wxAuthorize()
