@@ -118,7 +118,7 @@ export default {
         return
       }
       if (BROWSER.isiOS || BROWSER.isiPhone) {
-        this.$showToast('下载《必看免费小说》领取奖励', 5000)
+        this.$showToast('下载《必看小说畅读版》领取奖励', 5000)
         downLoadApp('', iosCarefreeAppStoreUrl, 5000)
       } else {
         applink(() => {
