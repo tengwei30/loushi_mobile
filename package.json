@@ -7,7 +7,7 @@
     "dev": "node build/selectFeatures.js",
     "serve": "vue-cli-service serve --mode development",
     "build": "npx --max_old_space_size=4096 vue-cli-service build",
-    "dev-build": "npx --max_old_space_size=4096 vue-cli-service build --mode --modern test",
+    "dev-build": "npx --max_old_space_size=4096 vue-cli-service build --mode test",
     "lint": "vue-cli-service lint",
     "cli-create": "sh ./cli/create.sh",
     "inspect": "vue-cli-service inspect > webpack.js",
