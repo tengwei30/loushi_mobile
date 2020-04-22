@@ -3,8 +3,6 @@
  * https://cli.vuejs.org/zh/config
  */
 const path = require('path')
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-// const TerserPlugin = require('terser-webpack-plugin')
 const getEntry = require('./build/pageEntry')
 const resolve = dir => path.join(__dirname, dir)
 
@@ -94,8 +92,6 @@ module.exports = {
       .test(/\.js$/)
       .include
       .add(resolve('src'))
-      // .add(resolve('node_modules/swiper'))
-      // .add(resolve('node_modules/dom7'))
       .add(/node_modules\/(dom7|swiper)\/.*/)
       .end()
       .use('babel')
@@ -112,7 +108,6 @@ module.exports = {
           '@babel/plugin-transform-runtime',
         ]
       })
-    // config.module.rule('js').include.add(/node_modules\/(dom7|swiper)\/.*/)
     config.plugin('copy').tap(args => {
       const { toType, ignore } = args[0][0]
       args[0] = []
