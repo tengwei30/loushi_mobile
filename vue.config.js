@@ -18,6 +18,8 @@ if (!isProd && process.env.BK_H5_PAGES) {
   globMatch = process.env.BK_H5_PAGES
 }
 
+let entries = getEntry(`src/features/${globMatch}/index.js`)
+
 const pagesMaker = () => {
   let pagesObj = {}
   let pages = getEntry(`src/features/${globMatch}/index.pug`)
@@ -33,6 +35,15 @@ const pagesMaker = () => {
       chunks: ['chunk-vendors', 'chunk-common', pathname],
     }
     pagesObj[folderName] = conf
+  }
+  if (isDev) {
+    pagesObj['index'] = {
+      template: 'src/common/index.html',
+      filename: 'index.html',
+      entry: Object.values(entries),
+      pages: Object.keys(entries),
+      chunks: ['chunk-vendors', 'chunk-common']
+    }
   }
   return pagesObj
 }
