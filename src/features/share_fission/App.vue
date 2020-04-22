@@ -44,7 +44,7 @@
     img.pop-icon(src='@/assets/share_fission/pop_icon.png')
     img.pop-tip(src='@/assets/share_fission/pop_tip.png')
     img.pop-direction(src='@/assets/share_fission/pop_direction.png')
-    img.pop-btn(src='@/assets/share_fission/pop_btn.png' @click='isShowPop=false')
+    img.pop-btn(src='@/assets/share_fission/pop_btn.png' @click='handleHidePop')
 </template>
 
 <script>
@@ -103,12 +103,18 @@ export default {
         this.ms = ms
       }, 50)
     },
+    // 关闭蒙层页
+    handleHidePop() {
+      this.isShowPop = false
+      mBuryPoint('clickShareDP')
+    },
     // 立即领取函数
     handleGetNow() {
       mBuryPoint('clickShareLandPageGet')
       if (BROWSER.isWeChat) {
         // 微信环境打开
         this.isShowPop = true
+        mBuryPoint('enterShareDP')
         return
       }
       if (BROWSER.isiOS || BROWSER.isiPhone) {
@@ -129,9 +135,27 @@ export default {
         })
       }
     },
+    // 获取埋点的数据
+    getMBuryPorintData() {
+      let shareChannel
+      if (BROWSER.isWeChat) {
+        shareChannel = getQueryString('from') === 'timeline' ? 'WeChartMoments' : 'WeChart'
+      } else {
+        shareChannel = 'Browser'
+      }
+      return {
+        shareChannel,
+        adCodeId: getQueryString('adCodeId'),
+        adPosId: getQueryString('adPos'),
+        adShareAward: getQueryString('shareReward'),
+        adReadAward: getQueryString('sharePersonReward'),
+        viewEffect: 'redEnvelops'
+      }
+    },
     // 页面初始化
     initPage() {
-      mBuryPoint('enterShareLandPage')
+
+      mBuryPoint('enterShareLandPage', { ...this.getMBuryPorintData() })
       if (getQueryString('code')) {
         // 通过code调用接口，返回openid,进行后续的操作
         setTimeout(() => {
@@ -185,10 +209,11 @@ export default {
       let { origin, pathname, search } = window.location
       let searchArr = search.substring(1).split('&')
       let resultArr = searchArr.filter(str => {
-        return str.indexOf('recordId=') > -1
+        return !/(code=)|(state=)|(from=)|(isappinstalled=)/.test(str)
       })
       if (resultArr.length > 0) {
-        search = `?${resultArr[0]}`
+        search = resultArr.join('&')
+        search = `?${search}`
       }
       return `${origin}${pathname}${search}`
     }
