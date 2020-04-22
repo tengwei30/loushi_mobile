@@ -14,8 +14,8 @@
       div.title 您有一个红包待领取
       div.award-box
         div.award {{ money }}
-          span.most
           span.unit 元
+        span.most
       div.book-box
         div.book-box-tip
           img(src='@/assets/share_fission/icon.png')
