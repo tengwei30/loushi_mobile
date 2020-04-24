@@ -9,42 +9,42 @@
             | {{val.name}}
           span.message {{val.message}}
           span {{val.time}}
-
-    div.content
-      div.title 您有一个红包待领取
-      div.award-box
-        div.award {{ money }}
-          span.unit 元
-        span.most
-      div.book-box
-        div.book-box-tip
-          img(src='@/assets/share_fission/icon.png')
-          span 免费看小说+赚钱
-        div.book-list
-          swiper(ref='mySwiper' :options='swiperOptions')
-            swiper-slide(v-for='(item, index) in bookList' :key='item.bookId')
-              div.slider-item
-                img.book-cover(:src='item.imgUrl')
-                div.book-info
-                  div.book-title(v-if='index == 0') aaaaace测试内容试试看{{item.name}}
-                  div.book-title(v-else) {{item.name}}
-                  div.book-intro {{item.intro}}
-            div.swiper-pagination(slot="pagination")
-      div.get-award-btn(@click='handleGetNow')
-      div.count-down
-        span.time {{hour}}
-        |:
-        span.time {{min}}
-        |:
-        span.time {{sec}}
-        |:
-        span.time {{ms}}
-        span.time-tip 后红包失效请尽快收钱
-  div.pop-fixed(v-show='isShowPop')
-    img.pop-icon(src='@/assets/share_fission/pop_icon.png')
-    img.pop-tip(src='@/assets/share_fission/pop_tip.png')
-    img.pop-direction(src='@/assets/share_fission/pop_direction.png')
-    img.pop-btn(src='@/assets/share_fission/pop_btn.png' @click='handleHidePop')
+    div.content-box
+      div.content
+        div.title 您有一个红包待领取
+        div.award-box
+          div.award {{ money }}
+            span.unit 元
+          span.most
+        div.book-box
+          div.book-box-tip
+            img(src='@/assets/share_fission/icon.png')
+            span 免费看小说+赚钱
+          div.book-list
+            swiper(ref='mySwiper' :options='swiperOptions')
+              swiper-slide(v-for='(item, index) in bookList' :key='item.bookId')
+                div.slider-item
+                  img.book-cover(:src='item.imgUrl')
+                  div.book-info
+                    div.book-title(v-if='index == 0') aaaaace测试内容试试看{{item.name}}
+                    div.book-title(v-else) {{item.name}}
+                    div.book-intro {{item.intro}}
+              div.swiper-pagination(slot="pagination")
+        div.get-award-btn(@click='handleGetNow')
+        div.count-down
+          span.time {{hour}}
+          |:
+          span.time {{min}}
+          |:
+          span.time {{sec}}
+          |:
+          span.time {{ms}}
+          span.time-tip 后红包失效请尽快收钱
+    div.pop-fixed(v-show='isShowPop')
+      img.pop-icon(src='@/assets/share_fission/pop_icon.png')
+      img.pop-tip(src='@/assets/share_fission/pop_tip.png')
+      img.pop-btn(src='@/assets/share_fission/pop_btn.png' @click='handleHidePop')
+      img.pop-direction(src='@/assets/share_fission/pop_direction.png')
 </template>
 
 <script>
@@ -84,7 +84,7 @@ export default {
         },
         speed: 300
       },
-      isShowPop: false,
+      isShowPop: true,
       bookList
     }
   },

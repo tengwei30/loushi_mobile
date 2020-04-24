@@ -22,7 +22,6 @@ body, html
     right 0
     overflow auto
     box-sizing border-box
-    padding-bottom 1rem
     .list-box
       size(253px,39px)
       position absolute
@@ -56,155 +55,161 @@ body, html
               size(25px, 25px)
               border-radius 50%
               margin-right 5px
-    .content
-      size(100%,479px)
-      background url('../../assets/share_fission/bg.png') no-repeat center center/100% 100%
+    .content-box
       position relative
-      top 90px
-      text-align center
-      .title
-        top 25px
-        font-size 18px
-        font-family PingFang SC
-        font-weight 500
-        color rgba(255,255,255,1)
-        line-height 17.5px
-        position absolute
-        left 50%
-        transform translateX(-50%)
-        background transparent
-        padding 0
-        border none
-        &::before
-          content ''
-          position absolute
-          size(41px,1px)
-          background-color rgba(255,255,255,0.5)
-          left -44px
-          top 50%
-          transform translateY(-50%)
-        &::after
-          content ''
-          position absolute
-          size(41px,1px)
-          background-color rgba(255,255,255,0.5)
-          right -44px
-          top 50%
-          transform translateY(-50%)
-      .award-box
-        position absolute
-        top 71px
-        left 50%
-        transform translateX(-50%)
-        .most
-          position absolute
-          background url('../../assets/share_fission/most.png') no-repeat center center/100% 100%
-          size(29px, 20px)
-          right -13px
-        .award
-          position relative
-          font-size 50px
-          font-family PingFang SC
-          font-weight bold
-          color rgba(255,231,31,1)
-          display inline-block
-          line-height 50px
-          text-shadow rgba(0,0,0,0.2) 0px 4px 6px
-          .unit
-            font-size 16px
-            font-weight bold
-      .book-box
-        size(268px, 164px)
-        background-color rgba(255,255,255,0.1)
-        border-radius 10px
-        position absolute
-        box-sizing border-box
-        padding-top 10px
-        top 136px
-        left 50%
-        transform translateX(-50%)
-        .book-box-tip
-          font-size 16px
-          font-family PingFang SC
-          font-weight bold
-          color rgba(255,231,31,1)
-          display flex
-          align-items center
-          justify-content center
-          img
-            size(17px, 14px)
-            margin-right 3px
-        .book-list
-          margin-top 15px
-          .slider-item
-            size(268px, 126px)
-            display flex
-            justify-content space-between
-            box-sizing border-box
-            padding 0 6px
-            .book-cover
-              size(75px, 100px)
-              border-radius 3px
-            .book-info
-              width 167px
-              text-align left
-              height 100px
-              overflow hidden
-              .book-title
-                font-size 16px
-                font-family PingFang SC
-                font-weight bold
-                line-height 17px
-                color rgba(255,255,255,1)
-                margin 10px 0 16px
-                overflow hidden
-                text-overflow ellipsis
-                white-space nowrap
-              .book-intro
-                font-size 14px
-                line-height 17px
-                font-family PingFang SC
-                font-weight 400
-                color rgba(255,255,255,1)
-                // height 56px
-                display -webkit-box
-                -webkit-box-orient vertical
-                -webkit-line-clamp 3
-                overflow hidden
-          .swiper-pagination
-            margin-top 100px
-      .get-award-btn
-        size(193px, 47px)
-        background url('../../assets/share_fission/btn.png') no-repeat center center/100% 100%
-        position absolute
-        top 321px
-        left 50%
-        transform translateX(-50%)
-      .count-down
-        position absolute
-        top 391px
-        left 0
-        width 100%
+      min-height 620px
+      size(100%, 100%)
+      display flex
+      align-items center
+      justify-content center
+      .content
+        size(100%,479px)
+        background url('../../assets/share_fission/bg.png') no-repeat center center/100% 100%
+        position relative
         text-align center
-        font-size 14px
-        color #ffffff
-        .time
-          padding 4px
-          margin 0 7px
-          background-color rgba(255,156,110,1)
-          border-radius 3px
-          font-size 14px
+        .title
+          top 25px
+          font-size 18px
           font-family PingFang SC
           font-weight 500
           color rgba(255,255,255,1)
-          width 23px
+          line-height 17.5px
+          position absolute
+          left 50%
+          transform translateX(-50%)
+          background transparent
+          padding 0
+          border none
+          &::before
+            content ''
+            position absolute
+            size(41px,1px)
+            background-color rgba(255,255,255,0.5)
+            left -44px
+            top 50%
+            transform translateY(-50%)
+          &::after
+            content ''
+            position absolute
+            size(41px,1px)
+            background-color rgba(255,255,255,0.5)
+            right -44px
+            top 50%
+            transform translateY(-50%)
+        .award-box
+          position absolute
+          top 71px
+          left 50%
+          transform translateX(-50%)
+          .most
+            position absolute
+            background url('../../assets/share_fission/most.png') no-repeat center center/100% 100%
+            size(29px, 20px)
+            right -13px
+          .award
+            position relative
+            font-size 50px
+            font-family PingFang SC
+            font-weight bold
+            color rgba(255,231,31,1)
+            display inline-block
+            line-height 50px
+            text-shadow rgba(0,0,0,0.2) 0px 4px 6px
+            .unit
+              font-size 16px
+              font-weight bold
+        .book-box
+          size(268px, 164px)
+          background-color rgba(255,255,255,0.1)
+          border-radius 10px
+          position absolute
           box-sizing border-box
-          display inline-block;
-        .time-tip
+          padding-top 10px
+          top 136px
+          left 50%
+          transform translateX(-50%)
+          .book-box-tip
+            font-size 16px
+            font-family PingFang SC
+            font-weight bold
+            color rgba(255,231,31,1)
+            display flex
+            align-items center
+            justify-content center
+            img
+              size(17px, 14px)
+              margin-right 3px
+          .book-list
+            margin-top 15px
+            .slider-item
+              size(268px, 126px)
+              display flex
+              justify-content space-between
+              box-sizing border-box
+              padding 0 6px
+              .book-cover
+                size(75px, 100px)
+                border-radius 3px
+              .book-info
+                width 167px
+                text-align left
+                height 100px
+                overflow hidden
+                .book-title
+                  font-size 16px
+                  font-family PingFang SC
+                  font-weight bold
+                  line-height 17px
+                  color rgba(255,255,255,1)
+                  margin 10px 0 16px
+                  overflow hidden
+                  text-overflow ellipsis
+                  white-space nowrap
+                .book-intro
+                  font-size 14px
+                  line-height 17px
+                  font-family PingFang SC
+                  font-weight 400
+                  color rgba(255,255,255,1)
+                  // height 56px
+                  display -webkit-box
+                  -webkit-box-orient vertical
+                  -webkit-line-clamp 3
+                  overflow hidden
+            .swiper-pagination
+              margin-top 100px
+        .get-award-btn
+          size(193px, 47px)
+          background url('../../assets/share_fission/btn.png') no-repeat center center/100% 100%
+          position absolute
+          top 321px
+          left 50%
+          transform translateX(-50%)
+        .count-down
+          position absolute
+          top 391px
+          left 0
+          width 100%
+          text-align center
           font-size 14px
-          font-family PingFang SC
-          font-weight 400
-          color rgba(255,231,220,1)
+          color #ffffff
+          .time
+            padding 4px
+            margin 0 7px
+            background-color rgba(255,156,110,1)
+            border-radius 3px
+            font-size 14px
+            font-family PingFang SC
+            font-weight 500
+            color rgba(255,255,255,1)
+            width 23px
+            box-sizing border-box
+            display inline-block;
+          .time-tip
+            font-size 14px
+            font-family PingFang SC
+            font-weight 400
+            color rgba(255,231,220,1)
   .pop-fixed
     position absolute
     background-color rgba(0,0,0,0.7)
@@ -215,22 +220,22 @@ body, html
     .pop-icon
       size(69px, 62px)
       position absolute
-      left 69px
+      right 238px
       top 51px
     .pop-tip
       size(130px, 41px)
       position absolute
-      left 145px
+      right 101px
       top 62px
     .pop-direction
       size(83px, 74px)
       position absolute
-      left 279px
+      right 13px
       top 5px
     .pop-btn
       size(113px, 39px)
       position absolute
-      left 145px
+      right 117px
       top 124px
   .swiper-pagination-bullet-active.swiper-pagination-bullet
     background-color rgba(255,255,255,1)
