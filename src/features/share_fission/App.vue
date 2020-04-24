@@ -84,7 +84,7 @@ export default {
         },
         speed: 300
       },
-      isShowPop: true,
+      isShowPop: false,
       bookList
     }
   },
