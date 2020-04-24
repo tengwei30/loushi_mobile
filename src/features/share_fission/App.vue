@@ -11,6 +11,7 @@
           span {{val.time}}
     div.content-box
       div.content
+        img.content-bg(src='@/assets/share_fission/bg.png')
         div.title 您有一个红包待领取
         div.award-box
           div.award {{ money }}
