@@ -13,13 +13,28 @@
       .labor-money-number ¥100000
     div.labor-begin-active-count-time
       | 活动开始倒计时 <br>
-      | 03天07时42分24秒
+      | {{day}}天{{hour}}时{{min}}分{{sec}}秒
+    div.labor-no-start-btn 立即参加
+    div.labor-commend
+      div.labor-commend-list
+        div.labor-commend-list-item(v-for='item in commendList' :key='item.bookId')
+          img(:src='item.imgUrl')
+      div.labor-commend-btn
+        | 查看更多
+        img(src='@/assets/labor_activity/more_icon.png')
 </template>
 
 <script>
+import { commendList } from './variable'
 export default {
   data() {
-    return {}
+    return {
+      commendList,
+      day: '00',
+      hour: '00',
+      min: '00',
+      sec: '00'
+    }
   },
   methods: {},
   mounted() {},
