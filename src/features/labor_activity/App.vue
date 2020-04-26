@@ -11,6 +11,9 @@
       .labor-members
         | 参与人数：119999
       .labor-money-number ¥100000
+    div.labor-begin-active-count-time
+      | 活动开始倒计时 <br>
+      | 03天07时42分24秒
 </template>
 
 <script>
