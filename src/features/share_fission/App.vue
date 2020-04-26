@@ -26,8 +26,7 @@
                 div.slider-item
                   img.book-cover(:src='item.imgUrl')
                   div.book-info
-                    div.book-title(v-if='index == 0') aaaaace测试内容试试看{{item.name}}
-                    div.book-title(v-else) {{item.name}}
+                    div.book-title {{item.name}}
                     div.book-intro {{item.intro}}
               div.swiper-pagination(slot="pagination")
         div.get-award-btn(@click='handleGetNow')
@@ -131,7 +130,7 @@ export default {
       if (BROWSER.isWeChat) {
         wxAuthorize({
           url: this.disHost(),
-          appid: 'wxd4f4b7bb44ef3718'
+          appid: 'wxa5e55e1a7ce23586'
         })
       }
     },
