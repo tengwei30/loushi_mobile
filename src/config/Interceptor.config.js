@@ -39,7 +39,7 @@ axios.interceptors.request.use(
       'application/json, text/plain, */*; charset=utf-8'
     config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     config.headers.common['Pragma'] = 'no-cache'
-    config.headers.common['X-client'] = setHeader()
+    config.headers.common['X-client'] = setHeader() || 'version=1.23.10;dID=;signVersion=2;pkv=1;model=;manufacturer=iphone'
     return config
   },
   error => {
