@@ -271,3 +271,67 @@ export function throttled(func, wait, options) {
   }
   return throttled
 }
+
+/**
+ * 倒计时功能
+ * @param time {Date} 倒计时时间，毫秒数
+ * @param fn {Function} 回调函数
+ * @param delayTime {Date} 延时时间
+ */
+export function countDown(time, fn, delayTime = 1000) {
+  try {
+    function add0(n) {
+      return n > 9 ? n : '0' + n
+    }
+    let timer
+    // let seconds = time = parseInt(time / 1000) // 秒数
+    let seconds = time
+    clearInterval(timer)
+    function freedjs(innerTime) {
+      if (!innerTime || innerTime < 0) {
+        return
+      }
+      let tempTime = Math.floor(innerTime / 1000)
+      var d = parseInt(tempTime / 86400)
+      tempTime %= 86400
+      var h = parseInt(tempTime / 3600)
+      tempTime %= 3600
+      var m = parseInt(tempTime / 60)
+      var s = tempTime % 60
+      var ms = innerTime % 1000;
+      (typeof fn === 'function') && fn({
+        day: add0(d),
+        hour: add0(h),
+        min: add0(m),
+        sec: add0(s),
+        ms: add0(parseInt(ms/delayTime))
+      })
+    }
+    freedjs()
+    timer = setInterval(function() {
+      seconds -= delayTime
+      time = seconds
+      if (time < 20) {
+        clearInterval(timer)
+      }
+      freedjs(time)
+    }, delayTime)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+/**
+ * 唤起android的app，直接唤起首页
+ */
+export function applink(cb) {
+  window.location = 'breader://www.bayread.com'
+  var clickedAt = +new Date
+  setTimeout(function() {
+    !window.document.webkitHidden && setTimeout(function() {
+      if (+new Date - clickedAt < 2000) {
+        typeof cb === 'function' && cb()
+      }
+    }, 500)
+  }, 500)
+}
