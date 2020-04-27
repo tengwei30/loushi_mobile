@@ -288,7 +288,7 @@ export function countDown(time, fn, delayTime = 1000) {
     let seconds = time
     clearInterval(timer)
     function freedjs(innerTime) {
-      if (!innerTime || innerTime < 0) {
+      if (isNaN(innerTime) || (!innerTime && typeof innerTime !== 'number') || innerTime < 0) {
         return
       }
       let tempTime = Math.floor(innerTime / 1000)
