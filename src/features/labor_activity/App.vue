@@ -8,9 +8,9 @@
       .labor-money-tip
         span 排名前1000名瓜分
         | 十万现金红包
-      .labor-members(:class='{"is-hidden": !isOrNotStartActivityFlag}')
+      .labor-members(v-show='isOrNotStartActivityFlag')
         | 参与人数：119999
-      .labor-money-number ¥100000
+      .labor-money-number(:class='{"is-show": !isOrNotStartActivityFlag}') ¥100000
     div.labor-begin-active-count-time(v-if='!isOrNotStartActivityFlag')
       | 活动开始倒计时 <br>
       span {{day}}天
@@ -34,7 +34,7 @@
           | 2、本活动在点击报名之后开始计算有效时长 <br>
           | 3、活动期间被邀请需在个人中心填写邀请码，则被视为成功邀请 <br>
           | 4、活动结束后奖励会在5 个工作日内进行发放 <br>
-          | 5、本活动唯一解释权归必看小说平台所有
+          | 5、本活动唯一解释权归官方所有
 </template>
 
 <script>
