@@ -1,5 +1,5 @@
 <template lang="pug">
-#app
+#labor
   .labor
     .labor-rule(@click='isShowRule=true') 活动规则
     div.labor-top
