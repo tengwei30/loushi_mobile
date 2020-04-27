@@ -11,6 +11,17 @@
       .labor-members(:class='{"is-hidden": !isOrNotStartActivityFlag}')
         | 参与人数：119999
       .labor-money-number ¥100000
+    div.labor-ranking
+      div.labor-end-active-count-time
+        span 活动倒计时：
+        span.time 03
+        | 天
+        span.time 07
+        | 时
+        span.time
+        | 分
+        span.time
+        | 秒
     div.labor-begin-active-count-time(v-if='!isOrNotStartActivityFlag')
       | 活动开始倒计时 <br>
       span {{day}}天
