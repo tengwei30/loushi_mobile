@@ -14,3 +14,20 @@ export function routerToNative(url) {
     window.location.assign(`breader://common/browser?url=${encodeURIComponent(url)}`)
   }
 }
+/**
+ * 这个是去书籍的排行榜页面
+ */
+
+export function jumpBookRanking() {
+  window.location.assign('breader://bookstore/ranking')
+}
+
+/**
+ * 跳转书籍详情
+ * @param {Object} json bookId 书籍的bookId
+ */
+export function jumpBookDetail(json = { bookId: '' }) {
+  const { bookId } = json
+  console.log(bookId)
+  window.location.assign(`breader://bookstore/bookDetails?bookId=${bookId}`)
+}
