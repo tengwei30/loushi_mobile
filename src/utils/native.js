@@ -31,3 +31,10 @@ export function jumpBookDetail(json = { bookId: '' }) {
   console.log(bookId)
   window.location.assign(`breader://bookstore/bookDetails?bookId=${bookId}`)
 }
+
+/**
+ * 绑定微信
+ */
+export function bindingWechat() {
+  window.location.assign('breader://binding/wechat')
+}
