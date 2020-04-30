@@ -212,8 +212,8 @@ export default {
     },
     handleGoShareFriend() {
       mBuryPoint(1, { sharePageClick: 'sharePageClick' })
-      // routerToNative('https://increase.ibreader.com/#/share')
-      routerToNative('http://testtask.ibreader.com/#/share')
+      routerToNative('https://increase.ibreader.com/#/share')
+      // routerToNative('http://testtask.ibreader.com/#/share')
     },
     handleGoBookRanking() {
       jumpBookRanking()
