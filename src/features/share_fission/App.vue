@@ -109,7 +109,7 @@ export default {
     },
     // 立即领取函数
     handleGetNow() {
-      mBuryPoint('clickShareLandPageGet')
+      mBuryPoint('clickShareLandPageGet', { ...this.getMBuryPorintData() })
       if (BROWSER.isWeChat) {
         // 微信环境打开
         this.isShowPop = true
