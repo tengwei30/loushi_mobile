@@ -48,12 +48,13 @@
 
 <script>
 import { mBuryPoint } from '@/utils/buryPoint'
+import { copyToClipboardNative } from '@/utils/native.js'
 import { bookList, noticeList, iosCarefreeAppStoreUrl, andoridApk } from './variable'
 import { downLoadApp } from '@/utils/common'
 import { interviewReportFetch, initWxSdkApiFetch, getPageInfoFetch } from './request'
 import { wxAuthorize, wxInit, wxShareMoentsAndFriend } from '@/utils/wx_sdk.js'
 import BROWSER from '@/utils/browser.js'
-import { countDown, applink } from '@/utils/utils.js'
+import { countDown, applink, copyToClipboard } from '@/utils/utils.js'
 import { getQueryString } from '@/utils/url'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
@@ -118,8 +119,13 @@ export default {
       }
       if (BROWSER.isiOS || BROWSER.isiPhone) {
         this.$showToast('下载《必看小说畅读版》领取奖励', 5000)
+        let strCopy = copyToClipboardNative()
+        copyToClipboard(strCopy)
         downLoadApp('', iosCarefreeAppStoreUrl, 5000)
       } else {
+        this.$showToast('请立即打开《必看免费小说》APP,以免现金过期无法到账哦~', 20000)
+        let strCopy = copyToClipboardNative()
+        copyToClipboard(strCopy)
         applink(() => {
           downLoadApp(andoridApk, '', 5000)
         })

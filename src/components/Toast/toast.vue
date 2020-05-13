@@ -48,20 +48,23 @@ div.toast-modal {
   display: flex;
   margin: auto;
   bottom: 0;
-  width: 100%;
+  width 100%
   top: 0;
-
   .text {
     background: rgba(8, 8, 8, 0.75);
     justify-content: center;
     align-items: center;
     border-radius: 8px;
     min-width: 100px;
+    max-width 80%
+    box-sizing border-box
     font-size: 12px;
-    padding: 0 12px;
+    padding: 5px 12px;
     display: flex;
-    height: 35px;
+    // height: 35px;
     color: #fff;
+    line-height  1.5
+    text-align center
   }
 }
 </style>
