@@ -122,7 +122,7 @@ export function objKeySort(obj) {
   // 排序的函数
   let newkey = Object.keys(obj).sort()
   const newObj = {} // 创建一个新的对象，用于存放排好序的键值对
-  for (var i = 0;i < newkey.length;i++) {
+  for (var i = 0; i < newkey.length; i++) {
     newObj[newkey[i]] = decodeURIComponent(obj[newkey[i]])
   }
   return newObj
@@ -200,7 +200,7 @@ export const randomString = (randomFlag, min, max) => {
   if (randomFlag) {
     range = Math.round(Math.random() * (max - min)) + min
   }
-  for (var i = 0;i < range;i++) {
+  for (var i = 0; i < range; i++) {
     let pos = Math.round(Math.random() * (arr.length - 1))
     str += arr[pos]
   }
@@ -304,7 +304,7 @@ export function countDown(time, fn, delayTime = 1000) {
         hour: add0(h),
         min: add0(m),
         sec: add0(s),
-        ms: add0(parseInt(ms/delayTime))
+        ms: add0(parseInt(ms / delayTime))
       })
     }
     freedjs()
@@ -365,4 +365,19 @@ export function copyToClipboard(text) {
   }
 
   document.body.removeChild(textArea)
+}
+
+/**
+ * 生成一个随机字符串
+ * @param {number} len 随机字符串长度
+ */
+export function randomStringFixLen(len) {
+  len = len || 32
+  let $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'
+  let maxPos = $chars.length
+  let pwd = ''
+  for (var i = 0; i < len; i++) {
+    pwd += $chars.charAt(Math.floor(Math.random() * maxPos))
+  }
+  return pwd
 }

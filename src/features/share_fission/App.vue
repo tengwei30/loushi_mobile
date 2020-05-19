@@ -54,7 +54,7 @@ import { downLoadApp } from '@/utils/common'
 import { interviewReportFetch, initWxSdkApiFetch, getPageInfoFetch } from './request'
 import { wxAuthorize, wxInit, wxShareMoentsAndFriend } from '@/utils/wx_sdk.js'
 import BROWSER from '@/utils/browser.js'
-import { countDown, applink, copyToClipboard } from '@/utils/utils.js'
+import { countDown, applink, copyToClipboard, randomStringFixLen } from '@/utils/utils.js'
 import { getQueryString } from '@/utils/url'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
@@ -114,9 +114,10 @@ export default {
       if (BROWSER.isWeChat) {
         // 微信环境打开
         this.isShowPop = true
-        mBuryPoint('enterShareDP')
+        mBuryPoint('enterShareDP', { type: 0 })
         return
       }
+      mBuryPoint('enterShareDP', { type: 1 })
       if (BROWSER.isiOS || BROWSER.isiPhone) {
         this.$showToast('下载《必看小说畅读版》领取奖励', 5000)
         let strCopy = copyToClipboardNative()
@@ -136,6 +137,7 @@ export default {
       if (BROWSER.isWeChat) {
         wxAuthorize({
           url: this.disHost(),
+          // appid: 'wxd4f4b7bb44ef3718'
           appid: 'wxa5e55e1a7ce23586'
         })
       }
@@ -160,7 +162,11 @@ export default {
     // 页面初始化
     initPage() {
 
-      mBuryPoint('enterShareLandPage', { ...this.getMBuryPorintData() })
+      if (BROWSER.isWeChat) {
+        mBuryPoint('enterShareLandPage', { ...this.getMBuryPorintData(), type: 0 })
+      } else {
+        mBuryPoint('enterShareLandPage', { ...this.getMBuryPorintData(), type: 1 })
+      }
       if (getQueryString('code')) {
         // 通过code调用接口，返回openid,进行后续的操作
         setTimeout(() => {
@@ -177,11 +183,11 @@ export default {
     },
     // 微信sdk api初始化
     async initWxSdkApi() {
-      let res = await initWxSdkApiFetch(this.disHost())
+      let res = await initWxSdkApiFetch(this.getShareUrl())
       try {
         if (res.code === 100) {
           wxInit({ ...res.data })
-          wxShareMoentsAndFriend({ title: '帮我点一下，这是一个好看又能赚钱的有趣应用', content: '一个边看小说边赚钱的有趣应用', url: this.disHost(), desc: '海量小说免费看，躺在家里就能赚钱。', imgUrl: require('@/assets/share_fission/share_icon.png') })
+          wxShareMoentsAndFriend({ title: '帮我点一下，这是一个好看又能赚钱的有趣应用', content: '一个边看小说边赚钱的有趣应用', url: this.getShareUrl(), desc: '海量小说免费看，躺在家里就能赚钱。', imgUrl: require('@/assets/share_fission/share_icon.png') })
         }
       } catch (err) {
         console.log(err)
@@ -201,17 +207,21 @@ export default {
     },
     // 去除泛域名
     disHost() {
-      let { host, protocol, port=80, search, pathname } = window.location
+      let { host, protocol, search, pathname } = window.location
       let hostArr = host.split('.')
       if (typeof Number(hostArr[0]) === 'number' && !isNaN(Number(hostArr[0]))) {
         host = hostArr.splice(1).join('.')
       }
-      console.log(`${protocol}//${host}:${port}${pathname}${search}`)
-      return `${protocol}//${host}${pathname}${search}`
+      let randomPath = '/share/' + randomStringFixLen(6)
+      if (/\/share\//.test(pathname)) {
+        randomPath = ''
+      }
+      console.log(`${protocol}//${host}${randomPath}${pathname}${search}`, /\/share\//.test(pathname), 333)
+      return `${protocol}//${host}${randomPath}${pathname}${search}`
     },
     // 获取分享链接
     getShareUrl() {
-      let { origin, pathname, search } = window.location
+      let { search, origin, pathname } = window.location
       let searchArr = search.substring(1).split('&')
       let resultArr = searchArr.filter(str => {
         return !/(code=)|(state=)|(from=)|(isappinstalled=)/.test(str)

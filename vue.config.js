@@ -118,7 +118,7 @@ module.exports = {
         target: 'http://testtask.ibreader.com/',
         // ws: true,
         changeOrigin: true,
-      },
+      }
     },
   },
 }
