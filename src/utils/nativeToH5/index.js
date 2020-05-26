@@ -28,6 +28,7 @@ export const closeCurrentPage = (callback) => {
  * step: 返回多少层级
  */
 export const goBack = (args) => {
+  console.log(args)
   dsbridge.call('goBackNative', args)
 }
 
@@ -37,6 +38,7 @@ export const goBack = (args) => {
  * content: 吐司提示的内容
  */
 export const toast = (args) => {
+  console.log(args)
   dsbridge.call('showToastNative', args)
 }
 
@@ -54,4 +56,28 @@ export const toast = (args) => {
  */
 export const shareMenu = (args, callback) => {
   dsbridge.call('showShareMenuNative', args, callback)
+}
+
+/**
+ * 跳转url
+ * @param {Object} args 对象包含到属性
+ * skipUrl: 地址
+ */
+export const skipUrl = (args) => {
+  console.log(args)
+  dsbridge.call('skipUrlNative', args)
+}
+
+/**
+ * 跳转登陆页面
+ */
+export const skipLoginPage = () => {
+  dsbridge.call('skipLoginPage')
+}
+/**
+ * 判断用户是否登陆返回值是boolean
+ */
+export const judgeIsLogined = (args) => {
+  console.log(args, '参数args')
+  dsbridge.call('judgeIsLogined', args)
 }

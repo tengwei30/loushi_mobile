@@ -1,15 +1,59 @@
 <template lang="pug">
   #comment-main
     div.author
-      img(src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1590410226177&di=6301bfbb739dbd49761b8597a0bbd728&imgtype=0&src=http%3A%2F%2Fimg02.tooopen.com%2Fimages%2F20150410%2Ftooopen_sy_117771445821.jpg')
-      span 作者名称就是这个者名称就是这个
-    div.comment-title 每日领取福利专用帖子
+      img(:src='commentInfo.headUlr')
+      span {{commentInfo.name}}
+    div.comment-title(v-if='commentInfo.title') {{commentInfo.title}}
+    div.comment-content {{isShowMore?content:this.commentInfo.content}}
+      span.more(v-show='isShowMore' @click='handleShowMore') 更多
+    img.comment-img(v-if='commentInfo.image' :src='commentInfo.image')
+    div.comment-tip
+      div.tip-left
+        span.comment-time 发布于{{getDateFormat}}
+        span.comment-delete(v-if='commentInfo.mine' @click='deleteShowComment') 删除
+      div.tip-right(@click='handleStar')
+        img(src='@/assets/community/unstar.png' v-if='!commentInfo.liked')
+        img(src='@/assets/community/star.png' v-else)
+        | {{commentInfo.stars > 999 ? '999+' : commentInfo.stars}}
 </template>
 
 <script>
+import { semanticsDate } from '@/utils/utils'
 export default {
+  props: {
+    commentInfo: Object
+  },
   data() {
-    return {}
+    return {
+      isShowMore: true,
+    }
+  },
+  methods: {
+    deleteShowComment() {
+      this.$parent.isShowDeleteFlag = true
+      this.$parent.needDeleteCommentId = this.commentInfo.commentId
+      this.$parent.isCommentDelete = true
+    },
+    handleShowMore() {
+      this.isShowMore = !this.isShowMore
+    },
+    handleStar() {
+      this.$emit('toggleStar')
+    },
+  },
+  computed: {
+    content() {
+      let content = this.commentInfo.content
+      if (content.length > 200) {
+        this.isShowMore = true
+        return content.substring(0, 200) + '...'
+      }
+      this.isShowMore = false
+      return content
+    },
+    getDateFormat() {
+      return semanticsDate(this.commentInfo.time)
+    }
   }
 }
 </script>

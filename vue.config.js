@@ -114,10 +114,19 @@ module.exports = {
       //   // ws: true,
       //   changeOrigin: true,
       // },
-      '/*': {
-        target: 'http://testtask.ibreader.com/',
+      // '/*': {
+      //   target: 'http://testtask.ibreader.com/',
+      //   // ws: true,
+      //   changeOrigin: true,
+      // },
+      '/community': {
+        target: 'http://testapi.ibreader.com/',
         // ws: true,
         changeOrigin: true,
+      },
+      '/api': {
+        target: 'http://test.cartoon1.ibreader.com/',
+        changeOrigin: true
       }
     },
   },
