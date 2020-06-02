@@ -62,7 +62,7 @@ export default {
         msg_flag: '0',
         level_msg_flag: '1',
         feedback_flag: '1',
-        photo_flag: compareVersion('1.38.0', version) !== -1 ? '1' : '0',
+        photo_flag: compareVersion('1.38.0', this.version) !== -1 ? '1' : '0',
         to_customsys_open_style: '0',
         // leave_customsys_flag: '1',
         agent_mode_flag: '1',
