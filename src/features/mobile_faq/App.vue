@@ -21,6 +21,7 @@
 
 <script>
 import { post } from '@/config/axios.config'
+import { setHeader } from '@/config/Interceptor.config'
 import List from './components/list'
 import config from './data.js'
 import {
@@ -111,7 +112,9 @@ export default {
       }, 2000)
     },
   },
-  created() {},
+  created() {
+    setHeader()
+  },
   mounted() {
     mBuryPoint(null, { // 进入帮助中心的埋点
       source: 'help_center',
