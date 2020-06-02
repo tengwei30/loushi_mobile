@@ -38,3 +38,25 @@ export function jumpBookDetail(json = { bookId: '' }) {
 export function bindingWechat() {
   window.location.assign('breader://binding/wechat')
 }
+
+/**
+ * 复制粘贴板schme信息
+ * @param {*} obj scheme中需要拼接到内容
+ * @param {*} posType 1=注册用户时识别，2=启动app时识别
+ */
+export function copyToClipboardNative(obj, posType) {
+  let scheme = 'breader://report/umeng'
+  if (obj && typeof obj === 'object') {
+    let keyValueArr = []
+    Object.keys(obj).map(key => {
+      keyValueArr.push(`${key}=${obj[key]}`)
+    })
+    scheme = keyValueArr.length > 0 ? (scheme + '?' + keyValueArr.join('&')) : scheme
+  }
+  let result = {
+    scheme,
+    posType: posType || 1,
+    magicCode: 'lwby'
+  }
+  return JSON.stringify(result)
+}
