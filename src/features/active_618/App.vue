@@ -1,47 +1,47 @@
 <template lang="pug">
-#active-618
+#active-618(:class='{"platform1": isPlatform == 51}')
   div.active-rule(@click='isShowRule = true') 活动规则
   div.recharge-box
     div.recharge-item
-      div.recharge-item-btn(v-if='isStarted' @click='handleGoUserCenter')
+      div.recharge-item-btn(v-if='isStarted' @click='handleGoUserCenter(1)')
       div.recharge-item-time(v-else)
-        | 倒计时:
-        span {{day}}
-        | 天
-        span {{hour}}
-        | 小时
+        div 倒计时:
+        div.mine-time {{hour}}
+        div 小时
+        div.mine-time {{min}}
+        div 分
     div.recharge-item
-      div.recharge-item-btn(v-if='isStarted' @click='handleGoUserCenter')
+      div.recharge-item-btn(v-if='isStarted' @click='handleGoUserCenter(2)')
       div.recharge-item-time(v-else)
-        | 倒计时:
-        span {{day}}
-        | 天
-        span {{hour}}
-        | 小时
-  div.notice-list(v-if='noticeList.length > 0')
-    swiper.notice-swiper(:options='swiperOptions')
+        div 倒计时:
+        div.mine-time {{hour}}
+        div 小时
+        div.mine-time {{min}}
+        div 分
+  div.notice-list(v-if='isPlatform != 1 && noticeList.length')
+    swiper.notice-swiper.swiper-no-swiping(:options='swiperOptions')
       swiper-slide.notice-swiper-slide(v-for='(item, index) in noticeList'
       :key='index')
         img(:src='item.headImage')
         span.notice-nickname {{item.nickName}}中了
         span.notice-award {{item.rewardName}}
-  div.more-game
+  div.more-game(v-if='isPlatform != 1')
     div.game-one
       div.game-btn(v-if='isStarted' @click='getGameUrl(2)')
       div.game-time(v-else)
-        | 倒计时:
-        span {{day}}
-        | 天
-        span {{hour}}
-        | 小时
+        div 倒计时:
+        div.mine-time {{hour}}
+        div 小时
+        div.mine-time {{min}}
+        div 分
     div.game-two
       div.game-btn(v-if='isStarted' @click='getGameUrl(3)')
       div.game-time(v-else)
-        | 倒计时:
-        span {{day}}
-        | 天
-        span {{hour}}
-        | 小时
+        div 倒计时:
+        div.mine-time {{hour}}
+        div 小时
+        div.mine-time {{min}}
+        div 分
     div.game-three(@click='getGameUrl(4)')
   div.member-power
   div.active-book-box
@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import { mBuryPoint } from '@/utils/buryPoint'
 import { getNoticeList, getGameUrl } from './request.js'
 import { getQueryString } from '@/utils/url.js'
 import { routerToNative, jumpBookRanking, jumpBookDetail } from '@/utils/native'
@@ -89,18 +90,23 @@ export default {
         spaceBetween: 4
       },
       bookList,
-      day: '0',
+      min: '0',
       hour: '00',
-      isShowRule: false
+      isShowRule: false,
+      isPlatform: 5
     }
   },
   methods: {
     initPage() {
-      this.getNoticeList()
+      mBuryPoint(5, { enterActivityLandPage: 'enterActivityLandPage' })
+      this.isPlatform = getQueryString('platform')
+      if (getQueryString('platform') !== 1) {
+        this.getNoticeList()
+      }
       this.computedCountDown()
     },
     async getNoticeList() {
-      const activityId = getQueryString()
+      const activityId = getQueryString('activityId')
       let res = await getNoticeList(activityId)
       console.log(res)
       if (res.code === 100) {
@@ -108,10 +114,21 @@ export default {
       }
     },
     async getGameUrl(transfer) {
+      mBuryPoint(5, { clickButton: 'clickButton', position: transfer + 1 })
+      if (transfer === 4) {
+        let result = window.location.origin.indexOf('test') > -1 ? ('http://test.activities.ibreader.com/#/luck') : 'https://activities.ibreader.com/#/luck'
+        result += window.location.search
+        routerToNative(result)
+        return
+      }
       let appType = BROWSER.isiOS ? 1 : 0
       let res = await getGameUrl(appType, transfer)
       if (res.code === 100) {
-        routerToNative(res.data.loginUrl)
+        if (res.data && res.data.loginUrl) {
+          routerToNative(res.data.loginUrl)
+        } else {
+          window.location.assign('breader://common/login?isBindPhone=true')
+        }
       }
     },
     computedCountDown() {
@@ -120,18 +137,28 @@ export default {
         this.isStarted = true
         return
       }
-      countDown(time, ({ day, hour }) => {
-        this.day = day
-        this.hour = hour
+      countDown(time, ({ day, hour, min, sec }) => {
+        let hourTemp = Number(day)*24 + Number(hour)
+        this.hour = hourTemp > 9 ? hourTemp : '0'+hourTemp
+        this.min = min
+        if (day == 0 && hour == 0 && min == 0 && sec > 0) {
+          this.min = '01'
+        }
+        if (day == 0 && hour == 0 && min == 0 && sec == 0) {
+          window.reload()
+        }
       })
     },
     handleGoRanking() {
+      mBuryPoint(5, { clickButton: 'clickButton', position: 6 })
       jumpBookRanking()
     },
     handleGoBookDetail(bookId) {
+      mBuryPoint(5, { clickButton: 'clickButton', bookId })
       jumpBookDetail({ bookId })
     },
-    handleGoUserCenter() {
+    handleGoUserCenter(target) {
+      mBuryPoint(5, { clickButton: 'clickButton', position: target })
       window.location = 'breader://usercenter/vip'
     }
   },

@@ -6,10 +6,10 @@
     .rule-content
       div 1、本活动结束后7个工作日内，发放所有实物奖励
       div 2、活动优惠所有福利，仅在活动期间内充值有效
-      div 3、必看会员为虚拟产品概不支持退款
+      div 3、会员为虚拟产品概不支持退款
       div 4、活动中有任何疑问，可咨询客服服务
       div 5、本活动拒绝一切作弊，一旦发现取消活动资格
-      div 6、本活动唯一解释权归必看小说官方平台所有
+      div 6、本活动唯一解释权归官方平台所有
 </template>
 <script>
 export default {
@@ -58,6 +58,5 @@ export default {
       padding 0 15px 0 21px
       color #666666
       margin-top 20px
-      font-weight bold
       line-height 24px
 </style>

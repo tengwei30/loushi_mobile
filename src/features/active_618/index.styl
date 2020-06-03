@@ -4,6 +4,8 @@
   background-color #FF4E52
   overflow auto
   padding-bottom 56px
+  &.platform1
+    background-image url('../../assets/active_618/bg_platform1.png')
   .active-rule
     width 65px
     height 20px
@@ -35,22 +37,41 @@
         margin 189px auto 0
       .recharge-item-time
         margin 189px auto 0
-        font-size 14px
+        font-size 0
         color #C1C1C1
         font-weight bold
         display flex
         align-items center
         justify-content center
-        span
-          display inline-block
-          width 25px
-          height 25px
-          background-color #C1C1C1
-          border-radius 8px
-          color #ffffff
-          text-align center
-          line-height 25px
-          margin 0 3px
+        height 28px
+        line-height 28px
+        position relative
+        font-size 28px
+        transform scale(0.5)
+        transform-origin left
+        div
+          box-sizing border-box
+          white-space nowrap
+          position absolute
+          &:nth-of-type(1)
+            left 20px
+          &:nth-of-type(2)
+            left 120px
+          &:nth-of-type(3)
+            left 180px
+          &:nth-of-type(4)
+            left 240px
+          &:nth-of-type(5)
+            left 300px
+          &.mine-time
+            text-align center
+            width 28px
+            background-color #C1C1C1
+            border-radius 16px
+            color #ffffff
+            width 56px
+            height 56px
+            line-height 56px
   .notice-list
     height 110px
     width 329px
@@ -82,26 +103,47 @@
     background url('../../assets/active_618/more_game.png') no-repeat center center/100% 100%
     margin 20px auto 0
     overflow hidden
+    position relative
     .game-time
-      font-size 14px
+      font-size 0
       color #C1C1C1
       font-weight bold
       display flex
       align-items center
       justify-content flex-start
-      span
-        display inline-block
-        width 28px
-        height 28px
-        background-color #C1C1C1
-        border-radius 8px
-        color #ffffff
-        text-align center
-        line-height 28px
-        margin 0 3px
+      position relative
+      font-size 28px
+      transform scale(0.5)
+      transform-origin left
+      div
+        box-sizing border-box
+        white-space nowrap
+        position absolute
+        &:nth-of-type(1)
+          left 20px
+        &:nth-of-type(2)
+          left 120px
+        &:nth-of-type(3)
+          left 180px
+        &:nth-of-type(4)
+          left 240px
+        &:nth-of-type(5)
+          left 300px
+        &.mine-time
+          text-align center
+          width 28px
+          background-color #C1C1C1
+          border-radius 16px
+          color #ffffff
+          width 56px
+          height 56px
+          line-height 56px
     .game-one
       margin-top 187px
       margin-left 40px
+      .game-time
+        margin-top 200px
+        margin-left -10px
       .game-btn
         width 104px
         height 29px
@@ -109,12 +151,16 @@
     .game-two
       margin-top 111px
       margin-left 40px
+      .game-time
+        margin-top 140px
+        margin-left -10px
       .game-btn
         width 104px
         height 29px
         background url('../../assets/active_618/crush_egg.png') no-repeat center center/100% 100%
     .game-three
-      margin-top 114px
+      position absolute
+      top 468px
       margin-left 40px
       width 104px
       height 29px
@@ -133,12 +179,12 @@
     padding 0 30px
     overflow hidden
     .active-book-list
-      margin-top 82px
+      margin-top 78px
       display flex
       flex-wrap wrap
       justify-content space-between
       .active-book-item
-        margin-bottom 20px
+        margin-bottom 16px
         img
           width 93px
           height 121px
@@ -165,4 +211,7 @@
 .notice-list .notice-swiper .swiper-slide-active,.notice-list .notice-swiper .swiper-slide-duplicate-active {
   transform: scale(1);
   background: #D81921;
+}
+.notice-swiper .swiper-slide:before{
+  background: transparent;
 }
