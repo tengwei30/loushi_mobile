@@ -132,7 +132,7 @@ export default {
       }
     },
     computedCountDown() {
-      let time = new Date('2020/06/18 00:00:00').getTime() - new Date().getTime()
+      let time = new Date('2020/06/11 14:30:00').getTime() - new Date().getTime()
       if (time <= 0) {
         this.isStarted = true
         return
