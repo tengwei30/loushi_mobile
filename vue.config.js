@@ -143,7 +143,7 @@ module.exports = {
     open: true,
     hotOnly: true,
     host: '0.0.0.0',
-    port: '80',
+    port: '1024',
     disableHostCheck: true, // 配置内网穿透
     proxy: {
       // '/api': {
@@ -152,7 +152,7 @@ module.exports = {
       //   changeOrigin: true,
       // },
       '/activity_api': {
-        target: 'http://testapi.ibreader.com/', //设置调用接口域名和端口号别忘了加http
+        target: 'http://testapi.ibreader.com/', // 设置调用接口域名和端口号别忘了加http
         changeOrigin: true,
       },
       '/*': {
