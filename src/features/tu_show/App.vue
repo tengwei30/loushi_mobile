@@ -17,7 +17,7 @@
           span {{ imgs && imgs.length || 0 }}
           | {{ title }}
         p.icon
-          span(v-for="item in tags") {{ item }}
+          span(v-for="item in tags") # {{ item }}
       ul
         li(v-for="item in navdatas")
           img(:src="item.imgurl")
@@ -30,6 +30,7 @@
 
 <script>
 import axios from 'axios'
+import { getQueryString } from '@/utils/url'
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
 export default {
@@ -93,6 +94,8 @@ export default {
       avatarUrl: null,
       title: null,
       tags: [],
+      uid: getQueryString('uid') || 1,
+      pid: getQueryString('pid') || 2
     }
   },
   components: {
@@ -120,8 +123,8 @@ export default {
       method: 'POST',
       url: '/pixiv_tumeng/works/preview',
       data: {
-        uid: 1,
-        pid: 2
+        uid: this.uid,
+        pid: this.pid
       }
     }).then(res => {
       const { nickname, title, tags, avatarUrl, images, tumengStars, tumengComments } = res.data.data
