@@ -9,7 +9,8 @@ body,html
   display flex
   flex-direction column
   position relative
-  header
+  background #000000
+  .tu__header
     size(100%, 45px)
     padding 0 21px
     box-sizing border-box
@@ -20,7 +21,7 @@ body,html
     align-items center
     img.avator
       size(24px, 24px)
-      border-radius radius
+      border-radius 12px
       margin-right 6px
     span.name
       height 20px
@@ -33,16 +34,22 @@ body,html
       color #fff
       font-weight bold
       line-height 20px
-  main
+  .tu__main
     flex 1
     .swiper-container
       size(100%, 100%)
       .swiper-slide
         height 100%
-  .space
+        display flex
+        justify-content center
+        align-items: center
+        img
+          width 100%
+          display inline-block
+  .tu__space
     size(100%, 66px)
     background #000000
-  footer
+  .tu__footer
     width 100%
     min-height 66px
     absolute(bottom 0 left 0 right 0)

@@ -1,33 +1,23 @@
 <template lang="pug">
 #app
-  header
-    img.avator(src="")
-    span.name wangermaziaaaaa
-  main(@click="clickDoc()")
+  header.tu__header
+    img.avator(:src="avatarUrl")
+    span.name {{ nickname }}
+  main.tu__main(@click="clickDoc()")
     swiper(ref="mySwiper" :options="swiperOptions")
-      swiper-slide(style="background: red")
-        h2 1
-      swiper-slide
-        h2 2
-      swiper-slide
-        h2 3
-      swiper-slide
-        h2 4
-      swiper-slide
-        h2 5
-  .space
+      swiper-slide(v-for="item in imgs")
+        img(:src="item")
+  .tu__space
   transition(name="fade")
-    footer(v-if="isshow")
+    .tu__footer(v-if="isshow")
       .content
         p.number_all
           span {{ currentIndex }}
           | /
-          span 5
-          | 【お仕事】PRECIOUS DAYS
+          span {{ imgs && imgs.length || 0 }}
+          | {{ title }}
         p.icon
-          span #icon
-          span #font
-          span #文案
+          span(v-for="item in tags") {{ item }}
       ul
         li(v-for="item in navdatas")
           img(:src="item.imgurl")
@@ -39,6 +29,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
 export default {
@@ -59,9 +50,9 @@ export default {
         //   disableOnInteraction: false,
         // },
         on: {
-          // slideChangeTransitionStart() {
-          //   console.log('我是的开始的打印', this.isEnd)
-          // },
+          slideChangeTransitionStart() {
+            console.log('我是的开始的打印', this, this.isEnd)
+          },
           slideChangeTransitionEnd() {
             _this.currentIndex = this.realIndex * 1 + 1
             if (this.realIndex * 1 === 0) {
@@ -73,28 +64,35 @@ export default {
           }
         }
       },
-      navdatas: [{
-        imgurl: require('@/assets/tu_show/dianzan-5@2x.png'),
-        desc: '222'
-      }, {
-        imgurl: require('@/assets/tu_show/SBitmap@2x.png'),
-        desc: '333'
-      }, {
-        imgurl: require('@/assets/tu_show/fenxiang@2x.png'),
-        desc: '分享'
-      }, {
-        imgurl: require('@/assets/tu_show/shoucang@2x.png'),
-        desc: '收藏'
-      }, {
-        imgurl: require('@/assets/tu_show/sanjiao_right@2x.png'),
-        desc: '下一组'
-      }, {
-        imgurl: require('@/assets/tu_show/Bitmap@2x.png'),
-        desc: '弹幕'
-      }],
+      navdatas: [
+        {
+          imgurl: require('@/assets/tu_show/dianzan-5@2x.png'),
+          desc: '0'
+        }, {
+          imgurl: require('@/assets/tu_show/SBitmap@2x.png'),
+          desc: '0'
+        }, {
+          imgurl: require('@/assets/tu_show/fenxiang@2x.png'),
+          desc: '分享'
+        }, {
+          imgurl: require('@/assets/tu_show/shoucang@2x.png'),
+          desc: '收藏'
+        }, {
+          imgurl: require('@/assets/tu_show/sanjiao_right@2x.png'),
+          desc: '下一组'
+        }, {
+          imgurl: require('@/assets/tu_show/Bitmap@2x.png'),
+          desc: '弹幕'
+        }
+      ],
       isshow: true,
       currentIndex: 1,
-      isGuide: true
+      isGuide: true,
+      imgs: [],
+      nickname: null,
+      avatarUrl: null,
+      title: null,
+      tags: [],
     }
   },
   components: {
@@ -115,9 +113,27 @@ export default {
     },
     ledModal() {
       this.isGuide = false
-    }
+    },
   },
-  mounted() {},
+  mounted() {
+    axios({
+      method: 'POST',
+      url: '/pixiv_tumeng/works/preview',
+      data: {
+        uid: 1,
+        pid: 2
+      }
+    }).then(res => {
+      const { nickname, title, tags, avatarUrl, images, tumengStars, tumengComments } = res.data.data
+      this.imgs = images
+      this.nickname = nickname
+      this.title = title
+      this.avatarUrl = avatarUrl
+      this.tags = tags
+      this.navdatas[0].desc = tumengStars
+      this.navdatas[1].desc = tumengComments
+    })
+  },
 }
 </script>
 
