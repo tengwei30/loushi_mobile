@@ -1,12 +1,16 @@
 <template lang="pug">
 #app
-  header.tu__header
-    img.avator(:src="avatarUrl")
-    span.name {{ nickname }}
-  main.tu__main(@click="clickDoc()")
+  transition(name="fade" v-if="isshow")
+    header.tu__header
+      img.avator(:src="avatarUrl")
+      span.name {{ nickname }}
+  .tu__space__top
+  main.tu__main
     swiper(ref="mySwiper" :options="swiperOptions")
       swiper-slide(v-for="item in imgs")
         img(:src="item")
+      .swiper-button-prev(slot="button-prev" @click="prevClick()")
+      .swiper-button-next(slot="button-next")
   .tu__space
   transition(name="fade")
     .tu__footer(v-if="isshow")
@@ -22,9 +26,8 @@
         li(v-for="item in navdatas")
           img(:src="item.imgurl")
           p.desc {{ item.desc }}
-  .Modal(v-show="isGuide")
-    //- img(src="@/assets/tu_show/float@2x.png")
-    .btn(@click="ledModal()")
+  .Modal(v-show="isGuide" @click="ledModal()")
+    .btn
       p Got it
 </template>
 
@@ -45,24 +48,31 @@ export default {
         },
         loop: false,
         speed: 300,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        },
         // autoplay: {
         //   delay: 3000,
         //   stopOnLastSlide: true,
         //   disableOnInteraction: false,
         // },
         on: {
-          slideChangeTransitionStart() {
-            console.log('我是的开始的打印', this, this.isEnd)
-          },
-          slideChangeTransitionEnd() {
+          click() {
+            const currentX = Number(this.touches.currentX).toFixed(1)
             _this.currentIndex = this.realIndex * 1 + 1
-            if (this.realIndex * 1 === 0) {
+            if (this.isBeginning && currentX < 82) {
               _this.$showToast('This is the first illustration', '2000')
             }
-            if (this.isEnd) {
+            if (this.isEnd && currentX > 310) {
               _this.$showToast('This is the last illustration', '2000')
             }
-          }
+            if (currentX > 85 && currentX < 310) {
+              console.log('2222')
+              _this.isshow = !_this.isshow
+            }
+          },
+          slideChangeTransitionEnd() {}
         }
       },
       navdatas: [
