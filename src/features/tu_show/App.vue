@@ -130,6 +130,13 @@ export default {
       this.isGuide = false
     },
   },
+  created() {
+    if (window.localStorage.getItem('isModalShow')) {
+      this.isGuide = false
+    } else {
+      window.localStorage.setItem('isModalShow', false)
+    }
+  },
   mounted() {
     axios({
       method: 'POST',
