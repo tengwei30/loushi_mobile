@@ -60,7 +60,8 @@ body,html
     absolute(bottom 0 left 0 right 0)
     z-index 9990
     .content
-      size(100%, 71px)
+      width 100%
+      min-height 71px
       background-color rgb(0,0,0)
       background rgba(0,0,0,0.6)
       font-size 14px
@@ -71,6 +72,13 @@ body,html
         padding-top 8px
         span
           padding-right 8px
+      .number_all
+        max-width 330px
+        overflow hidden
+        white-space nowrap
+        text-overflow ellipsis
+        .imgsnums
+          padding-right 5px
     ul
       display flex
       flex-direction row

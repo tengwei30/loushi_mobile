@@ -18,7 +18,7 @@
         p.number_all
           span {{ currentIndex }}
           | /
-          span {{ imgs && imgs.length || 0 }}
+          span.imgsnums {{ imgs && imgs.length || 0 }}
           | {{ title }}
         p.icon
           span(v-for="item in tags") # {{ item }}
