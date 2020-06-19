@@ -4,7 +4,7 @@ import { get } from '@/config/axios.config'
 
 export const initOss = async(pic_num) => {
   console.log(pic_num)
-  let res = await get('/api/oss/getResourceUploadToken', {
+  let res = await get('https://cartoon.ibreader.com/api/oss/getResourceUploadToken', {
     params: { pic_num }
   })
   if (res.code === 100) {
