@@ -60,15 +60,15 @@ export default {
         on: {
           click() {
             const currentX = Number(this.touches.currentX).toFixed(1)
-            // _this.currentIndex = this.realIndex * 1 + 1
-            if (this.isBeginning && currentX < 82) {
+            const ClientWidth = document.body.clientWidth
+            // console.log('==========', this, currentX, document.body.clientWidth, ClientWidth/2 - 100)
+            if (this.isBeginning && currentX < (ClientWidth/2 - 100)) {
               _this.$showToast('This is the first illustration', '2000')
             }
-            if (this.isEnd && currentX > 310) {
+            if (this.isEnd && currentX > (ClientWidth/2 + 100)) {
               _this.$showToast('This is the last illustration', '2000')
             }
-            if (currentX > 85 && currentX < 310) {
-              console.log('2222')
+            if (currentX > (ClientWidth/2 - 100) && currentX <  (ClientWidth/2 + 100)) {
               _this.isshow = !_this.isshow
             }
           },
