@@ -4,7 +4,6 @@
     header.tu__header
       img.avator(:src="avatarUrl")
       span.name {{ nickname }}
-  .tu__space__top
   main.tu__main
     swiper(ref="mySwiper" :options="swiperOptions")
       swiper-slide(v-for="item in imgs")
