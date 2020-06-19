@@ -9,7 +9,7 @@
     swiper(ref="mySwiper" :options="swiperOptions")
       swiper-slide(v-for="item in imgs")
         img(:src="item")
-      .swiper-button-prev(slot="button-prev" @click="prevClick()")
+      .swiper-button-prev(slot="button-prev")
       .swiper-button-next(slot="button-next")
   .tu__space
   transition(name="fade")
@@ -60,7 +60,7 @@ export default {
         on: {
           click() {
             const currentX = Number(this.touches.currentX).toFixed(1)
-            _this.currentIndex = this.realIndex * 1 + 1
+            // _this.currentIndex = this.realIndex * 1 + 1
             if (this.isBeginning && currentX < 82) {
               _this.$showToast('This is the first illustration', '2000')
             }
@@ -72,7 +72,9 @@ export default {
               _this.isshow = !_this.isshow
             }
           },
-          slideChangeTransitionEnd() {}
+          slideChangeTransitionEnd() {
+            _this.currentIndex = this.realIndex * 1 + 1
+          }
         }
       },
       navdatas: [
