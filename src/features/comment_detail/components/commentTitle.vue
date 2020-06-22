@@ -1,7 +1,8 @@
 <template lang="pug">
   #comment-main
     div.author
-      img(:src='commentInfo.headUlr')
+      img(v-if='commentInfo.headUlr' :src='commentInfo.headUlr' :onerror='errorImg')
+      img(v-else :src='defaultUserImg')
       span {{commentInfo.name}}
     div.comment-title(v-if='commentInfo.title') {{commentInfo.title}}
     div.comment-content {{isShowMore?content:this.commentInfo.content}}
@@ -26,6 +27,8 @@ export default {
   data() {
     return {
       isShowMore: true,
+      defaultUserImg: require('../../../assets/community/user_default_img.png'),
+      errorImg: 'this.src="'+require('../../../assets/community/user_default_img.png')+'"'
     }
   },
   methods: {

@@ -3,7 +3,8 @@
   @click='goReplyDetailPage')
     div.top
       div.top-left
-        img(:src='item.headUlr')
+        img(v-if='item.headUlr' :src='item.headUlr' :onerror='errorImg')
+        img(v-else :src='defaultUserImg')
         div.user-info
           div.user-name(v-if='specialAuthor')
             span {{item.name}}
@@ -58,7 +59,10 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      defaultUserImg: require('../../../assets/community/user_default_img.png'),
+      errorImg: 'this.src="'+require('../../../assets/community/user_default_img.png')+'"'
+    }
   },
   methods: {
     deleteShowComment() {
