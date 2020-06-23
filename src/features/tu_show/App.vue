@@ -139,7 +139,7 @@ export default {
   mounted() {
     axios({
       method: 'POST',
-      url: '/pixiv_tumeng/works/preview',
+      url: '/pixiv_tumeng/v1/works/preview',
       data: {
         uid: this.uid,
         pid: this.pid
