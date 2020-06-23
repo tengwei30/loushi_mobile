@@ -116,7 +116,7 @@ export default {
     async getGameUrl(transfer) {
       mBuryPoint(5, { clickButton: 'clickButton', position: transfer + 1 })
       if (transfer === 4) {
-        let result = window.location.origin.indexOf('test') > -1 ? ('http://test.activities.ibreader.com/#/luck') : 'https://activities.ibreader.com/#/luck'
+        let result = window.location.origin.indexOf('test') > -1 ? ('http://test.activities.ibreader.com/#/luckmay') : 'https://activities.ibreader.com/#/luckmay'
         result += window.location.search
         routerToNative(result)
         return
@@ -132,7 +132,7 @@ export default {
       }
     },
     computedCountDown() {
-      let time = new Date('2020/06/11 14:30:00').getTime() - new Date().getTime()
+      let time = new Date('2020/06/18 00:00:00').getTime() - new Date().getTime()
       if (time <= 0) {
         this.isStarted = true
         return
