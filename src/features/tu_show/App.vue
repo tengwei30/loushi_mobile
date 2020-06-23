@@ -1,5 +1,5 @@
 <template lang="pug">
-#app
+#tuapp
   transition(name="fade" v-if="isshow")
     header.tu__header
       img.avator(:src="avatarUrl")
@@ -13,7 +13,7 @@
   .tu__space
   transition(name="fade")
     .tu__footer(v-if="isshow")
-      .content
+      .tu__footer__content
         p.number_all
           span {{ currentIndex }}
           | /
