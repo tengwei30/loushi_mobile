@@ -25,7 +25,7 @@ export default {
     getRecordList() {
       post('/api/task/v1/wallet/user/records')
         .then(res => {
-          this.walletList = res.list
+          this.walletList = res.data.list
         })
         .catch(err => {
           console.log('error ---> ', err)
