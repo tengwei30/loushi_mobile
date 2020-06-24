@@ -30,8 +30,7 @@
           comment-item(v-for='item in list' :key='item.id'
           :commentInfo='item'
           @deleteComment='deleteComment'
-          @toggleStar='toggleStar'
-          @clickReplyItemBtn='clickReplyItemBtn')
+          @toggleStar='toggleStar')
           div.is-null-comment(v-if='this.list.length === 0') 没有书评就等你了～
           template(v-else)
             div.is-has-more(v-if='isHasMore') 加载中
@@ -64,7 +63,6 @@ import CommentItem from './components/commentItem'
 import ReplyInput from '@/features/comment_detail/components/replyInput'
 import { getQueryString } from '@/utils/url'
 import { skipUrl, setHeader, toast, judgeIsLogined, skipLoginPage } from '@/utils/nativeToH5/index'
-import bus from '@/features/comment_detail/bus'
 import DeleteDialog from '@/features/post_bar/components/deleteDialog'
 import { mBuryPoint } from '@/utils/buryPoint'
 
@@ -123,10 +121,6 @@ export default {
             this.isShowPublishPost = false
           }
         })
-        // better-scroll阻止了浏览器原生的click事件，用tab注册一个事件，点击后让input失去焦点
-        this.$refs.wrapper.addEventListener('tap', () => {
-          bus.$emit('replyInputBlur')
-        }, false)
       })
     },
     handleToggleHot() {
@@ -253,12 +247,6 @@ export default {
       })
       this.getDifferList()
     },
-    clickReplyItemBtn(commentInfo) {
-      this.commentInfo = commentInfo
-      judgeIsLogined({
-        callback: 'isLoginedReplyItemBtn'
-      })
-    },
     async publishReply(content) {
       let parentId = this.commentInfo.commentId
       let type = 1
@@ -304,16 +292,6 @@ export default {
         if (res.code === 100) {
           this.getCorrectList(this.commentInfo, -1)
         }
-      } else {
-        skipLoginPage()
-      }
-    }
-    window.isLoginedReplyItemBtn = async(isLogined) => {
-      if (isLogined) {
-        this.isShowPublishPost = false
-        this.replyInputFlag = true
-        await this.$nextTick()
-        bus.$emit('getReplyFoucs', this.commentInfo)
       } else {
         skipLoginPage()
       }
