@@ -43,8 +43,6 @@ export default {
 body,html
   width 100%
   height 100%
-  max-width 750px
-  margin 0 auto
 .coin__record
   width 100%
   height 100%
