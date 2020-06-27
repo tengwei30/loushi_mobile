@@ -3,7 +3,8 @@
   div
     div.top
       div.book
-        img.book-cover(:src='bookInfo.bookCoverUrl' :onerror='defaultBookCover')
+        img.book-cover(v-if='bookInfo.bookCoverUrl' :src='bookInfo.bookCoverUrl' :onerror='defaultBookCover')
+        img.book-cover(v-else :src='nullBookCover')
         div.book-info
           div.book-name {{bookInfo.bookName}}
           div.book-tip
@@ -95,6 +96,7 @@ export default {
       needDeleteCommentId: '',
       isHasMore: true,
       isShowPublishPost: true,
+      nullBookCover: require('../../assets/community/book_default.png'),
       defaultBookCover: 'this.src="'+require('../../assets/community/book_default.png')+'"'
     }
   },
