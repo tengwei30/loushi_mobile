@@ -1,8 +1,0 @@
-export default {
-  GET_ME: 'GET_ME',
-  GET_ME_DATA: { id: '' },
-  GET_GOOD_LIST: 'GET_GOOD_LIST',
-  GET_USER_AUTH: 'GET_USER_AUTH',
-  GET_PURCHES: 'GET_PURCHES',
-  GET_VIP_CARD: 'GET_VIP_CARD',
-}
