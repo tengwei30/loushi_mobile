@@ -32,7 +32,7 @@ function normalize(property, value, prefix) {
   /* Adding prefixes to the `transform` values of legacy `transition` property */
   if (
     prefix &&
-    (property == "'transition'" || property == "'transition-property'")
+    (property == '\'transition\'' || property == '\'transition-property\'')
   ) {
     result = result.replace(RE_TRANSFORM, '-' + prefix + '-$1')
   }
@@ -40,7 +40,7 @@ function normalize(property, value, prefix) {
   /* Removing `fill` keyword from the legacy `border-image` property */
   if (
     prefix &&
-    (property == "'border-image'" || property == "'border-image-slice'")
+    (property == '\'border-image\'' || property == '\'border-image-slice\'')
   ) {
     result = result.replace(RE_FILL_KEYWORD, ' ')
   }
@@ -57,9 +57,9 @@ function normalizeGradient(parts, prefix) {
   // http://blogs.msdn.com/b/ie/archive/2012/06/25/unprefixed-css3-gradients-in-ie10.aspx
   if (parts[1])
     val +=
-      (prefix
-        ? parseFloat((Math.abs(450 - parts[1]) % 360).toFixed(3))
-        : parts[1]) + 'deg'
+      (prefix ?
+        parseFloat((Math.abs(450 - parts[1]) % 360).toFixed(3)) :
+        parts[1]) + 'deg'
 
   /* Fix the directions to the legacy syntax */
   if (prefix && parts[4]) {
@@ -70,9 +70,7 @@ function normalizeGradient(parts, prefix) {
     // `top` to `to bottom` etc.
     if (parts[5]) val += 'to ' + DIRECTIONS[parts[5]]
     if (parts[6]) val += ' ' + DIRECTIONS[parts[7]]
-  } else {
-    if (parts[3]) val += parts[3]
-  }
+  } else if (parts[3]) val += parts[3]
 
   return val
 }
