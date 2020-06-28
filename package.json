@@ -83,5 +83,14 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+   "lint-staged": {
+    "*.{js,vue,styl,css,json,md}": [
+      "vue-cli-service lint",
+      "git add"
+    ]
   }
 }
