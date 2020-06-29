@@ -9,6 +9,11 @@
           div.book-name {{bookInfo.bookName}}
           div.book-tip
             span {{bookInfo.comments}}帖子
+          div.book-handle
+            div.book-ranking
+              div.book-ranking-num 10
+              div.book-ranking-text 女生推荐排行榜第10名
+            div.book-vote 投票
       div.nav(ref='navDom' v-show='!isFixedTop')
         div.nav-dynamic(
           :class='{"active": type === 1}'
