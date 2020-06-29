@@ -46,12 +46,13 @@ export default {
       post('/task_api/task/record', {
         taskId
       }).then(res => {
-        this.signlists = res.extraResultList
-        this.remainingCheckInNum = res.extraData.remainingCheckInNum
-        if (res.extraData.checkInDays < 10) {
-          this.checkInDays = `0${res.extraData.checkInDays}`
+        const { extraResultList, extraData } = res.data
+        this.signlists = extraResultList
+        this.remainingCheckInNum = extraData.remainingCheckInNum
+        if (extraData.checkInDays < 10) {
+          this.checkInDays = `0${extraData.checkInDays}`
         } else {
-          this.checkInDays = res.extraData.checkInDays.toString()
+          this.checkInDays = extraData.checkInDays.toString()
         }
       })
     }

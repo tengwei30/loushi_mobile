@@ -146,25 +146,25 @@ module.exports = {
     port: '1024',
     disableHostCheck: true, // 配置内网穿透
     proxy: {
-      // '/api': {
-      //   target: 'http://testapi.ibreader.com/',
-      //   // ws: true,
-      //   changeOrigin: true,
-      // },
-      // '/*': {
-      //   target: 'http://testtask.ibreader.com/',
-      //   // ws: true,
-      //   changeOrigin: true,
-      // },
+      '/api': {
+        target: 'http://testapi.ibreader.com/',
+        // ws: true,
+        changeOrigin: true,
+      },
+      '/pixiv_tumeng': {
+        target: 'http://test.cartoon1.ibreader.com/', // 设置调用接口域名和端口号别忘了加http
+        changeOrigin: true,
+      },
+      '/task_api': {
+        target: 'http://testtask.ibreader.com/',
+        // ws: true,
+        changeOrigin: true,
+      },
       '/community': {
         target: 'http://testapi.ibreader.com/',
         // ws: true,
         changeOrigin: true,
       },
-      '/api': {
-        target: 'http://test.cartoon1.ibreader.com/',
-        changeOrigin: true
-      }
     },
   },
 }
