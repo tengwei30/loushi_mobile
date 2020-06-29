@@ -60,6 +60,7 @@
     "inquirer-checkbox-plus-prompt": "^1.0.1",
     "jest": "^24.4.0",
     "js-base64": "^2.5.1",
+    "lint-staged": "^10.2.11",
     "md5": "^2.2.1",
     "node-rsa": "^1.0.7",
     "node-uuid": "^1.4.8",
@@ -87,7 +88,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "src/**/*.{js,vue,pug}": [
+      "npm run lint",
+      "git add"
+    ]
   }
 }
