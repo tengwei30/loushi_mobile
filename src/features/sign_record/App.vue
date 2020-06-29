@@ -56,6 +56,7 @@ export default {
         }
       })
     }
+
   },
   mounted() {
     this.getLists(this.taskId)
