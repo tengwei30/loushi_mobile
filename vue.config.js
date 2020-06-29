@@ -143,7 +143,7 @@ module.exports = {
     open: true,
     hotOnly: true,
     host: '0.0.0.0',
-    port: '80',
+    port: '1024',
     disableHostCheck: true, // 配置内网穿透
     proxy: {
       // '/api': {
