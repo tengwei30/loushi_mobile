@@ -10,10 +10,10 @@
           div.book-tip
             span {{bookInfo.comments}}帖子
           div.book-handle
-            div.book-ranking
+            div.book-ranking(@click='handleGoRanking')
               div.book-ranking-num 10
               div.book-ranking-text 女生推荐排行榜第10名
-            div.book-vote 投票
+            div.book-vote(@click='handleBookVote') 投票
       div.nav(ref='navDom' v-show='!isFixedTop')
         div.nav-dynamic(
           :class='{"active": type === 1}'
@@ -68,7 +68,7 @@ import BScroll from 'better-scroll'
 import CommentItem from './components/commentItem'
 import ReplyInput from '@/features/comment_detail/components/replyInput'
 import { getQueryString } from '@/utils/url'
-import { skipUrl, setHeader, toast, judgeIsLogined, skipLoginPage } from '@/utils/nativeToH5/index'
+import { skipUrl, setHeader, toast, judgeIsLogined, skipLoginPage, skipRanking, bookVote } from '@/utils/nativeToH5/index'
 import bus from '@/features/comment_detail/bus'
 import DeleteDialog from '@/features/post_bar/components/deleteDialog'
 import { mBuryPoint } from '@/utils/buryPoint'
@@ -281,6 +281,18 @@ export default {
           content: res.msg
         })
       }
+    },
+    handleGoRanking() {
+      skipRanking({
+        categoryId: 98,
+        rankingName: '推荐榜',
+        rank: 1
+      })
+    },
+    handleBookVote() {
+      bookVote({
+        bookId: '4190657'
+      })
     }
   },
   mounted() {
