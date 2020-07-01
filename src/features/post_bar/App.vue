@@ -13,6 +13,7 @@
             div.book-ranking(@click='handleGoRanking')
               div.book-ranking-num 10
               div.book-ranking-text 女生推荐排行榜第10名
+                span >
             div.book-vote(@click='handleBookVote') 投票
       div.nav(ref='navDom' v-show='!isFixedTop')
         div.nav-dynamic(
