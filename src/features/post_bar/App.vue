@@ -10,9 +10,9 @@
           div.book-tip
             span {{bookInfo.comments}}帖子
           div.book-handle
-            div.book-ranking(@click='handleGoRanking')
-              div.book-ranking-num 10
-              div.book-ranking-text 女生推荐排行榜第10名
+            div.book-ranking(@click='handleGoRanking' v-if='bookInfo.rank && bookInfo.rank <= 10')
+              div.book-ranking-num {{bookInfo.rank||0}}
+              div.book-ranking-text {{rankingName}}{{bookInfo.rankingName}}第{{bookInfo.rank||0}}名
                 span >
             div.book-vote(@click='handleBookVote') 投票
       div.nav(ref='navDom' v-show='!isFixedTop')
@@ -104,6 +104,20 @@ export default {
       isShowPublishPost: true,
       nullBookCover: require('../../assets/community/book_default.png'),
       defaultBookCover: 'this.src="'+require('../../assets/community/book_default.png')+'"'
+    }
+  },
+  computed: {
+    rankingName() {
+      switch (this.bookInfo.categoryId) {
+      case 98:
+        return '男生'
+      case 122:
+        return '女生'
+      case 79:
+        return '出版'
+      default:
+        return '男生'
+      }
     }
   },
   methods: {
@@ -285,14 +299,14 @@ export default {
     },
     handleGoRanking() {
       skipRanking({
-        categoryId: 98,
-        rankingName: '推荐榜',
-        rank: 1
+        categoryId: this.bookInfo.categoryId,
+        rankingName: this.bookInfo.rankingName,
+        rank: this.bookInfo.rank
       })
     },
     handleBookVote() {
       bookVote({
-        bookId: '4190657'
+        bookId: getQueryString('bookId')
       })
     }
   },
