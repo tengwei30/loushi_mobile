@@ -69,7 +69,7 @@ import BScroll from 'better-scroll'
 import CommentItem from './components/commentItem'
 import ReplyInput from '@/features/comment_detail/components/replyInput'
 import { getQueryString } from '@/utils/url'
-import { skipUrl, setHeader, toast, judgeIsLogined, skipLoginPage, skipRanking, bookVote } from '@/utils/nativeToH5/index'
+import { skipUrl, setHeader, toast, judgeIsLogined, skipLoginPage, skipRanking, bookVote, buryingPoint } from '@/utils/nativeToH5/index'
 import bus from '@/features/comment_detail/bus'
 import DeleteDialog from '@/features/post_bar/components/deleteDialog'
 import { mBuryPoint } from '@/utils/buryPoint'
@@ -305,6 +305,14 @@ export default {
       })
     },
     handleBookVote() {
+      buryingPoint({
+        eventName: 'h5_post_bar_vote',
+        map: {
+          bookId: getQueryString('bookId'),
+          page: 'post_bar',
+          rankingName: this.bookInfo.rankingName
+        }
+      })
       bookVote({
         bookId: getQueryString('bookId')
       })

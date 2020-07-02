@@ -101,3 +101,8 @@ export const bookVote = (args) => {
   console.log('bookVote', args)
   dsbridge.call('bookVote', args)
 }
+
+export const buryingPoint = (args) => {
+  console.log('buryingPoint:', args)
+  dsbridge.call('buryingPoint', args)
+}
