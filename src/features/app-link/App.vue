@@ -6,7 +6,7 @@
 
 <script>
 import { postFormatData } from '@/config/format-data'
-console.log('test')
+
 export default {
   name: 'app',
   components: {},
