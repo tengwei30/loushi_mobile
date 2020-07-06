@@ -15,7 +15,7 @@
         span.delete(v-if='commentInfo.mine'
         @click.stop='deleteShowComment') 删除
       div.right
-        div.reply(@click.stop='clickReplyItemBtn')
+        div.reply
           img(src='@/assets/community/reply_icon.png')
           span {{commentInfo.replyNum > 999 ? '999+' : (commentInfo.replyNum || 0)}}
         div.star(@click.stop='toggleStar')
@@ -49,9 +49,6 @@ export default {
       skipUrl({
         skipUrl: `${window.location.origin}/BKH5-comment_detail.html?commentId=${this.commentInfo.commentId}`
       })
-    },
-    clickReplyItemBtn() {
-      this.$emit('clickReplyItemBtn', this.commentInfo)
     }
   },
   computed: {
