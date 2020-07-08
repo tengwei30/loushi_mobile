@@ -1,7 +1,7 @@
 <template lang="pug">
   #app
     .app-content
-      | 我是来测试的
+      | 测试提交规范
 </template>
 
 <script>
