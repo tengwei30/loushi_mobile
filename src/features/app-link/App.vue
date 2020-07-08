@@ -1,7 +1,7 @@
 <template lang="pug">
   #app
     .app-content
-      | 我是来测试的
+      | 11
 </template>
 
 <script>
