@@ -10,7 +10,7 @@
           div.book-tip
             span {{bookInfo.comments}}帖子
           div.book-handle
-            div.book-ranking(@click='handleGoRanking' v-if='bookInfo.rank && bookInfo.rank <= 10')
+            div.book-ranking(@click='handleGoRanking' v-if='bookInfo.rank && bookInfo.rank <= 99')
               div.book-ranking-num {{bookInfo.rank||0}}
               div.book-ranking-text {{rankingName}}{{bookInfo.rankingName}}第{{bookInfo.rank||0}}名
                 span >
