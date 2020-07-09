@@ -47,7 +47,7 @@ export default {
       } else {
         this.score = target
       }
-      console.log(this.score, 2222)
+      console.log(this.score * 2, 2222)
     },
     handleInput(e) {
       if (e.target.innerText.length > 120) {
@@ -115,7 +115,7 @@ export default {
         this.imgUrl = ''
       }
       console.log(this.imgUrl, bookId, 22222)
-      let res = await publishPost({ bookId, comment: this.comment, score: this.score, title: this.title, image: this.imgUrl })
+      let res = await publishPost({ bookId, comment: this.comment, score: this.score * 2, title: this.title, image: this.imgUrl })
       // window.location.href = window.location.origin + '/BKH5-post_bar.html' + window.location.search
       if (res.code === 100) {
         toast({

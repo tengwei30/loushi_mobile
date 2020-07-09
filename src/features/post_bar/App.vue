@@ -7,14 +7,16 @@
         img.book-cover(v-else :src='nullBookCover')
         div.book-info
           div.book-name {{bookInfo.bookName}}
-          div.book-tip
-            span {{bookInfo.comments}}帖子
-          div.book-handle
-            div.book-ranking(@click='handleGoRanking' v-if='bookInfo.rank && bookInfo.rank <= 99')
-              div.book-ranking-num {{bookInfo.rank||0}}
-              div.book-ranking-text {{rankingName}}{{bookInfo.rankingName}}第{{bookInfo.rank||0}}名
-                span >
-            div.book-vote(@click='handleBookVote') 投票
+          div.book-info-bottom
+            div.book-info-left
+              div.book-handle(v-if='versionNum >= 1.44 && bookInfo.rank && bookInfo.rank <= 99')
+                div.book-ranking(@click='handleGoRanking')
+                  div.book-ranking-num {{bookInfo.rank||0}}
+                  div.book-ranking-text {{rankingName}}{{bookInfo.rankingName}}第{{bookInfo.rank||0}}名
+                    span >
+              div.book-tip
+                span {{bookInfo.comments}}帖子
+            div.book-vote(@click='handleBookVote' v-if='versionNum >= 1.44') 投票
       div.nav(ref='navDom' v-show='!isFixedTop')
         div.nav-dynamic(
           :class='{"active": type === 1}'
@@ -68,7 +70,8 @@ import BScroll from 'better-scroll'
 import CommentItem from './components/commentItem'
 import ReplyInput from '@/features/comment_detail/components/replyInput'
 import { getQueryString } from '@/utils/url'
-import { skipUrl, setHeader, toast, judgeIsLogined, skipLoginPage, skipRanking, bookVote, buryingPoint } from '@/utils/nativeToH5/index'
+import { getCookie } from '@/utils/utils'
+import { skipUrl, setHeader, toast, judgeIsLogined, skipLoginPage, skipRanking, bookVote } from '@/utils/nativeToH5/index'
 import DeleteDialog from '@/features/post_bar/components/deleteDialog'
 import { mBuryPoint } from '@/utils/buryPoint'
 
@@ -101,7 +104,8 @@ export default {
       isHasMore: true,
       isShowPublishPost: true,
       nullBookCover: require('../../assets/community/book_default.png'),
-      defaultBookCover: 'this.src="'+require('../../assets/community/book_default.png')+'"'
+      defaultBookCover: 'this.src="'+require('../../assets/community/book_default.png')+'"',
+      versionNum: 0
     }
   },
   computed: {
@@ -169,6 +173,12 @@ export default {
       this.getBookFriendsBarInfo()
       this.getPostsList()
       this.initBScroll()
+      let versionStr = getCookie('version')
+      let versionArr = versionStr ? versionStr.split('.') : []
+      if (versionArr.length > 0) {
+        this.versionNum = parseFloat(versionArr[1] + '.' + versionArr[2])
+      }
+      console.log(this.versionNum, 'aaaa')
     },
     async getBookFriendsBarInfo() {
       let bookId = getQueryString('bookId')
@@ -196,7 +206,7 @@ export default {
         if (res.data && res.data.length > 0) {
           this.list = this.list.concat(res.data)
           this.pageNum += 1
-          this.isHasMore = true
+          this.isHasMore = res.data.length === 10
         } else {
           this.isHasMore = false
         }
@@ -293,16 +303,8 @@ export default {
       })
     },
     handleBookVote() {
-      buryingPoint({
-        eventName: 'h5_post_bar_vote',
-        map: {
-          bookId: getQueryString('bookId'),
-          page: 'post_bar',
-          rankingName: this.bookInfo.rankingName
-        }
-      })
-      bookVote({
-        bookId: getQueryString('bookId')
+      judgeIsLogined({
+        callback: 'isLoginedBookVote'
       })
     }
   },
@@ -332,6 +334,15 @@ export default {
         if (res.code === 100) {
           this.getCorrectList(this.commentInfo, -1)
         }
+      } else {
+        skipLoginPage()
+      }
+    }
+    window.isLoginedBookVote = (isLogined) => {
+      if (isLogined) {
+        bookVote({
+          bookId: getQueryString('bookId')
+        })
       } else {
         skipLoginPage()
       }

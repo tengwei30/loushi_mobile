@@ -11,7 +11,7 @@
       //- img(:src='commentInfo.image')
     div.comment-info
       div.left
-        span.time 发布于{{getTime}}
+        span.time {{getTime}}
         span.delete(v-if='commentInfo.mine'
         @click.stop='deleteShowComment') 删除
       div.right

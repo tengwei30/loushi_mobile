@@ -10,7 +10,7 @@
     img.comment-img(v-if='commentInfo.image' :src='commentInfo.image')
     div.comment-tip
       div.tip-left
-        span.comment-time 发布于{{getDateFormat}}
+        span.comment-time {{getDateFormat}}
         span.comment-delete(v-if='commentInfo.mine' @click='deleteShowComment') 删除
       div.tip-right(@click='handleStar')
         img(src='@/assets/community/unstar.png' v-if='!commentInfo.liked')

@@ -102,6 +102,17 @@ export const bookVote = (args) => {
   dsbridge.call('bookVote', args)
 }
 
+/**
+ * 友盟打点
+ * @param {传入的参数} args {
+        eventName: 'h5_post_bar_vote',
+        map: {
+          bookId: getQueryString('bookId'),
+          page: 'post_bar',
+          rankingName: this.bookInfo.rankingName
+        }
+      }
+ */
 export const buryingPoint = (args) => {
   console.log('buryingPoint:', args)
   dsbridge.call('buryingPoint', args)
