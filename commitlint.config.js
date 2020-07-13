@@ -20,18 +20,17 @@ module.exports = {
       2,
       'always',
       [
-        'build',
-        'chore',
-        'ci',
-        'docs',
-        'feat',
-        'fix',
+        'build',  // 打包
+        'chore',  // 构建过程或辅助工具的变动
+        'docs', // 文档变更
+        'feat', // 新功能
+        'fix',  // 修复
         'improvement',
-        'perf',
-        'refactor',
-        'revert',
-        'style',
-        'test'
+        'perf', // 性能优化
+        'refactor', // 重构(既不是增加feature，也不是修复bug)
+        'revert', // 回退
+        'style',  // 代码格式(不影响代码运行的变动)
+        'test'  // 增加测试
       ]
     ]
   }
