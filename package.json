@@ -13,7 +13,8 @@
     "inspect": "vue-cli-service inspect > webpack.js",
     "e2e:run": "cypress run",
     "e2e:gui": "cypress open",
-    "commit": "npx git-cz"
+    "commit": "npx git-cz",
+    "commit-msg": "sh ./cli/commit-msg.sh"
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
@@ -40,6 +41,8 @@
     "@babel/plugin-transform-exponentiation-operator": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
     "@vue/cli-plugin-babel": "^3.5.1",
     "@vue/cli-plugin-eslint": "^3.5.1",
     "@vue/cli-plugin-unit-jest": "^3.5.0",
@@ -88,13 +91,14 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "lint-staged": {
     "src/**/*.{js,vue,pug}": [
       "npm run lint",
-      "git add"
+      "git add ."
     ]
   }
 }
