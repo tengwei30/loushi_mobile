@@ -47,6 +47,7 @@
     "@vue/cli-plugin-eslint": "^3.5.1",
     "@vue/cli-plugin-unit-jest": "^3.5.0",
     "@vue/cli-service": "^3.5.1",
+    "auto-inject-plugin": "^1.0.8",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.1.0",
     "babel-polyfill": "^6.26.0",

@@ -2,6 +2,7 @@
  * vue.config.js 配置参考
  * https://cli.vuejs.org/zh/config
  */
+const AutoInjectPlugin = require('auto-inject-plugin')
 const path = require('path')
 const getEntry = require('./build/pageEntry')
 const resolve = dir => path.join(__dirname, dir)
@@ -98,6 +99,44 @@ module.exports = {
   },
   chainWebpack: config => {
     config.resolve.alias.set('@', resolve('src'))
+    if (!isDev) {
+      config.optimization.splitChunks({
+        chunks: 'all',
+        cacheGroups: {
+          // commons: {
+          //   name: 'chunk-commons',
+          //   priority: 0,   // 优先级配置项
+          //   chunks: 'initial',
+          //   test: /[\\/]src[\\/]/,
+          //   minSize: 1024
+          // },
+          vendors: { 
+            name: 'chunk-verdors', 
+            test: /[\\/]node_modules[\\/]/, 
+            priority: 10,
+            chunks: "initial"
+          },
+          swiper: { 
+            name: 'chunk-swiper',
+            priority: 20,
+            test: /[\\/]node_modules[\\/]_?swiper(.*)/,
+          },
+          'chunk-better-scroll': { 
+            name: 'chunk-better-scroll',
+            priority: 20,
+            test: /[\\/]node_modules[\\/]_?better-scroll(.*)/,
+          },
+          'chunk-ali-oss': { 
+            name: 'chunk-ali-oss',
+            priority: 20,
+            test: /[\\/]node_modules[\\/]_?ali-oss(.*)/,
+          },
+        } 
+      })
+      config.plugin('AutoInjectPlugin').use(AutoInjectPlugin)
+      // config.plugin('BundleAnalyzerPlugin').use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+    }
+
     config.module
       .rule('compile')
       .test(/\.js$/)
@@ -168,3 +207,6 @@ module.exports = {
     },
   },
 }
+
+
+
