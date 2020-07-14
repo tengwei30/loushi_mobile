@@ -10,7 +10,7 @@
       :options="swiperOption"
       ref="mySwiper"
     )
-      swiper-slide(v-for="item in 13")
+      swiper-slide(v-for="item in 13" :key="item")
         .learn_page
           img(:src="require(`@/assets/Spring/malls/${item}.png`)")
       .swiper-button-prev.swiper-button-black(slot="button-prev")

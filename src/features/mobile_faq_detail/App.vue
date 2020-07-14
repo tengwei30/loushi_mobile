@@ -15,12 +15,16 @@
 </template>
 
 <script>
-import { getQueryString, getUrlParamsByObject } from '@/utils/url'
-import { routerToNative } from '@/utils/native'
-import { getCookie } from '@/utils/utils'
 import { post } from '@/config/axios.config'
 import config from '../mobile_faq/data.js'
-import { mBuryPoint } from '@/utils/buryPoint'
+import {
+  mBuryPoint,
+  compareVersion,
+  getCookie,
+  getQueryString,
+  getUrlParamsByObject,
+  routerToNative
+} from '@/utils/index'
 export default {
   data() {
     return {
@@ -33,7 +37,8 @@ export default {
         anwser: '',
         anwserlist: []
       }],
-      userInfo: {}
+      userInfo: {},
+      version: localStorage.getItem('version')  // 真实版本
     }
   },
   methods: {
@@ -57,7 +62,7 @@ export default {
         msg_flag: '0',
         level_msg_flag: '1',
         feedback_flag: '1',
-        photo_flag: '1',
+        photo_flag: compareVersion('1.38.0', this.version) !== -1 ? '1' : '0',
         to_customsys_open_style: '0',
         // leave_customsys_flag: '1',
         agent_mode_flag: '1',

@@ -5,6 +5,9 @@ import {
   getUrlParamsByObject,
 } from '@/utils/url'
 import { compareVersion } from '@/utils/string'
+import { getCookie } from '@/utils/utils'
+import { routerToNative } from '@/utils/native'
+import { mBuryPoint } from '@/utils/buryPoint'
 import {
   throttle,
   formatIsoTime,
@@ -26,4 +29,7 @@ export {
   getType,
   throttle,
   requestAnimFrame,
+  getCookie,
+  routerToNative,
+  mBuryPoint
 }

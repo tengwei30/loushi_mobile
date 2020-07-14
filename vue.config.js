@@ -6,6 +6,7 @@ const path = require('path')
 const getEntry = require('./build/pageEntry')
 const resolve = dir => path.join(__dirname, dir)
 
+
 const isProd = process.env.VUE_APP_DEVELOP_ENV === 'false'
 const isDev = process.env.VUE_APP_DEVELOP_ENV === 'true'
 
@@ -16,6 +17,8 @@ let globMatch = '*'
 if (!isProd && process.env.BK_H5_PAGES) {
   globMatch = process.env.BK_H5_PAGES
 }
+
+let entries = getEntry(`src/features/${globMatch}/index.js`)
 
 const pagesMaker = () => {
   let pagesObj = {}
@@ -28,16 +31,25 @@ const pagesMaker = () => {
     let conf = {
       template: pathInfo,
       filename: `${filePrefix}${fileName}`,
-      entry: `src/features/${pathname}/index.js`,
+      entry: [`src/features/${pathname}/index.js`],
       chunks: ['chunk-vendors', 'chunk-common', pathname],
     }
     pagesObj[folderName] = conf
+  }
+  if (isDev) {
+    pagesObj['index'] = {
+      template: 'src/common/index.html',
+      filename: 'index.html',
+      entry: Object.values(entries),
+      pages: Object.keys(entries),
+      chunks: ['chunk-vendors', 'chunk-common']
+    }
   }
   return pagesObj
 }
 const pages = pagesMaker()
 module.exports = {
-  publicPath: isDev ? '/' : bkReadCDN,
+  publicPath: isDev ? './' : bkReadCDN,
   assetsDir: 'Breader_Task_H5', // isDev ? 'bkh5-static' :
   indexPath: 'index.html',
   pages,
@@ -45,8 +57,12 @@ module.exports = {
   // https://cli.vuejs.org/zh/config/#lintonsave
   runtimeCompiler: true,
   // 是否使用包含运行时编译器的 Vue 构建版本。https://cli.vuejs.org/zh/config/#runtimecompiler
-  productionSourceMap: true,
+  productionSourceMap: false,
   configureWebpack: config => {
+    for (let keys in config.entry) {
+      config.entry[keys].unshift('babel-polyfill')
+    }
+
     const newRules = config.module.rules.map(rule => {
       if (rule.test.test('.pug') === false) {
         return rule
@@ -82,6 +98,27 @@ module.exports = {
   },
   chainWebpack: config => {
     config.resolve.alias.set('@', resolve('src'))
+    config.module
+      .rule('compile')
+      .test(/\.js$/)
+      .include
+      .add(resolve('src'))
+      .add(/node_modules\/(dom7|swiper)\/.*/)
+      .end()
+      .use('babel')
+      .loader('babel-loader')
+      .options({
+        sourceType: 'unambiguous',
+        presets: [
+          ['@babel/preset-env', {
+            modules: false
+          }]
+        ],
+        plugins: [
+          '@babel/plugin-transform-exponentiation-operator',
+          '@babel/plugin-transform-runtime',
+        ]
+      })
     config.plugin('copy').tap(args => {
       const { toType, ignore } = args[0][0]
       args[0] = []
