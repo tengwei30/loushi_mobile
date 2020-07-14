@@ -9,7 +9,7 @@ axios.defaults.validateStatus = function(status) {
   return status >= 200 && status < 300
 }
 
-function setHeader() {
+export function setHeader() {
   let xClient = getCookie('xclient')
   if (xClient !== null && typeof xClient !== 'undefined' && xClient !== '') {
     var xstr = Base64.decode(xClient)
