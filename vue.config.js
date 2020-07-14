@@ -146,11 +146,11 @@ module.exports = {
     port: '80',
     disableHostCheck: true, // 配置内网穿透
     proxy: {
-      // '/api': {
-      //   target: 'http://testapi.ibreader.com/',
-      //   // ws: true,
-      //   changeOrigin: true,
-      // },
+      '/api': {
+        target: 'http://testapi.ibreader.com/',
+        // ws: true,
+        changeOrigin: true,
+      },
       // '/*': {
       //   target: 'http://testtask.ibreader.com/',
       //   // ws: true,
@@ -161,10 +161,10 @@ module.exports = {
         // ws: true,
         changeOrigin: true,
       },
-      '/api': {
-        target: 'http://test.cartoon1.ibreader.com/',
-        changeOrigin: true
-      }
+      // '/api': {
+      //   target: 'http://test.cartoon1.ibreader.com/',
+      //   changeOrigin: true
+      // }
     },
   },
 }
