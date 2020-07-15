@@ -99,7 +99,7 @@ module.exports = {
   },
   chainWebpack: config => {
     config.resolve.alias.set('@', resolve('src'))
-    if (!isDev) {
+    if (process.env.NODE_ENV === 'production') {
       config.optimization.splitChunks({
         chunks: 'all',
         cacheGroups: {
@@ -130,6 +130,11 @@ module.exports = {
             name: 'chunk-ali-oss',
             priority: 20,
             test: /[\\/]node_modules[\\/]_?ali-oss(.*)/,
+          },
+          'chunk-moment': { 
+            name: 'chunk-moment',
+            priority: 20,
+            test: /[\\/]node_modules[\\/]_?moment(.*)/,
           },
         } 
       })
