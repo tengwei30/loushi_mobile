@@ -145,7 +145,7 @@
                 transform scale(0.5)
                 transform-origin left center
                 display flex
-                font-size 24px
+                font-size 20px
                 max-width 360px
                 box-sizing border-box
                 height 40px
@@ -162,14 +162,21 @@
                   background linear-gradient(#FFB254, #FF5A00)
                   color #ffffff
                   text-align center
+                  line-height 32px
                 .book-ranking-text
                   margin-left 5px
                   flex 1
                   overflow hidden
                   white-space nowrap
                   text-overflow ellipsis
-                  span
+                  display flex
+                  align-items center
+                  .book-right-img
                     margin-left 4px
+                    display inline-block
+                    width 14px
+                    height 20px
+                    background url('../../assets/community/right_icon.png') no-repeat center left/100%
           .book-vote
             font-size 28px
             background #FF5A00

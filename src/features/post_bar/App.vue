@@ -9,11 +9,12 @@
           div.book-name {{bookInfo.bookName}}
           div.book-info-bottom
             div.book-info-left
+              //- div.book-handle
               div.book-handle(v-if='versionNum >= 1.44 && bookInfo.rank && bookInfo.rank <= 99')
                 div.book-ranking(@click='handleGoRanking')
                   div.book-ranking-num {{bookInfo.rank||0}}
                   div.book-ranking-text {{rankingName}}{{bookInfo.rankingName}}第{{bookInfo.rank||0}}名
-                    span >
+                    span.book-right-img
               div.book-tip
                 span {{bookInfo.comments}}帖子
             div.book-vote(@click='handleBookVote' v-if='versionNum >= 1.44') 投票
