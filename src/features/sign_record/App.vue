@@ -96,6 +96,7 @@ body, html
   line-height 1.47rem
   background url("../../assets/task/bg__day@3x.png") no-repeat center center
   background-size 100%, 100%
+  margin 0 3px
 .day__bottom__amount
   width 7.73rem
   height 1.01rem
