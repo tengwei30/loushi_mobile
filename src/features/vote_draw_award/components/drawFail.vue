@@ -4,9 +4,11 @@
       div.draw-fail-rule-bg
       div.draw-fail-rule-close(@click='toggleShowFailPop')
       div.draw-fail-rule-title 抽奖次数不足
-      div.draw-fail-rule-btn(@click='toggleShowFailPop') 去投票
+      div.draw-fail-rule-btn(@click='handleGoVotePage') 去投票
 </template>
 <script>
+import { closeCurrentPage } from '@/utils/nativeToH5/index'
+import { getCookie } from '@/utils/utils'
 export default {
   data() {
     return {}
@@ -14,6 +16,22 @@ export default {
   methods: {
     toggleShowFailPop() {
       this.$emit('toggleShowFailPop')
+    },
+    getVersion() {
+      let versionStr = getCookie('version')
+      let versionArr = versionStr ? versionStr.split('.') : []
+      if (versionArr.length > 0) {
+        return parseFloat(versionArr[1] + '.' + versionArr[2])
+      }
+    },
+    handleGoVotePage() {
+      this.toggleShowFailPop()
+      if (this.getVersion() >= 1.42) {
+        closeCurrentPage()
+      } else {
+        let url = `${window.location.origin}/BKH5-video_vote.html${window.location.search}`
+        window.location.href = `breader://common/browser?url=${encodeURIComponent(url)}`
+      }
     }
   }
 }
@@ -71,4 +89,6 @@ export default {
       font-size 15px
       font-weight 500
       margin 27px auto 0
+      box-sizing border-box
+      padding-top 2px
 </style>

@@ -1,4 +1,14 @@
 import dsbridge from 'dsbridge'
+import { getCookie } from '@/utils/utils'
+const getVersion = () => {
+  let versionStr = getCookie('version')
+  let versionArr = versionStr ? versionStr.split('.') : []
+  if (versionArr.length > 0) {
+    return parseFloat(versionArr[1] + '.' + versionArr[2])
+  } else {
+    return 0
+  }
+}
 
 /**
  * 设置导航栏的自定义方法
@@ -64,8 +74,12 @@ export const shareMenu = (args, callback) => {
  * skipUrl: 地址
  */
 export const skipUrl = (args) => {
-  console.log(args)
-  dsbridge.call('skipUrlNative', args)
+  console.log(args, getVersion())
+  if (getVersion() >= 1.42) {
+    dsbridge.call('skipUrlNative', args)
+  } else {
+    window.location.href = `breader://common/browser?url=${encodeURIComponent(args.skipUrl)}`
+  }
 }
 
 /**

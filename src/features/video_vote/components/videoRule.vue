@@ -6,7 +6,7 @@
       div.video-rule-title 活动规则
       div.vidoe-rule-content
         p 1、每成功进行一次投票可进行抽奖一次
-        p 2、书币为虚拟商品概不退款
+        p 2、金币为虚拟商品概不退款
         p 3、本活动结束后7个工作日内，发放所有实物奖励
         p 4、活动中有任何疑问，可咨询客服服务
         p 5、本活动拒绝一切作弊，一旦发现取消活动资格
@@ -84,4 +84,6 @@ export default {
       font-size 15px
       font-weight 500
       margin 15px auto 0
+      box-sizing border-box
+      padding-top 2px
 </style>

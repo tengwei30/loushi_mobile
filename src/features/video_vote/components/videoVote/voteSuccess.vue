@@ -6,19 +6,27 @@
       .vote-success-bg
       .vote-success-desc
         p 获得
-          span 1次
+          span {{rewardDrawCount}}次
           | 抽奖机会
         p 离华为手机又近了一步
-      .vote-success-btn 立即抽奖
+      .vote-success-btn(@click='handleGoDrawPage') 立即抽奖
 </template>
 <script>
+import { skipUrl } from '@/utils/nativeToH5/index'
 export default {
+  props: ['rewardDrawCount'],
   data() {
     return {}
   },
   methods: {
     handleToggleShowVote() {
       this.$emit('handleToggleShowVote')
+    },
+    handleGoDrawPage() {
+      this.$emit('handleToggleShowVote')
+      skipUrl({
+        skipUrl: `${window.location.origin}/BKH5-vote_draw_award.html${window.location.search}`
+      })
     }
   }
 }
@@ -79,4 +87,6 @@ export default {
       font-size 15px
       font-weight 500
       margin 10px auto 0
+      box-sizing border-box
+      padding-top 2px
 </style>

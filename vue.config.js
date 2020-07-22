@@ -101,40 +101,49 @@ module.exports = {
     config.resolve.alias.set('@', resolve('src'))
     if (process.env.NODE_ENV === 'production') {
       config.optimization.splitChunks({
-        chunks: 'all',
         cacheGroups: {
-          // commons: {
-          //   name: 'chunk-commons',
-          //   priority: 0,   // 优先级配置项
-          //   chunks: 'initial',
-          //   test: /[\\/]src[\\/]/,
-          //   minSize: 1024
+          // default: {
+          //   minChunks: 2,
+          //   priority: -20,
+          //   reuseExistingChunk: true,
+          //   chunks: "initial",
+          //   enforce: true,
           // },
           vendors: {
             name: 'chunk-verdors',
             test: /[\\/]node_modules[\\/]/,
             priority: 10,
-            chunks: 'initial'
+            chunks: 'initial',
+            reuseExistingChunk: true,
+            enforce: true
           },
           swiper: {
             name: 'chunk-swiper',
             priority: 20,
             test: /[\\/]node_modules[\\/]_?swiper(.*)/,
+            reuseExistingChunk: true,
+            chunks: 'all'
           },
           'chunk-better-scroll': {
             name: 'chunk-better-scroll',
             priority: 20,
             test: /[\\/]node_modules[\\/]_?better-scroll(.*)/,
+            reuseExistingChunk: true,
+            chunks: 'all'
           },
           'chunk-ali-oss': {
             name: 'chunk-ali-oss',
             priority: 20,
             test: /[\\/]node_modules[\\/]_?ali-oss(.*)/,
+            reuseExistingChunk: true,
+            chunks: 'all'
           },
-          'chunk-moment': {
-            name: 'chunk-moment',
+          'chunk-video': {
+            name: 'chunk-video',
             priority: 20,
-            test: /[\\/]node_modules[\\/]_?moment(.*)/,
+            test: /[\\/]node_modules[\\/]_?video(.*)/,
+            reuseExistingChunk: true,
+            chunks: 'all'
           },
         }
       })
@@ -206,6 +215,11 @@ module.exports = {
         changeOrigin: true,
       },
       '/activity_api': {
+        target: 'http://testapi.ibreader.com/',
+        // ws: true,
+        changeOrigin: true,
+      },
+      '/task_api': {
         target: 'http://testapi.ibreader.com/',
         // ws: true,
         changeOrigin: true,

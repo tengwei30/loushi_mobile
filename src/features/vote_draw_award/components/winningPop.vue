@@ -4,20 +4,34 @@
       .winning-pop-title 恭喜抽中
       .winning-pop-icon
         img(src='../../../assets/vote_draw_award/draw_item_3.png')
-      .winning-pop-text 188金币
+      .winning-pop-text {{awardInfo.title}}
       .winning-pop-handle
-        .winning-pop-left
-        .winning-pop-right
+        .winning-pop-left(@click='handleGoVotePage')
+          img(src='../../../assets/vote_draw_award/winning_pop_left_btn.png')
+        .winning-pop-right(@click='handleContinueDraw')
+          img(src='../../../assets/vote_draw_award/winning_pop_right_btn.png')
       .winning-pop-close(@click='toggleShowSuccessPop')
 </template>
 <script>
+import { skipUrl } from '@/utils/nativeToH5/index'
 export default {
+  props: ['awardInfo'],
   data() {
     return {}
   },
   methods: {
+    handleContinueDraw() {
+      this.toggleShowSuccessPop()
+      this.$parent.drawAwardButtonMethod()
+    },
     toggleShowSuccessPop() {
       this.$emit('toggleShowSuccessPop')
+    },
+    handleGoVotePage() {
+      this.toggleShowSuccessPop()
+      skipUrl({
+        skipUrl: `${window.location.origin}/BKH5-video_vote.html${window.location.search}`
+      })
     }
   }
 }
@@ -69,15 +83,23 @@ export default {
       .winning-pop-left
         width 128px
         height 42px
-        background url('../../../assets/vote_draw_award/winning_pop_left_btn.png') no-repeat center/100%
-        background-size contain
+        // background url('../../../assets/vote_draw_award/winning_pop_left_btn.png') no-repeat center/100%
+        // background-size contain
         margin-left 17px
         margin-right 13px
+        box-sizing border-box
+        img
+          width 100%
+          height 100%
       .winning-pop-right
         width 128px
         height 42px
-        background url('../../../assets/vote_draw_award/winning_pop_right_btn.png') no-repeat center/100%
-        background-size contain
+        // background url('../../../assets/vote_draw_award/winning_pop_right_btn.png') no-repeat center/100%
+        // background-size contain
+        box-sizing border-box
+        img
+          width 100%
+          height 100%
     .winning-pop-close
       width 28px
       height 28px

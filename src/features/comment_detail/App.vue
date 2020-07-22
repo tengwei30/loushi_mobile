@@ -280,8 +280,10 @@ export default {
       }
     }
     window.ibreader.prohibitPull()
-    window.showPageReload = this.showPageReload
   },
+  created() {
+    window.showPageReload = this.showPageReload
+  }
 }
 </script>
 

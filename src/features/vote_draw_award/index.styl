@@ -7,7 +7,7 @@
   overflow hidden
   padding-bottom 20px
   .vote-tip
-    width 202px
+    min-width 202px
     box-sizing border-box
     height 35px
     line-height 35px
@@ -15,9 +15,15 @@
     background url('../../assets/vote_draw_award/vote_draw_gift.png') no-repeat 10px center/33px 32px
     background-color rgba(21,0,168,0.25)
     color #ffffff
-    margin 108px auto 0
+    margin 108px auto 13px
     padding-left 50px
     font-weight bold
+    display inline-block
+    box-sizing border-box
+    padding-right 10px
+    left 50%
+    position relative
+    transform translateX(-50%)
     span
       font-size 28px
       color #FCDC8C
