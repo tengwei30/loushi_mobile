@@ -34,7 +34,8 @@
     "postcss-px2rem": "^0.3.0",
     "raven-js": "^3.27.2",
     "vue": "^2.6.9",
-    "vue-awesome-swiper": "^4.0.4"
+    "vue-awesome-swiper": "^4.0.4",
+    "vue-video-player": "^5.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

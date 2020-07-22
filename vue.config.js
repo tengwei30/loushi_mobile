@@ -110,33 +110,33 @@ module.exports = {
           //   test: /[\\/]src[\\/]/,
           //   minSize: 1024
           // },
-          vendors: { 
-            name: 'chunk-verdors', 
-            test: /[\\/]node_modules[\\/]/, 
+          vendors: {
+            name: 'chunk-verdors',
+            test: /[\\/]node_modules[\\/]/,
             priority: 10,
-            chunks: "initial"
+            chunks: 'initial'
           },
-          swiper: { 
+          swiper: {
             name: 'chunk-swiper',
             priority: 20,
             test: /[\\/]node_modules[\\/]_?swiper(.*)/,
           },
-          'chunk-better-scroll': { 
+          'chunk-better-scroll': {
             name: 'chunk-better-scroll',
             priority: 20,
             test: /[\\/]node_modules[\\/]_?better-scroll(.*)/,
           },
-          'chunk-ali-oss': { 
+          'chunk-ali-oss': {
             name: 'chunk-ali-oss',
             priority: 20,
             test: /[\\/]node_modules[\\/]_?ali-oss(.*)/,
           },
-          'chunk-moment': { 
+          'chunk-moment': {
             name: 'chunk-moment',
             priority: 20,
             test: /[\\/]node_modules[\\/]_?moment(.*)/,
           },
-        } 
+        }
       })
       config.plugin('AutoInjectPlugin').use(AutoInjectPlugin)
       // config.plugin('BundleAnalyzerPlugin').use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
@@ -205,6 +205,11 @@ module.exports = {
         // ws: true,
         changeOrigin: true,
       },
+      '/activity_api': {
+        target: 'http://testapi.ibreader.com/',
+        // ws: true,
+        changeOrigin: true,
+      },
       // '/api': {
       //   target: 'http://test.cartoon1.ibreader.com/',
       //   changeOrigin: true
@@ -212,6 +217,4 @@ module.exports = {
     },
   },
 }
-
-
 
