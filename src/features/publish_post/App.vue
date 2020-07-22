@@ -15,10 +15,10 @@
       ref='textarea'
       @keyup='handleInput')
       div.publis-textarea-input {{comment.length}}/120字
-    div.upload(@click='handleUpload' v-show='false')
-      div.input
-        input(type='file' ref='upload' accept='image/*' @change='handleSelectImg')
-    div.upload-img(@click='handleUpload')
+    //- div.upload(@click='handleUpload' v-show='false')
+    //-   div.input
+    //-     input(type='file' ref='upload' accept='image/*' @change='handleSelectImg')
+    //- div.upload-img(@click='handleUpload')
     //- div(@click='handlePublish') fabu
 </template>
 
