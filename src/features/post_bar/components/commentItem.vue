@@ -7,7 +7,7 @@
     div.title(v-if='title') {{title}}
     div.content1 {{isShowMore ? content : this.commentInfo.content}}
       span.content-more(v-if='isShowMore' @click.stop='isShowMore = !isShowMore') 更多
-    div.img(v-if='commentInfo.image' :style='{backgroundImage: `url(${commentInfo.image})`}')
+    //- div.img(v-if='commentInfo.image' :style='{backgroundImage: `url(${commentInfo.image})`}')
       //- img(:src='commentInfo.image')
     div.comment-info
       div.left
