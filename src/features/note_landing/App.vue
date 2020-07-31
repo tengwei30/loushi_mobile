@@ -6,6 +6,7 @@
 <script>
 import { isiOS } from '@/utils/browser'
 import { getQueryString } from '@/utils/url'
+import { Base64 } from 'js-base64'
 export default {
   data() {
     return {
@@ -15,16 +16,15 @@ export default {
   },
   methods: {
     jumpScheme() {
-      if (isiOS) {
-        window.location.href =
-            'https://itunes.apple.com/cn/app/%E5%BF%85%E7%9C%8B%E5%B0%8F%E8%AF%B4-%E5%B0%8F%E8%AF%B4%E9%98%85%E8%AF%BB%E8%BF%BD%E4%B9%A6%E7%A5%9E%E5%99%A8/id1435034789?mt=8'
-      } else {
-        let bid = getQueryString('bid')
+      if (!isiOS) {
+        let bid = getQueryString('bid') || ''
+        let apkPath = getQueryString('path')
+        apkPath = Base64.decode(apkPath)
         this.bookUri = this.bookUri.replace('<bookId>', bid)
         setTimeout(() => {
-          window.location = this.bookUri
+          window.location = bid ? this.bookUri : this.url
           setTimeout(() => {
-            window.location = 'http://dl.ibreader.com/api/download/138'
+            window.location = apkPath || 'http://dl.ibreader.com/api/download/307'
           }, 2000)
         }, 200)
       }
