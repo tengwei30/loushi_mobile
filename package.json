@@ -96,7 +96,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,vue,pug}": [
+    "src/**/*.{js,vue}": [
       "npm run lint",
       "git add ."
     ]
