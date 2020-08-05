@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import { isiOS } from '@/utils/browser'
+import BROWSER from '@/utils/browser'
 import { getQueryString } from '@/utils/url'
 import { mBuryPoint } from '@/utils/buryPoint'
 import { Base64 } from 'js-base64'
@@ -33,7 +33,7 @@ export default {
           apkPath
         })
       }
-      if (!isiOS) {
+      if (!BROWSER.isiOS) {
         this.bookUri = this.bookUri.replace('<bookId>', bid)
         setTimeout(() => {
           window.location = bid ? this.bookUri : this.url
