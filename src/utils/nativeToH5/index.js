@@ -81,3 +81,39 @@ export const judgeIsLogined = (args) => {
   console.log(args, '参数args')
   dsbridge.call('judgeIsLogined', args)
 }
+
+/**
+ * 跳转到指定排行榜的指定位置
+ * @param {传入的参数} args categoryId： 分类id 98-男生 122-女生 79-出版
+ * rankingName：榜单名称 eg：推荐榜
+ * rank：榜单名次
+ */
+export const skipRanking = (args) => {
+  console.log('skipRanking', args)
+  dsbridge.call('skipRanking', args)
+}
+
+/**
+ * 书籍投票方法
+ * @param {传入的参数} args bookId：书籍id
+ */
+export const bookVote = (args) => {
+  console.log('bookVote', args)
+  dsbridge.call('bookVote', args)
+}
+
+/**
+ * 友盟打点
+ * @param {传入的参数} args {
+        eventName: 'h5_post_bar_vote',
+        map: {
+          bookId: getQueryString('bookId'),
+          page: 'post_bar',
+          rankingName: this.bookInfo.rankingName
+        }
+      }
+ */
+export const buryingPoint = (args) => {
+  console.log('buryingPoint:', args)
+  dsbridge.call('buryingPoint', args)
+}

@@ -3,6 +3,9 @@ body, html{
   margin 0
 }
 #publish
+  width 100%
+  position absolute
+  top 0
   .score-box
     .score-tip
       font-size 13px
@@ -106,7 +109,8 @@ body, html{
     
 
 .publish-textarea:empty:not(:focus):before {
-  content: '-写下你的想法吧 \A-有配图会有更多人点赞';
+  // content: '-写下你的想法吧 \A-有配图会有更多人点赞';
+  content: '-写下你的想法吧';
   white-space: pre;
   color: #BBBBBB;
   font-size: 14px;

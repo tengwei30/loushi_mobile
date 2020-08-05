@@ -114,21 +114,84 @@
           color #FFFFFF
           font-size 18px
           line-height 16px
-          padding 9px 0 6px
+          padding 10px 0 10px
           width 240px
           overflow hidden
           white-space nowrap
           text-overflow ellipsis
-        .book-tip
-          span
-            font-size 14px
+        .book-info-bottom
+          display flex
+          .book-info-left
+            margin-top 2px
+            width 156px
+            .book-tip
+              font-size 0
+              span
+                font-size 14px
+                color #ffffff
+                padding-left 20px
+                &:first-of-type
+                  margin-right 20px
+                  background url('../../assets/community/user_icon.png') no-repeat center left/15px 15px
+                &:last-of-type
+                  background url('../../assets/community/posts.png') no-repeat center left/16px 16px
+            .book-handle
+              display flex
+              font-size 0
+              align-items center
+              height 20px
+              margin-bottom 10px
+              .book-ranking
+                transform scale(0.5)
+                transform-origin left center
+                display flex
+                font-size 20px
+                max-width 360px
+                box-sizing border-box
+                height 40px
+                align-items center
+                background #E1DDD8
+                border-radius 20px
+                color #E85201
+                padding 0 10px 0 4px
+                margin-right 16px
+                .book-ranking-num
+                  width 32px
+                  height 32px
+                  border-radius 50%
+                  background linear-gradient(#FFB254, #FF5A00)
+                  color #ffffff
+                  text-align center
+                  line-height 32px
+                .book-ranking-text
+                  margin-left 5px
+                  flex 1
+                  overflow hidden
+                  white-space nowrap
+                  text-overflow ellipsis
+                  display flex
+                  align-items center
+                  .book-right-img
+                    margin-left 4px
+                    display inline-block
+                    width 14px
+                    height 20px
+                    background url('../../assets/community/right_icon.png') no-repeat center left/100%
+          .book-vote
+            font-size 28px
+            background #FF5A00
+            box-shadow 0px 2px 4px 0px rgba(255,90,0,0.5)
+            border-radius 24px
+            width 132px
+            height 48px
+            text-align center
             color #ffffff
-            padding-left 20px
-            &:first-of-type
-              margin-right 20px
-              background url('../../assets/community/user_icon.png') no-repeat center left/15px 15px
-            &:last-of-type
-              background url('../../assets/community/posts.png') no-repeat center left/16px 16px
+            box-sizing border-box
+            line-height 48px
+            vertical-align middle
+            transform scale(0.5)
+            transform-origin left top
+  
   .wrapper
     // flex 1
     width 100%
