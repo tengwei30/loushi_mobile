@@ -35,7 +35,8 @@
     "postcss-px2rem": "^0.3.0",
     "raven-js": "^3.27.2",
     "vue": "^2.6.9",
-    "vue-awesome-swiper": "^4.0.4"
+    "vue-awesome-swiper": "^4.0.4",
+    "vue-video-player": "^5.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -48,6 +49,7 @@
     "@vue/cli-plugin-eslint": "^3.5.1",
     "@vue/cli-plugin-unit-jest": "^3.5.0",
     "@vue/cli-service": "^3.5.1",
+    "auto-inject-plugin": "^1.0.8",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.1.0",
     "babel-polyfill": "^6.26.0",
