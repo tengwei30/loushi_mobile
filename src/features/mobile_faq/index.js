@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import '@/common/index'
-import 'babel-polyfill'
+import '@babel/polyfill'
 import Es6Promise from 'es6-promise'
 import * as Sentry from '@sentry/browser'
 import * as Integrations from '@sentry/integrations'
