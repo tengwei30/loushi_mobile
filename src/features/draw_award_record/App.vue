@@ -25,9 +25,13 @@ export default {
       this.getAwardRecord()
     },
     async getAwardRecord() {
-      let res = await getAwardRecord()
-      if (res.code === 100) {
-        this.recordList = res.data.list
+      try {
+        let res = await getAwardRecord()
+        this.loaded = true
+        if (res.code === 100) {
+          this.recordList = res.data.list
+        }
+      } catch (err) {
         this.loaded = true
       }
     }

@@ -1,14 +1,14 @@
 <template lang="pug">
-  div.video-player(
-    @click.stop='handleClickPause'
-  )
+  div.video-player
     video-player(
       class="video-player-box"
       ref="videoPlayer"
+      :attrId='rankInfo.rank'
       :options="playerOptions"
       :playsinline="true"
       @play="onPlayerPlay($event)"
       @statechanged="playerStateChanged($event)"
+      @ready="playerReadied"
     )
     div.video-ranking(v-show='isShowRanking') {{rankInfo.rank}}
 </template>
@@ -17,7 +17,6 @@
 import bus from '../bus'
 import { videoPlayer } from 'vue-video-player'
 import 'video.js/dist/video-js.css'
-let timeout = null
 export default {
   components: {
     videoPlayer
@@ -26,7 +25,8 @@ export default {
   data() {
     return {
       isShowRanking: true,
-      play: false
+      play: false,
+      isActive: false
     }
   },
   mounted() {
@@ -48,43 +48,29 @@ export default {
       let pausePlayer = this.playerList.filter(item => item.index === target.rankInfo.rank)[0]
       pausePlayer && pausePlayer.player.pause && pausePlayer.player.pause()
     },
-    handleClickPause(e) {
-      // 点击时判断是否显示了控制条，没有显示显示控制条，显示了就暂停或者播放视频
-      let ele = this.$refs.videoPlayer.$el.getElementsByClassName('video-js')[0]
-      if (ele && (ele.className.indexOf('vjs-has-mine') > -1 || ele.className.indexOf('vjs-paused') > -1)) {
-        if (e.target.parentNode.className.indexOf('vjs-vol') > -1) {
-          return
-        }
-        if (this.play && this.$refs.videoPlayer.player.pause) {
-          this.$refs.videoPlayer.player.pause()
-        } else {
-          this.$refs.videoPlayer.player.play()
-        }
-        return
-      }
-      this.showVideoControl()
-    },
     playerStateChanged(target) {
       // 监听播放转台
       if (target.play) {
         this.play = true
-        this.showVideoControl()
       } else if (target.pause) {
         this.play = false
       }
     },
-    showVideoControl() {
-      let ele = this.$refs.videoPlayer.$el.getElementsByClassName('video-js')[0]
-      ele.className = ele.className + ' vjs-has-mine'
-      clearTimeout(timeout)
-      timeout = setTimeout(() => {
-        ele.className = ele.className.replace('vjs-has-mine', '')
-      }, 3000)
+    playerReadied() {
+      this.$refs.videoPlayer.player.on('touchend', () => {
+        if (!this.$refs.videoPlayer.player.userActive_ && this.play) {
+          this.$refs.videoPlayer.player.pause && this.$refs.videoPlayer.player.pause()
+        }
+      })
     }
   }
 }
 </script>
 <style lang="stylus">
+.min-poster
+  width 100%
+  height 183px
+  background url('../../../assets/video_vote/video_default.png') no-repeat center/100%
 .video-player
   position relative
   height 183px

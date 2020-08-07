@@ -1,12 +1,6 @@
 <template lang="pug">
 div
-  cube-scroll.video-vote-scroll(ref='wrapper'
-  :options='options'
-  :data='rankList'
-  @pulling-up="onPullingUp"
-  :scroll-events="['before-scroll-start', 'scroll-end']"
-  @before-scroll-start='beforeScrollStart'
-  @scroll-end='scrollEnd')
+  .video-vote-scroll(:class='{"is-disabled-scroll": isShowVote}')
     div.video-vote-bg
       div.video-vote-rule-btn(@click='handleToggleShowRule') 活动规则
       div.video-count-time
@@ -19,7 +13,7 @@ div
         | :
         span.video-count-time-item {{countTime.sec || '00'}}
       div.video-tip
-      div.video-box
+      div.video-box(ref='videoBox')
         video-item(v-for='(item) in rankList'
         v-if='item.id'
         :key='item.id'
@@ -43,14 +37,13 @@ div
 
 <script>
 import bus from './bus'
-import BScroll from 'better-scroll'
 import VideoItem from './components/videoItem'
 import VideoRule from './components/videoRule'
 import VideoVote from './components/videoVote/index'
 
 import { getRankList, getVoteCounts } from './request'
 import { getQueryString } from '@/utils/url'
-import { countDown } from '@/utils/utils.js'
+import { countDown, debounce } from '@/utils/utils.js'
 import { skipUrl, toast } from '@/utils/nativeToH5/index'
 import { mBuryPoint } from '@/utils/buryPoint'
 
@@ -59,11 +52,9 @@ export default {
     VideoItem,
     VideoRule,
     VideoVote,
-
   },
   data() {
     return {
-      scroll: null,
       isHasMore: true,
       playerList: [],
       currentPlayer: null,
@@ -76,13 +67,6 @@ export default {
       voteTargetInfo: {},
       countTimeEnd: 0,
       isShowAwardBtn: true,
-      options: {
-        observeDOM: true,
-        click: true,
-        probeType: 1,
-        pullUpLoad: true,
-        pullDownRefresh: false
-      }
     }
   },
   created() {
@@ -91,36 +75,46 @@ export default {
     mBuryPoint('7', {
       enterType: 1
     })
+    this.scrollEvent()
     window.ibreader && window.ibreader.prohibitPull()
   },
   methods: {
     init() {
-      // this.initBScroll()
       this.getRankList()
       this.getVoteCounts()
     },
-    onPullingUp() {
-      this.getRankList()
-      this.$refs.wrapper.forceUpdate()
+    scrollEvent() {
+      window.addEventListener('scroll', debounce(() => {
+        this.scrollDealHeight()
+        this.dealVideoIsPlay()
+      }, 100))
+      window.addEventListener('scroll', () => {
+        this.isShowAwardBtn = false
+      })
     },
-    beforeScrollStart() {
-      this.isShowAwardBtn = false
+    scrollDealHeight() {
+      var lineHeight=this.$refs.videoBox.clientHeight
+      var windowHeight=document.body.clientHeight || document.documentElement.clientHeight
+      var scrollTop=document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+      if (scrollTop + windowHeight >= lineHeight) {
+        this.getRankList()
+      }
     },
-    scrollEnd() {
+    dealVideoIsPlay() {
       this.isShowAwardBtn = true
       this.$refs.videoVoteItem.map((item) => {
         let ele = item.$el
         const eleOffsetTop = ele.offsetTop
         const eleClientHeight = ele.clientHeight
         const docClientHeight = document.body.clientHeight || document.documentElement.clientHeight
-        if (Math.abs(this.$refs.wrapper.scroll.y) > eleOffsetTop || (eleOffsetTop + eleClientHeight - docClientHeight) > Math.abs(this.$refs.wrapper.scroll.y)) {
+        const scrollTop=document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+        if (Math.abs(scrollTop) > eleOffsetTop || (eleOffsetTop + eleClientHeight - docClientHeight) > Math.abs(scrollTop)) {
           item.pauseChildVideo && item.pauseChildVideo(item)
         }
       })
     },
     async getVoteCounts() {
       let res = await getVoteCounts()
-      console.log(res)
       if (res.code === 100) {
         this.myVoteCounts = res.data.count || 0
       }
@@ -142,31 +136,6 @@ export default {
           return
         }
       }
-      this.$refs.wrapper.forceUpdate()
-    },
-    initBScroll() {
-      this.$nextTick(() => {
-        this.scroll = new BScroll(this.$refs.wrapper, { click: true, tap: true, probeType: 3, bounce: false })
-        this.scroll.on('scrollEnd', () => {
-          // 滚动到底部
-          if (this.scroll.y <= (this.scroll.maxScrollY + 50) && this.isHasMore) {
-            this.getRankList()
-          }
-          this.isShowAwardBtn = true
-          this.$refs.videoVoteItem.map((item) => {
-            let ele = item.$el
-            const eleOffsetTop = ele.offsetTop
-            const eleClientHeight = ele.clientHeight
-            const docClientHeight = document.body.clientHeight || document.documentElement.clientHeight
-            if (Math.abs(this.scroll.y) > eleOffsetTop || (eleOffsetTop + eleClientHeight - docClientHeight) > Math.abs(this.scroll.y)) {
-              item.pauseChildVideo && item.pauseChildVideo(item)
-            }
-          })
-        })
-        this.scroll.on('scroll', () => {
-          this.isShowAwardBtn = false
-        })
-      })
     },
     getAllPlayerList() {
       // 获取视频播放列表
@@ -181,9 +150,9 @@ export default {
     },
     handleToggleShowRule() {
       if (this.isShowRule) {
-        this.$refs.wrapper.enable()
+        document.body.className = document.body.className.replace('is-disabled', '')
       } else {
-        this.$refs.wrapper.disable()
+        document.body.className = document.body.className + ' is-disabled'
       }
       this.isShowRule = !this.isShowRule
     },
@@ -198,9 +167,9 @@ export default {
         this.voteTargetInfo = target
       }
       if (this.isShowVote) {
-        this.$refs.wrapper.enable()
+        document.body.className = document.body.className.replace('is-disabled', '')
       } else {
-        this.$refs.wrapper.disable()
+        document.body.className = document.body.className + ' is-disabled'
       }
       this.isShowVote = !this.isShowVote
     },
@@ -231,4 +200,8 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../styles/index.styl';
 @import './index.styl';
+body.is-disabled{
+  touch-action none !important
+  overflow hidden
+}
 </style>

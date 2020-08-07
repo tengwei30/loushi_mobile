@@ -1,5 +1,4 @@
 <template lang="pug">
-div
   .vote-pop(v-if='!isShowSuccess'
   @click='handleToggleShowVote')
     div.vote-pop-container(v-show='showFlag === 1'
@@ -29,7 +28,7 @@ div
         div.vote-pop-toggle-tip 当日有效
         div.vote-pop-bottom
           | 拥有0张支持票
-    div.vote-pop-container(v-show='showFlag === 3'
+    div.vote-pop-container.is-task-list(v-show='showFlag === 3'
     @click.stop)
       div.vote-pop-header 做任务得支持票
       div.vote-pop-close(@click='handleToggleShowVote')

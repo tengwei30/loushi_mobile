@@ -7,13 +7,16 @@
   left 0
   z-index 30
   .vote-pop-container
-    width 100%
-    min-height 170px
+    width 375px
+    height 170px
     position absolute
-    bottom 0
     left 0
+    bottom 0
+    box-sizing border-box
     background #ffffff
     border-radius 20px 20px 0 0
+    &.is-task-list
+      height 320px
     .vote-pop-header
       height 42px
       line-height 42px
@@ -31,8 +34,6 @@
       height 14px
       background url('../../../../assets/video_vote/close.png') no-repeat center/100%
     .vote-pop-content
-      max-height 500px
-      overflow-y scroll
       .vote-pop-toggle-num
         display flex
         align-items center

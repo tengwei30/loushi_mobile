@@ -63,6 +63,7 @@ export default {
       font-size 18px
       padding-top 20px
       font-weight 500
+      text-align center
     .vote-success-bg
       width 69px
       height 62px
@@ -72,6 +73,7 @@ export default {
       font-size 15px
       color #333333
       line-height 27px
+      text-align center
       p
         span
           color #FF5A00
