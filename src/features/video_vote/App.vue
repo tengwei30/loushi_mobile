@@ -1,5 +1,12 @@
 <template lang="pug">
-  div.video-vote-scroll(ref='wrapper')
+div
+  cube-scroll.video-vote-scroll(ref='wrapper'
+  :options='options'
+  :data='rankList'
+  @pulling-up="onPullingUp"
+  :scroll-events="['before-scroll-start', 'scroll-end']"
+  @before-scroll-start='beforeScrollStart'
+  @scroll-end='scrollEnd')
     div.video-vote-bg
       div.video-vote-rule-btn(@click='handleToggleShowRule') 活动规则
       div.video-count-time
@@ -20,18 +27,18 @@
         :rankInfo='item'
         ref='videoVoteItem'
         @handleToggleShowVote='handleToggleShowVote')
-    div.video-vote-number(:class='{"video-is-show": !isShowAwardBtn}')
-      span.video-vote-number-box
-        | 可投票数 <br>
-        | {{myVoteCounts||0}}票
-    div.video-vote-draw(@click='handeGoDrawPage'
-    :class='{"is-show-award-btn": !isShowAwardBtn}')
-    video-rule(v-if='isShowRule'
-    @handleToggleShowRule='handleToggleShowRule')
-    video-vote(v-if='isShowVote'
-    @handleToggleShowVote='handleToggleShowVote'
-    :myVoteCounts='myVoteCounts'
-    :voteTargetInfo='voteTargetInfo')
+  div.video-vote-number(:class='{"video-is-show": !isShowAwardBtn}')
+    span.video-vote-number-box
+      | 可投票数 <br>
+      | {{myVoteCounts||0}}票
+  div.video-vote-draw(@click='handeGoDrawPage'
+  :class='{"is-show-award-btn": !isShowAwardBtn}')
+  video-rule(v-if='isShowRule'
+  @handleToggleShowRule='handleToggleShowRule')
+  video-vote(v-if='isShowVote'
+  @handleToggleShowVote='handleToggleShowVote'
+  :myVoteCounts='myVoteCounts'
+  :voteTargetInfo='voteTargetInfo')
 </template>
 
 <script>
@@ -46,11 +53,13 @@ import { getQueryString } from '@/utils/url'
 import { countDown } from '@/utils/utils.js'
 import { skipUrl, toast } from '@/utils/nativeToH5/index'
 import { mBuryPoint } from '@/utils/buryPoint'
+
 export default {
   components: {
     VideoItem,
     VideoRule,
-    VideoVote
+    VideoVote,
+
   },
   data() {
     return {
@@ -66,7 +75,14 @@ export default {
       myVoteCounts: 0,
       voteTargetInfo: {},
       countTimeEnd: 0,
-      isShowAwardBtn: true
+      isShowAwardBtn: true,
+      options: {
+        observeDOM: true,
+        click: true,
+        probeType: 1,
+        pullUpLoad: true,
+        pullDownRefresh: false
+      }
     }
   },
   created() {
@@ -79,9 +95,28 @@ export default {
   },
   methods: {
     init() {
-      this.initBScroll()
+      // this.initBScroll()
       this.getRankList()
       this.getVoteCounts()
+    },
+    onPullingUp() {
+      this.getRankList()
+      this.$refs.wrapper.forceUpdate()
+    },
+    beforeScrollStart() {
+      this.isShowAwardBtn = false
+    },
+    scrollEnd() {
+      this.isShowAwardBtn = true
+      this.$refs.videoVoteItem.map((item) => {
+        let ele = item.$el
+        const eleOffsetTop = ele.offsetTop
+        const eleClientHeight = ele.clientHeight
+        const docClientHeight = document.body.clientHeight || document.documentElement.clientHeight
+        if (Math.abs(this.$refs.wrapper.scroll.y) > eleOffsetTop || (eleOffsetTop + eleClientHeight - docClientHeight) > Math.abs(this.$refs.wrapper.scroll.y)) {
+          item.pauseChildVideo && item.pauseChildVideo(item)
+        }
+      })
     },
     async getVoteCounts() {
       let res = await getVoteCounts()
@@ -107,6 +142,7 @@ export default {
           return
         }
       }
+      this.$refs.wrapper.forceUpdate()
     },
     initBScroll() {
       this.$nextTick(() => {
@@ -145,9 +181,9 @@ export default {
     },
     handleToggleShowRule() {
       if (this.isShowRule) {
-        this.scroll.enable()
+        this.$refs.wrapper.enable()
       } else {
-        this.scroll.disable()
+        this.$refs.wrapper.disable()
       }
       this.isShowRule = !this.isShowRule
     },
@@ -162,9 +198,9 @@ export default {
         this.voteTargetInfo = target
       }
       if (this.isShowVote) {
-        this.scroll.enable()
+        this.$refs.wrapper.enable()
       } else {
-        this.scroll.disable()
+        this.$refs.wrapper.disable()
       }
       this.isShowVote = !this.isShowVote
     },

@@ -38,6 +38,7 @@ export default {
         type: 'video/mp4',
         src: this.rankInfo.video
       }],
+      preload: 'none',
       poster: this.rankInfo.image,
       controlBar: {
         fullscreenToggle: false  // 全屏按钮
