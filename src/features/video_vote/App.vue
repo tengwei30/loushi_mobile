@@ -188,6 +188,7 @@ export default {
       })
     },
     dealRankListAfterVote() {
+      this.playerList = []
       this.rankList = []
       this.pageNum = 1
       this.getRankList()
