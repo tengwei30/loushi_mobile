@@ -110,7 +110,7 @@ module.exports = {
           //   enforce: true,
           // },
           vendors: {
-            name: 'chunk-verdors',
+            name: 'chunk-vendors',
             test: /[\\/]node_modules[\\/]/,
             priority: 10,
             chunks: 'initial',
