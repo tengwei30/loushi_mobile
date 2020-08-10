@@ -13,7 +13,8 @@
       .winning-pop-close(@click='toggleShowSuccessPop')
 </template>
 <script>
-import { skipUrl } from '@/utils/nativeToH5/index'
+import { closeCurrentPage } from '@/utils/nativeToH5/index'
+import { getCookie } from '@/utils/utils'
 export default {
   props: ['awardInfo'],
   data() {
@@ -27,11 +28,21 @@ export default {
     toggleShowSuccessPop() {
       this.$emit('toggleShowSuccessPop')
     },
+    getVersion() {
+      let versionStr = getCookie('version')
+      let versionArr = versionStr ? versionStr.split('.') : []
+      if (versionArr.length > 0) {
+        return parseFloat(versionArr[1] + '.' + versionArr[2])
+      }
+    },
     handleGoVotePage() {
       this.toggleShowSuccessPop()
-      skipUrl({
-        skipUrl: `${window.location.origin}/BKH5-video_vote.html${window.location.search}`
-      })
+      if (this.getVersion() >= 1.42) {
+        closeCurrentPage()
+      } else {
+        let url = `${window.location.origin}/BKH5-video_vote.html${window.location.search}`
+        window.location.href = `breader://common/browser?url=${encodeURIComponent(url)}`
+      }
     }
   }
 }
