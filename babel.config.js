@@ -1,6 +1,6 @@
 
 const plugins = []
-if (['production', 'prod'].includes(process.env.NODE_ENV)) {
+if (process.env.VUE_APP_DEVELOP_ENV === 'false') {
   plugins.push('transform-remove-console')
 }
 
