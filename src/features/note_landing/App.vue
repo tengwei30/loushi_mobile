@@ -4,8 +4,9 @@
 </template>
 
 <script>
-import { isiOS } from '@/utils/browser'
+import BROWSER from '@/utils/browser'
 import { getQueryString } from '@/utils/url'
+import { mBuryPoint } from '@/utils/buryPoint'
 import { Base64 } from 'js-base64'
 export default {
   data() {
@@ -15,15 +16,33 @@ export default {
     }
   },
   methods: {
-    jumpScheme() {
-      if (!isiOS) {
-        let bid = getQueryString('bid') || ''
-        let apkPath = getQueryString('path')
-        apkPath = Base64.decode(apkPath)
+    jumpScheme(target) {
+      let bid = getQueryString('bid') || ''
+      let apkPath = getQueryString('path')
+      apkPath = Base64.decode(apkPath)
+      if (target === 1) {
+        mBuryPoint('8', {
+          enterType: 1,
+          bookId: bid,
+          apkPath
+        })
+      } else {
+        mBuryPoint('8', {
+          clickAppDownload: 'clickAppDownload',
+          bookId: bid,
+          apkPath
+        })
+      }
+      if (!BROWSER.isiOS) {
         this.bookUri = this.bookUri.replace('<bookId>', bid)
         setTimeout(() => {
           window.location = bid ? this.bookUri : this.url
           setTimeout(() => {
+            mBuryPoint('8', {
+              enterType: 2,
+              bookId: bid,
+              apkPath
+            })
             window.location = apkPath || 'http://dl.ibreader.com/api/download/307'
           }, 2000)
         }, 200)
@@ -31,7 +50,7 @@ export default {
     }
   },
   mounted() {
-    this.jumpScheme()
+    this.jumpScheme(1)
   },
 }
 </script>

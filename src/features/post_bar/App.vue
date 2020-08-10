@@ -309,9 +309,11 @@ export default {
       })
     }
   },
+  created() {
+    window.showPageReload = this.showPageReload
+  },
   mounted() {
     this.initPage()
-    window.showPageReload = this.showPageReload
     window.isLogined = (isLogined) => {
       console.log(isLogined, '是否登陆111')
       if (isLogined) {

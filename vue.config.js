@@ -2,6 +2,7 @@
  * vue.config.js 配置参考
  * https://cli.vuejs.org/zh/config
  */
+const AutoInjectPlugin = require('auto-inject-plugin')
 const path = require('path')
 const getEntry = require('./build/pageEntry')
 const resolve = dir => path.join(__dirname, dir)
@@ -98,6 +99,58 @@ module.exports = {
   },
   chainWebpack: config => {
     config.resolve.alias.set('@', resolve('src'))
+    if (process.env.NODE_ENV === 'production') {
+      config.optimization.splitChunks({
+        cacheGroups: {
+          // default: {
+          //   minChunks: 2,
+          //   priority: -20,
+          //   reuseExistingChunk: true,
+          //   chunks: "initial",
+          //   enforce: true,
+          // },
+          vendors: {
+            name: 'chunk-verdors',
+            test: /[\\/]node_modules[\\/]/,
+            priority: 10,
+            chunks: 'initial',
+            reuseExistingChunk: true,
+            enforce: true
+          },
+          swiper: {
+            name: 'chunk-swiper',
+            priority: 20,
+            test: /[\\/]node_modules[\\/]_?swiper(.*)/,
+            reuseExistingChunk: true,
+            chunks: 'all'
+          },
+          'chunk-better-scroll': {
+            name: 'chunk-better-scroll',
+            priority: 20,
+            test: /[\\/]node_modules[\\/]_?better-scroll(.*)/,
+            reuseExistingChunk: true,
+            chunks: 'all'
+          },
+          'chunk-ali-oss': {
+            name: 'chunk-ali-oss',
+            priority: 20,
+            test: /[\\/]node_modules[\\/]_?ali-oss(.*)/,
+            reuseExistingChunk: true,
+            chunks: 'all'
+          },
+          'chunk-video': {
+            name: 'chunk-video',
+            priority: 20,
+            test: /[\\/]node_modules[\\/]_?video(.*)/,
+            reuseExistingChunk: true,
+            chunks: 'all'
+          },
+        }
+      })
+      config.plugin('AutoInjectPlugin').use(AutoInjectPlugin)
+      // config.plugin('BundleAnalyzerPlugin').use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+    }
+
     config.module
       .rule('compile')
       .test(/\.js$/)
@@ -161,6 +214,16 @@ module.exports = {
         // ws: true,
         changeOrigin: true,
       },
+      '/activity_api': {
+        target: 'http://testapi.ibreader.com/',
+        // ws: true,
+        changeOrigin: true,
+      },
+      '/task_api': {
+        target: 'http://testapi.ibreader.com/',
+        // ws: true,
+        changeOrigin: true,
+      },
       // '/api': {
       //   target: 'http://test.cartoon1.ibreader.com/',
       //   changeOrigin: true
@@ -168,3 +231,4 @@ module.exports = {
     },
   },
 }
+
