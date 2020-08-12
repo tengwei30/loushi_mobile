@@ -61,7 +61,7 @@ module.exports = {
   productionSourceMap: false,
   configureWebpack: config => {
     for (let keys in config.entry) {
-      config.entry[keys].unshift('@babel/polyfill')
+      config.entry[keys].unshift('babel-polyfill')
     }
 
     const newRules = config.module.rules.map(rule => {

@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import App from './App'
 import '@/common/index'
-import '@babel/polyfill'
-import Es6Promise from 'es6-promise'
 import * as Sentry from '@sentry/browser'
 import * as Integrations from '@sentry/integrations'
 if (process.env.VUE_APP_DEVELOP_ENV === 'false') {
@@ -12,8 +10,6 @@ if (process.env.VUE_APP_DEVELOP_ENV === 'false') {
   })
 }
 
-require('es6-promise').polyfill()
-Es6Promise.polyfill()
 
 /* eslint-disable no-new */
 new Vue({
