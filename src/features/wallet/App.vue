@@ -46,10 +46,11 @@ export default {
     },
     gotoRecord() {
       // 跳转金币流水
-      let routerUrl = `${window.location.origin}/#/walletrecord`
-      if (window.location.origin === 'http://testincrease.ibreader.com') {
-        routerUrl = 'http://testtask.ibreader.com/#/walletrecord'
-      }
+      // let routerUrl = `${window.location.origin}/#/walletrecord`
+      // if (window.location.origin === 'http://testincrease.ibreader.com') {
+      //   routerUrl = 'http://testtask.ibreader.com/#/walletrecord'
+      // }
+      let routerUrl = `${window.location.origin}/BKH5-wallet_record.html`
       mBuryPoint('clickWalletWater')
       routerToNative(routerUrl)
     },
