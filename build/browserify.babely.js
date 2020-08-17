@@ -2,7 +2,7 @@ var fs = require('fs')
 var path = require('path')
 var browserify = require('browserify')
 var babelify = require('babelify')
-var rgex = /^(chunk-vendors)|(chunk-swiper)|(chunk-better-scroll)\.[\w]/
+var rgex = /^(chunk-vendors)|(chunk-swiper)\.[\w]/
 var bableFileArray = []
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
