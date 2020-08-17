@@ -32,7 +32,7 @@ function getFiles(url, ext) {
 }
 getFiles('dist/Breader_Task_H5/js/', '.js')
 function compileJs() {
-  browserify({ debug: true })
+  browserify({ debug: false })
     .transform(babelify)
     .require(resolve(`/dist/Breader_Task_H5/js/${bableFileArray[0]}.js`), { entry: true })
     .bundle(function(res) {
