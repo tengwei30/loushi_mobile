@@ -2,11 +2,9 @@ var fs = require('fs')
 var path = require('path')
 var browserify = require('browserify')
 var babelify = require('babelify')
-var rgex = /^chunk-vendors\.[\w]/
+var rgex = /^(chunk-vendors)|(chunk-swiper)\.[\w]/
 var bableFileArray = []
 
-// package
-const pkg = require('../package.json')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -17,22 +15,18 @@ function getFiles(url, ext) {
       return console.error(err, 'getFileNameError')
     }
     files.forEach(function(file) {
-      fs.stat(url + file, (err, stats) => {
-        if (stats && stats.isFile()) {
-          if (path.extname(url + file) === ext) {
-            if (rgex.test(file)) {
-              bableFileArray.push(path.basename(file, ext))
-              console.log(bableFileArray)
-              compileJs(url)
-            }
+      var stats = fs.statSync(url + file)
+      if (stats && stats.isFile()) {
+        if (path.extname(url + file) === ext) {
+          if (rgex.test(file)) {
+            bableFileArray.push(path.basename(file, ext))
           }
-        } else if (stats && stats.isDirectory()) {
-          s
-          getFiles(url + file + '/', ext)
         }
-      })
-
+      } else if (stats && stats.isDirectory()) {
+        getFile(url + file + '/', ext)
+      }
     })
+    compileJs(url)
   })
 }
 
@@ -49,19 +43,27 @@ function dealFile(dir) {
 }
 
 dealFile('dist/Breader_Task_H5')
+
 function compileJs(url) {
-  browserify({ debug: true })
+  bableFileArray.map(function(item) {
+    dealCompile(url, item)
+  })
+}
+
+// 编译处理打包之后的 js 文件
+function dealCompile(url, item) {
+  browserify({ debug: false })
     .transform(babelify)
-    .require(resolve(`/${url}/${bableFileArray[0]}.js`), { entry: true })
+    .require(resolve(`/${url}/${item}.js`), { entry: true })
     .bundle(function(res) {
       console.log(res, 456)
-      fs.unlink(resolve(`/${url}/${bableFileArray[0]}.js`), function(err) {
+      fs.unlink(resolve(`/${url}/${item}.js`), function(err) {
         try {
-          var readerStream = fs.createReadStream(resolve(`/dist/${bableFileArray[0]}.js`))
-          var writerStream = fs.createWriteStream(resolve(`/${url}/${bableFileArray[0]}.js`))
+          var readerStream = fs.createReadStream(resolve(`/dist/${item}.js`))
+          var writerStream = fs.createWriteStream(resolve(`/${url}/${item}.js`))
           readerStream.pipe(writerStream)
           console.log('结束')
-          fs.unlink(resolve(`/dist/${bableFileArray[0]}.js`), function(errunlink) {
+          fs.unlink(resolve(`/dist/${item}.js`), function(errunlink) {
             try {
               console.log('success delete')
             } catch (errortetx) {
@@ -76,6 +78,6 @@ function compileJs(url) {
     .on('error', function(err) {
       console.log('Error' + err.message)
     })
-    .pipe(fs.createWriteStream(`dist/${bableFileArray[0]}.js`))
+    .pipe(fs.createWriteStream(`dist/${item}.js`))
 }
 
