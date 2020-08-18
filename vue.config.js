@@ -7,12 +7,17 @@ const path = require('path')
 const getEntry = require('./build/pageEntry')
 const resolve = dir => path.join(__dirname, dir)
 
-
 const isProd = process.env.VUE_APP_DEVELOP_ENV === 'false'
 const isDev = process.env.VUE_APP_DEVELOP_ENV === 'true'
 
+
 // CDN 地址
 const bkReadCDN = 'https://scdn.ibreader.com'
+
+// package
+const pkg = require('./package.json')
+
+const pageUrl = isProd ? `dist/Breader_Task_H5/${pkg.version}` : 'dist/Breader_Task_H5/'
 
 let globMatch = '*'
 if (!isProd && process.env.BK_H5_PAGES) {
@@ -51,8 +56,9 @@ const pagesMaker = () => {
 const pages = pagesMaker()
 module.exports = {
   publicPath: isDev ? './' : bkReadCDN,
-  assetsDir: 'Breader_Task_H5', // isDev ? 'bkh5-static' :
+  assetsDir: isProd ? `Breader_Task_H5/${pkg.version}` : 'Breader_Task_H5', // isDev ? 'bkh5-static' :
   indexPath: 'index.html',
+  filenameHashing: !isProd,
   pages,
   lintOnSave: isDev ? 'error' : true,
   // https://cli.vuejs.org/zh/config/#lintonsave
@@ -178,13 +184,13 @@ module.exports = {
       args[0].push(
         {
           from: resolve('public'),
-          to: resolve('dist/Breader_Task_H5/js'),
+          to: resolve(`${pageUrl}/js`),
           toType,
           ignore,
         },
         {
           from: resolve('static'),
-          to: resolve('dist/Breader_Task_H5/others'),
+          to: resolve(`${pageUrl}/others`),
           toType,
         }
       )
