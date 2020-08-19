@@ -12,15 +12,33 @@ html
     meta(name="keywords" content="必看小说！")
     meta(name="description" content="必看小说！")
     meta(name="site" content="必看小说")
+    script.
+      window.showPageReload = function() {
+        // 去除arms报错使用
+      }
+      const count = Math.random() * 99 + 1;
+      const url = window.location.host
+      if (count > 95 && url === "increase.ibreader.com") {
+        !(function (c, b, d, a) {
+          c[a] || (c[a] = {});
+          c[a].config = {
+            pid: "iiabd5we3q@9b13646576a4cd7",
+            appType: "web",
+            imgUrl: "https://arms-retcode.aliyuncs.com/r.png?",
+            sendResource: true,
+            enableLinkTrace: true,
+            behavior: true,
+            enableSPA: true,
+            useFmp: true,
+            enableConsole: true
+          };
+          with(b) with(body) with(insertBefore(createElement("script"), firstChild)) setAttribute("crossorigin", "",
+            src =
+            d)
+        })(window, document, "https://retcode.alicdn.com/retcode/bl.js", "__bl");
+      }
     if remlayout
       script.
-        //- const count = Math.random() * 99 + 1;
-        //- const url = window.location.host
-        //- if (count > 95 && url === "increase.ibreader.com") {
-          !(function(c,b,d,a){c[a]||(c[a]={});c[a].config={pid:"iiabd5we3q@9b13646576a4cd7",appType:"web",imgUrl:"https://arms-retcode.aliyuncs.com/r.png?",sendResource:true,enableLinkTrace:true,behavior:true,useFmp:true,enableConsole:true};
-with(b)with(body)with(insertBefore(createElement("script"),firstChild))setAttribute("crossorigin","",src=d)
-})(window,document,"https://retcode.alicdn.com/retcode/bl.js","__bl");
-        //- } 
         (function flexible (window, document) {
           var docEl = document.documentElement
           var dpr = window.devicePixelRatio || 1
