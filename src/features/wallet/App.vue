@@ -104,7 +104,7 @@ body, html
   box-sizing border-box
   header
     size(100%, 168px)
-    background url('../../assets/withdraw/money_bg.png') no-repeat center center
+    background url('../../assets/withdraw/wallet_money_bg.png') no-repeat center center
     background-size 100% 100%
     margin-top 20px
     padding 29px 0 0 20px
