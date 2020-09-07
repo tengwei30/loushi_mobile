@@ -381,3 +381,53 @@ export function randomStringFixLen(len) {
   }
   return pwd
 }
+
+/**
+ * 格式华时间dateFormat("YYYY-mm-dd HH:MM", date)
+ * @param {String} fmt 格式
+ * @param {Date} date 时间
+ */
+export const dateFormat = (fmt, date) => {
+  let ret
+  const opt = {
+    'Y+': date.getFullYear().toString(),
+    'm+': (date.getMonth() + 1).toString(),
+    'd+': date.getDate().toString(),
+    'H+': date.getHours().toString(),
+    'M+': date.getMinutes().toString(),
+    'S+': date.getSeconds().toString()
+  }
+  for (let k in opt) {
+    ret = new RegExp('(' + k + ')').exec(fmt)
+    if (ret) {
+      fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, '0')))
+    }
+  }
+  return fmt
+}
+
+/**
+ * 语义话时间(5分钟前，昨天16:48，今天15:23)
+ * @param {Date} time 时间
+ */
+export const semanticsDate = (time) => {
+  const publishDate = new Date(time)
+  const nowTime = new Date().getTime()
+  const nowDate = new Date()
+  const nowDay = nowDate.getDate()
+  const publishDay = publishDate.getDate() > 9 ? publishDate.getDate() : ('0' + publishDate.getDate())
+  const dSec = (nowTime - time)/1000
+  const publishMonth = (publishDate.getMonth() + 1) > 9 ? (publishDate.getMonth() + 1) : ('0' + (publishDate.getMonth() + 1))
+  const publishHour = publishDate.getHours() > 9 ? (publishDate.getHours()) : ('0' + publishDate.getHours())
+  const publishMin = publishDate.getMinutes() > 9 ? publishDate.getMinutes() : ('0' + publishDate.getMinutes())
+  if (dSec < 60*60) {
+    return Math.ceil(dSec/60) + '分钟前'
+  }
+  if (dSec >= 60*60 && dSec < 24*60*60 && publishDay == nowDay) {
+    return '今天' + publishHour + ':' + publishMin
+  }
+  if (publishDate.getFullYear() === nowDate.getFullYear()) {
+    return publishMonth + '月' + publishDay + '日' + publishHour + ':' + publishMin
+  }
+  return publishDate.getFullYear() + '年' + publishMonth + '月' + publishDay + '日' + publishHour + ':' + publishMin
+}

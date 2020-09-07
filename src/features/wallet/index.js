@@ -2,13 +2,13 @@ import Vue from 'vue'
 import App from './App'
 import '@/common/index'
 import 'babel-polyfill'
-import arms from '@/utils/arms'
+import Es6Promise from 'es6-promise'
 import Toast from '@/components/Toast/toast.js'
 
 Vue.use(Toast)
-Vue.config.errorHandler = (err, vm, info) => {
-  arms.error(err, { filename: `${vm.$vnode.tag}, ${info}` })
-}
+require('es6-promise').polyfill()
+Es6Promise.polyfill()
+
 
 /* eslint-disable no-new */
 new Vue({

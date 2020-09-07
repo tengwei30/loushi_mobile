@@ -46,10 +46,11 @@ export default {
     },
     gotoRecord() {
       // 跳转金币流水
-      let routerUrl = `${window.location.origin}/#/walletrecord`
-      if (window.location.origin === 'http://testincrease.ibreader.com') {
-        routerUrl = 'http://testtask.ibreader.com/#/walletrecord'
-      }
+      // let routerUrl = `${window.location.origin}/#/walletrecord`
+      // if (window.location.origin === 'http://testincrease.ibreader.com') {
+      //   routerUrl = 'http://testtask.ibreader.com/#/walletrecord'
+      // }
+      let routerUrl = `${window.location.origin}/BKH5-wallet_record.html`
       mBuryPoint('clickWalletWater')
       routerToNative(routerUrl)
     },
@@ -103,7 +104,7 @@ body, html
   box-sizing border-box
   header
     size(100%, 168px)
-    background url('../../assets/withdraw/money_bg.png') no-repeat center center
+    background url('../../assets/withdraw/wallet_money_bg.png') no-repeat center center
     background-size 100% 100%
     margin-top 20px
     padding 29px 0 0 20px

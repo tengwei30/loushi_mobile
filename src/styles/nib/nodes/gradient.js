@@ -115,28 +115,28 @@ Gradient.prototype.setStartPosition = function(start) {
     canvas = this.canvas
 
   switch (start) {
-    case 'top':
-      canvas.height = size
-      this.from = [canvas.width / 2, 0]
-      this.to = [canvas.width / 2, canvas.height]
-      break
-    case 'bottom':
-      canvas.height = size
-      this.from = [canvas.width / 2, canvas.height]
-      this.to = [canvas.width / 2, 0]
-      break
-    case 'left':
-      canvas.width = size
-      this.from = [0, 0]
-      this.to = [canvas.width, canvas.height]
-      break
-    case 'right':
-      canvas.width = size
-      this.from = [canvas.width, canvas.height]
-      this.to = [0, 0]
-      break
-    default:
-      throw new Error('invalid start position "' + start + '"')
+  case 'top':
+    canvas.height = size
+    this.from = [canvas.width / 2, 0]
+    this.to = [canvas.width / 2, canvas.height]
+    break
+  case 'bottom':
+    canvas.height = size
+    this.from = [canvas.width / 2, canvas.height]
+    this.to = [canvas.width / 2, 0]
+    break
+  case 'left':
+    canvas.width = size
+    this.from = [0, 0]
+    this.to = [canvas.width, canvas.height]
+    break
+  case 'right':
+    canvas.width = size
+    this.from = [canvas.width, canvas.height]
+    this.to = [0, 0]
+    break
+  default:
+    throw new Error('invalid start position "' + start + '"')
   }
 }
 

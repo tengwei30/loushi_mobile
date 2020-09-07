@@ -1,11 +1,12 @@
 <template lang="pug">
   #app
     .app-content
-      | 我是来测试的
+      | 测试提交规范测试
 </template>
 
 <script>
 import { postFormatData } from '@/config/format-data'
+
 export default {
   name: 'app',
   components: {},

@@ -134,9 +134,13 @@ body,html
   size(100%, 100%)
   .mobile__faq__common
     .list__class
-      display grid
-      grid-template-columns 1fr 1fr
+      // display grid
+      // grid-template-columns 1fr 1fr
+      display flex
+      flex-wrap wrap
+      flex-direction row
       li.item
+        width 42%
         &:nth-of-type(odd)
           padding-right 19px
           border-right 1px solid #E8EDED
