@@ -20,7 +20,7 @@
           span.imgsnums {{ imgs && imgs.length || 0 }}
           | {{ title }}
         p.icon
-          span(v-for="item in tags") # {{ item }}
+          span(v-for="item in tags") {{'#'}}{{ item }}
       ul
         li(v-for="item in navdatas")
           img(:src="item.imgurl")
@@ -84,15 +84,17 @@ export default {
           imgurl: require('@/assets/tu_show/SBitmap@2x.png'),
           desc: '0'
         }, {
-          imgurl: require('@/assets/tu_show/fenxiang@2x.png'),
-          desc: '分享'
-        }, {
           imgurl: require('@/assets/tu_show/shoucang@2x.png'),
-          desc: '收藏'
+          desc: '0'
         }, {
           imgurl: require('@/assets/tu_show/sanjiao_right@2x.png'),
           desc: '下一组'
-        }, {
+        },
+        {
+          imgurl: require('@/assets/tu_show/fenxiang@2x.png'),
+          desc: '分享'
+        },
+        {
           imgurl: require('@/assets/tu_show/Bitmap@2x.png'),
           desc: '弹幕'
         }
@@ -105,8 +107,8 @@ export default {
       avatarUrl: null,
       title: null,
       tags: [],
-      uid: getQueryString('uid') || 1,
-      pid: getQueryString('pid') || 2
+      uid: getQueryString('uid') || 58614799,
+      pid: getQueryString('pid') || 84105928
     }
   },
   components: {
@@ -153,6 +155,7 @@ export default {
       this.tags = tags
       this.navdatas[0].desc = tumengStars
       this.navdatas[1].desc = tumengComments
+      // this.navdatas[2].desc = tumengComments
     })
   },
 }
