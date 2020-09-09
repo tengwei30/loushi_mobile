@@ -102,8 +102,8 @@ export default {
       avatarUrl: null,
       title: null,
       tags: [],
-      uid: getQueryString('uid') || 58614799,
-      pid: getQueryString('pid') || 84105928
+      uid: getQueryString('uid') || 41806892,
+      pid: getQueryString('pid') || 84112407
     }
   },
   components: {
