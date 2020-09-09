@@ -90,9 +90,6 @@ export default {
           imgurl: require('@/assets/tu_show/sanjiao_right@2x.png'),
           desc: '下一组'
         }, {
-          imgurl: require('@/assets/tu_show/fenxiang@2x.png'),
-          desc: '分享'
-        }, {
           imgurl: require('@/assets/tu_show/Bitmap@2x.png'),
           desc: '弹幕'
         }
