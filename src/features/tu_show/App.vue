@@ -89,12 +89,10 @@ export default {
         }, {
           imgurl: require('@/assets/tu_show/sanjiao_right@2x.png'),
           desc: '下一组'
-        },
-        {
+        }, {
           imgurl: require('@/assets/tu_show/fenxiang@2x.png'),
           desc: '分享'
-        },
-        {
+        }, {
           imgurl: require('@/assets/tu_show/Bitmap@2x.png'),
           desc: '弹幕'
         }
@@ -147,7 +145,7 @@ export default {
         pid: this.pid
       }
     }).then(res => {
-      const { nickname, title, tags, avatarUrl, images, tumengStars, tumengComments } = res.data.data
+      const { nickname, title, tags, avatarUrl, images, tumengStars, tumengComments, tumengLikes } = res.data.data
       this.imgs = images
       this.nickname = nickname
       this.title = title
@@ -155,7 +153,7 @@ export default {
       this.tags = tags
       this.navdatas[0].desc = tumengStars
       this.navdatas[1].desc = tumengComments
-      // this.navdatas[2].desc = tumengComments
+      this.navdatas[2].desc = tumengLikes
     })
   },
 }
