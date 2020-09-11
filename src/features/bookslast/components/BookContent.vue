@@ -4,9 +4,9 @@
     .edit-push-icon {{boostTitle}}
     .edit-push-books
       div(v-for="item in boostList"
-             :key="item.bookId"
-             class="edit-push-book-item"
-             @click="handleGoBookDetail(item)")
+          :key="item.bookId"
+          class="edit-push-book-item"
+          @click="handleGoBookDetail(item)")
         img(:src="item.bookCoverUrl")
         .edit-push-bookname {{item.bookName}}
 </template>
