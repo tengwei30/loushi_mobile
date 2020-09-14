@@ -1,0 +1,139 @@
+<template lang="pug">
+.content__video
+  .video__title 视频「看」好书
+  .video__book
+    .video__book__top
+      p 狐狸偷来的鸡蛋竟然孵出小鸡，吃肉不成却当了妈妈！令人心暖的治愈动画动画动……
+      img.video__img(src='')
+    .novel__content
+      img.novel__img(src="")
+      .novel__center
+        h4 我是标题我是标题我是标题我是标题
+        .novel__desc
+          span 豪门总裁
+          span 3.8分
+      .novel__button
+        img(src="@/assets/bookslast/bookslast_icon@2x.png")
+        p 去阅读
+  footer
+    p 没有视频啦，去书城着好书吧>>
+</template>
+<script>
+export default {
+  props: ['bookInfo', 'vipExperienceCardInfoControl', 'endInfo', 'mId'],
+  methods: {
+    receiveforbook() {
+      console.log('领取会员卡')
+      this.$emit('receiveforbook')
+    },
+  }
+}
+</script>
+<style lang="stylus" rel="stylesheet/stylus">
+@import '../index.styl'
+.content__video
+  height auto
+  padding 0.43rem 0.43rem 0 0.51rem
+  background #ffffff
+.video__title
+  height 0.43rem
+  font-size 0.43rem
+  font-family PingFangSC-Medium, PingFang SC
+  font-weight 500
+  color #000000
+  line-height 0.43rem
+  padding-bottom 0.43rem
+.video__book
+  padding-bottom 0.45rem
+.video__book .video__book__top
+  position relative
+.video__book .video__book__top p
+  position absolute
+  top 0
+  left 0
+  font-size 0.4rem
+  font-family PingFangSC-Regular, PingFang SC
+  font-weight 400
+  /* color #ffffff */
+  color #000000
+  line-height 0.57rem
+  padding 0.19rem 1rem 0 0.32rem
+  /* white-space nowrap
+  text-overflow ellipsis
+  overflow hidden
+  -webkit-line-clamp 2 */
+.video__book .video__book__top img
+  width 9.07rem
+  height 5.1rem
+.novel__content
+  height 1.42rem
+  display flex
+  box-sizing border-box
+  flex-direction row
+  /* justify-content center */
+  align-items center
+  margin-top 0.5rem
+.novel__content .novel__img
+  width 1.07rem
+  height 1.42rem
+  background red
+  margin-right 0.27rem
+.novel__content .novel__center
+  height inherit
+  display flex
+  flex-direction column
+  justify-content space-between
+  margin-right 0.88rem
+.novel__content .novel__center h4
+  width 4.88rem
+  height 0.37rem
+  font-size 0.37rem
+  font-family PingFangSC-Medium, PingFang SC
+  font-weight 500
+  color #000000
+  line-height 0.37rem
+  text-overflow ellipsis
+  white-space nowrap
+  overflow hidden
+.novel__content .novel__center .novel__desc
+  /* width 1.28rem */
+  height 0.37rem
+  font-size 0.32rem
+  font-family PingFangSC-Regular, PingFang SC
+  font-weight 400
+  color #999999
+  line-height 0.37rem
+  display flex
+  flex-direction row
+  justify-content space-between
+.novel__content .novel__center .novel__desc spanlast-child
+  color #ff5a00
+.novel__content .novel__button
+  display flex
+  flex-direction row
+.novel__content .novel__button img
+  width 0.59rem
+  height 0.59rem
+  display inline-block
+.novel__content .novel__button p
+  padding-left 0.16rem
+  height 0.59rem
+  font-size 0.37rem
+  font-family PingFangSC-Medium, PingFang SC
+  font-weight 500
+  color #ff5a00
+  line-height 0.59rem
+footer
+  width 100%
+  padding 0.11rem 0 0.59rem
+  /* margin 0 auto */
+  background #fff
+footer p
+  height 0.43rem
+  font-size 0.32rem
+  font-family PingFangSC-Medium, PingFang SC
+  font-weight 500
+  color #ff5a00
+  line-height 0.43rem
+  text-align center
+</style>

@@ -1,7 +1,7 @@
 body,html
-  size(100vw,100vh)
+  size(100%, 100%)
 #parent
-  size(100vw, 100vh)
+  size(100%,100%)
 .bookslast-container
   width 10rem
   background #F2F2F2
@@ -9,8 +9,7 @@ body,html
   overflow auto
   height 100%
 .bookslast-header
-  padding-left 0.51rem
-  padding-right 0.4rem
+  padding 0 0.51rem 0 0.4rem
   background #ffffff
 .content 
   margin 0.5rem
@@ -29,13 +28,10 @@ body,html
   padding-left 0.5rem
   padding-top 0.5rem
 .bottom_parent
-  position fixed
-  bottom 0
+  fixed(bottom 0)
   font-size 0.42rem
   width 100%
   box-shadow -1px -1px 10px #c8c8c8
-  -moz-box-shadow -1px -1px 10px #c8c8c8
-  -webkit-box-shadow -1px -1px 10px #c8c8c8
   z-index 99
 .bookslast-tip 
   color rgba(139, 87, 42, 1)
@@ -43,39 +39,32 @@ body,html
   border-radius 5px
   border 1px solid #edd8ce
   background-color #fff6ee
-  -webkit-box-shadow 0px 2px 10px #e6dedb
   box-shadow 0px 2px 10px #e6dedb
   width 50%
   text-align center
   padding-bottom 0.23rem
   padding-top 0.3rem
   margin auto
-  position fixed
-  left 0
-  right 0
+  fixed(left 0 right 0 bottom 1.8rem)
   z-index 1
-  bottom 1.8rem
   display flex
   flex-direction row
   align-items center
   justify-content center
-.bookslast-tip img 
-  width 0.45rem
-  height 0.38rem
+.bookslast-tip img
+  size(0.45rem, 0.38rem)
   margin-right 0.08rem
-
-.bottom_parent>.left
+.bottom_parent .left
+  size(40%, 1.4rem)
   float left
-  width 40%
   display block
   text-align center
   background-color white
-  height 1.4rem
   line-height 1.4rem
   color #333
-.bottom_parent>.right
+.bottom_parent .right
   text-align center
-  background-color #ff5a0
+  background-color: #ff5a00
   height 1.4rem
   line-height 1.4rem
   color white
@@ -129,12 +118,10 @@ body,html
   color #333333
   display flex
 .header-top .header-top-book-desc-done img
-  width 0.45rem
-  height 0.38rem
+  size(0.45rem, 0.38rem)
   margin-left 0.12rem
 .header-top-mark-button-fetch-common
-  width 2.29rem
-  height 0.8rem
+  size(2.29rem, 0.8rem)
   border-radius 0.48rem
   font-size 0.37rem
   color #ffffff
@@ -166,20 +153,16 @@ body,html
   align-items center
 .header-bottom .header-bottom-comment img,
 .header-bottom .header-bottom-monry img
-  width 0.59rem
-  height 0.59rem
+  size(0.59rem, 0.59rem)
   margin-bottom 0.27rem
 .header-bottom .header-bottom-text 
   font-size 0.32rem
   color #999999
   line-height 0.4
-.header-bottom-line 
-  width 0.03rem
-  height 0.54rem
+.header-bottom-line
+  size(0.03rem, 0.54rem)
   background #DFDFDF
-  position absolute
-  left 50%
-  top 50%
+  absolute(left 50%, top 50%)
   margin-top -0.54rem
 .bookslast-content 
   background #ffffff
@@ -190,50 +173,36 @@ body,html
   align-items center
   margin-bottom 0.13rem
 .content-good-book-img 
-  width 3.47rem
-  height 0.8rem
+  size(3.48rem, 0.8rem)
   position relative
   font-size 0
 .content-good-book-img img 
-  width 3.47rem
-  height 0.8rem
-.content-good-book-text 
-  position absolute
-  top 0.2rem
-  left 0.88rem
+  size(3.47rem, 0.8rem)
+.content-good-book-text
+  absolute(top 0.2rem left 0.88rem)
   font-size 0.43rem
   color #8B572A
 .content-book-info-container 
   border-top 0.16rem solid rgba(242, 242, 242, 1)
-  padding-top 0.4rem
-  padding-left 0.4rem
-  padding-right 0.4rem
-  padding-bottom 0.45rem
+  padding 0.4rem 0.4rem 0.45rem
   display flex
   flex-direction row
-.content-book-info-container .content-book-cover 
-  width 2.21rem
-  height 2.93rem
+.content-book-info-container .content-book-cover
+  size(2.21rem, 2.93rem)
   position relative
   margin-right 0.43rem
 .content-book-info-container .content-book-cover .cover-img 
-  width 2.21rem
-  height 2.93rem
+  size(2.21rem, 2.93rem)
 .content-book-info-container .content-book-cover .book-score 
-  width 1.04rem
-  height 0.45rem
-  position absolute
-  top 0
+  size(1.04rem, 0.45rem)
+  absolute(top 0)
   display flex
 .content-book-info-container .content-book-cover .book-score img 
-  width 1.04rem
-  height 0.45rem
+  size(1.04rem, 0.45rem)
 .content-book-info-container .content-book-cover .book-score .book-score-text 
   font-size 0.29rem
   color #ffffff
-  position absolute
-  left 0.13rem
-  top 0.08rem
+  absolute(top 0 left 0.08rem)
 .content-book-info 
   flex 1
 .content-book-info .content-book-info-title 
@@ -247,8 +216,7 @@ body,html
   align-items center
   margin-bottom 0.96rem
 .content-book-info .content-book-info-author img 
-  width 0.32rem
-  height 0.32rem
+  size(0.32rem, 0.32rem)
   margin-right 0.08rem
 .content-book-info .content-book-info-author .content-book-info-author-text 
   font-size 0.32rem
@@ -270,13 +238,10 @@ body,html
   display flex
   margin-bottom 0.8rem
 .content-book-ranking .book-ranking .book-ranking-img 
-  width 1.55rem
-  height 1.81rem
+  size(1.55rem, 1.81rem)
 .content-book-ranking .book-ranking .book-ranking-text-container 
   width 1.55rem
-  position absolute
-  top 0.27rem
-  left 0
+  absolute(top 0.27rem, left 0)
   font-size 0.35rem
   color #ffffff
   display flex
@@ -289,11 +254,11 @@ body,html
   height 0.32rem
   display flex
   flex-direction row
+  align-items center
   font-size 0.32rem
   color #333333
-.content-book-ranking .book-refresh img 
-  width 0.32rem
-  height 0.32rem
+.content-book-ranking .book-refresh img
+  size(0.32rem, 0.32rem)
   margin-right 0.13rem
   margin-top -2px
 .content-book-video 
@@ -301,11 +266,9 @@ body,html
 .edit-push 
   width 100%
   margin-top 0.16rem
-  /* border-bottom 0.16rem solid rgba(242, 242, 242, 1) */
-.edit-push-icon 
-  width 3.57rem
-  height 0.85rem
-  // background url('../../assets/images/bookEnd/edit_push_icon.png') no-repeat top center/100% 100%
+.edit-push-icon
+  size(3.57rem, 0.85rem)
+  background url('~@/assets/bookslast/editpushicon.png') no-repeat top center/100% 100%
   margin 0 auto
   font-size 0.43rem
   color #8B572A
@@ -315,17 +278,15 @@ body,html
   overflow hidden
   box-sizing border-box
   padding 0 0.2rem
-.edit-push-books 
-  width 100%
-  height 5.17rem
+.edit-push-books
+  size(100%, 5.17rem)
 .edit-push-book-item 
   width 2.62rem
   display inline-block
   margin-top 0.5rem
   margin-left 0.52rem
 .edit-push-book-item img 
-  width 100%
-  height 3.46rem
+  size(100%, 3.46rem)
 .edit-push-bookname 
   width 100%
   text-overflow ellipsis

@@ -4,6 +4,10 @@
     .header-top-book-done 本书已完结，
     .header-top-book-done-other 恭喜你读完一本书，
       span.mark-vpi 送你3天会员卡！
+  .header-top-mark-button-fetch-common.header-top-mark-button-fetch(
+    v-if="endInfo.vipExperienceCardInfo.status === 0 &&!vipExperienceCardInfoControl"
+    @click="receiveforbook"
+    ) 领取会员卡
   .header-top-mark-button-fetch-common.header-top-mark-button-fetch-success(
     v-if="vipExperienceCardInfoControl"
   ) 已领取
@@ -17,7 +21,6 @@ export default {
   props: ['bookInfo', 'vipExperienceCardInfoControl', 'endInfo', 'mId'],
   methods: {
     receiveforbook() {
-      console.log('领取会员卡')
       this.$emit('receiveforbook')
     },
   }
