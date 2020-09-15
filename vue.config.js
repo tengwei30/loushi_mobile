@@ -221,31 +221,31 @@ module.exports = {
     disableHostCheck: true, // 配置内网穿透
     // sockHost: 'localhost:80',
     proxy: {
-      '/api': {
+      '/*': {
         target: 'http://testapi.ibreader.com/',
         // ws: true,
         changeOrigin: true,
       },
-      // '/*': {
+      // '/api': {
+      //   target: 'http://testapi.ibreader.com/',
+      //   // ws: true,
+      //   changeOrigin: true,
+      // },
+      // '/community': {
+      //   target: 'http://testapi.ibreader.com/',
+      //   // ws: true,
+      //   changeOrigin: true,
+      // },
+      // '/activity_api': {
+      //   target: 'http://testapi.ibreader.com/',
+      //   // ws: true,
+      //   changeOrigin: true,
+      // },
+      // '/task_api': {
       //   target: 'http://testtask.ibreader.com/',
       //   // ws: true,
       //   changeOrigin: true,
       // },
-      '/community': {
-        target: 'http://testapi.ibreader.com/',
-        // ws: true,
-        changeOrigin: true,
-      },
-      '/activity_api': {
-        target: 'http://testapi.ibreader.com/',
-        // ws: true,
-        changeOrigin: true,
-      },
-      '/task_api': {
-        target: 'http://testapi.ibreader.com/',
-        // ws: true,
-        changeOrigin: true,
-      },
       // '/api': {
       //   target: 'http://test.cartoon1.ibreader.com/',
       //   changeOrigin: true

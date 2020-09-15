@@ -77,6 +77,7 @@ export default {
       mBuryPoint(null, result)
     })
     getEndInfo(this.bookId, this.mId).then(res => {
+      if (!res.data) return
       if (!res.data.bookInfo) {
         res.data.bookInfo = {}
       }
