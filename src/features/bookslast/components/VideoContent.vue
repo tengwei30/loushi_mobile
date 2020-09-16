@@ -3,15 +3,15 @@
   .video__title 视频「看」好书
   .video__book(v-for="item in videolists")
     .video__book__top
-      p {{ item.bottomCoveUpDescription }}
+      p {{ item.topic }}
       img.video__img(:src='item.cover.imgUrl')
     .novel__content
-      img.novel__img(:src="item.smallCoverImg")
+      img.novel__img(:src="item.book.cover")
       .novel__center
-        h4 {{ item.title }}
+        h4 {{ item.book.bookName }}
         .novel__desc
-          span 豪门总裁
-          span 3.8分
+          span {{ item.book.category }}
+          span {{ item.score || 0 }}分
       .novel__button
         img(src="@/assets/bookslast/bookslast_icon@2x.png")
         p 去阅读
@@ -21,9 +21,7 @@
 <script>
 export default {
   props: ['videolists'],
-  mounted() {
-    console.log('=====', this.videolists)
-  }
+  mounted() {}
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
