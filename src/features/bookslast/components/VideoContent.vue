@@ -20,13 +20,7 @@
 </template>
 <script>
 export default {
-  props: ['bookInfo', 'vipExperienceCardInfoControl', 'endInfo', 'mId'],
-  methods: {
-    receiveforbook() {
-      console.log('领取会员卡')
-      this.$emit('receiveforbook')
-    },
-  }
+  props: ['bookInfo', 'vipExperienceCardInfoControl', 'endInfo', 'mId']
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">

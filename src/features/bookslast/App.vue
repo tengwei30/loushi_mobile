@@ -20,7 +20,7 @@
       v-on:rewardHandler="rewardHandler"
     )
   BookContent(
-    v-if="content"
+    v-if="content && !showVideo"
     :boostTitle="boostTitle"
     :boostList="boostList"
     :endCategoryBook="endCategoryBook"
@@ -35,17 +35,21 @@
     v-on:handleGoBookDetail="handleGoBookDetail"
     v-on:refreshHandler="refreshHandler"
   )
+  VideoContent(
+    v-if="showVideo"
+  )
 </template>
 
 <script>
-import { getEndCategoryBook, getEndInfo, getVipCard, getReadUrge } from './request.js'
+import { getEndCategoryBook, getEndInfo, getVipCard, getReadUrge, getVideoList } from './request.js'
 import { compareVersion, routerToNative, getQueryString, mBuryPoint } from '@/utils/index.js'
 export default {
   components: {
     Urge: () => import('./components/Urge.vue'),
     FreeVip: () => import('./components/FreeVip.vue'),
     Score: () => import('./components/Score.vue'),
-    BookContent: () => import('./components/BookContent.vue')
+    BookContent: () => import('./components/BookContent.vue'),
+    VideoContent: () => import('./components/VideoContent.vue')
   },
   data() {
     return {
@@ -64,18 +68,11 @@ export default {
       content: '',  // 正文内容s
       vipExperienceCardInfoControl: false,
       showtip: true,
-      showTag: false
+      showTag: false,
+      showVideo: false, // 显示视频模块
     }
   },
   created() {
-    getEndCategoryBook(this.bookId, this.pageNum, this.mId).then(res => {
-      this.endCategoryBookResponseHandler(res.data)
-      const result = {
-        action: 'endCategoryBook',
-        bookId: this.bookId
-      }
-      mBuryPoint(null, result)
-    })
     getEndInfo(this.bookId, this.mId).then(res => {
       if (!res.data) return
       if (!res.data.bookInfo) {
@@ -84,9 +81,24 @@ export default {
       if (typeof res.data.bookInfo.isSerial !== 'number') {
         res.data.bookInfo.isSerial = 0
       }
+      if (res.data.bookInfo && res.data.bookInfo.isShowVideo === 0) {
+        // 加载视频模块
+        this.showVideo = true
+        getVideoList(this.bookId).then(res => {
+          console.log('== video ==', res.data)
+        })
+      }
       this.endInfo = res.data
       this.bookInfo = res.data.bookInfo
       this.handleDealBoostList(res.data.ItemInfo)
+    })
+    getEndCategoryBook(this.bookId, this.pageNum, this.mId).then(res => {
+      this.endCategoryBookResponseHandler(res.data)
+      const result = {
+        action: 'endCategoryBook',
+        bookId: this.bookId
+      }
+      mBuryPoint(null, result)
     })
   },
   methods: {

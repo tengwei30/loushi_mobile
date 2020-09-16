@@ -45,6 +45,11 @@ export const getReadUrge = (bookId, chapterNum) => {
   })
 }
 
-export const getVideoList = () => {
-  return get('/api/video/getBookOverVideos')
+/**
+ * 获取视频详情
+ */
+export const getVideoList = (bookId) => {
+  return get('/api/video/getBookOverVideos', {
+    bookId
+  })
 }
