@@ -37,6 +37,7 @@
   )
   VideoContent(
     v-if="showVideo"
+    :videolists="videolists"
   )
 </template>
 
@@ -70,6 +71,7 @@ export default {
       showtip: true,
       showTag: false,
       showVideo: false, // 显示视频模块
+      videolists: [] // 视频列表
     }
   },
   created() {
@@ -81,25 +83,28 @@ export default {
       if (typeof res.data.bookInfo.isSerial !== 'number') {
         res.data.bookInfo.isSerial = 0
       }
-      if (res.data.bookInfo && res.data.bookInfo.isShowVideo === 0) {
-        // 加载视频模块
-        this.showVideo = true
-        getVideoList(this.bookId).then(res => {
-          console.log('== video ==', res.data)
-        })
-      }
+
       this.endInfo = res.data
       this.bookInfo = res.data.bookInfo
       this.handleDealBoostList(res.data.ItemInfo)
-    })
-    getEndCategoryBook(this.bookId, this.pageNum, this.mId).then(res => {
-      this.endCategoryBookResponseHandler(res.data)
-      const result = {
-        action: 'endCategoryBook',
-        bookId: this.bookId
+      if (res.data.bookInfo && res.data.bookInfo.isShowVideo === 0) {
+        // 加载视频模块
+        getVideoList(this.bookId).then(res => {
+          this.videolists = res.data && res.data.dataList
+          this.showVideo = true
+        })
+      } else {
+        getEndCategoryBook(this.bookId, this.pageNum, this.mId).then(res => {
+          this.endCategoryBookResponseHandler(res.data)
+          const result = {
+            action: 'endCategoryBook',
+            bookId: this.bookId
+          }
+          mBuryPoint(null, result)
+        })
       }
-      mBuryPoint(null, result)
     })
+
   },
   methods: {
     urgeforbook() {

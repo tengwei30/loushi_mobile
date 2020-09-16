@@ -1,14 +1,14 @@
 <template lang="pug">
 .content__video
   .video__title 视频「看」好书
-  .video__book
+  .video__book(v-for="item in videolists")
     .video__book__top
-      p 狐狸偷来的鸡蛋竟然孵出小鸡，吃肉不成却当了妈妈！令人心暖的治愈动画动画动……
-      img.video__img(src='')
+      p {{ item.bottomCoveUpDescription }}
+      img.video__img(:src='item.cover.imgUrl')
     .novel__content
-      img.novel__img(src="")
+      img.novel__img(:src="item.smallCoverImg")
       .novel__center
-        h4 我是标题我是标题我是标题我是标题
+        h4 {{ item.title }}
         .novel__desc
           span 豪门总裁
           span 3.8分
@@ -20,7 +20,10 @@
 </template>
 <script>
 export default {
-  props: ['bookInfo', 'vipExperienceCardInfoControl', 'endInfo', 'mId']
+  props: ['videolists'],
+  mounted() {
+    console.log('=====', this.videolists)
+  }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">

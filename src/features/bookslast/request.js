@@ -1,4 +1,4 @@
-import { post, get } from '@/config/axios.config'
+import { post } from '@/config/axios.config'
 
 /**
  *
@@ -49,7 +49,7 @@ export const getReadUrge = (bookId, chapterNum) => {
  * 获取视频详情
  */
 export const getVideoList = (bookId) => {
-  return get('/api/video/getBookOverVideos', {
+  return post('/api/video/getBookOverVideos', {
     bookId
   })
 }
