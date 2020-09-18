@@ -26,7 +26,7 @@
     "alife-logger": "^1.8.13",
     "axios": "^0.18.0",
     "babelify": "^10.0.0",
-    "bayread-bridge": "^0.1.14",
+    "bayread-bridge": "^0.1.15",
     "better-scroll": "^1.15.2",
     "browserify": "^16.5.2",
     "dsbridge": "^3.1.3",
