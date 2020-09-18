@@ -2,10 +2,10 @@
 .content__video
   .video__title 视频「看」好书
   .video__book(v-for="item in videolists")
-    .video__book__top
+    .video__book__top(@click="clickVideo(item)")
       p {{ item.topic }}
       img.video__img(:src='item.cover.imgUrl')
-    .novel__content
+    .novel__content(@click="gotoRead(item)")
       img.novel__img(:src="item.book.cover")
       .novel__center
         h4 {{ item.book.bookName }}
@@ -15,13 +15,24 @@
       .novel__button
         img(src="@/assets/bookslast/bookslast_icon@2x.png")
         p 去阅读
-  footer
+  footer(@click="gotoShelf()")
     p 没有视频啦，去书城着好书吧>>
 </template>
 <script>
 export default {
   props: ['videolists'],
-  mounted() {}
+  mounted() {},
+  methods: {
+    clickVideo(item) {
+      this.$emit('clickVideo', item)
+    },
+    gotoRead(item) {
+      this.$emit('gotoRead', item)
+    },
+    gotoShelf() {
+      this.$emit('gotoShelf')
+    }
+  }
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -49,14 +60,9 @@ export default {
   font-size 0.4rem
   font-family PingFangSC-Regular, PingFang SC
   font-weight 400
-  /* color #ffffff */
-  color #000000
+  color #ffffff
   line-height 0.57rem
-  padding 0.19rem 1rem 0 0.32rem
-  /* white-space nowrap
-  text-overflow ellipsis
-  overflow hidden
-  -webkit-line-clamp 2 */
+  padding 0.19rem 0.2rem 0 0.32rem
 .video__book .video__book__top img
   width 9.07rem
   height 5.1rem

@@ -38,6 +38,9 @@
   VideoContent(
     v-if="showVideo"
     :videolists="videolists"
+    v-on:clickVideo="clickVideo"
+    v-on:gotoRead="gotoRead"
+    v-on:gotoShelf="gotoShelf"
   )
 </template>
 
@@ -90,24 +93,68 @@ export default {
       if (res.data.bookInfo && res.data.bookInfo.isShowVideo === 0) {
         // 加载视频模块
         getVideoList(this.bookId).then(res => {
+          if (!res.data) {
+            this.getEndCategoryBookCommon()
+            return
+          }
           this.videolists = res.data && res.data.dataList
           this.showVideo = true
+          mBuryPoint('11', {
+            bookTailEnter: 'bookTailEnter',
+            enterType: '2',
+            bookId: this.bookId
+          })
         })
       } else {
-        getEndCategoryBook(this.bookId, this.pageNum, this.mId).then(res => {
-          this.endCategoryBookResponseHandler(res.data)
-          const result = {
-            action: 'endCategoryBook',
-            bookId: this.bookId
-          }
-          mBuryPoint(null, result)
-        })
+        this.getEndCategoryBookCommon()
       }
     })
 
   },
   methods: {
+    getEndCategoryBookCommon() {
+      //  整合进入文章阅读页面
+      getEndCategoryBook(this.bookId, this.pageNum, this.mId).then(res => {
+        this.endCategoryBookResponseHandler(res.data)
+        mBuryPoint('11', {
+          bookTailEnter: 'bookTailEnter',
+          enterType: '1',
+          bookId: this.bookId
+        })
+      })
+    },
+    gotoShelf() {
+      console.log('去书城')
+    },
+    gotoRead(item) {
+      // 点击去阅读
+      console.log('去阅读', item)
+      mBuryPoint('11', {
+        bookTailEnter: 'bookTailEnter',
+        enterType: '2',
+        clickRead: 'clickRead',
+        bookId: item.book.bookId,
+        vedioId: item.id
+      })
+    },
+    clickVideo(item) {
+      console.log('看视频', item)
+      // 点击去看视频
+      mBuryPoint('11', {
+        bookTailEnter: 'bookTailEnter',
+        enterType: '2',
+        clickVedio: 'clickVedio',
+        bookId: item.book.bookId,
+        vedioId: item.id
+      })
+    },
     urgeforbook() {
+      // 点击催更的点
+      mBuryPoint('11', {
+        bookTailEnter: 'bookTailEnter',
+        clickUpdate: 'clickUpdate',
+        bookId: this.bookId
+      })
       // 催更
       getReadUrge(bookId, chapterNum).then(() => {
         this.endInfo.urgeInfo.status = 1
@@ -115,67 +162,63 @@ export default {
     },
     rewardHandler() {
       // 打赏作者
-      const result = {
-        action: 'reward',
+      mBuryPoint('11', {
+        bookTailEnter: 'bookTailEnter',
+        clickReward: 'clickReward',
         bookId: this.bookId
-      }
-      mBuryPoint(null, result)
+      })
       const rewardUrl = `breader://reward?bookId=${this.bookId}`
       window.location = rewardUrl
     },
     commentHandler() {
       // 参与评分
-      const result = {
-        action: 'comment',
+      mBuryPoint('11', {
+        bookTailEnter: 'bookTailEnter',
+        clickScore: 'clickScore',
         bookId: this.bookId
-      }
-      mBuryPoint(null, result)
+      })
       let version = this.version
       if (compareVersion(version, '1.42.0')) {
         // let origin = window.location.origin.match(/test/) ? 'http://testincrease.ibreader.com/' : 'https://increase.ibreader.com'
         let origin = window.location.origin
         let url = origin + '/BKH5-post_bar.html?bookId=' + this.bookId
-        // this.$uploadStatistics({
-        //   eventKey: 6,
-        //   clickPostBarEnter: 'clickPostBarEnter',
-        //   bookId: this.$route.query.bookId
-        // })
         routerToNative(url)
-        // window.location.href = `breader://common/browser?url=${url}`
         return
       }
       window.location = 'breader://comment'
     },
     addShelf() {
       //  加入书架
-      const result = {
-        action: 'addBookShelf',
+      mBuryPoint('11', {
+        bookTailEnter: 'bookTailEnter',
+        enterType: '1',
+        addBookShelf,
         bookId: this.bookId
-      }
-      mBuryPoint(null, result)
+      })
       const addBookShelfUrl = `breader://addBookshelf?bookId=${this.bookId}&goRead=0&source=${this.source}`
       window.location = addBookShelfUrl
     },
     addShelfAndRead() {
       // 加入书架并继续阅读
-      const result = {
-        action: 'addBookShelfAndRead',
+      mBuryPoint('11', {
+        bookTailEnter: 'bookTailEnter',
+        enterType: '1',
+        addBookShelfAndRead,
         bookId: this.bookId
-      }
-      mBuryPoint(null, result)
+      })
       const addBookShelfAndReadUrl = `breader://addBookshelf?bookId=${this.bookId}&goRead=1&source=${this.source}`
       window.location = addBookShelfAndReadUrl
     },
     handleGoBookDetail(target) {
-      // let result = {
-      //   eventKey: 2,
-      //   type: 'bookcover',
-      //   bookid: target.bookId
-      // }
-      // this.$uploadStatistics(result)
       window.location.href = target.scheme + '&userPath=' + this.source
     },
     receiveforbook() {  // 领取VIP
+      // 点击领取的点
+      mBuryPoint('11', {
+        bookTailEnter: 'bookTailEnter',
+        clickVip: 'clickVip',
+        bookId: this.bookId
+      })
       getVipCard('this.endInfo.vipExperienceCardInfo.id').then(() => {
         this.vipExperienceCardInfoControl = true
       }).catch(err => {
