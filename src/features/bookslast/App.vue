@@ -4,6 +4,8 @@
     Urge(
       v-if="bookInfo.isSerial === 1 && mId === ''"
       :endInfo="endInfo"
+      :showNotification="showNotification"
+      :showNotificationResume="showNotificationResume"
       v-on:urgeforbook="urgeforbook")
     FreeVip(
       v-if="bookInfo.isSerial === 0 && mId === ''"
@@ -45,6 +47,7 @@
 </template>
 
 <script>
+import bk from 'bayread-bridge'
 import { getEndCategoryBook, getEndInfo, getVipCard, getReadUrge, getVideoList } from './request.js'
 import { compareVersion, routerToNative, getQueryString, mBuryPoint } from '@/utils/index.js'
 export default {
@@ -74,10 +77,15 @@ export default {
       showtip: true,
       showTag: false,
       showVideo: false, // 显示视频模块
-      videolists: [] // 视频列表
+      videolists: [], // 视频列表
+      showNotification: false,
+      showNotificationResume: false
     }
   },
   created() {
+    bk.postNotificationResumeCallback(data => {
+      console.log('再次回来的时候调用', data)
+    })
     getEndInfo(this.bookId, this.mId).then(res => {
       if (!res.data) return
       if (!res.data.bookInfo) {
@@ -86,7 +94,9 @@ export default {
       if (typeof res.data.bookInfo.isSerial !== 'number') {
         res.data.bookInfo.isSerial = 0
       }
-
+      bk.postNotificationInitCallback(data => {
+        console.log('回调', data)
+      })
       this.endInfo = res.data
       this.bookInfo = res.data.bookInfo
       this.handleDealBoostList(res.data.ItemInfo)
@@ -138,7 +148,7 @@ export default {
       })
     },
     clickVideo(item) {
-      console.log('看视频', item)
+      console.log('---', item.extendInfo.scheme)
       // 点击去看视频
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
@@ -147,18 +157,26 @@ export default {
         bookId: item.book.bookId,
         vedioId: item.id
       })
+      // 跳转视频播放
+      bk.openBreaderSchemePage({
+        uri: item.extendInfo.scheme
+      })
     },
     urgeforbook() {
-      // 点击催更的点
-      mBuryPoint('11', {
-        bookTailEnter: 'bookTailEnter',
-        clickUpdate: 'clickUpdate',
-        bookId: this.bookId
-      })
-      // 催更
-      getReadUrge(bookId, chapterNum).then(() => {
-        this.endInfo.urgeInfo.status = 1
-      })
+      if (!this.showNotification) {
+        // 点击催更的点
+        mBuryPoint('11', {
+          bookTailEnter: 'bookTailEnter',
+          clickUpdate: 'clickUpdate',
+          bookId: this.bookId
+        })
+        // 催更
+        getReadUrge(bookId, chapterNum).then(() => {
+          this.endInfo.urgeInfo.status = 1
+        })
+      } else {
+        // 点击开启
+      }
     },
     rewardHandler() {
       // 打赏作者
