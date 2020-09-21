@@ -83,8 +83,17 @@ export default {
     }
   },
   created() {
-    bk.postNotificationResumeCallback(data => {
-      console.log('再次回来的时候调用', data)
+    bk.call('notificationInit', data => {
+      // 通知开启初始化
+      if (data.openNotification * 1 === 0) {
+        this.showNotification = true
+      }
+    })
+    bk.call('notificationResume', data => {
+      // 开启返回
+      if (data.openNotification * 1 === 1) {
+        this.showNotificationResume = true
+      }
     })
     getEndInfo(this.bookId, this.mId).then(res => {
       if (!res.data) return
@@ -94,9 +103,6 @@ export default {
       if (typeof res.data.bookInfo.isSerial !== 'number') {
         res.data.bookInfo.isSerial = 0
       }
-      bk.postNotificationInitCallback(data => {
-        console.log('回调', data)
-      })
       this.endInfo = res.data
       this.bookInfo = res.data.bookInfo
       this.handleDealBoostList(res.data.ItemInfo)
@@ -109,11 +115,14 @@ export default {
           }
           this.videolists = res.data && res.data.dataList
           this.showVideo = true
-          mBuryPoint('11', {
-            bookTailEnter: 'bookTailEnter',
-            enterType: '2',
-            bookId: this.bookId
-          })
+          if (this.buttonStatus) {
+            mBuryPoint('11', {
+              bookTailEnter: 'bookTailEnter',
+              enterType: '2',
+              bookId: this.bookId,
+              buttonStatus: '3'
+            })
+          }
         })
       } else {
         this.getEndCategoryBookCommon()
@@ -134,11 +143,11 @@ export default {
       })
     },
     gotoShelf() {
-      console.log('去书城')
+      window.location.assign('breader://bookstore/library')
     },
     gotoRead(item) {
       // 点击去阅读
-      console.log('去阅读', item)
+      window.location.assign(`breader://www.bayread.com/bookview/bookread?bookId=${item.book.bookId}&source=bookslast&chapterNum=1`)
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
         enterType: '2',
@@ -148,7 +157,6 @@ export default {
       })
     },
     clickVideo(item) {
-      console.log('---', item.extendInfo.scheme)
       // 点击去看视频
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
@@ -158,8 +166,10 @@ export default {
         vedioId: item.id
       })
       // 跳转视频播放
-      bk.openBreaderSchemePage({
+      bk.call('RouterToVideo', {
         uri: item.extendInfo.scheme
+      }, () => {
+        console.log('播放视频')
       })
     },
     urgeforbook() {
@@ -175,7 +185,10 @@ export default {
           this.endInfo.urgeInfo.status = 1
         })
       } else {
-        // 点击开启
+        // 点击开启通知
+        bk.call('notificationOpen', () => {
+          console.log('点击开启通知')
+        })
       }
     },
     rewardHandler() {
