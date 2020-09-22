@@ -106,7 +106,7 @@ export default {
       this.endInfo = res.data
       this.bookInfo = res.data.bookInfo
       this.handleDealBoostList(res.data.ItemInfo)
-      if (res.data.bookInfo && res.data.bookInfo.isShowVideo === 0) {
+      if (res.data.bookInfo && res.data.bookInfo.isShowVideo === 1) {
         // 加载视频模块
         getVideoList(this.bookId).then(res => {
           if (!res.data) {
