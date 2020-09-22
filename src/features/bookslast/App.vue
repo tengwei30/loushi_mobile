@@ -83,13 +83,13 @@ export default {
     }
   },
   created() {
-    bk.call('notificationInit', data => {
+    bk.call('notificationInit', {}, data => {
       // 通知开启初始化
       if (data.openNotification * 1 === 0) {
         this.showNotification = true
       }
     })
-    bk.call('notificationResume', data => {
+    bk.call('notificationResume', {}, data => {
       // 开启返回
       if (data.openNotification * 1 === 1) {
         this.showNotificationResume = true
@@ -186,7 +186,7 @@ export default {
         })
       } else {
         // 点击开启通知
-        bk.call('notificationOpen', () => {
+        bk.call('notificationOpen', {}, () => {
           console.log('点击开启通知')
         })
       }
