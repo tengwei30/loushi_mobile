@@ -2,7 +2,7 @@ export default  {
   male: [
     {
       title: '最强赘婿',
-      type: '11101',
+      type: '1',
       id: 0,
       list: [
         {
@@ -54,7 +54,7 @@ export default  {
     },
     {
       title: '不败战神',
-      type: '11102',
+      type: '2',
       id: 1,
       list: [
         {
@@ -106,7 +106,7 @@ export default  {
     },
     {
       title: '历史风云',
-      type: '11103',
+      type: '3',
       id: 2,
       list: [
         {
@@ -164,78 +164,82 @@ export default  {
         {
           title: '上门女婿也有春天',
           url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2FC9%2FDA%2FrBH_vl8X4x-AFT4EAAAmBPOiaIw95.json',
-          imgUrl: require('../../assets/national_day/male_1.jpg')
+          imgUrl: require('../../assets/national_day/male_1.jpg'),
+          type: 12
         },
         {
           title: '战神归来当奶爸',
           url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2FFD%2FCD%2FrBH_v18nzXqAbGlPAAAkDL7RVBo60.json',
-          imgUrl: require('../../assets/national_day/male_2.png')
+          imgUrl: require('../../assets/national_day/male_2.png'),
+          type: 13
         },
         {
           title: '重生都市做大佬',
           url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2F1B%2F46%2FrBH_v186QhuASQdEAAAmYZ1U-_Q78.json',
-          imgUrl: require('../../assets/national_day/male_3.jpg')
+          imgUrl: require('../../assets/national_day/male_3.jpg'),
+          type: 14
         },
         {
           title: '古代第一上门女婿',
           url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2F3D%2F4F%2FrBH_v19Zw_SAAdxEAAAl-3frkBU55.json',
-          imgUrl: require('../../assets/national_day/male_4.png')
+          imgUrl: require('../../assets/national_day/male_4.png'),
+          type: 15
         },
       ]
     },
     {
-      title: '视频剧场',
-      type: '11105',
+      title: '热播剧场',
+      type: '4',
       isVideo: true,
       id: 3,
       list: [
         {
           videoId: '595202',
           bookId: '4210133',
-          bookName: '史上最强炼气期',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/70/27/rBH_v154eBCAQhVyAAJ8AlfFnb8847.jpg'
+          bookName: '五千年，他的狗都成了妖界大帝，而他却停留在炼气期9862层',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/27/57/rBH_vl9AEDGATrkzAAJMgT-7zJ0080.jpg'
         },
         {
           videoId: '595208',
           bookId: '4196343',
-          bookName: '绝品神医',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/DD/FC/rBH0ol4FvByAZmAFAAGLyIsbpcU159.jpg'
+          bookName: '女总裁被医院宣布死亡后，竟被一个实习医生两针扎活了',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/20/FC/rBH_v19AGuKAXb7jAAJNN8O20RA998.jpg'
         },
         {
           videoId: '595221',
           bookId: '4198913',
-          bookName: '巨富继承人',
-          bookCover: 'http://cdn.ibreader.com/group1/M00/EF/32/rBH0ol1X4guAFJ5FAAJcLM2f9rU655.jpg'
+          bookName: '女儿病重告急她才知道自己三年的老公是一个超级富豪',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/2E/2E/rBH_vl9Ia-OADUBVAAJwcFBP-wg012.jpg'
         },
         {
           videoId: '595232',
           bookId: '4205162',
-          bookName: '龙王殿',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/74/AA/rBH0oV3L9sWAZUzUAAGl6_8ggmQ018.jpg'
+          bookName: '被离婚，签完字，被家族保镖直接接走！妻子一家全部看呆了！',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/27/DF/rBH_v19Iq8uAZxckAAL9I7k998g912.png'
         },
         {
           videoId: '595235',
           bookId: '4205683',
-          bookName: '都市之狂龙战神',
-          bookCover: 'http://cdn.ibreader.com/group1/M00/73/68/rBH0ol3NY-2ACVgCAAGkNUI16IQ983.jpg'
+          bookName: '战神回家，发现妹妹被害，一声令下，华夏十万退役将士奔来！',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/27/E0/rBH_v19IrNWALOY7AARxyu1F60E944.png'
         },
         {
           videoId: '595237',
           bookId: '4208012',
-          bookName: '女神的上门贵婿',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/FB/91/rBH0oV4LIWeAd1DFAAIF7fubC0I378.jpg'
+          bookName: '吊儿郎当的上门女婿竟是龙门之主，妻子知道真相瘫软在地……',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/2E/3C/rBH_vl9IrT2Af_DZAANFiIDPH5c974.png'
         },
         {
           videoId: '595240',
           bookId: '4209062',
-          bookName: '霸婿',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/26/65/rBH_v15BEpKAQcpJAAPjMcassrQ692.jpg'
+          bookName: '百亿集团董事长看见窝囊上门女婿竟喊：战神！妻子一家顿时傻眼',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/2E/3D/rBH_vl9IrfiACb16AALOYCVQqvQ658.png'
         },
         {
           videoId: '595244',
           bookId: '4209628',
-          bookName: '超级医仙',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/53/18/rBH_v15HxXuAQEEBAArEU4QhwAg945.jpg'
+          bookName: '绝品神医重回都市，获得绝世神医传承，惹得各色美女纷至沓来…',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/2E/3D/rBH_vl9IrtKARvOvAAUb9tuC0L8766.png'
         },
       ]
     },
@@ -243,7 +247,7 @@ export default  {
   female: [
     {
       title: '霸总宠妻',
-      type: '11101',
+      type: '5',
       id: 0,
       list: [
         {
@@ -295,7 +299,7 @@ export default  {
     },
     {
       title: '萌宝当家',
-      type: '11102',
+      type: '6',
       id: 1,
       list: [
         {
@@ -347,7 +351,7 @@ export default  {
     },
     {
       title: '种田娘子',
-      type: '11103',
+      type: '7',
       id: 2,
       list: [
         {
@@ -406,78 +410,82 @@ export default  {
         {
           title: '总裁爹地宠上瘾',
           url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2F21%2FA6%2FrBH_v19Dbi6AXpcbAAAwp5kOSxM40.json',
-          imgUrl: require('../../assets/national_day/female_1.png')
+          imgUrl: require('../../assets/national_day/female_1.png'),
+          type: 16
         },
         {
           title: '王妃娘娘一心想种田',
           url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2F16%2F8C%2FrBH_v18yEKqAQ7L5AAAwam-Ni9Q22.json',
-          imgUrl: require('../../assets/national_day/female_2.jpg')
+          imgUrl: require('../../assets/national_day/female_2.jpg'),
+          type: 17
         },
         {
           title: '资深绿茶撩汉指南',
           url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2F1B%2F45%2FrBH_v186QBKAPyzvAAAvw8QJyio07.json',
-          imgUrl: require('../../assets/national_day/female_3.jpg')
+          imgUrl: require('../../assets/national_day/female_3.jpg'),
+          type: 18
         },
         {
           title: '和大佬结婚后躺赢',
           url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2F3D%2F48%2FrBH_v19ZmxiAIzSKAAAtKg7xYQ440.json',
-          imgUrl: require('../../assets/national_day/female_4.png')
+          imgUrl: require('../../assets/national_day/female_4.png'),
+          type: 19
         },
       ]
     },
     {
-      title: '视频剧场',
-      type: '11105',
+      title: '热播剧场',
+      type: '8',
       isVideo: true,
       id: 3,
       list: [
         {
           videoId: '595201',
           bookId: '4210093',
-          bookName: '赠你一世情深',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/E2/A8/rBH_v16pIA-AVCBJAAFgoELnLtg496.jpg'
+          bookName: '“顾霆琛，她的遗物中找到的孕检单！”他颤着手接过，撕心裂肺',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/20/FC/rBH_v19AD4-AZkS_AAHMjqsJd_Y716.jpg'
         },
         {
           videoId: '595217',
           bookId: '4198240',
-          bookName: '厉少宠妻至上',
-          bookCover: 'http://cdn.ibreader.com/group1/M00/C1/D1/rBH0ol0RgCWAfqksAAF4kaNBrYk791.jpg'
+          bookName: '当厉少霆准备交换婚戒时，消失五年的简安安带着他的3个儿子推门而入，整个厉家震惊了',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/21/F3/rBH_v19E0cCAYSXmAAHPFhTzRXQ254.jpg'
         },
         {
           videoId: '595222',
           bookId: '4198245',
-          bookName: '医妃天下：王爷，请自重',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/EF/E6/rBH_vl68rFiAb6LMAAI2M_L5xNg201.jpg'
+          bookName: '天天深夜被爬床，太烦人！',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/27/D3/rBH_v19IbxuAewnKAAJb1ag9otA961.jpg'
         },
         {
           videoId: '595226',
           bookId: '4201740',
-          bookName: '一胎三宝：总裁爹地宠上瘾',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/22/09/rBH0ol2xWgSAVbBTAACofIF-lcs794.jpg'
+          bookName: '说自己的亲生孩子是野种？不配当爹',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/27/DE/rBH_v19Iqh6AaS_sAAVtJtADJrc925.png'
         },
         {
           videoId: '595248',
           bookId: '4211014',
-          bookName: '一胎俩宝，老婆大人别想逃',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/F4/A8/rBH_vl7DV0iAb8YwAABVdoCj6XE985.jpg'
+          bookName: '结婚三年终怀孕，却被一场大火烧掉所有！5年了，她携子霸气回国',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/2E/3F/rBH_vl9Ir3-AMCDDAAPvfPFHMEY576.png'
         },
         {
           videoId: '595250',
           bookId: '4211021',
-          bookName: '双世宠妃，误惹妖孽邪王',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/EE/73/rBH_v17DvomAQ4ZXAAB3U6m4PcY030.jpg'
+          bookName: '这就是本王未来的王妃？太小，抱回王府好好喂养！',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/27/E3/rBH_v19Ir7mAWrbMAARkDClgs2o084.png'
         },
         {
           videoId: '595255',
           bookId: '4211054',
-          bookName: '一孕双宝：总裁爹地好欢喜',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/00/D7/rBH_v17HhciAdWWFAAB2AdRTnhw511.jpg'
+          bookName: '瞒着总裁生下一胎双宝，六年后，总裁爹地找上门，小祖宗怒了！',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/21/F3/rBH_v19E0piAHRIOAAJo9ZSBLJQ610.jpg'
         },
         {
           videoId: '595256',
           bookId: '4215707',
-          bookName: '第一宠婚：总裁别太坏',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/CB/49/rBH_vl8ZjWmACgAvAABHB76H3vk705.jpg'
+          bookName: '总裁，夫人来面试了！他嗤笑：丑八怪。当看到那耀眼女人，惊呆了',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/2E/3F/rBH_vl9IsGmAEpi8AAHarQx7mEM678.png'
         },
       ]
     }

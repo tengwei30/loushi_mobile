@@ -1,14 +1,22 @@
+html,body
+  font-family inheirt
 .national
   .sex
-    padding-bottom 20px
+    padding-bottom 25px
     min-height 100vh
     background url('../../assets/national_day/female_bg_icon.png') repeat top center/100%
     background-color rgba(255, 134, 134, 0.2)
+    &.is-bk
+      .top
+        background-image url('../../assets/national_day/bk_female_top_bg.png')
     &.is-male
       background url('../../assets/national_day/male_bg_icon.png') repeat top center/100%
       background-color rgba(47, 34, 104, 1)
+      &.is-bk
+        .top
+          background-image url('../../assets/national_day/bk_male_top_bg.png')
       .top
-        background-image url('../../assets/national_day/male_top_bg.png')
+        background-image url('../../assets/national_day/yc_male_top_bg.png')
       .banner
         background-image url('../../assets/national_day/male_banner_icon.png')
         .banner-item
@@ -26,8 +34,8 @@
               color rgba(255, 205, 48, 1)
     .top
       width 375px
-      height 301px
-      background url('../../assets/national_day/female_top_bg.png') no-repeat top center/contain
+      height 313px
+      background url('../../assets/national_day/yc_female_top_bg.png') no-repeat top center/contain
     .banner
       width 375px
       height 50px
@@ -47,7 +55,7 @@
         font-size 14px
         width: 104px
         height 28px
-        line-height 28px
+        line-height 32px
         text-align center
         border-radius 28px
         &.active
@@ -65,7 +73,7 @@
         box-sizing border-box
         .book-item
           width 104px
-          margin-top 15px
+          padding-top 15px
           position relative
           font-size 0
           .book-cover
@@ -76,7 +84,7 @@
           .book-read-tip
             position absolute
             left -3px
-            top 116px
+            top 130px
             width 36px
             height 16px
             background url('../../assets/national_day/book_read_icon.png') no-repeat center/contain
@@ -99,10 +107,11 @@
           width 164px
           height 82px
           background-color rgba(151, 151, 151, 1)
-          border 1px solid #979797
           font-size 0
           box-sizing border-box
-          margin-top 26px
+          margin-top 18px
+          border-radius 5px
+          overflow hidden
           .link-item-cover
             width 100%
             height 100%
@@ -116,7 +125,7 @@
         .video-item
           width 162px
           font-size 0
-          margin-top 28px
+          padding-top 28px
           .video-item-cover
             width 100%
             height 216px
@@ -145,9 +154,19 @@
             -webkit-line-clamp 2
             overflow hidden
     .share-icon
-      width 46px
-      height 46px
+      width 58px
+      height 58px
       background url('../../assets/national_day/share_icon.png') no-repeat center/contain
       position fixed
-      top 532px
+      bottom 88px
       right 10px
+    .pop-tip
+      padding 10px
+      position fixed
+      left 50%
+      top 50%
+      transform translate(-50%, -50%)
+      font-size 12px
+      background rgba(0,0,0,0.8)
+      color #ffffff
+      border-radius 6px
