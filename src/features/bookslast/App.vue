@@ -84,9 +84,10 @@ export default {
   },
   created() {
     bk.call('notificationInit', {}, data => {
-      console.log('初始化通知', data)
+      console.log('初始化通知', data, data.openNotification)
       // 通知开启初始化
       if (data.openNotification * 1 === 0) {
+        console.log('设置显示开启')
         this.showNotification = true
       }
     })
