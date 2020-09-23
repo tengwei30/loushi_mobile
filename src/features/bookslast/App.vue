@@ -81,7 +81,8 @@ export default {
       showVideo: false, // 显示视频模块
       videolists: [], // 视频列表
       showNotification: false,
-      showNotificationResume: false
+      showNotificationResume: false,
+      buttonStatus: '1'
     }
   },
   created() {
@@ -90,7 +91,6 @@ export default {
       console.log('设置显示开启', openNotification)
       // 通知开启初始化
       if (openNotification * 1 === 0) {
-
         this.showNotification = true
       }
     })
@@ -103,6 +103,8 @@ export default {
     //     this.showNotificationResume = true
     //   }
     // })
+  },
+  mounted() {
     getEndInfo(this.bookId, this.mId).then(res => {
       if (!res.data) return
       if (!res.data.bookInfo) {
@@ -114,6 +116,14 @@ export default {
       this.endInfo = res.data
       this.bookInfo = res.data.bookInfo
       this.handleDealBoostList(res.data.ItemInfo)
+
+      if (this.showNotification) {
+        this.buttonStatus = '3'
+      } else if (this.bookInfo.isSerial === 1) {
+        this.buttonStatus = this.endInfo.urgeInfo.status === 0 ? '4' : '5'
+      } else if (this.bookInfo.isSerial === 0) {
+        this.buttonStatus = (this.endInfo.vipExperienceCardInfo.status === 0 && !this.vipExperienceCardInfoControl) ? '1' : '2'
+      }
       if (res.data.bookInfo && res.data.bookInfo.isShowVideo === 1) {
         // 加载视频模块
         getVideoList(this.bookId).then(res => {
@@ -123,25 +133,25 @@ export default {
           }
           this.videolists = res.data && res.data.dataList
           this.showVideo = true
-          if (this.buttonStatus) {
-            mBuryPoint('11', {
-              bookTailEnter: 'bookTailEnter',
-              enterType: '2',
-              bookId: this.bookId,
-              buttonStatus: '3'
-            })
-          }
+          mBuryPoint('11', {
+            bookTailEnter: 'bookTailEnter',
+            enterType: '2',
+            bookId: this.bookId,
+            buttonStatus: this.buttonStatus
+          })
         })
       } else {
         this.getEndCategoryBookCommon()
       }
     })
-
+    window.addEventListener('scroll', this.handleScroll, true)
+    if (window.ibreader) {
+      window.ibreader.setInterceptRefresh(true)
+    }
   },
   methods: {
     notificationResume(data) {
       const { openNotification } = JSON.parse(data)
-      console.log('页面重现', openNotification)
       // 开启返回
       if (openNotification * 1 === 1) {
         this.showNotificationResume = true
@@ -154,7 +164,8 @@ export default {
         mBuryPoint('11', {
           bookTailEnter: 'bookTailEnter',
           enterType: '1',
-          bookId: this.bookId
+          bookId: this.bookId,
+          buttonStatus: this.buttonStatus
         })
       })
     },
@@ -190,7 +201,6 @@ export default {
     },
     urgeforbook() {
       if (!this.showNotification) {
-        console.log('点击催更')
         // 点击催更的点
         mBuryPoint('11', {
           bookTailEnter: 'bookTailEnter',
@@ -198,15 +208,12 @@ export default {
           bookId: this.bookId
         })
         // 催更
-        getReadUrge(bookId, chapterNum).then(() => {
+        getReadUrge(this.bookId, chapterNum).then(() => {
           this.endInfo.urgeInfo.status = 1
         })
       } else {
         // 点击开启通知
-        console.log('-- 点击开启 --')
-        bk.call('notificationOpen', {}, () => {
-          console.log('点击开启通知')
-        })
+        bk.call('notificationOpen', {}, () => {})
       }
     },
     rewardHandler() {
@@ -366,12 +373,6 @@ export default {
         }
         mBuryPoint(null, result)
       })
-    }
-  },
-  mounted() {
-    window.addEventListener('scroll', this.handleScroll, true)
-    if (window.ibreader) {
-      window.ibreader.setInterceptRefresh(true)
     }
   },
   destroyed() {

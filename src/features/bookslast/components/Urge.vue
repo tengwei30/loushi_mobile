@@ -14,10 +14,6 @@
 <script>
 export default {
   props: ['endInfo', 'showNotification', 'showNotificationResume'],
-  mounted() {
-    console.log('---------', this.showNotification)
-    console.log('==============', this.showNotificationResume)
-  },
   methods: {
     urgeforbook() {
       this.$emit('urgeforbook')
