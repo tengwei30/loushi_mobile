@@ -94,14 +94,15 @@ export default {
         this.showNotification = true
       }
     })
-    bk.call('notificationResume', {}, data => {
-      const { openNotification } = JSON.parse(data)
-      console.log('页面重现', openNotification)
-      // 开启返回
-      if (openNotification * 1 === 1) {
-        this.showNotificationResume = true
-      }
-    })
+    window.notificationResume = this.notificationResume
+    // bk.call('notificationResume', {}, data => {
+    //   const { openNotification } = JSON.parse(data)
+    //   console.log('页面重现', openNotification)
+    //   // 开启返回
+    //   if (openNotification * 1 === 1) {
+    //     this.showNotificationResume = true
+    //   }
+    // })
     getEndInfo(this.bookId, this.mId).then(res => {
       if (!res.data) return
       if (!res.data.bookInfo) {
@@ -138,6 +139,14 @@ export default {
 
   },
   methods: {
+    notificationResume(data) {
+      const { openNotification } = JSON.parse(data)
+      console.log('页面重现', openNotification)
+      // 开启返回
+      if (openNotification * 1 === 1) {
+        this.showNotificationResume = true
+      }
+    },
     getEndCategoryBookCommon() {
       //  整合进入文章阅读页面
       getEndCategoryBook(this.bookId, this.pageNum, this.mId).then(res => {
