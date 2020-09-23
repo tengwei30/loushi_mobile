@@ -86,17 +86,19 @@ export default {
   },
   created() {
     bk.call('notificationInit', {}, data => {
-      console.log('初始化通知', data, JSON.parse(data))
+      const { openNotification } = JSON.parse(data)
+      console.log('设置显示开启', openNotification)
       // 通知开启初始化
-      if (data.openNotification * 1 === 0) {
-        console.log('设置显示开启')
+      if (openNotification * 1 === 0) {
+
         this.showNotification = true
       }
     })
     bk.call('notificationResume', {}, data => {
-      console.log('再次返回', data)
+      const { openNotification } = JSON.parse(data)
+      console.log('页面重现', openNotification)
       // 开启返回
-      if (data.openNotification * 1 === 1) {
+      if (openNotification * 1 === 1) {
         this.showNotificationResume = true
       }
     })
@@ -228,7 +230,7 @@ export default {
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
         enterType: '1',
-        addBookShelf,
+        addBookShelf: 'addBookShelf',
         bookId: this.bookId
       })
       const addBookShelfUrl = `breader://addBookshelf?bookId=${this.bookId}&goRead=0&source=${this.source}`
@@ -239,7 +241,7 @@ export default {
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
         enterType: '1',
-        addBookShelfAndRead,
+        addBookShelfAndRead: 'addBookShelfAndRead',
         bookId: this.bookId
       })
       const addBookShelfAndReadUrl = `breader://addBookshelf?bookId=${this.bookId}&goRead=1&source=${this.source}`
