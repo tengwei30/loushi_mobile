@@ -193,6 +193,7 @@ export default {
         })
       } else {
         // 点击开启通知
+        console.log('-- 点击开启 --',)
         bk.call('notificationOpen', {}, () => {
           console.log('点击开启通知')
         })
