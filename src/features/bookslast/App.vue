@@ -36,6 +36,8 @@
     :content="content"
     v-on:handleGoBookDetail="handleGoBookDetail"
     v-on:refreshHandler="refreshHandler"
+    v-on:addShelf="addShelf"
+    v-on:addShelfAndRead="addShelfAndRead"
   )
   VideoContent(
     v-if="showVideo"
@@ -84,7 +86,7 @@ export default {
   },
   created() {
     bk.call('notificationInit', {}, data => {
-      console.log('初始化通知', data, data.openNotification)
+      console.log('初始化通知', data, JSON.parse(data))
       // 通知开启初始化
       if (data.openNotification * 1 === 0) {
         console.log('设置显示开启')
