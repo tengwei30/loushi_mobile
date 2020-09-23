@@ -181,6 +181,7 @@ export default {
     },
     urgeforbook() {
       if (!this.showNotification) {
+        console.log('点击催更')
         // 点击催更的点
         mBuryPoint('11', {
           bookTailEnter: 'bookTailEnter',
@@ -193,7 +194,7 @@ export default {
         })
       } else {
         // 点击开启通知
-        console.log('-- 点击开启 --',)
+        console.log('-- 点击开启 --')
         bk.call('notificationOpen', {}, () => {
           console.log('点击开启通知')
         })
