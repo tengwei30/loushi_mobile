@@ -84,12 +84,14 @@ export default {
   },
   created() {
     bk.call('notificationInit', {}, data => {
+      console.log('初始化通知', data)
       // 通知开启初始化
       if (data.openNotification * 1 === 0) {
         this.showNotification = true
       }
     })
     bk.call('notificationResume', {}, data => {
+      console.log('再次返回', data)
       // 开启返回
       if (data.openNotification * 1 === 1) {
         this.showNotificationResume = true
