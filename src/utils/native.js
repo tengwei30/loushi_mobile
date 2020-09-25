@@ -60,3 +60,14 @@ export function copyToClipboardNative(obj, posType) {
   }
   return JSON.stringify(result)
 }
+
+/**
+ * 视频播放
+ * @param {*} params
+ * pageType 2为单个视频 0为视频feed 1为我的收藏 3为合集视频  videoType 2 为小说翻拍 3为自制剧集 4为搞笑视频）
+ */
+export function goVideoPage(params) {
+  let { videoId = '', pageType = 2, videoType = 2 } = params
+  console.log(params)
+  window.location.assign(`breader://videofeed/detail/play?videoId=${videoId}&pageType=${pageType}&videoType=${videoType}`)
+}
