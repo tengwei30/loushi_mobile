@@ -6,6 +6,14 @@ html,body
     min-height 100vh
     background url('../../assets/national_day/female_bg_icon.png') repeat top center/100%
     background-color rgba(255, 134, 134, 0.2)
+    &.is-ios
+      .top
+        height 301px !important
+        background-image url('../../assets/national_day/ios_female_top.png') !important
+      &.is-male
+        .top
+          height 301px !important
+          background-image url('../../assets/national_day/ios_male_top.png') !important
     &.is-bk
       .top
         background-image url('../../assets/national_day/bk_female_top_bg.png')

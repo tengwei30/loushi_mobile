@@ -1,6 +1,6 @@
 <template lang="pug">
   .national(v-if='isLoaded')
-    .sex(:class='{"is-male": isMale, "is-bk": getPlatform() == 5 || (getPlatform() == "")}')
+    .sex(:class='{"is-male": isMale, "is-bk": getPlatform() == 5 || (getPlatform() == ""), "is-ios": isIos}')
       .top
       .banner(:class='{"is-fixed": isFixed === true}')
         div.banner-item(v-for='(item, index) in list' :key='index'
@@ -66,7 +66,7 @@ export default {
         platform: 1,
         title: '精彩小说陪你度长假',
         desc: '窗内的月圆，书中的精彩都是旅途上难得瞬间，更多美好，待你发现',
-        icon: require('@/assets/national_day/bk_share_icon_male.png'),
+        icon: window.location.origin + '/' + require('@/assets/national_day/bk_share_icon_male.png'),
         url: window.location.href,
         type: 1
       },
@@ -77,6 +77,11 @@ export default {
   methods: {},
   created() {
     this.getDataList()
+  },
+  computed: {
+    isIos() {
+      return BROWSER.isiOS
+    }
   },
   methods: {
     dealInOrOut() {
@@ -165,7 +170,7 @@ export default {
     parentShareFun(target) {
       let tempShareOptions = { ...this.shareOptions }
       if (!this.isMale) {
-        tempShareOptions.icon = require('@/assets/national_day/bk_share_icon_female.jpg')
+        tempShareOptions.icon = window.location.origin + '/' + require('@/assets/national_day/bk_share_icon_female.jpg')
       }
       tempShareOptions.platform = target
       if (target == 2) {
