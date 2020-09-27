@@ -1,5 +1,4 @@
 <template lang="pug">
-s
 
 </template>
 

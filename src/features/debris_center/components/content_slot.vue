@@ -7,7 +7,7 @@
     .header_right(v-if="isSign")
       h3.title 签到提醒
       img.onOff(src="@/assets/debris_center/open_icon@2x.png")
-  .content
+  .content(:style="styles")
     <slot></slot>
 </template>
 
@@ -25,6 +25,9 @@ export default {
     isSign: {
       type: Boolean,
       default: false
+    },
+    styles: {
+      type: Object
     }
   }
 }
@@ -62,7 +65,7 @@ export default {
         line-height 22px
       p.desc
         height 17px
-        font-size 12px;
+        font-size 12px
         font-family PingFangSC-Regular, PingFang SC
         font-weight 400
         color #FFFFFF
@@ -76,7 +79,7 @@ export default {
         height 12px
         font-size 12px
         font-family PingFangSC-Regular, PingFang SC
-        font-weight 400;
+        font-weight 400
         color #FFFFFF
         line-height 12px
         padding-right 6px
@@ -88,4 +91,5 @@ export default {
     border-radius 0 0 8px 8px
     border 2px solid #FF9836
     border-top 0
+    box-shadow 0px 0px 7px 0px rgba(221, 221, 221, 0.5)
 </style>

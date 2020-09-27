@@ -72,15 +72,126 @@ body, html
             text-align center
             line-height 22px
             position relative
-            &::before
-              content: ''
+            &before
+              content ''
               absolute(top -1px left -1px)
               z-index 10
               width 59px
               height 22px
-              background: linear-gradient(245deg, #FFA34B 0%, #F44004 71%, #FF5537 100%)
-              border-radius: 11px
+              background linear-gradient(245deg, #FFA34B 0%, #F44004 71%, #FF5537 100%)
+              border-radius 11px
             .default_progress
               absolute(top 0 left 26px)
               z-index 12
               color #ffffff
+  .sign_module
+    .sign_img
+      width 100%
+      height auto
+      display flex 
+      flex-direction row
+      flex-wrap wrap
+      img
+        size(48px 48px)
+        display inline-block
+        margin-right 14px
+        margin-bottom 15px
+        &:nth-of-type(5n)
+          margin-right 0
+    .sign_day_num
+      text-align center
+      height 17px
+      font-size 12px
+      font-family PingFangSC-Regular, PingFang SC
+      font-weight 400
+      color #DA1806
+      line-height 17px
+  .task_module
+    ul.task_list
+      li.single_task
+        display flex 
+        flex-direction row
+        justify-content space-between
+        padding-bottom 15px
+        .task_name        
+          height 20px
+          font-size 14px
+          font-family PingFangSC-Regular, PingFang SC
+          font-weight 400
+          color #333333
+          line-height 20px
+        .task_state
+          size(74px 22px)
+          font-size 12px
+          font-family PingFangSC-Regular, PingFang SC
+          font-weight 400
+          color #FFFFFF
+          line-height 22px
+          text-indent 10px
+          background url('../../assets/debris_center/default_task.png') no-repeat center center/100%
+          background-size 100% 100%
+          position relative
+          &::after
+            content ''
+            absolute(right -1px top 0)
+            size(24px 24px)
+            background url('../../assets/debris_center/debris_icon.png') no-repeat center center/100%
+            background-size 100% 100%
+  .comment_module
+    .comment_userInfo
+      display flex
+      flex-direction row
+      align-items: center
+      .user_avator
+        size(36px 36px)
+        border 1px solid #FF9C3D
+        border-radius 36px
+      .user_ID_time
+        display flex
+        flex-direction column
+        justify-content: space-around
+        padding 0 24px 0 10px
+        span.user_ID
+          font-size 12px
+          height 17px
+          font-weight 500
+          color #000000
+          line-height 17px
+        span.user_time
+          height 14px
+          font-size 10px
+          font-family PingFangSC-Medium, PingFang SC
+          font-weight 500
+          color #999999
+          line-height 14px
+      .user_award
+        font-size 12px
+        font-family PingFangSC-Regular, PingFang SC
+        font-weight 400
+        color #FFFFFF
+        line-height 22px
+        size(66px 22px)
+        text-align center 
+        background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
+        border-radius 11px
+    .comment_desc
+      margin 14px 0 15px
+      width 310px
+      height 55px
+      background #FFF7EE
+      border-radius 8px
+      padding 7px 12px 8px 18px
+      box-sizing border-box
+      font-size: 14px
+      font-family: PingFangSC-Medium, PingFang SC
+      font-weight: 500
+      color: #333333
+      line-height: 20px
+    .comment_img
+      display flex
+      flex-direction row
+      justify-content space-between
+      .comment_award_img
+        size(94px 80px)
+        border 1px solid #F2F2F2
+
