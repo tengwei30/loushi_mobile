@@ -4,7 +4,7 @@
   .video__book(v-for="item in videolists")
     .video__book__top(@click="clickVideo(item)")
       p {{ item.topic }}
-      img.video__img(:src='item.cover.imgUrl')
+      img.video__img(:src='item.cover.horizontalCoverUrl')
     .novel__content(@click="gotoRead(item)")
       img.novel__img(:src="item.book.cover")
       .novel__center
