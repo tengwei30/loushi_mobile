@@ -11,7 +11,7 @@
         h4 {{ item.book.bookName }}
         .novel__desc
           span {{ item.book.category }}
-          span {{ item.score || 0 }}分
+          span(v-if="item.score") {{ item.score }}分
       .novel__button
         img(src="@/assets/bookslast/bookslast_icon@2x.png")
         p 去阅读

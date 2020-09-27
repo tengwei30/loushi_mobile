@@ -127,11 +127,12 @@ export default {
       if (res.data.bookInfo && res.data.bookInfo.isShowVideo === 1) {
         // 加载视频模块
         getVideoList(this.bookId).then(res => {
-          if (!res.data) {
+          const { data } = res
+          if (!data || data.dataList.length === 0) {
             this.getEndCategoryBookCommon()
             return
           }
-          this.videolists = res.data && res.data.dataList
+          this.videolists = data && data.dataList
           this.showVideo = true
           mBuryPoint('11', {
             bookTailEnter: 'bookTailEnter',
@@ -208,7 +209,7 @@ export default {
           bookId: this.bookId
         })
         // 催更
-        getReadUrge(this.bookId, chapterNum).then(() => {
+        getReadUrge(this.bookId, this.chapterNum).then(() => {
           this.endInfo.urgeInfo.status = 1
         })
       } else {
