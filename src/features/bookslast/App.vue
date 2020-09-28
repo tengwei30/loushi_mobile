@@ -122,7 +122,6 @@ export default {
         // 加载视频模块
         getVideoList(this.currbookId).then(res => {
           const { data } = res
-          console.log('-----', data)
           if (!data || data.dataList.length === 0) {
             this.getEndCategoryBookCommon()
             return
