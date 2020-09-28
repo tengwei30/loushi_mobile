@@ -118,7 +118,8 @@ export default {
       } else if (this.bookInfo.isSerial === 0) {
         this.buttonStatus = (this.endInfo.vipExperienceCardInfo.status === 0 && !this.vipExperienceCardInfoControl) ? '1' : '2'
       }
-      if (res.data.bookInfo && res.data.bookInfo.isShowVideo === 1 && compareVersion('1.47.0', this.version) > 0 && (this.platform === 5 || this.platform === 3)) {
+      const { bookInfo } = res.data
+      if (bookInfo && bookInfo.isShowVideo === 1 && compareVersion('1.47.0', this.version) > 0 && Number(this.platform === 5)) {
         // 加载视频模块
         getVideoList(this.currbookId).then(res => {
           const { data } = res
