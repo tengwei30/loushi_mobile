@@ -12,7 +12,7 @@
         h4 {{ item.book.bookName }}
         .novel__desc
           span {{ item.book.category }}
-          span(v-if="item.score") {{ item.score }}分
+          span(v-if="item.book.source") {{ item.book.source }}分
       .novel__button
         img(src="@/assets/bookslast/bookslast_icon@2x.png")
         p 去阅读
@@ -67,8 +67,10 @@ export default {
   width 8.59rem
   height 1.1rem
   font-size 0.4rem
-  background url('../../../assets/bookslast/bg_video.png') no-repeat center center/100%
-  background-size 100% 100%
+  background linear-gradient(0deg , rgba(0,0,0,0.81), rgba(0,0,0,0.04))
+  // background url('../../../assets/bookslast/bg_video.png') no-repeat center center/100%
+  // background-size 100% 100%
+  border-radius 0.28rem
   font-family PingFangSC-Regular, PingFang SC
   font-weight 400
   color #ffffff
