@@ -1,6 +1,8 @@
 <template lang="pug">
 .header-top.header-top-1
-  .header-top-desc(v-if="endInfo.urgeInfo") 作者正在努力更新中…
+  .header-top-done(v-if="endInfo.urgeInfo")
+    .header-top-book-done 作者正在努力更新中…
+    .header-top-book-done-other 开启提醒，第一时间追更！
   .header-top-button.header-top-mark-button-fetch-common(
     @click="urgeforbook"
     v-if="endInfo.urgeInfo.status === 0 && !showNotificationResume") {{ showNotification ? '开启通知' : '我要催更'}}

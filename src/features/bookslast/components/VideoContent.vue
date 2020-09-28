@@ -5,6 +5,7 @@
     .video__book__top(@click="clickVideo(item)")
       p {{ item.topic }}
       img.video__img(:src='item.cover.horizontalCoverUrl')
+      img.play_icon(src="@/assets/bookslast/play_icon@2x.png")
     .novel__content(@click="gotoRead(item)")
       img.novel__img(:src="item.book.cover")
       .novel__center
@@ -45,7 +46,7 @@ export default {
   height 0.43rem
   font-size 0.43rem
   font-family PingFangSC-Medium, PingFang SC
-  font-weight 500
+  font-weight bold
   color #000000
   line-height 0.43rem
   padding-bottom 0.43rem
@@ -53,11 +54,21 @@ export default {
   padding-bottom 0.45rem
 .video__book .video__book__top
   position relative
+  .play_icon
+    width 1.07rem
+    height 1.07rem
+    position absolute
+    top 1.89rem
+    left 4rem
 .video__book .video__book__top p
   position absolute
   top 0
-  left 0
+  left -1px
+  width 8.59rem
+  height 1.1rem
   font-size 0.4rem
+  background url('../../../assets/bookslast/bg_video.png') no-repeat center center/100%
+  background-size 100% 100%
   font-family PingFangSC-Regular, PingFang SC
   font-weight 400
   color #ffffff
@@ -66,14 +77,14 @@ export default {
 .video__book .video__book__top img
   width 9.07rem
   height 5.1rem
+  border-radius 0.28rem
 .novel__content
   height 1.42rem
   display flex
   box-sizing border-box
   flex-direction row
-  /* justify-content center */
   align-items center
-  margin-top 0.5rem
+  // margin-top 0.1rem
 .novel__content .novel__img
   width 1.07rem
   height 1.42rem
@@ -90,7 +101,7 @@ export default {
   height 0.37rem
   font-size 0.37rem
   font-family PingFangSC-Medium, PingFang SC
-  font-weight 500
+  font-weight bold
   color #000000
   line-height 0.37rem
   text-overflow ellipsis
@@ -121,7 +132,7 @@ export default {
   height 0.59rem
   font-size 0.37rem
   font-family PingFangSC-Medium, PingFang SC
-  font-weight 500
+  font-weight bold
   color #ff5a00
   line-height 0.59rem
 footer
@@ -133,7 +144,7 @@ footer p
   height 0.43rem
   font-size 0.32rem
   font-family PingFangSC-Medium, PingFang SC
-  font-weight 500
+  font-weight bold
   color #ff5a00
   line-height 0.43rem
   text-align center

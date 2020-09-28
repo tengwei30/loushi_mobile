@@ -61,11 +61,13 @@ export default {
     VideoContent: () => import('./components/VideoContent.vue')
   },
   data() {
+    const bookId = getQueryString('bookId') || ''
+    const currbookId = bookId
     return {
       endInfo: {},
       platform: localStorage.getItem('platformId') || 5,
       version: localStorage.getItem('version') || '',
-      bookId: getQueryString('bookId') || '',
+      bookId,
       chapterNum: getQueryString('chapterNum') || '',
       mId: getQueryString('mId') || '',
       source: getQueryString('source') || '',
@@ -82,27 +84,19 @@ export default {
       videolists: [], // 视频列表
       showNotification: false,
       showNotificationResume: false,
-      buttonStatus: '1'
+      buttonStatus: '1',
+      currbookId
     }
   },
   created() {
     bk.call('notificationInit', {}, data => {
       const { openNotification } = JSON.parse(data)
-      console.log('设置显示开启', openNotification)
       // 通知开启初始化
       if (openNotification * 1 === 0) {
         this.showNotification = true
       }
     })
     window.notificationResume = this.notificationResume
-    // bk.call('notificationResume', {}, data => {
-    //   const { openNotification } = JSON.parse(data)
-    //   console.log('页面重现', openNotification)
-    //   // 开启返回
-    //   if (openNotification * 1 === 1) {
-    //     this.showNotificationResume = true
-    //   }
-    // })
   },
   mounted() {
     getEndInfo(this.bookId, this.mId).then(res => {
@@ -124,7 +118,7 @@ export default {
       } else if (this.bookInfo.isSerial === 0) {
         this.buttonStatus = (this.endInfo.vipExperienceCardInfo.status === 0 && !this.vipExperienceCardInfoControl) ? '1' : '2'
       }
-      if (res.data.bookInfo && res.data.bookInfo.isShowVideo === 1) {
+      if (res.data.bookInfo && res.data.bookInfo.isShowVideo === 1 && compareVersion('1.47.0', this.version) > 0) {
         // 加载视频模块
         getVideoList(this.bookId).then(res => {
           const { data } = res
@@ -137,7 +131,7 @@ export default {
           mBuryPoint('11', {
             bookTailEnter: 'bookTailEnter',
             enterType: '2',
-            bookId: this.bookId,
+            bookId: this.currbookId,
             buttonStatus: this.buttonStatus
           })
         })
@@ -165,7 +159,7 @@ export default {
         mBuryPoint('11', {
           bookTailEnter: 'bookTailEnter',
           enterType: '1',
-          bookId: this.bookId,
+          bookId: this.currbookId,
           buttonStatus: this.buttonStatus
         })
       })
@@ -209,7 +203,7 @@ export default {
           bookId: this.bookId
         })
         // 催更
-        getReadUrge(this.bookId, this.chapterNum).then(() => {
+        getReadUrge(this.currbookId, this.chapterNum).then(() => {
           this.endInfo.urgeInfo.status = 1
         })
       } else {
@@ -222,7 +216,7 @@ export default {
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
         clickReward: 'clickReward',
-        bookId: this.bookId
+        bookId: this.currbookId
       })
       const rewardUrl = `breader://reward?bookId=${this.bookId}`
       window.location = rewardUrl
@@ -232,7 +226,7 @@ export default {
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
         clickScore: 'clickScore',
-        bookId: this.bookId
+        bookId: this.currbookId
       })
       let version = this.version
       if (compareVersion('1.42.0', version) > 0) {
@@ -249,7 +243,7 @@ export default {
         bookTailEnter: 'bookTailEnter',
         enterType: '1',
         addBookShelf: 'addBookShelf',
-        bookId: this.bookId
+        bookId: this.currbookId
       })
       const addBookShelfUrl = `breader://addBookshelf?bookId=${this.bookId}&goRead=0&source=${this.source}`
       window.location = addBookShelfUrl
@@ -260,7 +254,7 @@ export default {
         bookTailEnter: 'bookTailEnter',
         enterType: '1',
         addBookShelfAndRead: 'addBookShelfAndRead',
-        bookId: this.bookId
+        bookId: this.currbookId
       })
       const addBookShelfAndReadUrl = `breader://addBookshelf?bookId=${this.bookId}&goRead=1&source=${this.source}`
       window.location = addBookShelfAndReadUrl
@@ -273,7 +267,7 @@ export default {
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
         clickVip: 'clickVip',
-        bookId: this.bookId
+        bookId: this.currbookId
       })
       getVipCard(this.endInfo.vipExperienceCardInfo.id).then(() => {
         this.vipExperienceCardInfoControl = true
@@ -308,7 +302,7 @@ export default {
     endCategoryBookResponseHandler(res) {
       if (!res) return
       const { bookName, isSerial, bookId } = res.bookInfo
-      this.bookId = bookId
+      this.currbookId = bookId
       let _bookName = ''
       if (bookName.length > 9) {
         _bookName = bookName.substring(0, 9) + '...'
@@ -365,11 +359,11 @@ export default {
       }
     },
     refreshHandler() {  // 换一本
-      getEndCategoryBook(this.bookId, this.pageNum, this.mId).then(res => {
+      getEndCategoryBook(this.currbookId, Number(this.pageNum) + 1, this.mId).then(res => {
         this.endCategoryBookResponseHandler(res.data)
         const result = {
           action: 'endCategoryBook',
-          bookId: this.bookId
+          bookId: this.currbookId
         }
         mBuryPoint(null, result)
       })

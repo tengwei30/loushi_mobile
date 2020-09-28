@@ -35,7 +35,7 @@
           .ranking(v-show="!showTag") 第{{ endCategoryBook.num }}名
       .book-refresh(
         v-if="mId === ''"
-        @click="refreshHandler"
+        @click="refreshHandler()"
       )
         img.book-refresh-img(src="@/assets/bookslast/bookslast_1.png")
         span 换一本
