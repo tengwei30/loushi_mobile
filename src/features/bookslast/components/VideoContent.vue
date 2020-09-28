@@ -67,9 +67,7 @@ export default {
   width 8.59rem
   height 1.1rem
   font-size 0.4rem
-  background linear-gradient(0deg , rgba(0,0,0,0.81), rgba(0,0,0,0.04))
-  // background url('../../../assets/bookslast/bg_video.png') no-repeat center center/100%
-  // background-size 100% 100%
+  background linear-gradient(180deg , rgba(0,0,0,0.81), rgba(0,0,0,0.04))
   border-radius 0.28rem
   font-family PingFangSC-Regular, PingFang SC
   font-weight 400
@@ -86,7 +84,6 @@ export default {
   box-sizing border-box
   flex-direction row
   align-items center
-  // margin-top 0.1rem
 .novel__content .novel__img
   width 1.07rem
   height 1.42rem
