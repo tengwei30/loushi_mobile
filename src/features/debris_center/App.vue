@@ -38,32 +38,29 @@
         li.single_task(v-for="item in 5")
           p.task_name 今日认真阅读10章
           p.task_state 待领取
-  .comment_module
-    ContentSlot(
-      title='奖励中心',
-      :styles="styles"
+  ContentSlot(
+    title='奖励中心',
+    :styles="styles"
+  )
+    Comment(
+      avatarUrl=''
+      userId='ID:1111'
+      time='13412432151'
+      awardName='张三'
+      awardDesc='大发是否打算发顺丰'
     )
-      .comment_userInfo
-        img.user_avator(src='')
-        .user_ID_time
-          span.user_ID ID：67721
-          span.user_time 2020年8月18
-        p.user_award 华为p30
-      p.comment_desc
-        | 本来以为骗人，没想到真的中奖啦～太nice了真香性～
-      .comment_img
-        .comment_award_img(v-for="item in 3")
-          img(src='')
   DebrisRule
 </template>
 
 <script>
 import ContentSlot from './components/content_slot'
 import DebrisRule from './components/debris_rule'
+import Comment from './components/comment'
 export default {
   components: {
     ContentSlot,
-    DebrisRule
+    DebrisRule,
+    Comment
   },
   data() {
     return {
