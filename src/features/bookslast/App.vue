@@ -305,7 +305,7 @@ export default {
     endCategoryBookResponseHandler(res) {
       if (!res) return
       const { bookName, isSerial, bookId } = res.bookInfo
-      this.currbookId = bookId
+      this.bookId = bookId
       let _bookName = ''
       if (bookName.length > 9) {
         _bookName = bookName.substring(0, 9) + '...'
