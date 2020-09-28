@@ -208,6 +208,7 @@ export default {
         })
       } else {
         // 点击开启通知
+        console.log('--点击开启通知--')
         bk.call('notificationOpen', {}, () => {})
       }
     },
