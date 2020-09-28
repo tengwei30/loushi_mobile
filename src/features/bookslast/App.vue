@@ -94,6 +94,7 @@ export default {
       // 通知开启初始化
       if (openNotification * 1 === 0) {
         this.showNotification = true
+        this.buttonStatus = '3'
       }
     })
     window.notificationResume = this.notificationResume
@@ -112,13 +113,12 @@ export default {
       this.bookInfo =bookInfo
       this.handleDealBoostList(ItemInfo)
 
-      if (!this.showNotification) {
-        this.buttonStatus = '3'
-      } else if (this.bookInfo.isSerial === 1) {
+      if (this.bookInfo.isSerial === 1 && !this.showNotification) {
         this.buttonStatus = this.endInfo.urgeInfo.status === 0 ? '4' : '5'
-      } else if (this.bookInfo.isSerial === 0) {
+      } else if (this.bookInfo.isSerial === 0 && !this.showNotification) {
         this.buttonStatus = (this.endInfo.vipExperienceCardInfo.status === 0 && !this.vipExperienceCardInfoControl) ? '1' : '2'
       }
+
       if (compareVersion('1.47.0', this.version) > 0 && Number(this.platform) === 5) {
         if (bookInfo && bookInfo.isShowVideo === 1) {
         // 加载视频模块

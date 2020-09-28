@@ -122,7 +122,7 @@ export default {
   display flex
   flex-direction row
   justify-content space-between
-.novel__content .novel__center .novel__desc spanlast-child
+.novel__content .novel__center .novel__desc span:last-child
   color #ff5a00
 .novel__content .novel__button
   display flex
