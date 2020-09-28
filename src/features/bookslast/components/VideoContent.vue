@@ -17,7 +17,7 @@
         img(src="@/assets/bookslast/bookslast_icon@2x.png")
         p 去阅读
   footer(@click="gotoShelf()")
-    p 没有视频啦，去书城着好书吧>>
+    p 没有视频啦，去书城找好书吧>>
 </template>
 <script>
 export default {

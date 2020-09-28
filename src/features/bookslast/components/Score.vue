@@ -1,8 +1,11 @@
 <template lang="pug">
 .header-bottom
   .header-bottom-comment(@click="commentHandler")
-    img(src="@/assets/bookslast/comment.png")
-    .header-bottom-text {{ endInfo.source ? endInfo.source : '参与评分'}}
+    span.comment_source(v-if="endInfo.bookInfo && endInfo.bookInfo.source")
+      | {{endInfo.bookInfo.source}}
+      em 分
+    img(v-else src="@/assets/bookslast/comment.png")
+    .header-bottom-text 参与评分
   .header-bottom-monry(@click="rewardHandler")
     img(src="@/assets/bookslast/reward.png")
     .header-bottom-text 打赏作者
@@ -11,8 +14,7 @@
 <script>
 export default {
   props: ['endInfo'],
-  mounted() {
-  },
+  mounted() {},
   methods: {
     commentHandler() {
       this.$emit('commentHandler')

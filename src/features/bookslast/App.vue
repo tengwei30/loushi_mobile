@@ -118,7 +118,7 @@ export default {
       } else if (this.bookInfo.isSerial === 0) {
         this.buttonStatus = (this.endInfo.vipExperienceCardInfo.status === 0 && !this.vipExperienceCardInfoControl) ? '1' : '2'
       }
-      if (res.data.bookInfo && res.data.bookInfo.isShowVideo === 1 && compareVersion('1.47.0', this.version) > 0 && this.flat === 5) {
+      if (res.data.bookInfo && res.data.bookInfo.isShowVideo === 1 && compareVersion('1.47.0', this.version) > 0 && this.platform === 5) {
         // 加载视频模块
         try {
           getVideoList(this.bookId).then(res => {
