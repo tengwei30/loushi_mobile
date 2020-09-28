@@ -4,7 +4,7 @@
   .video__book(v-for="item in videolists")
     .video__book__top(@click="clickVideo(item)")
       p {{ item.title }}
-      img.video__img(:src='item.cover.horizontalCoverUrl')
+      img.video__img(:src='item.cover.horizontalCoverUrl || imgDefault')
       img.play_icon(src="@/assets/bookslast/play_icon@2x.png")
     .novel__content(@click="gotoRead(item)")
       img.novel__img(:src="item.book.cover")
@@ -22,6 +22,11 @@
 <script>
 export default {
   props: ['videolists'],
+  data() {
+    return {
+      imgDefault: require('../../../assets/bookslast/video_default.png')
+    }
+  },
   mounted() {},
   methods: {
     clickVideo(item) {
