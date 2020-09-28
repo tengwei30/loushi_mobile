@@ -235,8 +235,7 @@ export default {
         bookId: this.bookId
       })
       let version = this.version
-      if (compareVersion(version, '1.42.0')) {
-        // let origin = window.location.origin.match(/test/) ? 'http://testincrease.ibreader.com/' : 'https://increase.ibreader.com'
+      if (compareVersion('1.42.0', version) > 0) {
         let origin = window.location.origin
         let url = origin + '/BKH5-post_bar.html?bookId=' + this.bookId
         routerToNative(url)
