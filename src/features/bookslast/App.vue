@@ -276,7 +276,7 @@ export default {
         clickVip: 'clickVip',
         bookId: this.bookId
       })
-      getVipCard('this.endInfo.vipExperienceCardInfo.id').then(() => {
+      getVipCard(this.endInfo.vipExperienceCardInfo.id).then(() => {
         this.vipExperienceCardInfoControl = true
       }).catch(err => {
         console.log(err)
