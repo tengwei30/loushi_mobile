@@ -112,7 +112,7 @@ export default {
       this.bookInfo =bookInfo
       this.handleDealBoostList(ItemInfo)
 
-      if (this.showNotification) {
+      if (!this.showNotification) {
         this.buttonStatus = '3'
       } else if (this.bookInfo.isSerial === 1) {
         this.buttonStatus = this.endInfo.urgeInfo.status === 0 ? '4' : '5'
