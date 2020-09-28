@@ -245,7 +245,7 @@ export default {
         addBookShelf: 'addBookShelf',
         bookId: this.currbookId
       })
-      const addBookShelfUrl = `breader://addBookshelf?bookId=${this.bookId}&goRead=0&source=${this.source}`
+      const addBookShelfUrl = `breader://addBookshelf?bookId=${this.currbookId}&goRead=0&source=${this.source}`
       window.location = addBookShelfUrl
     },
     addShelfAndRead() {
@@ -256,7 +256,7 @@ export default {
         addBookShelfAndRead: 'addBookShelfAndRead',
         bookId: this.currbookId
       })
-      const addBookShelfAndReadUrl = `breader://addBookshelf?bookId=${this.bookId}&goRead=1&source=${this.source}`
+      const addBookShelfAndReadUrl = `breader://addBookshelf?bookId=${this.currbookId}&goRead=1&source=${this.source}`
       window.location = addBookShelfAndReadUrl
     },
     handleGoBookDetail(target) {
