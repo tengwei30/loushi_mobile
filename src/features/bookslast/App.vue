@@ -256,7 +256,9 @@ export default {
         addBookShelfAndRead: 'addBookShelfAndRead',
         bookId: this.currbookId
       })
+
       const addBookShelfAndReadUrl = `breader://addBookshelf?bookId=${this.currbookId}&goRead=1&source=${this.source}`
+      console.log('加入书架并阅读', addBookShelfAndReadUrl)
       window.location = addBookShelfAndReadUrl
     },
     handleGoBookDetail(target) {
