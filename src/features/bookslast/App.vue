@@ -104,12 +104,13 @@ export default {
       if (!res.data.bookInfo) {
         res.data.bookInfo = {}
       }
-      if (typeof res.data.bookInfo.isSerial !== 'number') {
-        res.data.bookInfo.isSerial = 0
+      const { bookInfo, ItemInfo } = res.data
+      if (typeof bookInfo.isSerial !== 'number') {
+        bookInfo.isSerial = 0
       }
       this.endInfo = res.data
-      this.bookInfo = res.data.bookInfo
-      this.handleDealBoostList(res.data.ItemInfo)
+      this.bookInfo =bookInfo
+      this.handleDealBoostList(ItemInfo)
 
       if (this.showNotification) {
         this.buttonStatus = '3'
@@ -118,27 +119,28 @@ export default {
       } else if (this.bookInfo.isSerial === 0) {
         this.buttonStatus = (this.endInfo.vipExperienceCardInfo.status === 0 && !this.vipExperienceCardInfoControl) ? '1' : '2'
       }
-      const { bookInfo } = res.data
-      if (bookInfo && bookInfo.isShowVideo === 1 && compareVersion('1.47.0', this.version) > 0 && Number(this.platform === 5)) {
+      if (compareVersion('1.47.0', this.version) > 0 && Number(this.platform) === 5) {
+        if (bookInfo && bookInfo.isShowVideo === 1) {
         // 加载视频模块
-        getVideoList(this.currbookId).then(res => {
-          const { data } = res
-          if (!data || data.dataList.length === 0) {
-            this.getEndCategoryBookCommon()
+          getVideoList(this.currbookId).then(res => {
+            const { data } = res
+            if (!data || data.dataList.length === 0) {
+              this.getEndCategoryBookCommon()
+              return
+            }
+            this.videolists = data && data.dataList
+            this.showVideo = true
+            mBuryPoint('11', {
+              bookTailEnter: 'bookTailEnter',
+              enterType: '2',
+              bookId: this.currbookId,
+              buttonStatus: this.buttonStatus
+            })
             return
-          }
-          this.videolists = data && data.dataList
-          this.showVideo = true
-          mBuryPoint('11', {
-            bookTailEnter: 'bookTailEnter',
-            enterType: '2',
-            bookId: this.currbookId,
-            buttonStatus: this.buttonStatus
           })
-        })
-      } else {
-        this.getEndCategoryBookCommon()
+        }
       }
+      this.getEndCategoryBookCommon()
     })
     window.addEventListener('scroll', this.handleScroll, true)
     if (window.ibreader) {
@@ -245,9 +247,9 @@ export default {
         bookTailEnter: 'bookTailEnter',
         enterType: '1',
         addBookShelf: 'addBookShelf',
-        bookId: this.currbookId
+        bookId: this.bookId
       })
-      const addBookShelfUrl = `breader://addBookshelf?bookId=${this.currbookId}&goRead=0&source=${this.source}`
+      const addBookShelfUrl = `breader://addBookshelf?bookId=${this.bookId}&goRead=0&source=${this.source}`
       window.location = addBookShelfUrl
     },
     addShelfAndRead() {
@@ -256,10 +258,10 @@ export default {
         bookTailEnter: 'bookTailEnter',
         enterType: '1',
         addBookShelfAndRead: 'addBookShelfAndRead',
-        bookId: this.currbookId
+        bookId: this.bookId
       })
 
-      const addBookShelfAndReadUrl = `breader://addBookshelf?bookId=${this.currbookId}&goRead=1&source=${this.source}`
+      const addBookShelfAndReadUrl = `breader://addBookshelf?bookId=${this.bookId}&goRead=1&source=${this.source}`
       console.log('加入书架并阅读', addBookShelfAndReadUrl)
       window.location = addBookShelfAndReadUrl
     },
@@ -363,11 +365,11 @@ export default {
       }
     },
     refreshHandler() {  // 换一本
-      getEndCategoryBook(this.currbookId, Number(this.pageNum) + 1, this.mId).then(res => {
+      getEndCategoryBook(this.bookId, Number(this.pageNum) + 1, this.mId).then(res => {
         this.endCategoryBookResponseHandler(res.data)
         const result = {
           action: 'endCategoryBook',
-          bookId: this.currbookId
+          bookId: this.bookId
         }
         mBuryPoint(null, result)
       })
