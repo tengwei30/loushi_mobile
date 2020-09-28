@@ -13,7 +13,7 @@
     .content-good-book-img
       img(src="@/assets/bookslast/bookslast_8.png")
       .content-good-book-text 好书推荐
-  .content-book-info-container
+  .content-book-info-container(:style="bookInfo.isSerial === 1 ? '' : styles ")
     .content-book-cover
       img.cover-img(:src="endCategoryBook.bookCoverUrl")
       .book-score(v-if="endCategoryBook.grade !== '0'")
@@ -73,6 +73,13 @@ export default {
     VideoPlay: () => import('./video/videoplay.vue')
   },
   mounted() {},
+  data() {
+    return {
+      styles: {
+        borderTop: '0.16rem solid rgba(242, 242, 242, 1)'
+      }
+    }
+  },
   methods: {
     handleGoBookDetail(item) {
       this.$emit('handleGoBookDetail', item)

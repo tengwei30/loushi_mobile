@@ -66,7 +66,7 @@ export default {
     return {
       endInfo: {},
       platform: localStorage.getItem('platformId') || 5,
-      version: localStorage.getItem('version') || '',
+      version: localStorage.getItem('version') || '1.48.0',
       bookId,
       chapterNum: getQueryString('chapterNum') || '',
       mId: getQueryString('mId') || '',
@@ -118,28 +118,24 @@ export default {
       } else if (this.bookInfo.isSerial === 0) {
         this.buttonStatus = (this.endInfo.vipExperienceCardInfo.status === 0 && !this.vipExperienceCardInfoControl) ? '1' : '2'
       }
-      if (res.data.bookInfo && res.data.bookInfo.isShowVideo === 1 && compareVersion('1.47.0', this.version) > 0 && this.platform === 5) {
+      if (res.data.bookInfo && res.data.bookInfo.isShowVideo === 1 && compareVersion('1.47.0', this.version) > 0 && (this.platform === 5 || this.platform === 3)) {
         // 加载视频模块
-        try {
-          getVideoList(this.bookId).then(res => {
-            const { data } = res
-            if (!data || data.dataList.length === 0) {
-              this.getEndCategoryBookCommon()
-              return
-            }
-            this.videolists = data && data.dataList
-            this.showVideo = true
-            mBuryPoint('11', {
-              bookTailEnter: 'bookTailEnter',
-              enterType: '2',
-              bookId: this.currbookId,
-              buttonStatus: this.buttonStatus
-            })
+        getVideoList(this.currbookId).then(res => {
+          const { data } = res
+          console.log('-----', data)
+          if (!data || data.dataList.length === 0) {
+            this.getEndCategoryBookCommon()
+            return
+          }
+          this.videolists = data && data.dataList
+          this.showVideo = true
+          mBuryPoint('11', {
+            bookTailEnter: 'bookTailEnter',
+            enterType: '2',
+            bookId: this.currbookId,
+            buttonStatus: this.buttonStatus
           })
-        } catch (err) {
-          console.dir(err)
-          this.getEndCategoryBookCommon()
-        }
+        })
       } else {
         this.getEndCategoryBookCommon()
       }
@@ -223,7 +219,7 @@ export default {
         clickReward: 'clickReward',
         bookId: this.currbookId
       })
-      const rewardUrl = `breader://reward?bookId=${this.bookId}`
+      const rewardUrl = `breader://reward?bookId=${this.currbookId}`
       window.location = rewardUrl
     },
     commentHandler() {
