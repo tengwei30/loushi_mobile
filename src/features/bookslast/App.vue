@@ -120,21 +120,26 @@ export default {
       }
       if (res.data.bookInfo && res.data.bookInfo.isShowVideo === 1 && compareVersion('1.47.0', this.version) > 0) {
         // 加载视频模块
-        getVideoList(this.bookId).then(res => {
-          const { data } = res
-          if (!data || data.dataList.length === 0) {
-            this.getEndCategoryBookCommon()
-            return
-          }
-          this.videolists = data && data.dataList
-          this.showVideo = true
-          mBuryPoint('11', {
-            bookTailEnter: 'bookTailEnter',
-            enterType: '2',
-            bookId: this.currbookId,
-            buttonStatus: this.buttonStatus
+        try {
+          getVideoList(this.bookId).then(res => {
+            const { data } = res
+            if (!data || data.dataList.length === 0) {
+              this.getEndCategoryBookCommon()
+              return
+            }
+            this.videolists = data && data.dataList
+            this.showVideo = true
+            mBuryPoint('11', {
+              bookTailEnter: 'bookTailEnter',
+              enterType: '2',
+              bookId: this.currbookId,
+              buttonStatus: this.buttonStatus
+            })
           })
-        })
+        } catch (err) {
+          console.dir(err)
+          this.getEndCategoryBookCommon()
+        }
       } else {
         this.getEndCategoryBookCommon()
       }
