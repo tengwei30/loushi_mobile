@@ -1,0 +1,35 @@
+.video_parent {
+  width: 100%;
+  /* position: fixed;
+  top: 0; */
+}
+
+#video {
+  max-height: 7.4rem;
+  line-height: 100%;
+}
+
+#video div {
+  background-color: transparent;
+  max-height: 7.4rem;
+}
+
+#video div video {
+  background-color: transparent;
+  background-size: cover;
+  max-height: 7.4rem;
+}
+
+video::-webkit-media-controls {
+  overflow: hidden !important;
+}
+video::-internal-media-controls-overflow-button{
+  display: none;
+}
+video::-webkit-media-controls-fullscreen-button {
+  display: none;
+}
+video::-webkit-media-controls-enclosure {
+  width: calc(100% + 32px);
+  margin-left: auto;
+}

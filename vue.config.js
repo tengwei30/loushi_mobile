@@ -17,7 +17,7 @@ const bkReadCDN = 'https://scdn.ibreader.com'
 // package
 const pkg = require('./package.json')
 
-const pageUrl = isProd ? `dist/Breader_Task_H5/${pkg.version}` : 'dist/Breader_Task_H5/'
+const pageUrl = isProd ? `Breader_Task_H5/${pkg.version}` : 'Breader_Task_H5/'
 
 let globMatch = '*'
 if (!isProd && process.env.BK_H5_PAGES) {
@@ -104,6 +104,21 @@ module.exports = {
     config.module.rules = newRules
   },
   chainWebpack: config => {
+    // image output config
+    config.module.rule('images')
+      .test(/\.(png|jpe?g|gif|webp)(\?.*)?$/)
+      .use('url-loader')
+      .loader('file-loader')
+      .options({
+        name: `${pageUrl}/img/[name].[hash:8].[ext]`
+      })
+    config.module.rule('svg')
+      .test(/\.(svg)(\?.*)?$/)
+      .use('file-loader')
+      .loader('file-loader')
+      .options({
+        name: `${pageUrl}/img/[name].[hash:8].[ext]`
+      })
     config.resolve.alias.set('@', resolve('src'))
     if (process.env.NODE_ENV === 'production') {
       config.optimization.splitChunks({
@@ -184,13 +199,13 @@ module.exports = {
       args[0].push(
         {
           from: resolve('public'),
-          to: resolve(`${pageUrl}/js`),
+          to: resolve(`dist/${pageUrl}/js`),
           toType,
           ignore,
         },
         {
           from: resolve('static'),
-          to: resolve(`${pageUrl}/others`),
+          to: resolve(`dist/${pageUrl}/others`),
           toType,
         }
       )
@@ -206,34 +221,31 @@ module.exports = {
     disableHostCheck: true, // 配置内网穿透
     // sockHost: 'localhost:80',
     proxy: {
-      '/api': {
+      '/*': {
         target: 'http://testapi.ibreader.com/',
         // ws: true,
         changeOrigin: true,
       },
-      // '/*': {
+      // '/api': {
+      //   target: 'http://testapi.ibreader.com/',
+      //   // ws: true,
+      //   changeOrigin: true,
+      // },
+      // '/community': {
+      //   target: 'http://testapi.ibreader.com/',
+      //   // ws: true,
+      //   changeOrigin: true,
+      // },
+      // '/activity_api': {
+      //   target: 'http://testapi.ibreader.com/',
+      //   // ws: true,
+      //   changeOrigin: true,
+      // },
+      // '/task_api': {
       //   target: 'http://testtask.ibreader.com/',
       //   // ws: true,
       //   changeOrigin: true,
       // },
-      '/community': {
-        target: 'http://testapi.ibreader.com/',
-        // ws: true,
-        changeOrigin: true,
-      },
-      '/activity_api': {
-        target: 'http://testapi.ibreader.com/', // 设置调用接口域名和端口号别忘了加http
-        changeOrigin: true,
-      },
-      '/pixiv_tumeng': {
-        target: 'http://test.cartoon1.ibreader.com/', // 设置调用接口域名和端口号别忘了加http
-        changeOrigin: true,
-      },
-      '/task_api': {
-        target: 'http://testapi.ibreader.com/',
-        // ws: true,
-        changeOrigin: true,
-      },
       // '/api': {
       //   target: 'http://test.cartoon1.ibreader.com/',
       //   changeOrigin: true
