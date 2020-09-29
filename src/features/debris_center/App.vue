@@ -5,6 +5,10 @@
       h3.header_title 我的奖品
       .award_list
         p.click_more_award 查看更多
+        Award(
+          progressCount="3"
+        )
+        Award
         Award
         Award
         //- .single_award
