@@ -6,9 +6,24 @@ export default  {
       id: 0,
       list: [
         {
-          bookId: '4208012',
-          bookName: '女神的上门贵婿',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/FB/91/rBH0oV4LIWeAd1DFAAIF7fubC0I378.jpg'
+          bookId: '4211202',
+          bookName: '上门女婿',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/9C/62/rBH_v18MkXKAeWo0AAJfzufc8_U291.jpg'
+        },
+        {
+          bookId: '4210965',
+          bookName: '最佳龙婿',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/F4/B0/rBH_vl7DgpaANPbtAASWUvlcXO0874.jpg'
+        },
+        {
+          bookId: '4214132',
+          bookName: '超级女婿',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/A2/CC/rBH_vl8NFBCAdt2bAALGwQq3KK0696.jpg'
+        },
+        {
+          bookId: '4206326',
+          bookName: '最佳女婿',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/1A/4A/rBH_vl7U2FOAM_GAAAIFBZVvK8I961.jpg'
         },
         {
           bookId: '4198998',
@@ -16,39 +31,24 @@ export default  {
           bookCover: 'http://cdn.ibreader.com/group1/M00/FA/B2/rBH0ol2NoH6AVfQSAAFpDkLvjm8376.jpg'
         },
         {
-          bookId: '4198209',
-          bookName: '女总裁的无敌狂婿',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/E9/32/rBH_v16w-WWAbom_AAJOtRG5W_M91.jpeg'
+          bookId: '4199059',
+          bookName: '最强上门女婿',
+          bookCover: 'http://cdn.ibreader.com/group1/M00/15/10/rBH0oV2No-yATU78AAPYsvvYErM699.jpg'
         },
         {
-          bookId: '4212259',
-          bookName: '都市最强赘婿',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/6F/D9/rBH_v178RgWADhWxAAItxlrWFCY740.jpg'
+          bookId: '4210999',
+          bookName: '都市之狂婿上门（龙王殿）',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/98/9B/rBH_v18IPJ6Adtm3AAcNLENMyX4818.jpg'
         },
         {
-          bookId: '4218805',
-          bookName: '女神霸婿（又名：不败战神 ）的上门贵婿',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/04/79/rBH_vl8n5hSANHvlAAGsTU1HfxI647.jpg'
+          bookId: '4211074',
+          bookName: '最强赘婿',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/13/F2/rBH_v17U2COATYdgAAKgTZxbml4928.jpg'
         },
         {
-          bookId: '4199089',
-          bookName: '上门为婿',
-          bookCover: 'http://cdn.ibreader.com/group1/M00/FA/F3/rBH0ol2OwW6ARH3IAAF_4DThC7A429.jpg'
-        },
-        {
-          bookId: '4211202',
-          bookName: '上门女婿',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/9C/62/rBH_v18MkXKAeWo0AAJfzufc8_U291.jpg'
-        },
-        {
-          bookId: '4209046',
-          bookName: '第一豪婿',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/09/96/rBH_vl43vIuAL6VjAAE_hNrRw10549.jpg'
-        },
-        {
-          bookId: '4218917',
-          bookName: '超武女婿',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/0D/70/rBH_vl8pQlGAW4B6AAMODZcP9gk963.jpg'
+          bookId: '4210991',
+          bookName: '上门龙婿',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/23/DD/rBH_sV8MkUuAJwOaAAG4Ws8A1u0502.jpg'
         },
       ]
     },
@@ -63,9 +63,9 @@ export default  {
           bookCover: 'http://cdn.ibreader.com/group1/M01/A2/CC/rBH_vl8NFAyACw8WAAJeVhynVG0372.jpg'
         },
         {
-          bookId: '4212262',
-          bookName: '绝世战神',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/9C/75/rBH_v18M-qiAPFaMAAJy7CHl5mg905.jpg'
+          bookId: '4222287',
+          bookName: '不败神婿：盖世战神（不败战神）',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/39/99/rBH_v19QxtKAGMUcAAGIgJB7p8I704.jpg'
         },
         {
           bookId: '4205683',
@@ -78,9 +78,9 @@ export default  {
           bookCover: 'http://cdn.ibreader.com/group1/M00/0C/9A/rBH0oVveXP6AQaC1AADgH5Hv9tM776.jpg'
         },
         {
-          bookId: '4213143',
-          bookName: '都市无敌战神',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/AC/60/rBH_v18O4nSAACAHAAGdGRVoXY4299.jpg'
+          bookId: '4218828',
+          bookName: '绝世无双：都市修罗战神（又名：无敌战神）',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/FE/20/rBH_v18n5imAcaerAAF7BDJiehY395.jpg'
         },
         {
           bookId: '4211163',
@@ -93,9 +93,9 @@ export default  {
           bookCover: 'http://cdn.ibreader.com/group1/M01/F9/79/rBH_vl4lhvOAZpcHAATJrZ0pis0098.jpg'
         },
         {
-          bookId: '4218828',
-          bookName: '绝世无双：都市修罗战神（又名：无敌战神）',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/FE/20/rBH_v18n5imAcaerAAF7BDJiehY395.jpg'
+          bookId: '4222132',
+          bookName: '不败战神',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/27/FC/rBH_v19IxIWAPvvpAARtx3jIWoM274.jpg'
         },
         {
           bookId: '4209571',
@@ -140,9 +140,9 @@ export default  {
           bookCover: 'http://cdn.ibreader.com/group1/M00/03/63/rBH0oV1H4wCAcp5bAAPJPmwDzEo650.jpg'
         },
         {
-          bookId: '4210090',
-          bookName: '重生之老子是皇帝',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/49/F5/rBH_vl5iIdKAYozaAAEPe4Fo7sI887.jpg'
+          bookId: '4161816',
+          bookName: '明朝好女婿',
+          bookCover: 'http://cdn.ibreader.com/group1/M00/00/D5/rBH0oluco-2ANiprAAF_s-NK3g4219.jpg'
         },
         {
           bookId: '4209596',
@@ -163,25 +163,25 @@ export default  {
       list: [
         {
           title: '上门女婿也有春天',
-          url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2FC9%2FDA%2FrBH_vl8X4x-AFT4EAAAmBPOiaIw95.json',
+          url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2F6A%2F9F%2FrBH_vl9x2iuAI73aAAAgvntBtAg78.json',
           imgUrl: require('../../assets/national_day/male_1.jpg'),
           type: 12
         },
         {
-          title: '战神归来当奶爸',
-          url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2FFD%2FCD%2FrBH_v18nzXqAbGlPAAAkDL7RVBo60.json',
-          imgUrl: require('../../assets/national_day/male_2.png'),
+          title: '叮！系统激活成功',
+          url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2F54%2FF7%2FrBH_vl9jFqmAAlSyAAAkHkEWHdI44.json',
+          imgUrl: require('../../assets/national_day/male_2.jpg'),
           type: 13
         },
         {
           title: '重生都市做大佬',
-          url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2F1B%2F46%2FrBH_v186QhuASQdEAAAmYZ1U-_Q78.json',
+          url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2F64%2F4C%2FrBH_v19x1_OAeqC9AAAhj0KuRPQ43.json',
           imgUrl: require('../../assets/national_day/male_3.jpg'),
           type: 14
         },
         {
           title: '古代第一上门女婿',
-          url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2F3D%2F4F%2FrBH_v19Zw_SAAdxEAAAl-3frkBU55.json',
+          url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2F64%2F4C%2FrBH_v19x1SuAVwz0AAAi5zrpsSU69.json',
           imgUrl: require('../../assets/national_day/male_4.png'),
           type: 15
         },
@@ -194,10 +194,10 @@ export default  {
       id: 3,
       list: [
         {
-          videoId: '595202',
-          bookId: '4210133',
-          bookName: '五千年，他的狗都成了妖界大帝，而他却停留在炼气期9862层',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/27/57/rBH_vl9AEDGATrkzAAJMgT-7zJ0080.jpg'
+          videoId: '595241',
+          bookId: '4209180',
+          bookName: '绝世高手大隐于市做保安，她们却发现这个男人有妖孽般的魅力',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/2E/3D/rBH_vl9Iri2AShMEAAMxJaPd6D4616.png'
         },
         {
           videoId: '595208',
@@ -206,10 +206,10 @@ export default  {
           bookCover: 'http://cdn.ibreader.com/group1/M01/20/FC/rBH_v19AGuKAXb7jAAJNN8O20RA998.jpg'
         },
         {
-          videoId: '595221',
-          bookId: '4198913',
-          bookName: '女儿病重告急她才知道自己三年的老公是一个超级富豪',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/2E/2E/rBH_vl9Ia-OADUBVAAJwcFBP-wg012.jpg'
+          videoId: '595247',
+          bookId: '4209638',
+          bookName: '仙帝之首渡劫时却被打扰，本以为必死却意外重生在一名大学生身上',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/2E/3E/rBH_vl9Ir0KAVBOHAATMQkHEp3o086.png'
         },
         {
           videoId: '595232',
@@ -224,10 +224,10 @@ export default  {
           bookCover: 'http://cdn.ibreader.com/group1/M01/27/E0/rBH_v19IrNWALOY7AARxyu1F60E944.png'
         },
         {
-          videoId: '595237',
-          bookId: '4208012',
-          bookName: '吊儿郎当的上门女婿竟是龙门之主，妻子知道真相瘫软在地……',
-          bookCover: 'http://cdn.ibreader.com/group1/M01/2E/3C/rBH_vl9IrT2Af_DZAANFiIDPH5c974.png'
+          videoId: '595228',
+          bookId: '4205155',
+          bookName: '他在左手惊天医术，右手至强武功，匡扶救世，玩转都市',
+          bookCover: 'http://cdn.ibreader.com/group1/M01/2E/3A/rBH_vl9IqteARJ0zAAQmNwHJYCk561.png'
         },
         {
           videoId: '595240',
@@ -408,8 +408,8 @@ export default  {
       id: 10,
       list: [
         {
-          title: '总裁爹地宠上瘾',
-          url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2F21%2FA6%2FrBH_v19Dbi6AXpcbAAAwp5kOSxM40.json',
+          title: '夫人天天想离家出走',
+          url: 'https://activities.ibreader.com/#/speciallist?file=https%3A%2F%2Fscdn.ibreader.com%2F%2Fgroup1%2FM01%2F52%2F46%2FrBH_v19ojVWATy5QAAAsYnHYUzg02.json',
           imgUrl: require('../../assets/national_day/female_1.png'),
           type: 16
         },
