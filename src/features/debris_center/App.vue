@@ -3,19 +3,22 @@
   header
     .award_list_root
       h3.header_title 我的奖品
-      ul.award_list
-        li.single_award
-          .img_show
-            span.img
-          .single_award_title iPhone11 pro碎片
-          .single_award_progress
-            span.default_progress 0/9
-        li.single_award
-          .img_show
-            span.img
-          .single_award_title iPhone11 pro碎片
-          .single_award_progress
-            span.default_progress 0/9
+      .award_list
+        p.click_more_award 查看更多
+        Award
+        Award
+        //- .single_award
+        //-   .img_show
+        //-     span.img
+        //-   .single_award_title iPhone11 pro碎片
+        //-   .single_award_progress
+        //-     span.default_progress 0/9
+        //- .single_award
+        //-   .img_show
+        //-     span.img
+        //-   .single_award_title iPhone11 pro碎片
+        //-   .single_award_progress
+        //-     span.default_progress 0/9
   .sign_module
     ContentSlot(
       title='签到领碎片',
@@ -56,11 +59,13 @@
 import ContentSlot from './components/content_slot'
 import DebrisRule from './components/debris_rule'
 import Comment from './components/comment'
+import Award from './components/award'
 export default {
   components: {
     ContentSlot,
     DebrisRule,
-    Comment
+    Comment,
+    Award
   },
   data() {
     return {
