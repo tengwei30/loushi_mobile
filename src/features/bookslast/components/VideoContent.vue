@@ -92,7 +92,7 @@ export default {
 .novel__content .novel__img
   width 1.07rem
   height 1.42rem
-  background red
+  background #999999
   margin-right 0.27rem
 .novel__content .novel__center
   height inherit
