@@ -16,7 +16,7 @@
       v-on:receiveforbook="receiveforbook"
       )
     Score(
-      v-if="platform !== 51"
+      v-if="platform !== '51'"
       :endInfo="endInfo"
       v-on:commentHandler="commentHandler"
       v-on:rewardHandler="rewardHandler"
@@ -121,7 +121,7 @@ export default {
 
       if (compareVersion('1.47.0', this.version) > 0 && Number(this.platform) === 5) {
         if (bookInfo && bookInfo.isShowVideo === 1) {
-        // 加载视频模块
+          // 加载视频模块
           getVideoList(this.currbookId).then(res => {
             const { data } = res
             if (!data || data.dataList.length === 0) {
@@ -136,9 +136,10 @@ export default {
               bookId: this.currbookId,
               buttonStatus: this.buttonStatus
             })
-            return
           })
+          return
         }
+        this.getEndCategoryBookCommon()
       }
       this.getEndCategoryBookCommon()
     })
@@ -235,7 +236,7 @@ export default {
       let version = this.version
       if (compareVersion('1.42.0', version) > 0) {
         let origin = window.location.origin
-        let url = origin + '/BKH5-post_bar.html?bookId=' + this.bookId
+        let url = origin + '/BKH5-post_bar.html?bookId=' + this.currbookId
         routerToNative(url)
         return
       }
