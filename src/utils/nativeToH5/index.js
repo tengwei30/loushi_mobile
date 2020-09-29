@@ -1,5 +1,6 @@
 import dsbridge from 'dsbridge'
 import { getCookie } from '@/utils/utils'
+var b64 = require('js-base64').Base64
 const getVersion = () => {
   let versionStr = getCookie('version')
   let versionArr = versionStr ? versionStr.split('.') : []
@@ -55,7 +56,7 @@ export const toast = (args) => {
 /**
  * 调用原生的分享
  * @param {Object} args 包含以下属性
- * platform:[]数组，显示的平台有哪些(qq,微信，朋友圈)
+ * platform:[]数组，显示的平台有哪些(qq,微信=1，朋友圈=2)
  * title: 分享标题
  * desc: 分享描述
  * icon: 分享的图标
@@ -65,6 +66,15 @@ export const toast = (args) => {
  * @param {*} callback
  */
 export const shareMenu = (args, callback) => {
+  console.log(args, getVersion())
+  if (getVersion() < 1.42) {
+    if (args.platform == 1) {
+      window.location = `breader://share/wechat?url=${b64.encode(args.url)}&title=${args.title}&imgurl=${encodeURIComponent(args.icon)}&desc=${args.desc}`
+    } else if (args.platform == 2) {
+      window.location = `breader://share/moments?url=${b64.encode(args.url)}&title=${args.title}&imgurl=${encodeURIComponent(args.icon)}&desc=${args.desc}`
+    }
+    return
+  }
   dsbridge.call('showShareMenuNative', args, callback)
 }
 
