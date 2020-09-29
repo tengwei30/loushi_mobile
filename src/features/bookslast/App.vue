@@ -234,7 +234,7 @@ export default {
         bookId: this.currbookId
       })
       let version = this.version
-      if (compareVersion('1.42.0', version) > 0) {
+      if (compareVersion('1.41.9', version) > 0) {
         let origin = window.location.origin
         let url = origin + '/BKH5-post_bar.html?bookId=' + this.currbookId
         routerToNative(url)
