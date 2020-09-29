@@ -66,7 +66,7 @@ export default {
     return {
       endInfo: {},
       platform: localStorage.getItem('platformId') || 5,
-      version: localStorage.getItem('version') || '1.48.0',
+      version: localStorage.getItem('version') || '',
       bookId,
       chapterNum: getQueryString('chapterNum') || '',
       mId: getQueryString('mId') || '',
