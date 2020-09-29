@@ -16,8 +16,8 @@
       v-on:receiveforbook="receiveforbook"
       )
     Score(
-      v-if="platform !== '51'"
       :endInfo="endInfo"
+      :platform='platform'
       v-on:commentHandler="commentHandler"
       v-on:rewardHandler="rewardHandler"
     )

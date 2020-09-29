@@ -1,6 +1,6 @@
 <template lang="pug">
 .header-bottom
-  .header-bottom-comment(@click="commentHandler")
+  .header-bottom-comment(@click="commentHandler" v-if="platform !== '51'")
     span.comment_source(v-if="endInfo.bookInfo && endInfo.bookInfo.source")
       | {{endInfo.bookInfo.source}}
       em 分
@@ -9,11 +9,11 @@
   .header-bottom-monry(@click="rewardHandler")
     img(src="@/assets/bookslast/reward.png")
     .header-bottom-text 打赏作者
-  .header-bottom-line
+  .header-bottom-line(v-if="platform !== '51')
 </template>
 <script>
 export default {
-  props: ['endInfo'],
+  props: ['endInfo', 'platform'],
   mounted() {},
   methods: {
     commentHandler() {
