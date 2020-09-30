@@ -16,7 +16,7 @@
   .content-book-info-container(:style="bookInfo.isSerial === 1 ? '' : styles ")
     .content-book-cover
       img.cover-img(:src="endCategoryBook.bookCoverUrl")
-      .book-score(v-if="endCategoryBook.grade !== '0'")
+      .book-score(v-if="endCategoryBook.grade !== '0.0'")
         img(src="@/assets/bookslast/bookslast_4.png")
         span.book-score-text {{ endCategoryBook.grade }}分
     .content-book-info
