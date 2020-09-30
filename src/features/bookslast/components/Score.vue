@@ -1,7 +1,7 @@
 <template lang="pug">
 .header-bottom
   .header-bottom-comment(@click="commentHandler" v-if="platform === '5'")
-    span.comment_source(v-if="endInfo.bookInfo && endInfo.bookInfo.source")
+    span.comment_source(v-if="endInfo.bookInfo && endInfo.bookInfo.source && endInfo.bookInfo.source !== '0.0'")
       | {{endInfo.bookInfo.source}}
       em 分
     img(v-else src="@/assets/bookslast/comment.png")
