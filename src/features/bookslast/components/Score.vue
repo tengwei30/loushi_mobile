@@ -9,7 +9,7 @@
   .header-bottom-monry(@click="rewardHandler")
     img(src="@/assets/bookslast/reward.png")
     .header-bottom-text 打赏作者
-  .header-bottom-line(v-if="platform !== '51'")
+  .header-bottom-line(v-if="platform === '5'")
 </template>
 <script>
 export default {
