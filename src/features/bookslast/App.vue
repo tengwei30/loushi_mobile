@@ -65,7 +65,7 @@ export default {
     const currbookId = bookId
     return {
       endInfo: {},
-      platform: localStorage.getItem('platformId') || 5,
+      platform: localStorage.getItem('platformId') || '5',
       version: localStorage.getItem('version') || '',
       bookId,
       chapterNum: getQueryString('chapterNum') || '',
