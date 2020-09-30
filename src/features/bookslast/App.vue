@@ -217,6 +217,7 @@ export default {
       }
     },
     rewardHandler() {
+      console.log('-- 点击打赏作者 --')
       // 打赏作者
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
@@ -227,6 +228,7 @@ export default {
       window.location = rewardUrl
     },
     commentHandler() {
+      console.log('-- 点击参与评分 --')
       // 参与评分
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
