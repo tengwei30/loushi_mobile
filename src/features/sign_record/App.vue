@@ -20,7 +20,7 @@
           li(
               v-for="(item, key) in signlists"
               :key="key"
-              :style="item.status === 0 ? 'color:#999999' : 'color:#FF5A00'")
+              :style="item.status === 0 ? 'color:#999999' : 'color:#F43A3A'")
             p {{ momentDate(item.time) }}
             p {{ item.status === 0 ? "未签到" : "已签到" }}
 </template>
@@ -72,7 +72,7 @@ body, html
   size(100%, 100%)
   position relative
 .record__day__top
-  background url("../../assets/task/beijing_1@3x.png") no-repeat center bottom
+  background url("../../assets/task/sign_record_bg.png") no-repeat center bottom
   background-size 100%
   min-height 6.35rem
   position relative
@@ -121,8 +121,7 @@ body, html
   margin 0 auto
   min-height 12.35rem
   background rgba(255, 255, 255, 1)
-  /* box-shadow: -0.13rem 0.13rem 0.16rem 0rem rgba(255, 202, 65, 0.1),
-    0.13rem 0.13rem 0.16rem 0rem rgba(255, 202, 65, 0.1); */
+  box-shadow 5px 5px 8px 0px rgba(255, 119, 65, 0.02), -5px 5px 8px 0px rgba(255, 119, 65, 0.02)
   border-radius 0.37rem
   padding 0 0.53rem 0 0.56rem
   box-sizing border-box
