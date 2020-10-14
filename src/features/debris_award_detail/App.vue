@@ -1,12 +1,14 @@
 <template lang="pug">
 .debris_award_detail
-  AwardDetail(v-for='(item,index) in list' :key='index')
+  AwardDetail(v-for='(item,index) in list' :key='index'
+  @goMailAddress='goMailAddress')
   .debris_award_detail_tip
-    .debris_award_detail_text 我有疑问?
+    .debris_award_detail_text(@click='callOnline') 我有疑问?
 </template>
 
 <script>
 import AwardDetail from './components/award_detail'
+import { callOnline } from '@/utils/common.js'
 export default {
   components: {
     AwardDetail
@@ -19,7 +21,14 @@ export default {
       ]
     }
   },
-  methods: {},
+  methods: {
+    goMailAddress() {
+      location.assign(`${location.origin}/BKH5-debris_mail_address.html`)
+    },
+    callOnline() {
+      callOnline()
+    }
+  },
   mounted() {},
 }
 </script>

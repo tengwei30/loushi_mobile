@@ -86,7 +86,7 @@ export default {
       location.assign(`${window.location.origin}/BKH5-debris_award_list.html`)
     },
     goSignRecord() {
-      location.assign(`${window.location.origin}/BKH5-sign_record.html`)
+      location.assign(`${window.location.origin}/BKH5-debris_sign_record.html`)
     },
     goAwardCenter() {
       console.log('点击跳转奖励列表')

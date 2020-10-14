@@ -9,7 +9,7 @@
     <div class="award_detail_time">中奖时间：2020年11月22日</div>
     <div class="award_detail_bottom">
       <div class="award_detail_progress">进度: 已发货</div>
-      <div class="award_detail_btn">邮寄地址</div>
+      <div class="award_detail_btn" @click="goMailAddress">邮寄地址</div>
     </div>
   </div>
 </template>
@@ -17,6 +17,11 @@
 export default {
   data() {
     return {}
+  },
+  methods: {
+    goMailAddress() {
+      this.$emit('goMailAddress')
+    }
   }
 }
 </script>
