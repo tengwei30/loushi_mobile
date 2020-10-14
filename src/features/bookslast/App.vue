@@ -140,8 +140,9 @@ export default {
           return
         }
         this.getEndCategoryBookCommon()
+      } else {
+        this.getEndCategoryBookCommon()
       }
-      this.getEndCategoryBookCommon()
     })
     window.addEventListener('scroll', this.handleScroll, true)
     if (window.ibreader) {
