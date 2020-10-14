@@ -4,7 +4,7 @@
     .award_list_root
       h3.header_title 我的奖品
       .award_list
-        p.click_more_award 查看更多
+        p.click_more_award(@click="goAwardList()") 查看更多
         Award(
           progressCount="3"
         )
@@ -28,13 +28,14 @@
       title='签到领碎片',
       desc=''
       :styles="styles"
+      isSign=true
     )
       .sign_img
         img(
           :src="require(`@/assets/debris_center/sign/default_${item}.png`)"
           v-for='item in 10'
           )
-      p.sign_day_num 您已成功签到5天，获得5枚碎片，别中断哦～
+      p.sign_day_num(@click="goSignRecord()") 您已成功签到5天，获得5枚碎片，别中断哦～
   .task_module
     ContentSlot(
       title='今日阅读 30章',
@@ -55,6 +56,7 @@
       time='13412432151'
       awardName='张三'
       awardDesc='大发是否打算发顺丰'
+      v-on:goAwardCenter='goAwardCenter'
     )
   DebrisRule
 </template>
@@ -79,7 +81,18 @@ export default {
       }
     }
   },
-  methods: {},
+  methods: {
+    goAwardList() {
+      location.assign(`${window.location.origin}/BKH5-debris_award_list.html`)
+    },
+    goSignRecord() {
+      location.assign(`${window.location.origin}/BKH5-sign_record.html`)
+    },
+    goAwardCenter() {
+      console.log('点击跳转奖励列表')
+      location.assign(`${window.location.origin}/BKH5-debris_award_center.html`)
+    }
+  },
   mounted() {},
 }
 </script>

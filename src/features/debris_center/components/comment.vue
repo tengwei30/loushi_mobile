@@ -1,5 +1,5 @@
 <template lang="pug">
-.comment_module
+.comment_module(@click='goAwardCenter()')
   .comment_userInfo
     img.user_avator(:src='avatarUrl')
     .user_ID_time
@@ -41,15 +41,21 @@ export default {
     },
     awardImgs: []
   },
+  mounted() {
+    // console.log(moment(Number(this.time)).format('YYYY'))
+  },
   methods: {
     year() {
-      return moment(this.time).year()
+      return moment(Number(this.time)).year()
     },
     month() {
-      return moment(this.time).month() + 1
+      return moment(Number(this.time)).month() + 1
     },
     day() {
-      return moment(this.time).day()
+      return moment(Number(this.time)).day()
+    },
+    goAwardCenter() {
+      this.$emit('goAwardCenter')
     }
   }
 }
