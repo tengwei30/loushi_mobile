@@ -138,8 +138,9 @@ export default {
             })
           })
           return
+        } else {
+          this.getEndCategoryBookCommon()
         }
-        this.getEndCategoryBookCommon()
       } else {
         this.getEndCategoryBookCommon()
       }
