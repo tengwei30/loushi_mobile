@@ -1,38 +1,41 @@
 <template>
 <div class="sign-record">
-  <div class="sign-record-title sign-record-item">
-    <div class="sign-record-item-left">日期</div>
-    <div class="sign-record-item-right">签到状态</div>
-  </div>
-  <div class="sign-record-item" :class="{'is-signed': item.isSign, 'unsigned': !item.isSign}" v-for="(item,index) in list" :key='index'>
-    <div class="sign-record-item-left">{{item.time}}</div>
-    <div class="sign-record-item-right">{{item.isSign ? '已签到':'未签到'}}</div>
+  <template v-if="signList.length > 0">
+    <div class="sign-record-title sign-record-item">
+      <div class="sign-record-item-left">日期</div>
+      <div class="sign-record-item-right">签到状态</div>
+    </div>
+    <div class="sign-record-item"
+    :class="{'is-signed': item.status != 0, 'unsigned': item.status == 0}"
+    v-for="(item,index) in signList" :key='index'
+    >
+      <div class="sign-record-item-left">{{momentDate(item.time)}}</div>
+      <div class="sign-record-item-right">{{item.status ===0 ? '未签到' : '已签到'}}</div>
+    </div>
+  </template>
+  <div class="sign_null_record" v-else>
+    <img src="@/assets/task/nosignrecord@3x.png" alt="">
+    <div>还没有签到记录哦</div>
   </div>
 </div>
 </template>
 <script>
+import moment from 'moment'
 export default {
+  props: {
+    signList: {
+      defautl: []
+    }
+  },
   data() {
     return {
-      list: [
-        {
-          time: '2019-12-31',
-          isSign: true
-        },
-        {
-          time: '2020-01-02',
-          isSign: true
-        },
-        {
-          time: '2020-03-31',
-          isSign: false
-        },
-        {
-          time: '2020-04-20',
-          isSign: false
-        },
-      ]
+
     }
+  },
+  methods: {
+    momentDate(time) {
+      return moment(time).format('YYYY-MM-DD')
+    },
   }
 }
 </script>
@@ -47,6 +50,15 @@ export default {
   margin 20px auto
   box-sizing border-box
   padding 4px 10px
+  .sign_null_record
+    font-size 16px
+    color rgba(153, 153, 153, 1)
+    text-align center
+    margin-top 50px
+    img
+      width 2.17rem
+      height 1.71rem
+      margin-bottom 10px
   .sign-record-item
     display flex
     align-items center
