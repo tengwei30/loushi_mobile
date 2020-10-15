@@ -17,7 +17,6 @@ export function setHeader() {
     let obj = Qs.parse(str)
     let coupVersion = obj.version.split('.')
     localStorage.setItem('platformId', coupVersion[0])
-    // localStorage.setItem('platformId', 3)
     window.localStorage.setItem('version', `${coupVersion[1]}.${coupVersion[2]}.${coupVersion[3]}`)
     window.localStorage.setItem('appVersion', coupVersion[1]*100 + coupVersion[2]*1)
     if (obj.webVersion != null &&  obj.webVersion == 'new' && typeof obj.webVersion != 'undefined') {
@@ -39,7 +38,7 @@ axios.interceptors.request.use(
       'application/json, text/plain, */*; charset=utf-8'
     config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     config.headers.common['Pragma'] = 'no-cache'
-    config.headers.common['X-client'] = setHeader() || 'version=50.1.30.0.502000;dID=;signVersion=2;pkv=1;model=SM-G900P;manufacturer=Samsung'
+    config.headers.common['X-client'] = setHeader() || 'version=6.1.48.0.502000;dID=;signVersion=2;pkv=1;model=SM-G900P;manufacturer=Samsung'
     return config
   },
   error => {
