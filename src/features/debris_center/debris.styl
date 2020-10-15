@@ -16,6 +16,35 @@ body, html
     vertical-align middle
     padding-top 124px
     box-sizing border-box
+    .header_space
+      fixed(left 0 right 0 top 0)
+      size(100%, 57px)
+      background #F44004
+      z-index 9990
+    .header_nav
+      fixed(left 0px right 0px top 29px)
+      width 100%
+      padding 0 15px
+      box-sizing border-box
+      z-index 9999
+      height 28px
+      text-align center
+      font-size 16px
+      color #FFFFFF
+      line-height 28px
+      font-weight bold
+      .header_back
+        size(28px, 28px)
+        background-position center center
+        background-repeat no-repeat
+        background-size 100% 100%
+        absolute(left 15px top 0)
+      .header_right_record
+        font-size 12px
+        height 17px
+        font-weight bold
+        line-height 17px
+        absolute(right 15px top 6px)
     .award_list_root
       width 346px
       min-height 248px
@@ -96,7 +125,9 @@ body, html
           color #FFFFFF
           line-height 22px
           text-indent 10px
-          background url('../../assets/debris_center/default_task.png') no-repeat center center/100%
+          // background url('../../assets/debris_center/default_task.png') no-repeat center center/100%
+          background-repeat no-repeat
+          background-position center center/100%
           background-size 100% 100%
           position relative
           &::after

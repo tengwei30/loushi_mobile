@@ -1,6 +1,14 @@
 <template lang="pug">
 #debris_app
   header
+    .header_space(:style="{opacity: opacity}")
+    .header_nav
+      span.header_back(
+        @click="browserBack()"
+         v-if="from !== 'tab'"
+        :style="{backgroundImage: backgroundImage}")
+      | 碎片中心
+      span.header_right_record(v-if="fragmentRewardInfo" @click="goToRewardRecord()") 中奖记录
     .award_list_root
       h3.header_title 我的奖品
       .award_list
@@ -11,18 +19,6 @@
         Award
         Award
         Award
-        //- .single_award
-        //-   .img_show
-        //-     span.img
-        //-   .single_award_title iPhone11 pro碎片
-        //-   .single_award_progress
-        //-     span.default_progress 0/9
-        //- .single_award
-        //-   .img_show
-        //-     span.img
-        //-   .single_award_title iPhone11 pro碎片
-        //-   .single_award_progress
-        //-     span.default_progress 0/9
   .sign_module
     ContentSlot(
       title='签到领碎片',
@@ -34,10 +30,10 @@
     )
       .sign_img
         img(
-          :src="require(`@/assets/debris_center/sign/default_${item}.png`)"
-          v-for='item in 10'
+          v-for='item in checkinRewardInfoList'
+          :src="require(`@/assets/debris_center/sign/default_${item.checkinDayNum}.png`)"
           )
-      p.sign_day_num(@click="goSignRecord()") 您已成功签到5天，获得5枚碎片，别中断哦～
+      p.sign_day_num(@click="goSignRecord()") 您已成功签到{{ checkinInfo.checkinDays }}天，获得{{ checkinInfo.checkinFragmentCount }}枚碎片，别中断哦～
   .task_module
     ContentSlot(
       title='今日阅读 30章',
@@ -45,27 +41,31 @@
       :styles="styles"
     )
       ul.task_list
-        li.single_task(v-for="item in 5")
-          p.task_name 今日认真阅读10章
-          p.task_state 待领取
+        li.single_task(v-for="item in taskInfoList")
+          p.task_name {{ item.name }}
+          p.task_state(
+            :style="{backgroundImage: item.isFinish * 1 === 0 ? taskFinishDefault : taskFinishBg, color: item.isFinish * 1 === 0 ? '#FFFFFF' : '#F43A3A'}"
+            ) {{ item.isFinish * 1 === 0 ? '待领取' : '已到账' }}
   ContentSlot(
     title='奖励中心',
     :styles="styles"
+    v-if="commentInfoList.length !== 0"
   )
-    Comment(
-      avatarUrl=''
-      userId='ID:1111'
-      time='13412432151'
-      awardName='张三'
-      awardDesc='大发是否打算发顺丰'
-      v-on:goAwardCenter='goAwardCenter'
-    )
+    .comment(v-for="item in commentInfoList")
+      Comment(
+        avatarUrl=''
+        userId='ID:1111'
+        time='13412432151'
+        awardName='张三'
+        awardDesc='大发是否打算发顺丰'
+        v-on:goAwardCenter='goAwardCenter'
+      )
   DebrisRule
 </template>
 
 <script>
-import { routerToNative } from '@/utils/native.js'
 import bk from 'bayread-bridge'
+import { getQueryString, routerToNative, throttle } from '@/utils/index'
 import ContentSlot from './components/content_slot'
 import DebrisRule from './components/debris_rule'
 import Comment from './components/comment'
@@ -80,14 +80,30 @@ export default {
   },
   data() {
     return {
+      activityId: getQueryString('activityId') || '128',
+      from: getQueryString('from') || 'tab',
       styles: {
         padding: '16px 21px 12px',
         boxSizing: 'border-box'
       },
       todayTotalReadChapterNum: 1,
       nextTaskNeedNum: 1,
-      // desc: '已通过阅读到账8枚碎片，再阅读1章，到账1枚',
-      showNotification: false
+      showNotification: false,
+      fragmentItemInfoList: [], // 碎片列表
+      checkinRewardInfoList: [], // 碎片列表
+      taskInfoList: [], // 任务列表
+      checkinInfo: { // 签到天数等相关信息
+        checkinDays: 0,
+        checkinFragmentCount: 0
+      },
+      commentInfoList: [], // 福利评论列表
+      fragmentItemInfoList: [], // 碎片列表
+      opacity: 0,
+      backgroundImage: `url(${require('../../assets/debris_center/debris_back@2x.png')})`,
+      taskFinishBg: `url(${require('../../assets/debris_center/finish_task.png')})`,
+      taskFinishDefault: `url(${require('../../assets/debris_center/default_task.png')})`,
+      rewardNum: 0,
+      fragmentRewardInfo: 0 // 有没有获取过奖励
     }
   },
   computed: {
@@ -96,9 +112,9 @@ export default {
     },
     desc() {
       if (this.nextTaskNeedNum * 1 < 0) {
-        return '已通过阅读到账8枚碎片'
+        return `已通过阅读到账${this.rewardNum}枚碎片`
       } else {
-        return `已通过阅读到账8枚碎片，再阅读${this.todayTotalReadChapterNum}章，到账${this.nextTaskNeedNum}枚`
+        return `已通过阅读到账${this.rewardNum}枚碎片，再阅读${this.todayTotalReadChapterNum}章，到账${this.nextTaskNeedNum}枚`
       }
     }
   },
@@ -108,7 +124,6 @@ export default {
       console.log('初始化碎片', todayTotalReadChapterNum, nextTaskNeedNum)
       this.todayTotalReadChapterNum = todayTotalReadChapterNum
       this.nextTaskNeedNum = nextTaskNeedNum
-      // this.desc = `已通过阅读到账8枚碎片，再阅读${todayTotalReadChapterNum}章，到账${nextTaskNeedNum}枚`
     })
     bk.call('setHeaderNative', {
       rightText: '中奖记录'
@@ -151,11 +166,55 @@ export default {
       const url = `${window.location.origin}/BKH5-debris_award_center.html`
       routerToNative(url)
     },
+    browserBack() {
+      bk.navigateBack()
+    },
+    goToRewardRecord() {
+      const url = `${window.location.origin}/BKH5-debris_award_detail.html`
+      routerToNative(url)
+    },
+    addScrollHandler: throttle(function() { // 监听滚动
+      let scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop
+      if (scrollTop >= 60) {
+        this.opacity = 1
+        this.backgroundImage = `url(${require('../../assets/debris_center/fanhui@2x.png')})`
+      } else if (scrollTop < 10) {
+        this.opacity = '0.0' + scrollTop * 2
+        this.backgroundImage = `url(${require('../../assets/debris_center/debris_back@2x.png')})`
+      } else if (scrollTop > 10 && scrollTop < 60) {
+        this.opacity = '0.' + scrollTop * 2
+        this.backgroundImage = `url(${require('../../assets/debris_center/debris_back@2x.png')})`
+      }
+    }, 30),
   },
   async mounted() {
-    let data = await getDebrislist('123131')
+    console.log('---', this.from)
+    // 添加事件监听
+    window.addEventListener('scroll', this.addScrollHandler)
+    let { data } = await getDebrislist(this.activityId)
     try {
-      console.log('初始化data', data)
+      const { checkinRewardInfoList,
+        checkinInfo,
+        commentInfoList = [],
+        fragmentItemInfoList = [],
+        chapterTaskInfoList = {},
+        fragmentRewardInfo = 0
+      } = data
+      const { taskVOS = []} = chapterTaskInfoList
+      this.checkinRewardInfoList = checkinRewardInfoList
+      this.checkinInfo = checkinInfo
+      this.commentInfoList = commentInfoList
+      this.fragmentItemInfoList = fragmentItemInfoList
+      this.taskInfoList = taskVOS
+      this.fragmentRewardInfo = fragmentRewardInfo * 1
+      this.rewardNum = taskVOS.reduce((acc, val) => {
+        if (val.isFinish * 1 === 1) {
+          return acc + val.rewardNum*1
+        } else {
+          return 0
+        }
+      }, 0)
     } catch (error) {
       console.error('error----->', error)
     }
