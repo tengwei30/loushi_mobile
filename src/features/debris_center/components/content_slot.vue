@@ -6,12 +6,13 @@
       p.desc(v-if="desc") {{ desc }}
     .header_right(v-if="isSign")
       h3.title 签到提醒
-      img.onOff(@click="openNotification()" src="@/assets/debris_center/open_icon@2x.png")
+      img.onOff(@click="openNotification()" :src="imgUrl")
   .content(:style="styles")
     <slot></slot>
 </template>
 
 <script>
+import bk from 'bayread-bridge'
 export default {
   props: {
     title: {
@@ -28,11 +29,45 @@ export default {
     },
     styles: {
       type: Object
+    },
+  },
+  data() {
+    return {
+      showNotification: false
     }
   },
+  computed: {
+    imgUrl() {
+      return this.showNotification ? require('../../../assets/debris_center/open_icon@2x.png') : require('../../../assets/debris_center/off_icon@2x.png')
+    }
+  },
+  created() {
+    bk.call('notificationInit', {}, data => {
+      const { openNotification } = JSON.parse(data)
+      console.log('初始化通知状态', openNotification)
+      // 通知开启初始化
+      if (openNotification * 1 === 0) {
+        this.showNotification = false
+      } else {
+        this.showNotification = true
+      }
+    })
+    window.notificationResume = this.notificationResume
+  },
   methods: {
+    notificationResume(data) {
+      const { openNotification } = JSON.parse(data)
+      console.log('开启返回', openNotification)
+      // 开启返回
+      if (openNotification * 1 === 1) {
+        this.showNotification = false
+      } else {
+        this.showNotification = true
+      }
+    },
     openNotification() {
-      this.$emit('openNotification')
+      // this.showNotification = !this.showNotification
+      bk.call('notificationOpen', {}, () => {})
     }
   }
 }

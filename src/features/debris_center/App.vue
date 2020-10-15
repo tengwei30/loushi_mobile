@@ -39,7 +39,7 @@
   .task_module
     ContentSlot(
       title='今日阅读 30章',
-      desc='已通过阅读到账8枚碎片，再阅读2章，到账1枚'
+      :desc='desc'
       :styles="styles"
     )
       ul.task_list
@@ -63,6 +63,7 @@
 
 <script>
 import { routerToNative } from '@/utils/native.js'
+import bk from 'bayread-bridge'
 import ContentSlot from './components/content_slot'
 import DebrisRule from './components/debris_rule'
 import Comment from './components/comment'
@@ -79,8 +80,17 @@ export default {
       styles: {
         padding: '16px 21px 12px',
         boxSizing: 'border-box'
-      }
+      },
+      todayTotalReadChapterNum: 1,
+      nextTaskNeedNum: 1,
+      desc: '已通过阅读到账8枚碎片，再阅读1章，到账1枚'
     }
+  },
+  created() {
+    bk.call('getTodayReadTaskChapterNum', {}, data => {
+      const { todayTotalReadChapterNum, nextTaskNeedNum } = JSON.parse(data)
+      // this.desc= `已通过阅读到账8枚碎片，再阅读${todayTotalReadChapterNum}章，到账${nextTaskNeedNum}枚`
+    })
   },
   methods: {
     goAwardList() {
@@ -92,13 +102,9 @@ export default {
       routerToNative(url)
     },
     goAwardCenter() {
-      console.log('点击跳转奖励列表')
       const url = `${window.location.origin}/BKH5-debris_award_center.html`
       routerToNative(url)
     },
-    openNotification() {
-      console.log('点击开启通知')
-    }
   },
   mounted() {},
 }
