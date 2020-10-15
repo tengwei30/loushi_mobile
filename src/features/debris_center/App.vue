@@ -29,6 +29,8 @@
       desc=''
       :styles="styles"
       isSign=true
+      :imgUrl="imgUrl"
+      v-on:openNotification="openNotification"
     )
       .sign_img
         img(
@@ -68,6 +70,7 @@ import ContentSlot from './components/content_slot'
 import DebrisRule from './components/debris_rule'
 import Comment from './components/comment'
 import Award from './components/award'
+import { getDebrislist } from './request'
 export default {
   components: {
     ContentSlot,
@@ -83,7 +86,20 @@ export default {
       },
       todayTotalReadChapterNum: 1,
       nextTaskNeedNum: 1,
-      desc: '已通过阅读到账8枚碎片，再阅读1章，到账1枚'
+      // desc: '已通过阅读到账8枚碎片，再阅读1章，到账1枚',
+      showNotification: false
+    }
+  },
+  computed: {
+    imgUrl() {
+      return !this.showNotification ? require('../../assets/debris_center/off_icon@2x.png') : require('../../assets/debris_center/open_icon@2x.png')
+    },
+    desc() {
+      if (this.nextTaskNeedNum * 1 < 0) {
+        return '已通过阅读到账8枚碎片'
+      } else {
+        return `已通过阅读到账8枚碎片，再阅读${this.todayTotalReadChapterNum}章，到账${this.nextTaskNeedNum}枚`
+      }
     }
   },
   created() {
@@ -97,8 +113,32 @@ export default {
     bk.call('setHeaderNative', {
       rightText: '中奖记录'
     })
+    bk.call('notificationInit', {}, data => {
+      const { openNotification } = JSON.parse(data)
+      console.log('初始化通知状态', openNotification)
+      // 通知开启初始化
+      if (openNotification * 1 === 0) {
+        this.showNotification = false
+      } else {
+        this.showNotification = true
+      }
+    })
+    window.notificationResume = this.notificationResume
   },
   methods: {
+    notificationResume(data) {
+      const { openNotification } = JSON.parse(data)
+      console.log('开启返回', openNotification)
+      // 开启返回
+      if (openNotification * 1 === 1) {
+        this.showNotification = true
+      } else {
+        this.showNotification = false
+      }
+    },
+    openNotification() {
+      bk.call('notificationOpen', {}, () => {})
+    },
     goAwardList() {
       const url = `${window.location.origin}/BKH5-debris_award_list.html`
       routerToNative(url)
@@ -112,7 +152,14 @@ export default {
       routerToNative(url)
     },
   },
-  mounted() {},
+  async mounted() {
+    let data = await getDebrislist('123131')
+    try {
+      console.log('初始化data', data)
+    } catch (error) {
+      console.error('error----->', error)
+    }
+  },
 }
 </script>
 

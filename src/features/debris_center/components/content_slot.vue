@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import bk from 'bayread-bridge'
 export default {
   props: {
     title: {
@@ -30,45 +29,17 @@ export default {
     styles: {
       type: Object
     },
-  },
-  data() {
-    return {
-      showNotification: false,
-      imgUrl: require('../../../assets/debris_center/open_icon@2x.png')
+    imgUrl: {
+      type: String,
+      default: require('../../../assets/debris_center/open_icon@2x.png')
     }
   },
-  created() {
-    bk.call('notificationInit', {}, data => {
-      const { openNotification } = JSON.parse(data)
-      console.log('初始化通知状态', openNotification)
-      // 通知开启初始化
-      if (openNotification * 1 === 0) {
-        this.showNotification = false
-        this.imgUrl = require('../../../assets/debris_center/off_icon@2x.png')
-      } else {
-        this.showNotification = true
-        this.imgUrl = require('../../../assets/debris_center/open_icon@2x.png')
-      }
-    })
-    window.notificationResume = this.notificationResume
+  mounted() {
+    console.log(this.desc)
   },
   methods: {
-    notificationResume(data) {
-      const { openNotification } = JSON.parse(data)
-      console.log('开启返回', openNotification)
-      // 开启返回
-      if (openNotification * 1 === 1) {
-        this.showNotification = true
-        this.imgUrl = require('../../../assets/debris_center/open_icon@2x.png')
-      } else {
-        console.log('-------')
-        this.showNotification = false
-        this.imgUrl = require('../../../assets/debris_center/off_icon@2x.png')
-      }
-    },
     openNotification() {
-      // this.showNotification = !this.showNotification
-      bk.call('notificationOpen', {}, () => {})
+      this.$emit('openNotification')
     }
   }
 }
