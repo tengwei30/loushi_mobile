@@ -6,7 +6,7 @@
       p.desc(v-if="desc") {{ desc }}
     .header_right(v-if="isSign")
       h3.title 签到提醒
-      img.onOff(src="@/assets/debris_center/open_icon@2x.png")
+      img.onOff(@click="openNotification()" src="@/assets/debris_center/open_icon@2x.png")
   .content(:style="styles")
     <slot></slot>
 </template>
@@ -28,6 +28,11 @@ export default {
     },
     styles: {
       type: Object
+    }
+  },
+  methods: {
+    openNotification() {
+      this.$emit('openNotification')
     }
   }
 }

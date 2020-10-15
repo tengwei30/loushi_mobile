@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import { routerToNative } from '@/utils/native.js'
 import ContentSlot from './components/content_slot'
 import DebrisRule from './components/debris_rule'
 import Comment from './components/comment'
@@ -83,14 +84,20 @@ export default {
   },
   methods: {
     goAwardList() {
-      location.assign(`${window.location.origin}/BKH5-debris_award_list.html`)
+      const url = `${window.location.origin}/BKH5-debris_award_list.html`
+      routerToNative(url)
     },
     goSignRecord() {
-      location.assign(`${window.location.origin}/BKH5-debris_sign_record.html`)
+      const url = `${window.location.origin}/BKH5-debris_sign_record.html`
+      routerToNative(url)
     },
     goAwardCenter() {
       console.log('点击跳转奖励列表')
-      location.assign(`${window.location.origin}/BKH5-debris_award_center.html`)
+      const url = `${window.location.origin}/BKH5-debris_award_center.html`
+      routerToNative(url)
+    },
+    openNotification() {
+      console.log('点击开启通知')
     }
   },
   mounted() {},
