@@ -89,7 +89,13 @@ export default {
   created() {
     bk.call('getTodayReadTaskChapterNum', {}, data => {
       const { todayTotalReadChapterNum, nextTaskNeedNum } = JSON.parse(data)
-      // this.desc= `已通过阅读到账8枚碎片，再阅读${todayTotalReadChapterNum}章，到账${nextTaskNeedNum}枚`
+      console.log('初始化碎片', todayTotalReadChapterNum, nextTaskNeedNum)
+      this.todayTotalReadChapterNum = todayTotalReadChapterNum
+      this.nextTaskNeedNum = nextTaskNeedNum
+      // this.desc = `已通过阅读到账8枚碎片，再阅读${todayTotalReadChapterNum}章，到账${nextTaskNeedNum}枚`
+    })
+    bk.call('setHeaderNative', {
+      rightText: '中奖记录'
     })
   },
   methods: {

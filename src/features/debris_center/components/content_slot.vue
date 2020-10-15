@@ -33,12 +33,8 @@ export default {
   },
   data() {
     return {
-      showNotification: false
-    }
-  },
-  computed: {
-    imgUrl() {
-      return this.showNotification ? require('../../../assets/debris_center/open_icon@2x.png') : require('../../../assets/debris_center/off_icon@2x.png')
+      showNotification: false,
+      imgUrl: require('../../../assets/debris_center/open_icon@2x.png')
     }
   },
   created() {
@@ -48,8 +44,10 @@ export default {
       // 通知开启初始化
       if (openNotification * 1 === 0) {
         this.showNotification = false
+        this.imgUrl = require('../../../assets/debris_center/off_icon@2x.png')
       } else {
         this.showNotification = true
+        this.imgUrl = require('../../../assets/debris_center/open_icon@2x.png')
       }
     })
     window.notificationResume = this.notificationResume
@@ -60,9 +58,12 @@ export default {
       console.log('开启返回', openNotification)
       // 开启返回
       if (openNotification * 1 === 1) {
-        this.showNotification = false
-      } else {
         this.showNotification = true
+        this.imgUrl = require('../../../assets/debris_center/open_icon@2x.png')
+      } else {
+        console.log('-------')
+        this.showNotification = false
+        this.imgUrl = require('../../../assets/debris_center/off_icon@2x.png')
       }
     },
     openNotification() {
