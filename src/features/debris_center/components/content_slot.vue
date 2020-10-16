@@ -47,11 +47,11 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../../styles/index.styl';
   #contentslot
-    width 346px!important
-    margin 0 auto!important
+    width 346px
+    margin 0 auto
     background #FFFFFF
-    box-sizing border-box!important
-    margin-top 20px!important
+    box-sizing border-box
+    margin-top 20px
     .header_title
       padding 0 20px
       box-sizing border-box

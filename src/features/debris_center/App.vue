@@ -42,6 +42,7 @@
         li.single_task(v-for="item in taskInfoList")
           p.task_name {{ item.name }}
           p.task_state(
+            @click="openTask()"
             :style="{backgroundImage: item.isFinish * 1 === 0 ? taskFinishDefault : taskFinishBg, color: item.isFinish * 1 === 0 ? '#FFFFFF' : '#F43A3A'}"
             ) {{ item.isFinish * 1 === 0 ? '待领取' : '已到账' }}
   .award_center_list
@@ -191,6 +192,9 @@ export default {
     goToRewardRecord() {
       const url = `${window.location.origin}/BKH5-debris_award_detail.html?activityId=${this.activityId}`
       routerToNative(url)
+    },
+    openTask() {
+      console.log('开启任务')
     },
     addScrollHandler: throttle(function() { // 监听滚动
       let scrollTop =
