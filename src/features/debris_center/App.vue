@@ -14,11 +14,9 @@
       .award_list
         p.click_more_award(@click="goAwardList()") 查看更多
         Award(
-          progressCount="3"
+          v-for="item in fragmentItemInfoList"
+          :awardInfo="item"
         )
-        Award
-        Award
-        Award
   .sign_module
     ContentSlot(
       title='签到领碎片',
@@ -26,7 +24,7 @@
       :styles="styles"
       isSign=true
       :imgUrl="imgUrl"
-      v-on:openNotification="openNotification"
+      v-on:openCalendarSignNotice="openCalendarSignNotice"
     )
       .sign_img
         img(
@@ -53,11 +51,12 @@
   )
     .comment(v-for="item in commentInfoList")
       Comment(
-        avatarUrl=''
-        userId='ID:1111'
-        time='13412432151'
-        awardName='张三'
-        awardDesc='大发是否打算发顺丰'
+        :avatarUrl='item.headImg'
+        :userId='item.id'
+        :time='item.createTime'
+        :awardName='item.tag'
+        :awardDesc='item.content'
+        :awardImgs="item.imgList"
         v-on:goAwardCenter='goAwardCenter'
       )
   DebrisRule
@@ -66,6 +65,7 @@
 <script>
 import bk from 'bayread-bridge'
 import { getQueryString, routerToNative, throttle } from '@/utils/index'
+import { toast } from '@/utils/nativeToH5/index'
 import ContentSlot from './components/content_slot'
 import DebrisRule from './components/debris_rule'
 import Comment from './components/comment'
@@ -86,10 +86,10 @@ export default {
         padding: '16px 21px 12px',
         boxSizing: 'border-box'
       },
-      todayTotalReadChapterNum: 1,
-      nextTaskNeedNum: 1,
-      chipNum: 0,
-      showNotification: false,
+      todayTotalReadChapterNum: 1,  // 今日阅读章数
+      nextTaskNeedNum: 1, // 今日再阅读几章
+      chipNum: 0, // 再阅读几章将到账碎片数
+      isOpen: false,
       fragmentItemInfoList: [], // 碎片列表
       checkinRewardInfoList: [], // 碎片列表
       taskInfoList: [], // 任务列表
@@ -104,13 +104,11 @@ export default {
       taskFinishBg: `url(${require('../../assets/debris_center/finish_task.png')})`,
       taskFinishDefault: `url(${require('../../assets/debris_center/default_task.png')})`,
       rewardNum: 0,
-      // fragmentRewardInfo: 0, // 有没有获取过奖励
-      // taskTitle: '今日阅读30章'
     }
   },
   computed: {
     imgUrl() {
-      return !this.showNotification ? require('../../assets/debris_center/off_icon@2x.png') : require('../../assets/debris_center/open_icon@2x.png')
+      return !this.isOpen ? require('../../assets/debris_center/off_icon@2x.png') : require('../../assets/debris_center/open_icon@2x.png')
     },
     taskTitle() {
       return `今日阅读${this.todayTotalReadChapterNum}章`
@@ -124,27 +122,29 @@ export default {
     }
   },
   created() {
-    bk.call('getTodayReadTaskChapterNum', {}, data => {
+    bk.call('getTodayReadTaskChapterNum', {}, data => { // 初始化碎片信息
       const { todayTotalReadChapterNum, nextTaskNeedNum, chipNum   } = JSON.parse(data)
-      console.log('初始化碎片', todayTotalReadChapterNum, nextTaskNeedNum)
       this.todayTotalReadChapterNum = todayTotalReadChapterNum
       this.nextTaskNeedNum = nextTaskNeedNum
       this.chipNum = chipNum
     })
-    bk.call('setHeaderNative', {
-      rightText: '中奖记录'
-    })
-    bk.call('notificationInit', {}, data => {
-      const { openNotification } = JSON.parse(data)
-      console.log('初始化通知状态', openNotification)
+    bk.call('calendarSignNoticeInit', {}, data => {
+      const { isOpen  } = JSON.parse(data)
+      console.log('初始化通知状态', isOpen)
       // 通知开启初始化
-      if (openNotification * 1 === 0) {
-        this.showNotification = false
+      if (isOpen  * 1 === 0) {
+        this.isOpen = false
       } else {
-        this.showNotification = true
+        this.isOpen = true
       }
     })
-    window.notificationResume = this.notificationResume
+    bk.register('calendarSignNoticeResume', (data) => {
+      console.log('注册用户开启', data)
+      toast({
+        content: '签到提醒开启成功'
+      })
+      this.isOpen = true
+    })
   },
   methods: {
     getSignUlr(index) {
@@ -154,36 +154,41 @@ export default {
         return require(`@/assets/debris_center/sign/active_${index}.png`)
       }
     },
-    notificationResume(data) {
-      const { openNotification } = JSON.parse(data)
-      console.log('开启返回', openNotification)
-      // 开启返回
-      if (openNotification * 1 === 1) {
-        this.showNotification = true
-      } else {
-        this.showNotification = false
-      }
-    },
-    openNotification() {
-      bk.call('notificationOpen', {}, () => {})
+    openCalendarSignNotice() {
+      bk.call('handleCalendarSignNotice', {}, (data) => {
+        const { isSuccess } = JSON.parse(data)
+        console.log('点击返回', isSuccess)
+        // 通知开启初始化
+        if (isSuccess * 1 === 0) return
+        this.isOpen = !this.isOpen
+        if (this.isOpen) {
+          toast({
+            content: '签到提醒开启成功'
+          })
+        } else {
+          toast({
+            content: '签到提醒关闭成功'
+          })
+        }
+      })
     },
     goAwardList() {
       const url = `${window.location.origin}/BKH5-debris_award_list.html`
       routerToNative(url)
     },
     goSignRecord() {
-      const url = `${window.location.origin}/BKH5-debris_sign_record.html`
+      const url = `${window.location.origin}/BKH5-debris_sign_record.html?activityId=${this.activityId}`
       routerToNative(url)
     },
     goAwardCenter() {
-      const url = `${window.location.origin}/BKH5-debris_award_center.html`
+      const url = `${window.location.origin}/BKH5-debris_award_center.html?activityId=${this.activityId}`
       routerToNative(url)
     },
     browserBack() {
       bk.navigateBack()
     },
     goToRewardRecord() {
-      const url = `${window.location.origin}/BKH5-debris_award_detail.html`
+      const url = `${window.location.origin}/BKH5-debris_award_detail.html?activityId=${this.activityId}`
       routerToNative(url)
     },
     addScrollHandler: throttle(function() { // 监听滚动
@@ -202,16 +207,17 @@ export default {
     }, 30),
   },
   async mounted() {
+    console.log('from', this.from)
     // 添加事件监听
     window.addEventListener('scroll', this.addScrollHandler)
     let { data } = await getDebrislist(this.activityId)
     try {
-      const { checkinRewardInfoList,
+      const {
+        checkinRewardInfoList = [],
         checkinInfo,
         commentInfoList = [],
         fragmentItemInfoList = [],
         chapterTaskInfoList = {},
-        // fragmentRewardInfo = 0
       } = data
       const { taskVOS = []} = chapterTaskInfoList
       this.checkinRewardInfoList = checkinRewardInfoList
@@ -219,13 +225,12 @@ export default {
       this.commentInfoList = commentInfoList
       this.fragmentItemInfoList = fragmentItemInfoList
       this.taskInfoList = taskVOS
-      // this.fragmentRewardInfo = fragmentRewardInfo * 1
       const { fragmentPrizeInfoList=[]} = checkinInfo
-      // if (alert * 1 === 1) {
-      bk.call('showChipRewardDialog', {
-        data: fragmentPrizeInfoList
-      })
-      // }
+      if (alert * 1 === 1) {
+        bk.call('showChipRewardDialog', {
+          data: fragmentPrizeInfoList
+        })
+      }
       this.rewardNum = taskVOS.reduce((acc, val) => {
         if (val.isFinish * 1 === 1) {
           return acc + val.rewardNum*1

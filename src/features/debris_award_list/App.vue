@@ -1,28 +1,36 @@
 <template lang="pug">
 #debris_award
   .debris_award_list
-    Award(:styles="styles")
-    Award(:styles="styles")
-    Award(:styles="styles")
-    Award(:styles="styles")
+    Award(:styles="styles" v-for="item in checkinRewardInfoList" :awardInfo="item")
 </template>
 
 <script>
+import { post } from '@/config/axios.config'
 import Award from '../debris_center/components/award'
+import { getQueryString } from '@/utils/index'
 export default {
   data() {
     return {
       styles: {
         width: '136px',
         height: '205px'
-      }
+      },
+      activityId: getQueryString('activityId') || '128',
+      checkinRewardInfoList: []
     }
   },
   components: {
     Award
   },
   methods: {},
-  mounted() {},
+  async mounted() {
+    let { data } = await post('/activity_api/fragmentPrize/getItemList', {
+      activityId: this.activityId
+    })
+    console.log('碎片中心', data)
+    this.checkinRewardInfoList = data || []
+    // /activity_api/fragmentPrize/getItemList
+  },
 }
 </script>
 

@@ -78,17 +78,14 @@ export default {
     height 20px
     font-size 14px
     font-family PingFangSC-Medium, PingFang SC
-    font-weight 500
+    font-weight bold
     color #333333
     line-height 20px
     padding-bottom 10px
   .rule_desc
-    padding-bottom 20px
     h3,p
       font-size 12px
       color #999999
       line-height 18px
-    &:last-child
-      p
-        padding-bottom 10px
+      letter-spacing -0.1px
 </style>

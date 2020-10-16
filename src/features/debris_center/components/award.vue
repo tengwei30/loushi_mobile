@@ -1,12 +1,14 @@
 <template lang='pug'>
 .single_award(:style="styles")
   .img_show
-    span.img
-  .single_award_title iPhone11 pro碎片
+    img.img(:src="awardInfo.smallImgUrl")
+  .single_award_title {{awardInfo.title}}
   .single_award_progress
     span.default_progress
-      em.active_progress(:style="{'width': proWidth}")
-      em.progress_count {{progressCount}}/9
+      em.active_progress(:style="{'width': proWidth, 'animation': animation}")
+      em.progress_count
+        i(:style="{color: Number(awardInfo.userFragmentCount) > 4 ? '#ffffff' : '#FCAB1B'}") {{awardInfo.userFragmentCount}}/
+        i(:style="{color: Number(awardInfo.userFragmentCount) > 6 ? '#ffffff' : '#FCAB1B'}") 9
 </template>
 
 <script>
@@ -22,18 +24,38 @@ export default {
         }
       }
     },
-    progressCount: {  // 已收集的碎片的个数
-      type: String,
-      default: '0'
+    awardInfo: {
+      type: Object,
+      default: () => {
+        return {
+          title: '',
+          userFragmentCount: '0',
+          smallImgUrl: '',
+        }
+      }
     }
   },
   data() {
-    return {}
+    return {
+      animation: ''
+    }
   },
   computed: {
     proWidth() {
-      return `${Number.parseInt(this.progressCount) * 8}px` || '0px'
+      if (this.awardInfo)
+        return '72px'
+      // return `${Number.parseInt(this.awardInfo.userFragmentCount) * 8}px` || '0px'
     }
+  },
+  mounted() {
+    setTimeout(() => {
+      const tt = document.styleSheets[0]
+      tt.deleteRule(0)
+      tt.insertRule(
+        `@keyframes slideTo {0% { width: 0 } 100% { height: ${this.proWidth}px }}`
+      )
+      this.animation = 'slideTo 0.5s linear forwards'
+    }, 0)
   }
 }
 </script>
@@ -49,10 +71,8 @@ $height = 22px
   align-items center
   .img_show
     size(110px 134px)
-    background #FFFFFF
-    box-shadow 0px 3px 6px 0px rgba(252, 139, 58, 0.17)
-    border-radius 6px
-    border 2px solid #FCAB1B
+    .img
+      width 100%
   .single_award_title
     height 17px
     font-size 12px
@@ -70,7 +90,7 @@ $height = 22px
     box-sizing border-box
     border 1px solid #FCAB1B
     margin 0 auto
-    color #FCAB1B
+    // color #FCAB1B
     position relative
     .default_progress
       display inline-block
@@ -79,11 +99,18 @@ $height = 22px
       .active_progress
         absolute(top -1px left -1px)
         z-index 10
-        // width 64px
         height 22px
         display inline-block
         background linear-gradient(245deg, #FFA34B 0%, #F44004 71%, #FF5537 100%)
         border-radius 11px
+        animation slideTo  0.3s linear forwards
+        // @keyframes slideTo
+        //   0%
+        //     width 0%
+        //   50%
+        //     width 20px
+        //   100%
+        //     width 72px
       .progress_count
         font-size 12px
         text-align center
@@ -93,5 +120,6 @@ $height = 22px
         width $width
         height $height
         z-index 15
-        // color #ffffff
+        i
+          font-style normal
 </style>

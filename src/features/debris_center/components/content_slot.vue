@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     openNotification() {
-      this.$emit('openNotification')
+      this.$emit('openCalendarSignNotice')
     }
   }
 }

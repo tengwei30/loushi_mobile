@@ -3,8 +3,8 @@
   .comment_userInfo
     img.user_avator(:src='avatarUrl')
     .user_ID_time
-      span.user_ID {{ userId }}
-      span.user_time {{year()}}年{{month()}}月{{day()}}
+      span.user_ID ID: {{ userId }}
+      span.user_time {{ time }}
     .user_award {{awardName}}
   p.comment_desc
     | {{ awardDesc }}
@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import moment from 'moment'
 export default {
   props: {
     avatarUrl: {
@@ -25,7 +24,7 @@ export default {
     userId: {
       type: String,
       required: true,
-      default: ''
+      default: '11'
     },
     time: {
       type: String,
@@ -39,25 +38,15 @@ export default {
       type: String,
       default: ''
     },
-    awardImgs: []
+    awardImgs: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
   },
   mounted() {
-    // console.log(moment(Number(this.time)).format('YYYY'))
   },
-  methods: {
-    year() {
-      return moment(Number(this.time)).year()
-    },
-    month() {
-      return moment(Number(this.time)).month() + 1
-    },
-    day() {
-      return moment(Number(this.time)).day()
-    },
-    goAwardCenter() {
-      this.$emit('goAwardCenter')
-    }
-  }
 }
 </script>
 
@@ -120,4 +109,7 @@ export default {
     .comment_award_img
       size(94px 80px)
       border 1px solid #F2F2F2
+      img
+        width 100%
+        height 100%
 </style>
