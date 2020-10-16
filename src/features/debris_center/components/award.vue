@@ -89,7 +89,6 @@ $height = 22px
     box-sizing border-box
     border 1px solid #FCAB1B
     margin 0 auto
-    // color #FCAB1B
     position relative
     .default_progress
       display inline-block
@@ -102,14 +101,6 @@ $height = 22px
         display inline-block
         background linear-gradient(245deg, #FFA34B 0%, #F44004 71%, #FF5537 100%)
         border-radius 11px
-        animation slideTo  0.3s linear forwards
-        // @keyframes slideTo
-        //   0%
-        //     width 0%
-        //   50%
-        //     width 20px
-        //   100%
-        //     width 72px
       .progress_count
         font-size 12px
         text-align center

@@ -195,6 +195,13 @@ export default {
     },
     openTask() {
       console.log('开启任务')
+      if (this.from !== 'tab') {
+        this.browserBack()
+      } else {
+        bk.call('goReadBook', {}, () => {
+          console.log('去阅读')
+        })
+      }
     },
     addScrollHandler: throttle(function() { // 监听滚动
       let scrollTop =
