@@ -9,7 +9,7 @@
   .debris_mail_address_detail
     .debris_mail_address_detail_title 邮寄地址
     textarea.debris_mail_address_detail_textarea(placeholder='详细地址，请精确至门牌号')
-  .debris_mail_address_btn 提交
+  .debris_mail_address_btn(@click='submit') 提交
   .debris_mail_address_rule
     .debris_mail_address_rule_title 注意事项:
     .debris_mail_address_rule_content
@@ -18,11 +18,16 @@
 </template>
 
 <script>
+import { closeCurrentPage } from '@/utils/nativeToH5/index'
 export default {
   data() {
     return {}
   },
-  methods: {},
+  methods: {
+    submit() {
+      closeCurrentPage()
+    }
+  },
   mounted() {},
 }
 </script>
