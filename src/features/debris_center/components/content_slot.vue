@@ -46,62 +46,63 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../../styles/index.styl';
-.content_slot
-  width 346px
-  margin 0 auto
-  background #FFFFFF
-  box-sizing border-box
-  margin-top 20px
-  .header_title
-    padding 0 20px
-    box-sizing border-box
-    min-height 46px
-    width 346px
-    border-radius 8px 8px 0 0
-    background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
-    display flex
-    flex-direction row
-    justify-content space-between
-    align-items center
-    .header_left
-      display flex
-      flex-direction column
-      justify-content center
-      align-items space-between
-      h2.title
-        height 22px
-        font-size 16px
-        font-family PingFangSC-Medium, PingFang SC
-        font-weight 500
-        color #FFFFFF
-        line-height 22px
-      p.desc
-        height 17px
-        font-size 12px
-        font-family PingFangSC-Regular, PingFang SC
-        font-weight 400
-        color #FFFFFF
-        line-height 17px
-    .header_right
+  .content_slot
+    width 346px!important
+    margin 0 auto!important
+    background #FFFFFF
+    box-sizing border-box!important
+    margin-top 20px!important
+    .header_title
+      padding 0 20px
+      box-sizing border-box
+      min-height 46px
+      width 346px
+      border-radius 8px 8px 0 0
+      background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
       display flex
       flex-direction row
-      justify-content center
+      justify-content space-between
       align-items center
-      h3.title
-        height 12px
-        font-size 12px
-        font-family PingFangSC-Regular, PingFang SC
-        font-weight 400
-        color #FFFFFF
-        line-height 12px
-        padding-right 6px
-      img.onOff
-        size(26px 14px)
-        display inline-block
-  .content
-    min-height 174px
-    border-radius 0 0 8px 8px
-    border 2px solid #FF9836
-    border-top 0
-    box-shadow 0px 0px 7px 0px rgba(221, 221, 221, 0.5)
+      .header_left
+        display flex
+        flex-direction column
+        justify-content center
+        align-items space-between
+        h2.title
+          height 22px
+          font-size 16px
+          font-family PingFangSC-Medium, PingFang SC
+          font-weight 500
+          color #FFFFFF
+          line-height 22px
+        p.desc
+          height 17px
+          font-size 12px
+          font-family PingFangSC-Regular, PingFang SC
+          font-weight 400
+          color #FFFFFF
+          line-height 17px
+      .header_right
+        display flex
+        flex-direction row
+        justify-content center
+        align-items center
+        h3.title
+          height 12px
+          font-size 12px
+          font-family PingFangSC-Regular, PingFang SC
+          font-weight 400
+          color #FFFFFF
+          line-height 12px
+          padding-right 6px
+        img.onOff
+          size(26px 14px)
+          display inline-block
+    .content
+      width 346px
+      min-height 174px
+      border-radius 0 0 8px 8px
+      border 2px solid #FF9836
+      border-top 0
+      box-shadow 0px 0px 7px 0px rgba(221, 221, 221, 0.5)
 </style>

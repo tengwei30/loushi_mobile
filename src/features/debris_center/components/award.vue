@@ -43,7 +43,6 @@ export default {
   computed: {
     proWidth() {
       if (this.awardInfo)
-        // return '72px'
         return `${Number.parseInt(this.awardInfo.userFragmentCount) * 8}px` || '0px'
     }
   },

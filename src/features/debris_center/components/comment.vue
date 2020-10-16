@@ -47,6 +47,11 @@ export default {
   },
   mounted() {
   },
+  methods: {
+    goAwardCenter() {
+      this.$emit('goAwardCenter')
+    }
+  }
 }
 </script>
 

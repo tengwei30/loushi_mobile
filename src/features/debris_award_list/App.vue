@@ -29,7 +29,6 @@ export default {
     })
     console.log('碎片中心', data)
     this.checkinRewardInfoList = data || []
-    // /activity_api/fragmentPrize/getItemList
   },
 }
 </script>
