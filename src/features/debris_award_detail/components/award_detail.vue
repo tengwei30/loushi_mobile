@@ -1,7 +1,7 @@
 <template>
   <div class="award_detail">
     <div class="award_detail_cover">
-      <img src="" alt="">
+      <img src="" alt=" ">
     </div>
     <div class="award_detail_title">
       华为p30
