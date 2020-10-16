@@ -1,5 +1,5 @@
 <template lang="pug">
-.content_slot
+#contentslot
   .header_title
     .header_left
       h2.title {{ title }}
@@ -46,7 +46,7 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../../styles/index.styl';
-  .content_slot
+  #contentslot
     width 346px!important
     margin 0 auto!important
     background #FFFFFF

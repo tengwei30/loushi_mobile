@@ -22,7 +22,7 @@ export default {
       default: ''
     },
     userId: {
-      type: String,
+      type: Number,
       required: true,
       default: '11'
     },
