@@ -1,25 +1,37 @@
 <template lang="pug">
 .debris_award_center
   .debris_award_center_item(v-for='(item,index) in list' :key='index')
-    Comment
+    Comment(:avatarUrl='item.headImg' :time='item.createTime'
+    :awardName='item.tag' :awardDesc='item.content'
+    :awardImgs='item.imgList'
+    :userId='item.id')
 </template>
 
 <script>
 import Comment from '../debris_center/components/comment'
+import { getDebrisCommentList } from './request'
+import { getQueryString } from '@/utils/url'
 export default {
   components: {
     Comment
   },
   data() {
     return {
-      list: [
-        {},
-        {}
-      ]
+      list: [],
     }
   },
-  methods: {},
-  mounted() {},
+  methods: {
+    async initPage() {
+      let res = await getDebrisCommentList(getQueryString('activityId')||'')
+      console.log(res)
+      if (res.code == 100) {
+        this.list = res.data
+      }
+    }
+  },
+  mounted() {
+    this.initPage()
+  },
 }
 </script>
 
