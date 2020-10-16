@@ -8,7 +8,7 @@
          v-if="from !== 'tab'"
         :style="{backgroundImage: backgroundImage}")
       | 碎片中心
-      span.header_right_record(v-if="fragmentRewardInfo" @click="goToRewardRecord()") 中奖记录
+      span.header_right_record(@click="goToRewardRecord()") 中奖记录
     .award_list_root
       h3.header_title 我的奖品
       .award_list
@@ -30,13 +30,13 @@
     )
       .sign_img
         img(
-          v-for='item in checkinRewardInfoList'
-          :src="require(`@/assets/debris_center/sign/default_${item.checkinDayNum}.png`)"
+          v-for='(item, index) in checkinRewardInfoList'
+          :src="getSignUlr(Number(index) + 1)"
           )
       p.sign_day_num(@click="goSignRecord()") 您已成功签到{{ checkinInfo.checkinDays }}天，获得{{ checkinInfo.checkinFragmentCount }}枚碎片，别中断哦～
   .task_module
     ContentSlot(
-      title='今日阅读 30章',
+      :title='taskTitle',
       :desc='desc'
       :styles="styles"
     )
@@ -88,6 +88,7 @@ export default {
       },
       todayTotalReadChapterNum: 1,
       nextTaskNeedNum: 1,
+      chipNum: 0,
       showNotification: false,
       fragmentItemInfoList: [], // 碎片列表
       checkinRewardInfoList: [], // 碎片列表
@@ -103,27 +104,32 @@ export default {
       taskFinishBg: `url(${require('../../assets/debris_center/finish_task.png')})`,
       taskFinishDefault: `url(${require('../../assets/debris_center/default_task.png')})`,
       rewardNum: 0,
-      fragmentRewardInfo: 0 // 有没有获取过奖励
+      // fragmentRewardInfo: 0, // 有没有获取过奖励
+      // taskTitle: '今日阅读30章'
     }
   },
   computed: {
     imgUrl() {
       return !this.showNotification ? require('../../assets/debris_center/off_icon@2x.png') : require('../../assets/debris_center/open_icon@2x.png')
     },
+    taskTitle() {
+      return `今日阅读${this.todayTotalReadChapterNum}章`
+    },
     desc() {
-      if (this.nextTaskNeedNum * 1 < 0) {
+      if (this.nextTaskNeedNum * 1 <= 0) {
         return `已通过阅读到账${this.rewardNum}枚碎片`
       } else {
-        return `已通过阅读到账${this.rewardNum}枚碎片，再阅读${this.todayTotalReadChapterNum}章，到账${this.nextTaskNeedNum}枚`
+        return `已通过阅读到账${this.rewardNum}枚碎片，再阅读${this.nextTaskNeedNum}章，到账${this.chipNum}枚`
       }
     }
   },
   created() {
     bk.call('getTodayReadTaskChapterNum', {}, data => {
-      const { todayTotalReadChapterNum, nextTaskNeedNum } = JSON.parse(data)
+      const { todayTotalReadChapterNum, nextTaskNeedNum, chipNum   } = JSON.parse(data)
       console.log('初始化碎片', todayTotalReadChapterNum, nextTaskNeedNum)
       this.todayTotalReadChapterNum = todayTotalReadChapterNum
       this.nextTaskNeedNum = nextTaskNeedNum
+      this.chipNum = chipNum
     })
     bk.call('setHeaderNative', {
       rightText: '中奖记录'
@@ -141,6 +147,13 @@ export default {
     window.notificationResume = this.notificationResume
   },
   methods: {
+    getSignUlr(index) {
+      if (index * 1 > this.checkinInfo.checkinDays * 1) {
+        return require(`@/assets/debris_center/sign/default_${index}.png`)
+      } else {
+        return require(`@/assets/debris_center/sign/active_${index}.png`)
+      }
+    },
     notificationResume(data) {
       const { openNotification } = JSON.parse(data)
       console.log('开启返回', openNotification)
@@ -189,7 +202,6 @@ export default {
     }, 30),
   },
   async mounted() {
-    console.log('---', this.from)
     // 添加事件监听
     window.addEventListener('scroll', this.addScrollHandler)
     let { data } = await getDebrislist(this.activityId)
@@ -199,7 +211,7 @@ export default {
         commentInfoList = [],
         fragmentItemInfoList = [],
         chapterTaskInfoList = {},
-        fragmentRewardInfo = 0
+        // fragmentRewardInfo = 0
       } = data
       const { taskVOS = []} = chapterTaskInfoList
       this.checkinRewardInfoList = checkinRewardInfoList
@@ -207,7 +219,13 @@ export default {
       this.commentInfoList = commentInfoList
       this.fragmentItemInfoList = fragmentItemInfoList
       this.taskInfoList = taskVOS
-      this.fragmentRewardInfo = fragmentRewardInfo * 1
+      // this.fragmentRewardInfo = fragmentRewardInfo * 1
+      const { fragmentPrizeInfoList=[]} = checkinInfo
+      // if (alert * 1 === 1) {
+      bk.call('showChipRewardDialog', {
+        data: fragmentPrizeInfoList
+      })
+      // }
       this.rewardNum = taskVOS.reduce((acc, val) => {
         if (val.isFinish * 1 === 1) {
           return acc + val.rewardNum*1
