@@ -1,7 +1,9 @@
 <template lang="pug">
 .debris_award_detail
-  AwardDetail(v-for='(item,index) in list' :key='index'
-  @goMailAddress='goMailAddress')
+  div(ref='clientBox')
+    AwardDetail(v-for='(item,index) in list' :key='index'
+    @goMailAddress='goMailAddress'
+    :info='item')
   .debris_award_detail_tip
     .debris_award_detail_text(@click='callOnline') 我有疑问?
 </template>
@@ -10,29 +12,65 @@
 import AwardDetail from './components/award_detail'
 import { callOnline } from '@/utils/common.js'
 import { skipUrl } from '@/utils/nativeToH5/index'
+import { getQueryString } from '@/utils/url'
+import { debounce } from '@/utils/utils.js'
+import { getDebrisAwardDetail } from './request'
 export default {
   components: {
     AwardDetail
   },
   data() {
     return {
-      list: [
-        {},
-        {}
-      ]
+      list: [],
+      pageIndex: 0,
+      isLoadedAll: false
     }
   },
   methods: {
-    goMailAddress() {
+    async initPage() {
+      if (this.isLoadedAll) {
+        return
+      }
+      this.isLoadedAll = true
+      let res = await getDebrisAwardDetail({
+        pageIndex: this.pageIndex,
+        activityId: getQueryString('activityId'),
+        pageSize: 10
+      })
+      if (res.code === 100 && res.data.length > 0) {
+        this.list = [...this.list, ...res.data]
+        this.isLoadedAll = false
+        this.pageIndex += 1
+      } else {
+        this.isLoadedAll = true
+      }
+    },
+    goMailAddress(target) {
       skipUrl({
-        skipUrl: `${location.origin}/BKH5-debris_mail_address.html`
+        skipUrl: `${location.origin}/BKH5-debris_mail_address.html?userInfo=` + encodeURIComponent(JSON.stringify(target))
       })
     },
     callOnline() {
       callOnline()
-    }
+    },
+    scrollEvent() {
+      window.addEventListener('scroll', debounce(() => {
+        this.scrollDealHeight()
+      }, 100))
+    },
+    scrollDealHeight() {
+      var lineHeight=this.$refs.clientBox.clientHeight
+      var windowHeight=document.body.clientHeight || document.documentElement.clientHeight
+      var scrollTop=document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+      if (scrollTop + windowHeight >= lineHeight-50) {
+        this.initPage()
+      }
+    },
   },
-  mounted() {},
+  mounted() {
+    this.initPage()
+    this.scrollEvent()
+  },
 }
 </script>
 

@@ -4,7 +4,7 @@
     img.user_avator(:src='avatarUrl')
     .user_ID_time
       span.user_ID {{ userId }}
-      span.user_time {{year()}}年{{month()}}月{{day()}}
+      span.user_time {{time}}
     .user_award {{awardName}}
   p.comment_desc
     | {{ awardDesc }}
@@ -120,4 +120,7 @@ export default {
     .comment_award_img
       size(94px 80px)
       border 1px solid #F2F2F2
+      img
+        width 100%
+        height 100%
 </style>
