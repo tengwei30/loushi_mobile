@@ -35,7 +35,6 @@ export default {
       let res = await getDebrisAwardDetail({
         pageIndex: this.pageIndex,
         activityId: getQueryString('activityId'),
-        pageSize: 10
       })
       if (res.code === 100 && res.data.length > 0) {
         this.list = [...this.list, ...res.data]
@@ -62,7 +61,7 @@ export default {
       var lineHeight=this.$refs.clientBox.clientHeight
       var windowHeight=document.body.clientHeight || document.documentElement.clientHeight
       var scrollTop=document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
-      if (scrollTop + windowHeight >= lineHeight-50) {
+      if (scrollTop + windowHeight >= lineHeight-10) {
         this.initPage()
       }
     },

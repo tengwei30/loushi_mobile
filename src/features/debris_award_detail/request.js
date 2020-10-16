@@ -7,7 +7,7 @@ import { post } from '@/config/axios.config'
 export const getDebrisAwardDetail = ({ activityId, pageIndex = 0, pageSize = 10 }) => {
   return post('/activity_api/fragmentPrize/getExchangeList', {
     activityId,
-    pageIndex,
+    startIndex: pageIndex * pageSize,
     pageSize
   })
 }
