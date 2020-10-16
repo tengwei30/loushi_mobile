@@ -9,6 +9,7 @@
 <script>
 import AwardDetail from './components/award_detail'
 import { callOnline } from '@/utils/common.js'
+import { skipUrl } from '@/utils/nativeToH5/index'
 export default {
   components: {
     AwardDetail
@@ -23,7 +24,9 @@ export default {
   },
   methods: {
     goMailAddress() {
-      location.assign(`${location.origin}/BKH5-debris_mail_address.html`)
+      skipUrl({
+        skipUrl: `${location.origin}/BKH5-debris_mail_address.html`
+      })
     },
     callOnline() {
       callOnline()
