@@ -44,21 +44,22 @@
           p.task_state(
             :style="{backgroundImage: item.isFinish * 1 === 0 ? taskFinishDefault : taskFinishBg, color: item.isFinish * 1 === 0 ? '#FFFFFF' : '#F43A3A'}"
             ) {{ item.isFinish * 1 === 0 ? '待领取' : '已到账' }}
-  ContentSlot(
-    title='奖励中心',
-    :styles="styles"
-    v-if="commentInfoList.length !== 0"
-  )
-    .comment(v-for="item in commentInfoList")
-      Comment(
-        :avatarUrl='item.headImg'
-        :userId='item.id'
-        :time='item.createTime'
-        :awardName='item.tag'
-        :awardDesc='item.content'
-        :awardImgs="item.imgList"
-        v-on:goAwardCenter='goAwardCenter'
-      )
+  .award_center_list
+    ContentSlot(
+      title='奖励中心',
+      :styles="styles"
+      v-if="commentInfoList.length !== 0"
+    )
+      .comment(v-for="item in commentInfoList")
+        Comment(
+          :avatarUrl='item.headImg'
+          :userId='item.id'
+          :time='item.createTime'
+          :awardName='item.tag'
+          :awardDesc='item.content'
+          :awardImgs="item.imgList"
+          v-on:goAwardCenter='goAwardCenter'
+        )
   DebrisRule
 </template>
 
