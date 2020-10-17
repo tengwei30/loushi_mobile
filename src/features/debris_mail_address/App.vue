@@ -50,9 +50,9 @@ export default {
     },
     async submitMailAddress() {
       let res = await submitMailAddress({
-        activityId: getQueryString('activityId') || '',
-        exchangeRecordId: getQueryString('exchangeRecordId') || '',
-        id: getQueryString('id') || '',
+        activityId: getQueryString('activityId') || '', // 活动ID
+        // exchangeRecordId: getQueryString('exchangeRecordId') || '',
+        id: getQueryString('exchangeRecordId') || '', // 兑换记录ID
         userRealName: this.userRealName,
         userPhone: this.userPhone,
         userAddress: this.userAddress
