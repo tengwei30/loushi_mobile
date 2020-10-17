@@ -51,6 +51,7 @@ export default {
     async submitMailAddress() {
       let res = await submitMailAddress({
         activityId: getQueryString('activityId') || '',
+        exchangeRecordId: getQueryString('exchangeRecordId') || '',
         id: getQueryString('id') || '',
         userRealName: this.userRealName,
         userPhone: this.userPhone,

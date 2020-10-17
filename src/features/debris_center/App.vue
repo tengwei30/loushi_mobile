@@ -227,22 +227,27 @@ export default {
     try {
       const {
         checkinRewardInfoList = [],
-        checkinInfo,
+        checkinInfo = {},
         commentInfoList = [],
         fragmentItemInfoList = [],
         chapterTaskInfoList = {},
       } = data
-      const { taskVOS = []} = chapterTaskInfoList
+      if (chapterTaskInfoList) {
+        const { taskVOS = []} = chapterTaskInfoList
+        this.taskInfoList = taskVOS
+      }
       this.checkinRewardInfoList = checkinRewardInfoList
       this.checkinInfo = checkinInfo
       this.commentInfoList = commentInfoList
       this.fragmentItemInfoList = fragmentItemInfoList
-      this.taskInfoList = taskVOS
-      const { fragmentPrizeInfoList=[]} = checkinInfo
-      if (alert * 1 === 1) {
-        bk.call('showChipRewardDialog', {
-          data: fragmentPrizeInfoList
-        })
+
+      if (checkinInfo) {
+        const { fragmentPrizeInfoList=[]} = checkinInfo
+        if (alert * 1 === 1) {
+          bk.call('showChipRewardDialog', {
+            data: fragmentPrizeInfoList
+          })
+        }
       }
       this.rewardNum = taskVOS.reduce((acc, val) => {
         if (val.isFinish * 1 === 1) {
