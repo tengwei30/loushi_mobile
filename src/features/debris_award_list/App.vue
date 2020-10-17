@@ -35,6 +35,8 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../styles/index.styl';
+$width = 72px
+$height = 22px
 body,html
   size(100%, 100%)
   margin 0
@@ -51,4 +53,55 @@ body,html
     flex-direction row
     flex-wrap wrap
     justify-content space-between
+    .single_award
+      padding-bottom 10px
+      display flex
+      flex-direction column
+      align-items center
+      .img_show
+        size(110px 134px)
+        .img
+          width 100%
+      .single_award_title
+        height 17px
+        font-size 12px
+        font-family PingFangSC-Medium, PingFang SC
+        font-weight 500
+        color #8D3E1B
+        line-height 17px
+        text-align center
+        padding 10px 0
+      .single_award_progress
+        width $width
+        height $height
+        background #FFE3CA
+        border-radius 11px
+        box-sizing border-box
+        border 1px solid #FCAB1B
+        margin 0 auto
+        position relative
+        .default_progress
+          display inline-block
+          absolute(top 0 left 0)
+          z-index 12
+          .active_progress
+            absolute(top -1px left -1px)
+            z-index 10
+            height 22px
+            display inline-block
+            background linear-gradient(245deg, #FFA34B 0%, #F44004 71%, #FF5537 100%)
+            border-radius 11px
+          .progress_count
+            font-size 12px
+            text-align center
+            line-height 22px
+            display inline-block
+            absolute(top -1px left -1px)
+            width $width
+            height $height
+            z-index 15
+            &.progress_get_now
+              color #ffffff
+            i
+              font-style normal
 </style>
