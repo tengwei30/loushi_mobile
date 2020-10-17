@@ -6,12 +6,16 @@
   .single_award_progress
     span.default_progress
       em.active_progress(:style="{'width': proWidth, 'animation': animation}")
-      em.progress_count
+      em.progress_count.progress_get_now(v-if='awardInfo.userFragmentCount == 9 && awardInfo.exchange == 1'
+      @click='getAwardToMailAddress') 待领取
+      em.progress_count(v-else)
         i(:style="{color: Number(awardInfo.userFragmentCount) > 4 ? '#ffffff' : '#FCAB1B'}") {{awardInfo.userFragmentCount}}/
         i(:style="{color: Number(awardInfo.userFragmentCount) > 6 ? '#ffffff' : '#FCAB1B'}") 9
 </template>
 
 <script>
+import { getQueryString } from '@/utils/index'
+import { skipUrl } from '@/utils/nativeToH5/index'
 export default {
   props: {
     styles: { // 自定义真个奖励框的大小等样式
@@ -44,6 +48,13 @@ export default {
     proWidth() {
       if (this.awardInfo)
         return `${Number.parseInt(this.awardInfo.userFragmentCount) * 8}px` || '0px'
+    }
+  },
+  methods: {
+    getAwardToMailAddress() {
+      skipUrl({
+        skipUrl: `${location.origin}/BKH5-debris_mail_address.html?activityId=${getQueryString('activityId')}&id=${this.awardInfo.id}`
+      })
     }
   },
   mounted() {
@@ -119,6 +130,8 @@ $height = 22px
         width $width
         height $height
         z-index 15
+        &.progress_get_now
+          color #ffffff
         i
           font-style normal
 </style>
