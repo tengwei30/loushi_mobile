@@ -53,7 +53,7 @@ export default {
   methods: {
     getAwardToMailAddress() {
       skipUrl({
-        skipUrl: `${location.origin}/BKH5-debris_mail_address.html?activityId=${getQueryString('activityId')}&id=${this.awardInfo.id}&exchangeRecordId=${this.awardInfo.exchangeRecordId}`
+        skipUrl: `${location.origin}/BKH5-debris_mail_address.html?activityId=${getQueryString('activityId')}&id=${this.awardInfo.id}&activityRecordId=${this.awardInfo.activityRecordId}`
       })
     }
   },

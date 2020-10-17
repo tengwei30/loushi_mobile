@@ -52,7 +52,7 @@ export default {
       let res = await submitMailAddress({
         activityId: getQueryString('activityId') || '', // 活动ID
         // exchangeRecordId: getQueryString('exchangeRecordId') || '',
-        id: getQueryString('exchangeRecordId') || '', // 兑换记录ID
+        activityRecordId: getQueryString('activityRecordId') || '', // 兑换记录ID
         userRealName: this.userRealName,
         userPhone: this.userPhone,
         userAddress: this.userAddress
