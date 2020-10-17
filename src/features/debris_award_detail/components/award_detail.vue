@@ -9,7 +9,7 @@
     <div class="award_detail_time">中奖时间：{{momentDate(info.createTime)}}</div>
     <div class="award_detail_bottom">
       <div class="award_detail_progress">进度: {{info.status == 4 ? '已发货' : '未发货'}}</div>
-      <div class="award_detail_btn" @click="goMailAddress">邮寄地址</div>
+      <div class="award_detail_btn" v-if="info.needPost != 0" @click="goMailAddress">邮寄地址</div>
     </div>
   </div>
 </template>
