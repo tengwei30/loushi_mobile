@@ -242,10 +242,15 @@ export default {
       this.fragmentItemInfoList = fragmentItemInfoList
 
       if (checkinInfo) {
-        const { fragmentPrizeInfoList=[]} = checkinInfo
-        if (this.checkinInfo.alert * 1 === 1) {
+        // const { fragmentPrizeInfoList=[]} = checkinInfo
+        if (this.checkinInfo.alert * 1 === 0) {
           bk.call('showChipRewardDialog', {
-            data: fragmentPrizeInfoList
+            data: [{
+              fragmentPrizeInfo: '1',
+              title: '测试数据',
+              bigImgUrl: '',
+              userFragmentCount: '11'
+            }]
           })
         }
       }
