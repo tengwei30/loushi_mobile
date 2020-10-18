@@ -26,7 +26,7 @@
       :imgUrl="imgUrl"
       v-on:openCalendarSignNotice="openCalendarSignNotice"
     )
-      .sign_img
+      .sign_img(@click="goSignRecord()")
         img(
           v-for='(item, index) in checkinRewardInfoList'
           :src="getSignUlr(Number(index) + 1)"
