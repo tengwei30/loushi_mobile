@@ -249,13 +249,14 @@ export default {
           })
         }
       }
-      this.rewardNum = taskVOS.reduce((acc, val) => {
+      this.rewardNum = this.taskInfoList.reduce((acc, val) => {
         if (val.isFinish * 1 === 1) {
           return acc + val.rewardNum*1
         } else {
           return 0
         }
       }, 0)
+      console.log(this.rewardNum)
     } catch (error) {
       console.error('error----->', error)
     }
