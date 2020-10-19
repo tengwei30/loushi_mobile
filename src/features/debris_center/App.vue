@@ -211,8 +211,7 @@ export default {
         'source': this.from
       }
       mBuryPoint('13', buryData)
-      console.log('点击兑换', val)
-      const url = `${window.location.origin}/BKH5-debris_mail_address.html?activityId=${this.activityId}&id=${val.id}&activityRecordId=${val.activityRecordId}`
+      const url = `${window.location.origin}/BKH5-debris_mail_address.html?activityId=${this.activityId}&id=${val.id}&activityRecordId=${val.activityRecordId}&from=${this.from}`
       routerToNative(url)
     },
     getSignUrl(index) {
@@ -225,7 +224,6 @@ export default {
     openCalendarSignNotice: throttle(function() {
       bk.call('handleCalendarSignNotice', {}, (data) => {
         const { isSuccess } = JSON.parse(data)
-        console.log('点击返回', isSuccess)
         // 通知开启初始化
         if (isSuccess * 1 === 0) return
         this.isOpen = !this.isOpen
@@ -249,15 +247,15 @@ export default {
         'source': this.from
       }
       mBuryPoint('13', buryData)
-      const url = `${window.location.origin}/BKH5-debris_award_list.html`
+      const url = `${window.location.origin}/BKH5-debris_award_list.html?from=${from}`
       routerToNative(url)
     }, 30),
     goSignRecord: throttle(function() {
-      const url = `${window.location.origin}/BKH5-debris_sign_record.html?activityId=${this.activityId}`
+      const url = `${window.location.origin}/BKH5-debris_sign_record.html?activityId=${this.activityId}&from=${from}`
       routerToNative(url)
     }, 30),
     goAwardCenter: throttle(function() {
-      const url = `${window.location.origin}/BKH5-debris_award_center.html?activityId=${this.activityId}`
+      const url = `${window.location.origin}/BKH5-debris_award_center.html?activityId=${this.activityId}&from=${from}`
       routerToNative(url)
     }, 30),
     browserBack: throttle(function() {
@@ -272,7 +270,7 @@ export default {
         'source': this.from
       }
       mBuryPoint('13', buryData)
-      const url = `${window.location.origin}/BKH5-debris_award_detail.html?activityId=${this.activityId}`
+      const url = `${window.location.origin}/BKH5-debris_award_detail.html?activityId=${this.activityId}&from=${from}`
       routerToNative(url)
     }, 30),
     openTask: throttle(function(item) {
