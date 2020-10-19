@@ -9,7 +9,7 @@
       em.progress_count.progress_get_now(v-if='awardInfo.userFragmentCount == 9 && awardInfo.exchange == 1'
       @click='getAwardToMailAddress') 待领取
       em.progress_count(v-else)
-        i(:style="{color: Number(awardInfo.userFragmentCount) > 3 ? '#ffffff' : '#FCAB1B'}") {{awardInfo.userFragmentCount}}/
+        i(:style="{color: Number(awardInfo.userFragmentCount) > 4 ? '#ffffff' : '#FCAB1B'}") {{awardInfo.userFragmentCount}}/
         i(:style="{color: Number(awardInfo.userFragmentCount) > 6 ? '#ffffff' : '#FCAB1B'}") 9
 </template>
 
