@@ -1,14 +1,18 @@
 <template lang="pug">
 #debris_award
   .debris_award_list
-    Award(:styles="styles" v-for="item in checkinRewardInfoList" :awardInfo="item")
+    Award(
+      :styles="styles"
+      v-for="item in checkinRewardInfoList"
+      :awardInfo="item"
+      v-on:getAwardToMailAddress="getAwardToMailAddress")
 </template>
 
 <script>
 import bk from 'bayread-bridge'
 import { post } from '@/config/axios.config'
 import Award from '../debris_center/components/award'
-import { getQueryString } from '@/utils/index'
+import { getQueryString, routerToNative } from '@/utils/index'
 export default {
   data() {
     return {
@@ -34,6 +38,11 @@ export default {
         activityId: this.activityId
       })
       this.checkinRewardInfoList = data || []
+    },
+    getAwardToMailAddress(val) {
+      console.log('点击兑换', val)
+      const url = `${window.location.origin}/BKH5-debris_mail_address.html?activityId=${this.activityId}&id=${val.id}&activityRecordId=${val.activityRecordId}`
+      routerToNative(url)
     }
   },
   mounted() {

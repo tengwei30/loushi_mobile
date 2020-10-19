@@ -67,7 +67,7 @@
 
 <script>
 import bk from 'bayread-bridge'
-import { getQueryString, routerToNative, throttle } from '@/utils/index'
+import { getQueryString, routerToNative, throttle, mBuryPoint } from '@/utils/index'
 import { toast } from '@/utils/nativeToH5/index'
 import ContentSlot from './components/content_slot'
 import DebrisRule from './components/debris_rule'
@@ -163,6 +163,12 @@ export default {
     async InitData() {
       let { data } = await getDebrislist(this.activityId)
       try {
+        const buryData = {
+          'eventPage': 'fragmentCenter',
+          'eventType': 1,
+          'source': this.from
+        }
+        mBuryPoint('13', buryData)
         const {
           checkinRewardInfoList = [],
           checkinInfo = {},
@@ -173,7 +179,6 @@ export default {
         if (chapterTaskInfoList) {
           const { taskVOS = []} = chapterTaskInfoList
           this.taskInfoList = taskVOS
-          // this.taskInfoList[0].isFinish = 1
         }
         this.checkinRewardInfoList = checkinRewardInfoList
         this.checkinInfo = checkinInfo
@@ -199,6 +204,13 @@ export default {
       }
     },
     getAwardToMailAddress(val) {
+      const buryData = {
+        'eventPage': 'fragmentCenter',
+        'eventType': 2,
+        'eventPos': 'myAward',
+        'source': this.from
+      }
+      mBuryPoint('13', buryData)
       console.log('点击兑换', val)
       const url = `${window.location.origin}/BKH5-debris_mail_address.html?activityId=${this.activityId}&id=${val.id}&activityRecordId=${val.activityRecordId}`
       routerToNative(url)
@@ -229,6 +241,14 @@ export default {
       })
     }, 30),
     goAwardList: throttle(function() {
+      // 我的奖品点击更多
+      const buryData = {
+        'eventPage': 'fragmentCenter',
+        'eventType': 2,
+        'eventPos': 'viewMore',
+        'source': this.from
+      }
+      mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_list.html`
       routerToNative(url)
     }, 30),
@@ -244,6 +264,14 @@ export default {
       bk.call('closePageNative')
     }, 30),
     goToRewardRecord: throttle(function() {
+      // 中奖记录点击
+      const buryData = {
+        'eventPage': 'fragmentCenter',
+        'eventType': 2,
+        'eventPos': 'awardRecord',
+        'source': this.from
+      }
+      mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_detail.html?activityId=${this.activityId}`
       routerToNative(url)
     }, 30),

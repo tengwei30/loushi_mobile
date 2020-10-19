@@ -5,3 +5,5 @@ zhangsong<zhangsong@bayread.com>
 ## [更新日志]
 - 2020.10.15
   - 更新前后端、Native端联调
+- 2020.10.19
+ - jira 上bug修复，埋点
