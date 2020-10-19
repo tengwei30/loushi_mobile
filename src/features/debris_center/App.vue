@@ -235,7 +235,7 @@ export default {
       routerToNative(url)
     }, 30),
     browserBack: throttle(function() {
-      bk.call('goBackNative', { step: 1 })
+      bk.call('closePageNative')
     }, 30),
     goToRewardRecord: throttle(function() {
       const url = `${window.location.origin}/BKH5-debris_award_detail.html?activityId=${this.activityId}`
