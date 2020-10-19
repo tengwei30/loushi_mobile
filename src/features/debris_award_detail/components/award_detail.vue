@@ -26,12 +26,12 @@ export default {
   },
   methods: {
     goMailAddress() {
-      const { userRealName, userPhone, userAddress } = this.info
+      const { userRealName, userPhone, userAddress, id } = this.info
       this.$emit('goMailAddress', {
         userRealName,
         userPhone,
-        userAddress
-      })
+        userAddress,
+      }, id)
     },
     momentDate(time) {
       return moment(time).format('YYYY-MM-DD')
