@@ -18,6 +18,7 @@ import { callOnline } from '@/utils/common.js'
 import { skipUrl } from '@/utils/nativeToH5/index'
 import { getQueryString } from '@/utils/url'
 import { debounce } from '@/utils/utils.js'
+import { mBuryPoint } from '@/utils/index'
 import { getDebrisAwardDetail } from './request'
 export default {
   components: {
@@ -50,9 +51,14 @@ export default {
         this.isLoadedAll = true
       }
     },
-    goMailAddress(target) {
+    goMailAddress(target, awardID) {
+      mBuryPoint(13, {
+        eventPage: 'awardDetails',
+        eventType: 2,
+        awardID
+      })
       skipUrl({
-        skipUrl: `${location.origin}/BKH5-debris_mail_address.html?userInfo=` + encodeURIComponent(JSON.stringify(target))
+        skipUrl: `${location.origin}/BKH5-debris_mail_address.html?from=awardDetail&userInfo=` + encodeURIComponent(JSON.stringify(target))
       })
     },
     callOnline() {
@@ -75,6 +81,10 @@ export default {
     },
   },
   mounted() {
+    mBuryPoint(13, {
+      eventPage: 'awardDetails',
+      eventType: 1
+    })
     this.initPage()
     this.scrollEvent()
   },

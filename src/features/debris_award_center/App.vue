@@ -11,6 +11,7 @@
 import Comment from '../debris_center/components/comment'
 import { getDebrisCommentList } from './request'
 import { getQueryString } from '@/utils/url'
+import { mBuryPoint } from '@/utils/index'
 export default {
   components: {
     Comment
@@ -30,6 +31,10 @@ export default {
     }
   },
   mounted() {
+    mBuryPoint(13, {
+      eventPage: 'awardCenter',
+      eventType: 1
+    })
     this.initPage()
   },
 }

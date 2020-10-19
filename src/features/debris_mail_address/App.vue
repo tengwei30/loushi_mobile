@@ -22,7 +22,7 @@
 import { closeCurrentPage } from '@/utils/nativeToH5/index'
 import { getQueryString } from '@/utils/url'
 import { submitMailAddress } from './request'
-// ?userInfo=%7B"userRealName"%3A"张三"%2C"userPhone"%3A"13232333323"%2C"userAddress"%3A"北京市东城区西街口13号"%7D
+import { mBuryPoint } from '@/utils/index'
 export default {
   data() {
     return {
@@ -49,6 +49,12 @@ export default {
       this.submitMailAddress()
     },
     async submitMailAddress() {
+      mBuryPoint(13, {
+        eventPage: 'mailAddress',
+        eventType: 2,
+        source: getQueryString('from'),
+        eventPos: 'submit'
+      })
       let res = await submitMailAddress({
         activityId: getQueryString('activityId') || '', // 活动ID
         // exchangeRecordId: getQueryString('exchangeRecordId') || '',
@@ -75,6 +81,11 @@ export default {
     }
   },
   mounted() {
+    mBuryPoint(13, {
+      eventPage: 'mailAddress',
+      eventType: 1,
+      source: getQueryString('from')
+    })
     this.initPage()
   },
 }
