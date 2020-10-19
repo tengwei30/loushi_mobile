@@ -14,8 +14,7 @@
 </template>
 
 <script>
-import { getQueryString, throttle } from '@/utils/index'
-import { skipUrl } from '@/utils/nativeToH5/index'
+import { throttle } from '@/utils/index'
 export default {
   props: {
     styles: { // 自定义真个奖励框的大小等样式
@@ -52,9 +51,10 @@ export default {
   },
   methods: {
     getAwardToMailAddress: throttle(function() {
-      skipUrl({
-        skipUrl: `${location.origin}/BKH5-debris_mail_address.html?activityId=${getQueryString('activityId')}&id=${this.awardInfo.id}&activityRecordId=${this.awardInfo.activityRecordId}`
-      })
+      this.$emit('getAwardToMailAddress', this.awardInfo)
+      // skipUrl({
+      //   skipUrl: `${location.origin}/BKH5-debris_mail_address.html?activityId=${getQueryString('activityId')}&id=${this.awardInfo.id}&activityRecordId=${this.awardInfo.activityRecordId}`
+      // })
     }, 30)
   },
   mounted() {

@@ -16,6 +16,7 @@
         Award(
           v-for="item in fragmentItemInfoList"
           :awardInfo="item"
+          v-on:getAwardToMailAddress="getAwardToMailAddress"
         )
   .sign_module
     ContentSlot(
@@ -196,6 +197,11 @@ export default {
       } catch (error) {
         console.error('error----->', error)
       }
+    },
+    getAwardToMailAddress(val) {
+      console.log('点击兑换', val)
+      const url = `${window.location.origin}/BKH5-debris_mail_address.html?activityId=${this.activityId}&id=${val.id}&activityRecordId=${val.activityRecordId}`
+      routerToNative(url)
     },
     getSignUrl(index) {
       if (index * 1 > this.checkinInfo.checkinDays * 1) {
