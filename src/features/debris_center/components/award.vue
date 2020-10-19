@@ -5,7 +5,7 @@
   .single_award_title {{awardInfo.title}}
   .single_award_progress
     span.default_progress
-      em.active_progress(:style="{'width': proWidth, 'animation': animation}")
+      em.active_progress(:style="{'width': proWidth, 'animation': animation, borderRadius: Number(awardInfo.userFragmentCount) < 9 ? '11px 0 0 11px' : '11px'}")
       em.progress_count.progress_get_now(v-if='awardInfo.userFragmentCount == 9 && awardInfo.exchange == 1'
       @click='getAwardToMailAddress') 待领取
       em.progress_count(v-else)
@@ -111,7 +111,7 @@ $height = 22px
         height 22px
         display inline-block
         background linear-gradient(245deg, #FFA34B 0%, #F44004 71%, #FF5537 100%)
-        border-radius 11px
+        // border-radius 11px
       .progress_count
         font-size 12px
         text-align center
