@@ -42,7 +42,7 @@ export default {
     },
     getAwardToMailAddress(val) {
       console.log('点击兑换', val)
-      const url = `${window.location.origin}/BKH5-debris_mail_address.html?activityId=${this.activityId}&id=${val.id}&activityRecordId=${val.activityRecordId}&from=${from}`
+      const url = `${window.location.origin}/BKH5-debris_mail_address.html?activityId=${this.activityId}&id=${val.id}&activityRecordId=${val.activityRecordId}&from=${this.from}`
       routerToNative(url)
     }
   },

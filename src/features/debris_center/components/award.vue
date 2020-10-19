@@ -6,8 +6,9 @@
   .single_award_progress
     span.default_progress
       em.active_progress(:style="{'width': proWidth, 'animation': animation, borderRadius: Number(awardInfo.userFragmentCount) < 9 ? '11px 0 0 11px' : '11px'}")
-      em.progress_count.progress_get_now(v-if='awardInfo.userFragmentCount == 9 && awardInfo.exchange == 1'
-      @click='getAwardToMailAddress') 待领取
+      em.progress_count.progress_get_now(
+        v-if='awardInfo.userFragmentCount == 9 && awardInfo.exchange == 1'
+        @click='getAwardToMailAddress') 待领取
       em.progress_count(v-else)
         i(:style="{color: Number(awardInfo.userFragmentCount) > 4 ? '#ffffff' : '#FCAB1B'}") {{awardInfo.userFragmentCount}}/
         i(:style="{color: Number(awardInfo.userFragmentCount) > 6 ? '#ffffff' : '#FCAB1B'}") 9
@@ -46,15 +47,12 @@ export default {
   computed: {
     proWidth() {
       if (this.awardInfo)
-        return `${Number.parseInt(this.awardInfo.userFragmentCount) * 8}px` || '0px'
+        return `${Number.parseInt(this.awardInfo.userFragmentCount) * 8.27}px` || '0px'
     }
   },
   methods: {
     getAwardToMailAddress: throttle(function() {
       this.$emit('getAwardToMailAddress', this.awardInfo)
-      // skipUrl({
-      //   skipUrl: `${location.origin}/BKH5-debris_mail_address.html?activityId=${getQueryString('activityId')}&id=${this.awardInfo.id}&activityRecordId=${this.awardInfo.activityRecordId}`
-      // })
     }, 30)
   },
   mounted() {
