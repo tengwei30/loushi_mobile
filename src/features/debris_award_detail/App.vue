@@ -1,11 +1,15 @@
 <template lang="pug">
-.debris_award_detail
-  div(ref='clientBox')
-    AwardDetail(v-for='(item,index) in list' :key='index'
-    @goMailAddress='goMailAddress'
-    :info='item')
-  .debris_award_detail_tip
-    .debris_award_detail_text(@click='callOnline') 我有疑问?
+.debris_award_detail(v-if='isLoaded')
+  template(v-if='list.length > 0')
+    div(ref='clientBox')
+      AwardDetail(v-for='(item,index) in list' :key='index'
+      @goMailAddress='goMailAddress'
+      :info='item')
+    .debris_award_detail_tip
+      .debris_award_detail_text(@click='callOnline') 我有疑问?
+  .debris_award_detail_null(v-else)
+    img(src='@/assets/debris_award_detail/debris_detail_null.png')
+    div 您暂时没有奖品哦～
 </template>
 
 <script>
@@ -23,7 +27,8 @@ export default {
     return {
       list: [],
       pageIndex: 0,
-      isLoadedAll: false
+      isLoadedAll: false,
+      isLoaded: false
     }
   },
   methods: {
@@ -36,6 +41,7 @@ export default {
         pageIndex: this.pageIndex,
         activityId: getQueryString('activityId'),
       })
+      this.isLoaded = true
       if (res.code === 100 && res.data.length > 0) {
         this.list = [...this.list, ...res.data]
         this.isLoadedAll = false
@@ -58,11 +64,13 @@ export default {
       }, 100))
     },
     scrollDealHeight() {
-      var lineHeight=this.$refs.clientBox.clientHeight
-      var windowHeight=document.body.clientHeight || document.documentElement.clientHeight
-      var scrollTop=document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
-      if (scrollTop + windowHeight >= lineHeight-10) {
-        this.initPage()
+      if (this.$refs.clientBox) {
+        var lineHeight=this.$refs.clientBox.clientHeight
+        var windowHeight=document.body.clientHeight || document.documentElement.clientHeight
+        var scrollTop=document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+        if (scrollTop + windowHeight >= lineHeight-10) {
+          this.initPage()
+        }
       }
     },
   },
