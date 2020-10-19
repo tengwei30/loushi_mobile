@@ -247,15 +247,15 @@ export default {
         'source': this.from
       }
       mBuryPoint('13', buryData)
-      const url = `${window.location.origin}/BKH5-debris_award_list.html?from=${from}`
+      const url = `${window.location.origin}/BKH5-debris_award_list.html?from=${this.from}`
       routerToNative(url)
     }, 30),
     goSignRecord: throttle(function() {
-      const url = `${window.location.origin}/BKH5-debris_sign_record.html?activityId=${this.activityId}&from=${from}`
+      const url = `${window.location.origin}/BKH5-debris_sign_record.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
     }, 30),
     goAwardCenter: throttle(function() {
-      const url = `${window.location.origin}/BKH5-debris_award_center.html?activityId=${this.activityId}&from=${from}`
+      const url = `${window.location.origin}/BKH5-debris_award_center.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
     }, 30),
     browserBack: throttle(function() {
@@ -270,7 +270,7 @@ export default {
         'source': this.from
       }
       mBuryPoint('13', buryData)
-      const url = `${window.location.origin}/BKH5-debris_award_detail.html?activityId=${this.activityId}&from=${from}`
+      const url = `${window.location.origin}/BKH5-debris_award_detail.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
     }, 30),
     openTask: throttle(function(item) {
