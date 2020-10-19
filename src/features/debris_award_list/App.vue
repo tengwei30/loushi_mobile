@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import bk from 'bayread-bridge'
 import { post } from '@/config/axios.config'
 import Award from '../debris_center/components/award'
 import { getQueryString } from '@/utils/index'
@@ -22,13 +23,21 @@ export default {
   components: {
     Award
   },
-  methods: {},
-  async mounted() {
-    let { data } = await post('/activity_api/fragmentPrize/getItemList', {
-      activityId: this.activityId
+  created() {
+    bk.register('browserPageResume', () => {
+      this.InitData()
     })
-    console.log('碎片中心', data)
-    this.checkinRewardInfoList = data || []
+  },
+  methods: {
+    async InitData() {
+      let { data } = await post('/activity_api/fragmentPrize/getItemList', {
+        activityId: this.activityId
+      })
+      this.checkinRewardInfoList = data || []
+    }
+  },
+  mounted() {
+    this.InitData()
   },
 }
 </script>
