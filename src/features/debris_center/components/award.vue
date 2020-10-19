@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { getQueryString } from '@/utils/index'
+import { getQueryString, throttle } from '@/utils/index'
 import { skipUrl } from '@/utils/nativeToH5/index'
 export default {
   props: {
@@ -51,11 +51,11 @@ export default {
     }
   },
   methods: {
-    getAwardToMailAddress() {
+    getAwardToMailAddress: throttle(function() {
       skipUrl({
         skipUrl: `${location.origin}/BKH5-debris_mail_address.html?activityId=${getQueryString('activityId')}&id=${this.awardInfo.id}&activityRecordId=${this.awardInfo.activityRecordId}`
       })
-    }
+    }, 30)
   },
   mounted() {
     setTimeout(() => {

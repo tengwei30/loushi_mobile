@@ -29,7 +29,7 @@
       .sign_img(@click="goSignRecord()")
         img(
           v-for='(item, index) in checkinRewardInfoList'
-          :src="getSignUlr(Number(index) + 1)"
+          :src="getSignUrl(Number(index) + 1)"
           )
       p.sign_day_num(@click="goSignRecord()") 您已成功签到{{ checkinInfo.checkinDays }}天，获得{{ checkinInfo.checkinFragmentCount }}枚碎片，别中断哦～
   .task_module
@@ -147,16 +147,57 @@ export default {
       })
       this.isOpen = true
     })
+    bk.register('browserPageResume', () => {
+      this.InitData()
+    })
   },
   methods: {
-    getSignUlr(index) {
+    async InitData() {
+      let { data } = await getDebrislist(this.activityId)
+      try {
+        const {
+          checkinRewardInfoList = [],
+          checkinInfo = {},
+          commentInfoList = [],
+          fragmentItemInfoList = [],
+          chapterTaskInfoList = {},
+        } = data
+        if (chapterTaskInfoList) {
+          const { taskVOS = []} = chapterTaskInfoList
+          this.taskInfoList = taskVOS
+          // this.taskInfoList[0].isFinish = 1
+        }
+        this.checkinRewardInfoList = checkinRewardInfoList
+        this.checkinInfo = checkinInfo
+        this.commentInfoList = commentInfoList
+        this.fragmentItemInfoList = fragmentItemInfoList
+
+        if (checkinInfo) {
+          const { fragmentPrizeInfoList=[]} = checkinInfo
+          if (this.checkinInfo.alert * 1 === 1) {
+            bk.call('showChipRewardDialog', {
+              data: fragmentPrizeInfoList
+            })
+          }
+        }
+        const rewardLists = this.taskInfoList.filter(item => item.isFinish * 1 === 1)
+        if (rewardLists.length === 1) {
+          this.rewardNum = rewardLists[0].rewardNum
+        } else {
+          this.rewardNum = rewardLists.reduce((acc, val) => acc + val.rewardNum * 1, 0)
+        }
+      } catch (error) {
+        console.error('error----->', error)
+      }
+    },
+    getSignUrl(index) {
       if (index * 1 > this.checkinInfo.checkinDays * 1) {
         return require(`@/assets/debris_center/sign/default_${index}.png`)
       } else {
         return require(`@/assets/debris_center/sign/active_${index}.png`)
       }
     },
-    openCalendarSignNotice() {
+    openCalendarSignNotice: throttle(function() {
       bk.call('handleCalendarSignNotice', {}, (data) => {
         const { isSuccess } = JSON.parse(data)
         console.log('点击返回', isSuccess)
@@ -173,27 +214,27 @@ export default {
           })
         }
       })
-    },
-    goAwardList() {
+    }, 30),
+    goAwardList: throttle(function() {
       const url = `${window.location.origin}/BKH5-debris_award_list.html`
       routerToNative(url)
-    },
-    goSignRecord() {
+    }, 30),
+    goSignRecord: throttle(function() {
       const url = `${window.location.origin}/BKH5-debris_sign_record.html?activityId=${this.activityId}`
       routerToNative(url)
-    },
-    goAwardCenter() {
+    }, 30),
+    goAwardCenter: throttle(function() {
       const url = `${window.location.origin}/BKH5-debris_award_center.html?activityId=${this.activityId}`
       routerToNative(url)
-    },
-    browserBack() {
+    }, 30),
+    browserBack: throttle(function() {
       bk.navigateBack()
-    },
-    goToRewardRecord() {
+    }, 30),
+    goToRewardRecord: throttle(function() {
       const url = `${window.location.origin}/BKH5-debris_award_detail.html?activityId=${this.activityId}`
       routerToNative(url)
-    },
-    openTask(item) {
+    }, 30),
+    openTask: throttle(function(item) {
       if (item.isFinish * 1 === 0) {
         if (this.from !== 'tab') {
           this.browserBack()
@@ -203,7 +244,7 @@ export default {
           })
         }
       }
-    },
+    }, 30),
     addScrollHandler: throttle(function() { // 监听滚动
       let scrollTop =
         document.documentElement.scrollTop || document.body.scrollTop
@@ -220,45 +261,9 @@ export default {
     }, 30),
   },
   async mounted() {
-    console.log('from', this.from)
     // 添加事件监听
     window.addEventListener('scroll', this.addScrollHandler)
-    let { data } = await getDebrislist(this.activityId)
-    try {
-      const {
-        checkinRewardInfoList = [],
-        checkinInfo = {},
-        commentInfoList = [],
-        fragmentItemInfoList = [],
-        chapterTaskInfoList = {},
-      } = data
-      if (chapterTaskInfoList) {
-        const { taskVOS = []} = chapterTaskInfoList
-        this.taskInfoList = taskVOS
-        // this.taskInfoList[0].isFinish = 1
-      }
-      this.checkinRewardInfoList = checkinRewardInfoList
-      this.checkinInfo = checkinInfo
-      this.commentInfoList = commentInfoList
-      this.fragmentItemInfoList = fragmentItemInfoList
-
-      if (checkinInfo) {
-        const { fragmentPrizeInfoList=[]} = checkinInfo
-        if (this.checkinInfo.alert * 1 === 1) {
-          bk.call('showChipRewardDialog', {
-            data: fragmentPrizeInfoList
-          })
-        }
-      }
-      const rewardLists = this.taskInfoList.filter(item => item.isFinish * 1 === 1)
-      if (rewardLists.length === 1) {
-        this.rewardNum = rewardLists[0].rewardNum
-      } else {
-        this.rewardNum = rewardLists.reduce((acc, val) => acc + val.rewardNum * 1, 0)
-      }
-    } catch (error) {
-      console.error('error----->', error)
-    }
+    this.InitData()
   },
 }
 </script>
