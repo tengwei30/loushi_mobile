@@ -235,6 +235,7 @@ export default {
       if (chapterTaskInfoList) {
         const { taskVOS = []} = chapterTaskInfoList
         this.taskInfoList = taskVOS
+        // this.taskInfoList[0].isFinish = 1
       }
       this.checkinRewardInfoList = checkinRewardInfoList
       this.checkinInfo = checkinInfo
@@ -249,14 +250,12 @@ export default {
           })
         }
       }
-      this.rewardNum = this.taskInfoList.reduce((acc, val) => {
-        if (val.isFinish * 1 === 1) {
-          return acc + val.rewardNum*1
-        } else {
-          return 0
-        }
-      }, 0)
-      console.log(this.rewardNum)
+      const rewardLists = this.taskInfoList.filter(item => item.isFinish * 1 === 1)
+      if (rewardLists.length === 1) {
+        this.rewardNum = rewardLists[0].rewardNum
+      } else {
+        this.rewardNum = rewardLists.reduce((acc, val) => acc + val.rewardNum * 1, 0)
+      }
     } catch (error) {
       console.error('error----->', error)
     }
