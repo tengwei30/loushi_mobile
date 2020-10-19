@@ -150,6 +150,12 @@ export default {
     bk.register('browserPageResume', () => {
       console.log('页面重现～')
       this.InitData()
+      bk.call('getTodayReadTaskChapterNum', {}, data => { // 初始化碎片信息
+        const { todayTotalReadChapterNum, nextTaskNeedNum, chipNum   } = JSON.parse(data)
+        this.todayTotalReadChapterNum = todayTotalReadChapterNum
+        this.nextTaskNeedNum = nextTaskNeedNum
+        this.chipNum = chipNum
+      })
     })
   },
   methods: {
