@@ -243,7 +243,7 @@ export default {
 
       if (checkinInfo) {
         const { fragmentPrizeInfoList=[]} = checkinInfo
-        if (this.checkinInfo.alert * 1 === 0) {
+        if (this.checkinInfo.alert * 1 === 1) {
           bk.call('showChipRewardDialog', {
             data: fragmentPrizeInfoList
           })
