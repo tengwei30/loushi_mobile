@@ -5,7 +5,7 @@
   .single_award_title {{awardInfo.title}}
   .single_award_progress
     span.default_progress
-      em.active_progress(:style="{'width': proWidth, 'animation': animation, borderRadius: Number(awardInfo.userFragmentCount) < 9 ? '11px 0 0 11px' : '11px'}")
+      em.active_progress(:style="{'width': proWidth, 'animation': animation, borderRadius: Number(awardInfo.userFragmentCount) < 8 ? '11px 0 0 11px' : '11px'}")
       em.progress_count.progress_get_now(
         v-if='awardInfo.userFragmentCount == 9 && awardInfo.exchange == 1'
         @click='getAwardToMailAddress') 待领取
@@ -47,7 +47,11 @@ export default {
   computed: {
     proWidth() {
       if (this.awardInfo)
-        return `${Number.parseInt(this.awardInfo.userFragmentCount) * 8.27}px` || '0px'
+        if (Number.parseInt(this.awardInfo.userFragmentCount) < 9) {
+          return `${Number.parseInt(this.awardInfo.userFragmentCount) * 8}px` || '0px'
+        } else {
+          return '74.5px'
+        }
     }
   },
   methods: {
