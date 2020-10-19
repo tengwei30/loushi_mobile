@@ -148,6 +148,7 @@ export default {
       this.isOpen = true
     })
     bk.register('browserPageResume', () => {
+      console.log('页面重现～')
       this.InitData()
     })
   },
