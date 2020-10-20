@@ -76,6 +76,7 @@ export default {
   .award_detail_title
     font-size 18px
     color #333333
+    font-weight bold
     background linear-gradient(236deg, #FFC87A 0%, #F43A3A 100%)
     -webkit-background-clip text
     -webkit-text-fill-color transparent
