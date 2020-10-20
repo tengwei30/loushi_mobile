@@ -1,11 +1,9 @@
 <template lang="pug">
   #app
-    .app-content
-      | 测试提交规范测试
+    .app-content 我是测试页面
 </template>
 
 <script>
-import { postFormatData } from '@/config/format-data'
 
 export default {
   name: 'app',
@@ -14,17 +12,10 @@ export default {
     return {}
   },
   methods: {
-    getList() {
-      return postFormatData('/api/task/v1/task/list', {
-        task_type: '2',
-      })
-    },
+
   },
   created() {},
   mounted() {
-    this.getList().then(res => {
-      console.log('data', res)
-    })
   },
 }
 </script>
@@ -36,7 +27,9 @@ html, body
   width 100%
   height 100%
 #app
+  size(100%, 100%)
+  background red
   .app-content
     font-size 44px
-    color red
+    color white
 </style>
