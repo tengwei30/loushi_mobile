@@ -178,6 +178,7 @@ export default {
         } = data
         if (chapterTaskInfoList) {
           const { taskVOS = []} = chapterTaskInfoList
+          console.log(taskVOS[0])
           this.taskInfoList = taskVOS
         }
         this.checkinRewardInfoList = checkinRewardInfoList

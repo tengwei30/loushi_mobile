@@ -100,7 +100,7 @@ export default {
           display inline-block
     .content
       width 346px
-      min-height 174px
+      min-height 60px
       border-radius 0 0 8px 8px
       border 2px solid #FF9836
       border-top 0

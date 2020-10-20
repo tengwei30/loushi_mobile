@@ -9,3 +9,4 @@ zhangsong<zhangsong@bayread.com>
  - jira 上bug修复，埋点
 - 2020.10.20
  - 剩余埋点处理
+ - UI相关问题处理
