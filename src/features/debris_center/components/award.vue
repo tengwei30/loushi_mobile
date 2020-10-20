@@ -77,7 +77,6 @@ export default {
 $width = 72px
 $height = 22px
 .single_award
-  // padding-bottom 15px
   display flex
   flex-direction column
   align-items center
@@ -97,7 +96,6 @@ $height = 22px
   .single_award_progress
     width $width
     height $height
-    // background #FFE3CA
     border-radius 11px
     box-sizing border-box
     border 1px solid #FCAB1B
@@ -122,8 +120,24 @@ $height = 22px
         width $width
         height $height
         z-index 15
-        &.progress_get_now
-          color #ffffff
         i
           font-style normal
+      .progress_get_now
+        color #ffffff
+        font-weight bold
+        padding-left 10px
+        &:before
+          content ''
+          size(34px 35px)
+          absolute(top -6px left 0)
+          background url('../../../assets/debris_center/award_icon.png') no-repeat center center
+          background-size 100% 100%
+          animation pulse 2s linear infinite
+          @keyframes pulse
+            0%
+              transform scale(0.9)
+            50%
+              transform scale(1.2)
+            100%
+              transform scale(0.9)
 </style>

@@ -178,12 +178,14 @@ export default {
         } = data
         if (chapterTaskInfoList) {
           const { taskVOS = []} = chapterTaskInfoList
-          console.log(taskVOS[0])
           this.taskInfoList = taskVOS
         }
         this.checkinRewardInfoList = checkinRewardInfoList
         this.checkinInfo = checkinInfo
         this.commentInfoList = commentInfoList
+
+        // fragmentItemInfoList[0].userFragmentCount = 9
+        // fragmentItemInfoList[0].exchange = 1
         this.fragmentItemInfoList = fragmentItemInfoList
 
         if (checkinInfo) {
