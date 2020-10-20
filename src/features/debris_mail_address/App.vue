@@ -10,7 +10,7 @@
     .debris_mail_address_detail_title 邮寄地址
     textarea.debris_mail_address_detail_textarea(placeholder='详细地址，请精确至门牌号' v-model='userAddress')
   .debris_mail_address_btn(@click='submit' v-if='isShowBtn') 提交
-  .debris_mail_address_btn.is_disabled(v-else) 提交
+  .debris_mail_address_btn.is_disabled(v-else) 已提交
   .debris_mail_address_rule
     .debris_mail_address_rule_title 注意事项:
     .debris_mail_address_rule_content
