@@ -7,3 +7,5 @@ zhangsong<zhangsong@bayread.com>
   - 更新前后端、Native端联调
 - 2020.10.19
  - jira 上bug修复，埋点
+- 2020.10.20
+ - 剩余埋点处理

@@ -208,7 +208,8 @@ export default {
         'eventPage': 'fragmentCenter',
         'eventType': 2,
         'eventPos': 'myAward',
-        'source': this.from
+        'source': this.from,
+        'awardID': val.id
       }
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_mail_address.html?activityId=${this.activityId}&id=${val.id}&activityRecordId=${val.activityRecordId}&from=${this.from}`
@@ -228,10 +229,26 @@ export default {
         if (isSuccess * 1 === 0) return
         this.isOpen = !this.isOpen
         if (this.isOpen) {
+          const buryData = {
+            'eventPage': 'fragmentCenter',
+            'eventType': 2,
+            'eventPos': 'signIn',
+            'source': this.from,
+            'isOpen': 1
+          }
+          mBuryPoint('13', buryData)
           toast({
             content: '签到提醒开启成功'
           })
         } else {
+          const buryData = {
+            'eventPage': 'fragmentCenter',
+            'eventType': 2,
+            'eventPos': 'signIn',
+            'source': this.from,
+            'isOpen': 0
+          }
+          mBuryPoint('13', buryData)
           toast({
             content: '签到提醒关闭成功'
           })
@@ -255,6 +272,14 @@ export default {
       routerToNative(url)
     }, 30),
     goAwardCenter: throttle(function() {
+      // 碎片中心奖励中心
+      const buryData = {
+        'eventPage': 'fragmentCenter',
+        'eventType': 2,
+        'eventPos': 'awardCenterViewMore',
+        'source': this.from
+      }
+      mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_center.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
     }, 30),
@@ -274,6 +299,13 @@ export default {
       routerToNative(url)
     }, 30),
     openTask: throttle(function(item) {
+      const buryData = {
+        'eventPage': 'fragmentCenter',
+        'eventType': 2,
+        'eventPos': 'todayRead',
+        'source': this.from
+      }
+      mBuryPoint('13', buryData)
       if (item.isFinish * 1 === 0) {
         if (this.from !== 'tab') {
           this.browserBack()

@@ -12,7 +12,7 @@
 import bk from 'bayread-bridge'
 import { post } from '@/config/axios.config'
 import Award from '../debris_center/components/award'
-import { getQueryString, routerToNative } from '@/utils/index'
+import { getQueryString, routerToNative, mBuryPoint } from '@/utils/index'
 export default {
   data() {
     return {
@@ -38,10 +38,25 @@ export default {
       let { data } = await post('/activity_api/fragmentPrize/getItemList', {
         activityId: this.activityId
       })
-      this.checkinRewardInfoList = data || []
+      try {
+        this.checkinRewardInfoList = data || []
+        const buryData = {
+          'eventPage': 'myAward',
+          'eventType': 1,
+        }
+        mBuryPoint('13', buryData)
+      } catch (error) {
+        console.error('error-----', error)
+      }
+
     },
     getAwardToMailAddress(val) {
-      console.log('点击兑换', val)
+      const buryData = {
+        'eventPage': 'myAward',
+        'eventType': 2,
+        'awardID': val.id
+      }
+      mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_mail_address.html?activityId=${this.activityId}&id=${val.id}&activityRecordId=${val.activityRecordId}&from=${this.from}`
       routerToNative(url)
     }
