@@ -77,7 +77,7 @@ export default {
 $width = 72px
 $height = 22px
 .single_award
-  padding-bottom 10px
+  // padding-bottom 15px
   display flex
   flex-direction column
   align-items center
@@ -93,11 +93,11 @@ $height = 22px
     color #8D3E1B
     line-height 17px
     text-align center
-    padding 10px 0
+    padding 5px 0 10px
   .single_award_progress
     width $width
     height $height
-    background #FFE3CA
+    // background #FFE3CA
     border-radius 11px
     box-sizing border-box
     border 1px solid #FCAB1B
@@ -113,7 +113,6 @@ $height = 22px
         height 22px
         display inline-block
         background linear-gradient(245deg, #FFA34B 0%, #F44004 71%, #FF5537 100%)
-        // border-radius 11px
       .progress_count
         font-size 12px
         text-align center

@@ -78,6 +78,7 @@ body,html
 #debris_award
   width 100%
   min-height 100vh
+  padding-top 13px
   background linear-gradient(180deg, #FFFAF4 0%, #FFE1C7 100%)
   .debris_award_list
     width 100%
@@ -88,7 +89,7 @@ body,html
     flex-wrap wrap
     justify-content space-between
     .single_award
-      padding-bottom 10px
+      // padding-bottom 15px
       display flex
       flex-direction column
       align-items center
@@ -104,11 +105,11 @@ body,html
         color #8D3E1B
         line-height 17px
         text-align center
-        padding 10px 0
+        padding 5px 0 10px
       .single_award_progress
         width $width
         height $height
-        background #FFE3CA
+        // background #FFE3CA
         border-radius 11px
         box-sizing border-box
         border 1px solid #FCAB1B
