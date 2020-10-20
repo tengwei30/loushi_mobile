@@ -50,7 +50,7 @@ export default {
         if (Number.parseInt(this.awardInfo.userFragmentCount) < 9) {
           return `${Number.parseInt(this.awardInfo.userFragmentCount) * 8}px` || '0px'
         } else {
-          return '74.5px'
+          return '74.2px'
         }
     }
   },
@@ -137,7 +137,7 @@ $height = 22px
             0%
               transform scale(0.9)
             50%
-              transform scale(1.2)
+              transform scale(1.4)
             100%
               transform scale(0.9)
 </style>
