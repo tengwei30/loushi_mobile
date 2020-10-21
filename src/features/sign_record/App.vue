@@ -121,7 +121,7 @@ body, html
   margin 0 auto
   min-height 12.35rem
   background rgba(255, 255, 255, 1)
-  box-shadow 5px 5px 8px 0px rgba(255, 119, 65, 0.02), -5px 5px 8px 0px rgba(255, 119, 65, 0.02)
+  // box-shadow 5px 5px 8px 0px rgba(255, 119, 65, 0.02), -5px 5px 8px 0px rgba(255, 119, 65, 0.02)
   border-radius 0.37rem
   padding 0 0.53rem 0 0.56rem
   box-sizing border-box
@@ -129,7 +129,7 @@ body, html
   display flex
   flex-direction row
   padding 0.41rem 0 0.39rem
-  border-bottom 0.03rem solid #E4E4E4
+  border-bottom 0.03rem solid #f5f5f5
 .record__list li:last-child
   border-bottom none
 .record__list li p
