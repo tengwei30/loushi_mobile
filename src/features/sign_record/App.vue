@@ -47,7 +47,7 @@ export default {
         taskId
       }).then(res => {
         const { extraResultList, extraData } = res.data
-        this.signlists = extraResultList
+        this.signlists = [extraResultList[0]]
         this.remainingCheckInNum = extraData.remainingCheckInNum
         if (extraData.checkInDays < 10) {
           this.checkInDays = `0${extraData.checkInDays}`
@@ -129,7 +129,7 @@ body, html
   display flex
   flex-direction row
   padding 0.41rem 0 0.39rem
-  border-bottom 0.03rem solid rgba(233, 233, 233, 1)
+  border-bottom 0.03rem solid #E4E4E4
 .record__list li:last-child
   border-bottom none
 .record__list li p
