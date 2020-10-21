@@ -74,6 +74,10 @@ export default {
       span.user_ID
         font-size 12px
         height 17px
+        width 81px
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
         font-weight 500
         color #000000
         line-height 17px
@@ -90,7 +94,8 @@ export default {
       font-weight 400
       color #FFFFFF
       line-height 22px
-      size(66px 22px)
+      height 22px
+      padding 0 12px
       text-align center
       background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
       border-radius 11px
