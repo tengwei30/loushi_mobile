@@ -33,7 +33,7 @@
           :src="getSignUrl(Number(index) + 1)"
           )
       p.sign_day_num(@click="goSignRecord()") 您已成功签到{{ checkinInfo.checkinDays }}天，获得{{ checkinInfo.checkinFragmentCount }}枚碎片，别中断哦～
-  .task_module
+  .task_module(v-if="chapterTaskInfoList")
     ContentSlot(
       :title='taskTitle',
       :desc='desc'
@@ -107,6 +107,7 @@ export default {
       taskFinishBg: `url(${require('../../assets/debris_center/finish_task.png')})`,
       taskFinishDefault: `url(${require('../../assets/debris_center/default_task.png')})`,
       rewardNum: 0,
+      chapterTaskInfoList: {}
     }
   },
   computed: {
@@ -149,7 +150,6 @@ export default {
       this.isOpen = true
     })
     bk.register('browserPageResume', () => {
-      console.log('页面重现～')
       this.InitData()
       bk.call('getTodayReadTaskChapterNum', {}, data => { // 初始化碎片信息
         const { todayTotalReadChapterNum, nextTaskNeedNum, chipNum   } = JSON.parse(data)
@@ -176,6 +176,7 @@ export default {
           fragmentItemInfoList = [],
           chapterTaskInfoList = {},
         } = data
+        this.chapterTaskInfoList = chapterTaskInfoList
         if (chapterTaskInfoList) {
           const { taskVOS = []} = chapterTaskInfoList
           this.taskInfoList = taskVOS
