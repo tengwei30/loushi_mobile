@@ -271,7 +271,7 @@ export default {
       routerToNative(url)
     }, 30),
     goSignRecord: throttle(function() {
-      const url = `${window.location.origin}/BKH5-debris_sign_record.html?activityId=${this.activityId}&from=${this.from}`
+      const url = `${window.location.origin}/BKH5-sign_record.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
     }, 30),
     goAwardCenter: throttle(function() {

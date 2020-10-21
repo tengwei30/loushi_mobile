@@ -47,7 +47,7 @@ export default {
         taskId
       }).then(res => {
         const { extraResultList, extraData } = res.data
-        this.signlists = [extraResultList[0]]
+        this.signlists = extraResultList
         this.remainingCheckInNum = extraData.remainingCheckInNum
         if (extraData.checkInDays < 10) {
           this.checkInDays = `0${extraData.checkInDays}`
