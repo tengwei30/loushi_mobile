@@ -65,7 +65,7 @@ export default {
     const currbookId = bookId
     return {
       endInfo: {},
-      platform: localStorage.getItem('platformId') || '5',
+      platform: '5',
       version: '',
       bookId,
       chapterNum: getQueryString('chapterNum') || '',
@@ -113,6 +113,7 @@ export default {
       this.bookInfo =bookInfo
       this.handleDealBoostList(ItemInfo)
       this.version = localStorage.getItem('version')
+      this.platform =localStorage.getItem('platformId')
       if (this.bookInfo.isSerial === 1 && !this.showNotification) {
         this.buttonStatus = this.endInfo.urgeInfo.status === 0 ? '4' : '5'
       } else if (this.bookInfo.isSerial === 0 && !this.showNotification) {
