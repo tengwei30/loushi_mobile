@@ -106,7 +106,6 @@ export default {
         checkinFragmentCount: 0
       },
       commentInfoList: [], // 福利评论列表
-      fragmentItemInfoList: [], // 碎片列表
       opacity: 0,
       backgroundImage: `url(${require('../../assets/debris_center/debris_back@2x.png')})`,
       taskFinishBg: `url(${require('../../assets/debris_center/finish_task.png')})`,
@@ -170,6 +169,24 @@ export default {
       let { data, code  } = await getDebrislist(this.activityId)
       try {
         if (Number(code) === 153) {
+          // 153 表示活动过期
+          this.fragmentItemInfoList = [{
+            exchange: 0,
+            id: 1,
+            rewardGroup: 3,
+            rewardType: 3,
+            smallImgUrl: 'http://cdn.ibreader.com/group1/M01/82/94/rBH_vl-IEpKAe7XmAAE7-8bxOTs859.png',
+            title: '5G手机',
+          }, {
+            exchange: 0,
+            id: 11,
+            rewardGroup: 3,
+            rewardType: 3,
+            smallImgUrl: 'http://cdn.ibreader.com/group1/M01/83/3E/rBH_vl-IGSmAccbEAAEga_dQ9x4796.png',
+            title: 'iPad',
+            userFragmentCount: 0,
+          }]
+          this.checkinRewardInfoList = Array(10).fill(1)
           this.activityExpired = true
           const origin = window.location.origin
 
@@ -181,8 +198,8 @@ export default {
             if (origin === 'testincrease.ibreader.com') {
               routerToNative('http://testtask.ibreader.com/')
             }
-
           }, 2500)
+          return
         }
         const buryData = {
           'eventPage': 'fragmentCenter',
@@ -196,12 +213,14 @@ export default {
           commentInfoList = [],
           fragmentItemInfoList = [],
           chapterTaskInfoList = {},
+          activityId
         } = data
         this.chapterTaskInfoList = chapterTaskInfoList
         if (chapterTaskInfoList) {
           const { taskVOS = []} = chapterTaskInfoList
           this.taskInfoList = taskVOS
         }
+        this.activityId = activityId
         this.checkinRewardInfoList = checkinRewardInfoList
         this.checkinInfo = checkinInfo
         this.commentInfoList = commentInfoList
