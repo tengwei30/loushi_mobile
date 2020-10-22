@@ -143,4 +143,28 @@ body, html
   .award_center_list
     width 346px
     margin 20px auto 0
+  .modal_activity
+    fixed(top 0 left 0 right 0 bottom 0)
+    background rgba(0,0,0,0.45)
+    z-index 9999
+    .modal_activity_content
+      size(243px, 131px)
+      absolute(left 68px top 225px)
+      background #ffffff
+      border-radius 12px
+      &::before
+        content ''
+        size(50px 50px)
+        background url('../../assets/debris_center/bukaixin-19@3x.png') no-repeat center center
+        background-size 100% 100%
+        absolute(top -25px left 97px)
+      h3
+        font-size 16px
+        font-family PingFangSC-Regular, PingFang SC
+        font-weight 400
+        color #333333
+        line-height 22px
+        text-align center
+        padding-top 44px
+        box-sizing border-box
   

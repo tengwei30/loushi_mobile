@@ -63,6 +63,11 @@
           v-on:goAwardCenter='goAwardCenter'
         )
   DebrisRule
+  .modal_activity(v-show="activityExpired")
+    .modal_activity_content
+      h3 对不起，活动已下线，
+        br
+        | 可以完成其他任务赢金币哦～
 </template>
 
 <script>
@@ -107,7 +112,8 @@ export default {
       taskFinishBg: `url(${require('../../assets/debris_center/finish_task.png')})`,
       taskFinishDefault: `url(${require('../../assets/debris_center/default_task.png')})`,
       rewardNum: 0,
-      chapterTaskInfoList: {}
+      chapterTaskInfoList: {},
+      activityExpired: false
     }
   },
   computed: {
@@ -161,8 +167,23 @@ export default {
   },
   methods: {
     async InitData() {
-      let { data } = await getDebrislist(this.activityId)
+      let { data, code  } = await getDebrislist(this.activityId)
       try {
+        if (Number(code) === 153) {
+          this.activityExpired = true
+          const origin = window.location.origin
+
+          setTimeout(() => {
+            if (origin === 'increase.ibreader.com') {
+              routerToNative('https://task.ibreader.com/')
+              return
+            }
+            if (origin === 'testincrease.ibreader.com') {
+              routerToNative('http://testtask.ibreader.com/')
+            }
+
+          }, 2500)
+        }
         const buryData = {
           'eventPage': 'fragmentCenter',
           'eventType': 1,
