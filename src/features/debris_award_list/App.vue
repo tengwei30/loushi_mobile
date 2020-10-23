@@ -18,7 +18,8 @@ export default {
     return {
       styles: {
         width: '136px',
-        height: '205px'
+        minHeight: '115px',
+        marginBottom: '16px'
       },
       activityId: getQueryString('activityId') || '128',
       checkinRewardInfoList: [],
