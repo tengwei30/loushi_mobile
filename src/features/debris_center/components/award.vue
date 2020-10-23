@@ -61,7 +61,7 @@ export default {
     }, 30)
   },
   mounted() {
-    this.clientDOM =  this.$refs.signleDOM.clientWidth + 1
+    this.clientDOM =  this.$refs.signleDOM.clientWidth + 1.4
     setTimeout(() => {
       const tt = document.styleSheets[0]
       tt.deleteRule(0)
