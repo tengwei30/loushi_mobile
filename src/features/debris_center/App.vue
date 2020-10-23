@@ -140,6 +140,15 @@ export default {
     bk.call('calendarSignNoticeInit', {}, data => {
       const { isOpen  } = JSON.parse(data)
       console.log('初始化通知状态', isOpen)
+      const buryData = {
+        'eventPage': 'fragmentCenter',
+        'eventType': 2,
+        'eventPos': 'signIn',
+        'source': this.from,
+        'isOpen': isOpen ? 1 : 0,
+        'activityId': this.activityId
+      }
+      mBuryPoint('13', buryData)
       // 通知开启初始化
       if (isOpen  * 1 === 0) {
         this.isOpen = false
@@ -155,7 +164,7 @@ export default {
       this.isOpen = true
     })
     bk.register('browserPageResume', () => {
-      this.InitData()
+      this.InitData('browserResume')
       bk.call('getTodayReadTaskChapterNum', {}, data => { // 初始化碎片信息
         const { todayTotalReadChapterNum, nextTaskNeedNum, chipNum   } = JSON.parse(data)
         this.todayTotalReadChapterNum = todayTotalReadChapterNum
@@ -165,7 +174,7 @@ export default {
     })
   },
   methods: {
-    async InitData() {
+    async InitData(val = '') {
       let { data, code  } = await getDebrislist(this.activityId)
       try {
         if (Number(code) === 153) {
@@ -201,13 +210,15 @@ export default {
           }, 2500)
           return
         }
-        const buryData = {
-          'eventPage': 'fragmentCenter',
-          'eventType': 1,
-          'source': this.from,
-          'activityId': this.activityId
+        if (val === '') {
+          const buryData = {
+            'eventPage': 'fragmentCenter',
+            'eventType': 1,
+            'source': this.from,
+            'activityId': this.activityId
+          }
+          mBuryPoint('13', buryData)
         }
-        mBuryPoint('13', buryData)
         const {
           checkinRewardInfoList = [],
           checkinInfo = {},
