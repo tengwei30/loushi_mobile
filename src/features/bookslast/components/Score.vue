@@ -18,7 +18,7 @@ export default {
     endInfo,
     platform: {
       type: String,
-      default: '6'
+      default: ''
     }
   },
   mounted() {},

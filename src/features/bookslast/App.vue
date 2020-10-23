@@ -65,7 +65,7 @@ export default {
     const currbookId = bookId
     return {
       endInfo: {},
-      platform: '6',
+      platform: '5',
       version: '',
       bookId,
       chapterNum: getQueryString('chapterNum') || '',
