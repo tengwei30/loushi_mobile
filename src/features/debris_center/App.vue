@@ -140,15 +140,6 @@ export default {
     bk.call('calendarSignNoticeInit', {}, data => {
       const { isOpen  } = JSON.parse(data)
       console.log('初始化通知状态', isOpen)
-      const buryData = {
-        'eventPage': 'fragmentCenter',
-        'eventType': 2,
-        'eventPos': 'signIn',
-        'source': this.from,
-        'isOpen': isOpen ? 1 : 0,
-        'activityId': this.activityId
-      }
-      mBuryPoint('13', buryData)
       // 通知开启初始化
       if (isOpen  * 1 === 0) {
         this.isOpen = false
@@ -158,6 +149,15 @@ export default {
     })
     bk.register('calendarSignNoticeResume', (data) => {
       console.log('注册用户开启', data)
+      const buryData = {
+        'eventPage': 'fragmentCenter',
+        'eventType': 2,
+        'eventPos': 'signIn',
+        'source': this.from,
+        'isOpen': 1,
+        'activityId': this.activityId
+      }
+      mBuryPoint('13', buryData)
       toast({
         content: '签到提醒开启成功'
       })
