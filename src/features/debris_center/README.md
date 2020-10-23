@@ -14,3 +14,4 @@ zhangsong<zhangsong@bayread.com>
  - 活动过期跳转任务问题处理
 - 2020.10.23
  - 埋点添加activityId
+ - 锤子手机兼容问题
