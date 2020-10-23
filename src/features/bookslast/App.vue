@@ -18,6 +18,7 @@
     Score(
       :endInfo="endInfo"
       :platform='platform'
+      v-if="endInfo"
       v-on:commentHandler="commentHandler"
       v-on:rewardHandler="rewardHandler"
     )
