@@ -204,7 +204,8 @@ export default {
         const buryData = {
           'eventPage': 'fragmentCenter',
           'eventType': 1,
-          'source': this.from
+          'source': this.from,
+          'activityId': this.activityId
         }
         mBuryPoint('13', buryData)
         const {
@@ -253,7 +254,8 @@ export default {
         'eventType': 2,
         'eventPos': 'myAward',
         'source': this.from,
-        'awardID': val.id
+        'awardID': val.id,
+        'activityId': this.activityId
       }
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_mail_address.html?activityId=${this.activityId}&id=${val.id}&activityRecordId=${val.activityRecordId}&from=${this.from}`
@@ -278,7 +280,8 @@ export default {
             'eventType': 2,
             'eventPos': 'signIn',
             'source': this.from,
-            'isOpen': 1
+            'isOpen': 1,
+            'activityId': this.activityId
           }
           mBuryPoint('13', buryData)
           toast({
@@ -290,7 +293,8 @@ export default {
             'eventType': 2,
             'eventPos': 'signIn',
             'source': this.from,
-            'isOpen': 0
+            'isOpen': 0,
+            'activityId': this.activityId
           }
           mBuryPoint('13', buryData)
           toast({
@@ -305,7 +309,8 @@ export default {
         'eventPage': 'fragmentCenter',
         'eventType': 2,
         'eventPos': 'viewMore',
-        'source': this.from
+        'source': this.from,
+        'activityId': this.activityId
       }
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_list.html?from=${this.from}`
@@ -321,7 +326,8 @@ export default {
         'eventPage': 'fragmentCenter',
         'eventType': 2,
         'eventPos': 'awardCenterViewMore',
-        'source': this.from
+        'source': this.from,
+        'activityId': this.activityId
       }
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_center.html?activityId=${this.activityId}&from=${this.from}`
@@ -336,7 +342,8 @@ export default {
         'eventPage': 'fragmentCenter',
         'eventType': 2,
         'eventPos': 'awardRecord',
-        'source': this.from
+        'source': this.from,
+        'activityId': this.activityId
       }
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_detail.html?activityId=${this.activityId}&from=${this.from}`
@@ -347,7 +354,8 @@ export default {
         'eventPage': 'fragmentCenter',
         'eventType': 2,
         'eventPos': 'todayRead',
-        'source': this.from
+        'source': this.from,
+        'activityId': this.activityId
       }
       mBuryPoint('13', buryData)
       if (item.isFinish * 1 === 0) {

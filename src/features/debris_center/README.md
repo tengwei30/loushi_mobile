@@ -12,3 +12,5 @@ zhangsong<zhangsong@bayread.com>
  - UI相关问题处理
 - 2020.10.22
  - 活动过期跳转任务问题处理
+- 2020.10.23
+ - 埋点添加activityId

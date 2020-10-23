@@ -43,6 +43,7 @@ export default {
         const buryData = {
           'eventPage': 'myAward',
           'eventType': 1,
+          'activityId': this.activityId
         }
         mBuryPoint('13', buryData)
       } catch (error) {
