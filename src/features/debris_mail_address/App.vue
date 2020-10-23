@@ -53,7 +53,8 @@ export default {
         eventPage: 'mailAddress',
         eventType: 2,
         source: getQueryString('from'),
-        eventPos: 'submit'
+        eventPos: 'submit',
+        activityId: getQueryString('activityId')
       })
       let res = await submitMailAddress({
         activityId: getQueryString('activityId') || '', // 活动ID
@@ -84,7 +85,8 @@ export default {
     mBuryPoint(13, {
       eventPage: 'mailAddress',
       eventType: 1,
-      source: getQueryString('from')
+      source: getQueryString('from'),
+      activityId: getQueryString('activityId')
     })
     this.initPage()
   },
