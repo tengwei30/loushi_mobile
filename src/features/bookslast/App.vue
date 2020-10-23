@@ -65,7 +65,7 @@ export default {
     const bookId = getQueryString('bookId') || ''
     const currbookId = bookId
     return {
-      endInfo: {},
+      endInfo: null,
       platform: '5',
       version: '',
       bookId,
