@@ -226,7 +226,7 @@ export default {
         this.checkinInfo = checkinInfo
         this.commentInfoList = commentInfoList
 
-        // fragmentItemInfoList[0].userFragmentCount = 5
+        // fragmentItemInfoList[0].userFragmentCount = 9
         // fragmentItemInfoList[0].exchange = 1
         this.fragmentItemInfoList = fragmentItemInfoList
 

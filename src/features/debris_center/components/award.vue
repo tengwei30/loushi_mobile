@@ -3,7 +3,7 @@
   .img_show
     img.img(:src="awardInfo.smallImgUrl")
   .single_award_title {{awardInfo.title}}
-  .single_award_progress
+  .single_award_progress(ref="signleDOM")
     span.default_progress
       em.active_progress(:style="{'width': proWidth, 'animation': animation, borderRadius: Number(awardInfo.userFragmentCount) < 8 ? '11px 0 0 11px' : '11px'}")
       em.progress_count.progress_get_now(
@@ -41,7 +41,8 @@ export default {
   },
   data() {
     return {
-      animation: ''
+      animation: '',
+      clientDOM: null
     }
   },
   computed: {
@@ -50,7 +51,7 @@ export default {
         if (Number.parseInt(this.awardInfo.userFragmentCount) < 9) {
           return `${Number.parseInt(this.awardInfo.userFragmentCount) * 8}px` || '0px'
         } else {
-          return '74.2px'
+          return `${this.clientDOM}px`
         }
     }
   },
@@ -60,6 +61,7 @@ export default {
     }, 30)
   },
   mounted() {
+    this.clientDOM =  this.$refs.signleDOM.clientWidth + 1
     setTimeout(() => {
       const tt = document.styleSheets[0]
       tt.deleteRule(0)

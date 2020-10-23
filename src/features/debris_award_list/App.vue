@@ -41,6 +41,8 @@ export default {
       })
       try {
         this.checkinRewardInfoList = data || []
+        // this.checkinRewardInfoList[0].userFragmentCount = 9
+        // this.checkinRewardInfoList[0].exchange = 1
         const buryData = {
           'eventPage': 'myAward',
           'eventType': 1,
