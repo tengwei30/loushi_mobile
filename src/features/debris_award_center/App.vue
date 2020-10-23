@@ -33,7 +33,8 @@ export default {
   mounted() {
     mBuryPoint(13, {
       eventPage: 'awardCenter',
-      eventType: 1
+      eventType: 1,
+      activityId: getQueryString('activityId')
     })
     this.initPage()
   },

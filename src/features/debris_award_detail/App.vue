@@ -55,7 +55,8 @@ export default {
       mBuryPoint(13, {
         eventPage: 'awardDetails',
         eventType: 2,
-        awardID
+        awardID,
+        activityId: getQueryString('activityId')
       })
       skipUrl({
         skipUrl: `${location.origin}/BKH5-debris_mail_address.html?from=awardDetail&userInfo=` + encodeURIComponent(JSON.stringify(target))
@@ -83,7 +84,8 @@ export default {
   mounted() {
     mBuryPoint(13, {
       eventPage: 'awardDetails',
-      eventType: 1
+      eventType: 1,
+      activityId: getQueryString('activityId')
     })
     this.initPage()
     this.scrollEvent()
