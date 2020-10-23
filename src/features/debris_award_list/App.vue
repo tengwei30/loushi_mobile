@@ -11,6 +11,7 @@
 <script>
 import bk from 'bayread-bridge'
 import { post } from '@/config/axios.config'
+import { toast, closeCurrentPage } from '@/utils/nativeToH5/index'
 import Award from '../debris_center/components/award'
 import { getQueryString, routerToNative, mBuryPoint } from '@/utils/index'
 export default {
@@ -35,9 +36,18 @@ export default {
   },
   methods: {
     async InitData() {
-      let { data } = await post('/activity_api/fragmentPrize/getItemList', {
+      let { data, code, msg } = await post('/activity_api/fragmentPrize/getItemList', {
         activityId: this.activityId
       })
+      if (code == 153) {
+        toast({
+          content: msg
+        })
+        setTimeout(() => {
+          closeCurrentPage()
+        }, 2000)
+        return
+      }
       try {
         this.checkinRewardInfoList = data || []
         const buryData = {

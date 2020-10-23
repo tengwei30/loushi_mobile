@@ -11,6 +11,7 @@
 import Comment from '../debris_center/components/comment'
 import { getDebrisCommentList } from './request'
 import { getQueryString } from '@/utils/url'
+import { toast, closeCurrentPage } from '@/utils/nativeToH5/index'
 import { mBuryPoint } from '@/utils/index'
 export default {
   components: {
@@ -27,6 +28,13 @@ export default {
       console.log(res)
       if (res.code == 100) {
         this.list = res.data
+      } else if (res.code == 153) {
+        toast({
+          content: res.msg
+        })
+        setTimeout(() => {
+          closeCurrentPage()
+        }, 2000)
       }
     }
   },

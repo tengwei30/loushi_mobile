@@ -15,7 +15,7 @@
 <script>
 import AwardDetail from './components/award_detail'
 import { callOnline } from '@/utils/common.js'
-import { skipUrl } from '@/utils/nativeToH5/index'
+import { skipUrl, toast, closeCurrentPage } from '@/utils/nativeToH5/index'
 import { getQueryString } from '@/utils/url'
 import { debounce } from '@/utils/utils.js'
 import { mBuryPoint } from '@/utils/index'
@@ -47,9 +47,18 @@ export default {
         this.list = [...this.list, ...res.data]
         this.isLoadedAll = false
         this.pageIndex += 1
+      } else if (res.code == 153) {
+        toast({
+          content: res.msg
+        })
+        setTimeout(() => {
+          closeCurrentPage()
+        }, 2000)
+        this.isLoadedAll = true
       } else {
         this.isLoadedAll = true
       }
+
     },
     goMailAddress(target, awardID) {
       mBuryPoint(13, {
