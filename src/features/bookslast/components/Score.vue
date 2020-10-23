@@ -13,7 +13,14 @@
 </template>
 <script>
 export default {
-  props: ['endInfo', 'platform'],
+  // props: ['endInfo', 'platform'],
+  props: {
+    endInfo,
+    platform: {
+      type: String,
+      default: ''
+    }
+  },
   mounted() {},
   methods: {
     commentHandler() {
