@@ -197,15 +197,17 @@ export default {
           }]
           this.checkinRewardInfoList = Array(10).fill(1)
           this.activityExpired = true
-          const origin = window.location.origin
+          const host = window.location.host
 
           setTimeout(() => {
-            if (origin === 'increase.ibreader.com') {
-              routerToNative('https://task.ibreader.com/')
+            if (host === 'increase.ibreader.com') {
+              // routerToNative('https://task.ibreader.com/')
+              window.location.replace('https://task.ibreader.com/')
               return
             }
-            if (origin === 'testincrease.ibreader.com') {
-              routerToNative('http://testtask.ibreader.com/')
+            if (host === 'testincrease.ibreader.com') {
+              // routerToNative('http://testtask.ibreader.com/')
+              window.location.replace('http://testtask.ibreader.com/')
             }
           }, 2500)
           return
