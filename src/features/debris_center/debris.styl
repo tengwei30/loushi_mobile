@@ -1,0 +1,170 @@
+body, html
+  width 100%
+  height 100%
+  margin 0
+  padding 0
+*
+  margin 0
+  padding 0
+#debris_app
+  size(100%, 100%)
+  header
+    width 100%
+    min-height 372px
+    background url('../../assets/debris_center/header_bg@2x.png') no-repeat top center/100%
+    background-size 100% 244px
+    vertical-align middle
+    padding-top 124px
+    box-sizing border-box
+    .header_space
+      fixed(left 0 right 0 top 0)
+      size(100%, 57px)
+      background #F44004
+      z-index 9990
+    .header_nav
+      fixed(left 0px right 0px top 29px)
+      width 100%
+      padding 0 15px
+      box-sizing border-box
+      z-index 9999
+      height 28px
+      text-align center
+      font-size 16px
+      color #FFFFFF
+      line-height 28px
+      font-weight bold
+      .header_back
+        size(28px, 28px)
+        background-position center center
+        background-repeat no-repeat
+        background-size 100% 100%
+        absolute(left 15px top 0)
+      .header_right_record
+        font-size 12px
+        height 17px
+        font-weight bold
+        line-height 17px
+        absolute(right 15px top 6px)
+    .award_list_root
+      width 346px
+      min-height 248px
+      margin 0 auto
+      background url('../../assets/debris_center/award_bg.png') no-repeat center center/100%
+      background-size 100% 100%
+      border-radius 20px
+      position relative
+      h3.header_title
+        size(245px, 43px)
+        font-size 18px
+        font-family PingFangSC-Medium, PingFang SC
+        font-weight 500
+        color #8D3000
+        line-height 43px
+        background url('../../assets/debris_center/award_title_bg.png') no-repeat center center/100%
+        background-size 100% 100%
+        text-align center
+        absolute(top -28px left 49px)
+      .award_list
+        padding 39px 42px 16px 42px
+        display flex
+        flex-direction row
+        flex-wrap wrap
+        justify-content space-between
+        positon relative
+        .click_more_award
+          height 12px
+          font-size 12px
+          font-family PingFangSC-Medium, PingFang SC
+          font-weight bold
+          color #8D3E1B
+          line-height 12px
+          position absolute
+          right 14px
+          top 20px
+  .sign_module
+    width 346px
+    margin 20px auto 0
+    .sign_img
+      width 100%
+      height auto
+      display flex 
+      flex-direction row
+      flex-wrap wrap
+      img
+        size(48px 48px)
+        display inline-block
+        margin-right 14px
+        margin-bottom 15px
+        &:nth-of-type(5n)
+          margin-right 0
+    .sign_day_num
+      text-align center
+      height 17px
+      font-size 12px
+      font-family PingFangSC-Regular, PingFang SC
+      font-weight 400
+      color #DA1806
+      line-height 17px
+  .task_module
+    width 346px
+    margin 20px auto
+    ul.task_list
+      li.single_task
+        display flex 
+        flex-direction row
+        justify-content space-between
+        padding-bottom 15px
+        .task_name        
+          height 20px
+          font-size 14px
+          font-family PingFangSC-Regular, PingFang SC
+          font-weight 400
+          color #333333
+          line-height 20px
+        .task_state
+          size(74px 22px)
+          font-size 12px
+          font-family PingFangSC-Regular, PingFang SC
+          font-weight 400
+          color #FFFFFF
+          line-height 22px
+          text-indent 10px
+          // background url('../../assets/debris_center/default_task.png') no-repeat center center/100%
+          background-repeat no-repeat
+          background-position center center/100%
+          background-size 100% 100%
+          position relative
+          &::after
+            content ''
+            absolute(right -1px top 0)
+            size(24px 24px)
+            background url('../../assets/debris_center/debris_icon.png') no-repeat center center/100%
+            background-size 100% 100%
+  .award_center_list
+    width 346px
+    margin 20px auto 0
+  .modal_activity
+    fixed(top 0 left 0 right 0 bottom 0)
+    background rgba(0,0,0,0.45)
+    z-index 9999
+    .modal_activity_content
+      size(243px, 131px)
+      absolute(left 68px top 225px)
+      background #ffffff
+      border-radius 12px
+      &::before
+        content ''
+        size(50px 50px)
+        background url('../../assets/debris_center/bukaixin-19@3x.png') no-repeat center center
+        background-size 100% 100%
+        absolute(top -25px left 97px)
+      h3
+        font-size 16px
+        font-family PingFangSC-Regular, PingFang SC
+        font-weight 400
+        color #333333
+        line-height 22px
+        text-align center
+        padding-top 44px
+        box-sizing border-box
+  
