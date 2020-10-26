@@ -202,12 +202,12 @@ export default {
           setTimeout(() => {
             if (host === 'increase.ibreader.com') {
               // routerToNative('https://task.ibreader.com/')
-              window.location.replace('https://task.ibreader.com/')
+              window.location.replace(`https://task.ibreader.com/#/?from=${this.from}`)
               return
             }
             if (host === 'testincrease.ibreader.com') {
               // routerToNative('http://testtask.ibreader.com/')
-              window.location.replace('http://testtask.ibreader.com/')
+              window.location.replace(`http://testtask.ibreader.com/#/?from=${this.from}`)
             }
           }, 2500)
           return
