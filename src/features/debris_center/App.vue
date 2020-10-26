@@ -33,7 +33,7 @@
           :src="getSignUrl(Number(index) + 1)"
           )
       p.sign_day_num(@click="goSignRecord()") 您已成功签到{{ checkinInfo.checkinDays }}天，获得{{ checkinInfo.checkinFragmentCount }}枚碎片，别中断哦～
-  .task_module(v-if="chapterTaskInfoList")
+  .task_module(v-if="chapterTaskInfoList && taskInfoList")
     ContentSlot(
       :title='taskTitle',
       :desc='desc'
