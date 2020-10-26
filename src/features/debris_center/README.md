@@ -15,3 +15,6 @@ zhangsong<zhangsong@bayread.com>
 - 2020.10.23
  - 埋点添加activityId
  - 锤子手机兼容问题
+- 2020.10.27
+ - 上线 00:26 tag -- 1.4.8
+ 
