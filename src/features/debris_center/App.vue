@@ -50,7 +50,7 @@
     ContentSlot(
       title='奖励中心',
       :styles="styles"
-      v-if="commentInfoList"
+      v-if="commentInfoList && commentInfoList.length !== 0"
     )
       .comment(v-for="item in commentInfoList")
         Comment(
