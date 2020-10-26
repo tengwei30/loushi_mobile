@@ -102,7 +102,7 @@ export default {
   .comment_desc
     margin 14px 0 15px
     width 310px
-    height 55px
+    min-height 55px
     background #FFF7EE
     border-radius 8px
     padding 7px 12px 8px 18px
