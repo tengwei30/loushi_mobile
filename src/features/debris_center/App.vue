@@ -112,7 +112,8 @@ export default {
       taskFinishDefault: `url(${require('../../assets/debris_center/default_task.png')})`,
       rewardNum: 0,
       chapterTaskInfoList: {},
-      activityExpired: false
+      activityExpired: false,
+      onOff: false
     }
   },
   computed: {
@@ -148,7 +149,6 @@ export default {
       }
     })
     bk.register('calendarSignNoticeResume', (data) => {
-      console.log('注册用户开启', data)
       const buryData = {
         'eventPage': 'fragmentCenter',
         'eventType': 2,
@@ -165,6 +165,7 @@ export default {
     })
     bk.register('browserPageResume', () => {
       this.InitData('browserResume')
+      this.onOff = true
       bk.call('getTodayReadTaskChapterNum', {}, data => { // 初始化碎片信息
         const { todayTotalReadChapterNum, nextTaskNeedNum, chipNum   } = JSON.parse(data)
         this.todayTotalReadChapterNum = todayTotalReadChapterNum
@@ -262,17 +263,21 @@ export default {
       }
     },
     getAwardToMailAddress(val) {
-      const buryData = {
-        'eventPage': 'fragmentCenter',
-        'eventType': 2,
-        'eventPos': 'myAward',
-        'source': this.from,
-        'awardID': val.id,
-        'activityId': this.activityId
+      if (this.onOff) {
+        this.onOff = false
+        const buryData = {
+          'eventPage': 'fragmentCenter',
+          'eventType': 2,
+          'eventPos': 'myAward',
+          'source': this.from,
+          'awardID': val.id,
+          'activityId': this.activityId
+        }
+        mBuryPoint('13', buryData)
+        const url = `${window.location.origin}/BKH5-debris_mail_address.html?activityId=${this.activityId}&id=${val.id}&activityRecordId=${val.activityRecordId}&from=${this.from}`
+        routerToNative(url)
       }
-      mBuryPoint('13', buryData)
-      const url = `${window.location.origin}/BKH5-debris_mail_address.html?activityId=${this.activityId}&id=${val.id}&activityRecordId=${val.activityRecordId}&from=${this.from}`
-      routerToNative(url)
+
     },
     getSignUrl(index) {
       if (index * 1 > this.checkinInfo.checkinDays * 1) {
@@ -315,8 +320,9 @@ export default {
           })
         }
       })
-    }, 100),
+    }, 30),
     goAwardList: throttle(function() {
+      if (!this.onOff) return
       // 我的奖品点击更多
       const buryData = {
         'eventPage': 'fragmentCenter',
@@ -328,12 +334,16 @@ export default {
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_list.html?from=${this.from}`
       routerToNative(url)
+      this.onOff = false
     }, 100),
     goSignRecord: throttle(function() {
+      if (!this.onOff) return
       const url = `${window.location.origin}/BKH5-sign_record.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
-    }, 100),
+      this.onOff = false
+    }, 30),
     goAwardCenter: throttle(function() {
+      if (!this.onOff) return
       // 碎片中心奖励中心
       const buryData = {
         'eventPage': 'fragmentCenter',
@@ -345,11 +355,13 @@ export default {
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_center.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
+      this.onOff = false
     }, 100),
     browserBack: throttle(function() {
       bk.call('closePageNative')
-    }, 100),
+    }, 30),
     goToRewardRecord: throttle(function() {
+      if (!this.onOff) return
       // 中奖记录点击
       const buryData = {
         'eventPage': 'fragmentCenter',
@@ -361,8 +373,10 @@ export default {
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_detail.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
-    }, 100),
+      this.onOff = false
+    }, 30),
     openTask: throttle(function(item) {
+      if (!this.onOff) return
       const buryData = {
         'eventPage': 'fragmentCenter',
         'eventType': 2,
@@ -380,7 +394,8 @@ export default {
           })
         }
       }
-    }, 100),
+      this.onOff = false
+    }, 30),
     addScrollHandler: throttle(function() { // 监听滚动
       let scrollTop =
         document.documentElement.scrollTop || document.body.scrollTop
