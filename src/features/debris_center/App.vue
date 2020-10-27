@@ -113,7 +113,7 @@ export default {
       rewardNum: 0,
       chapterTaskInfoList: {},
       activityExpired: false,
-      onOff: false
+      onOff: true
     }
   },
   computed: {
@@ -140,7 +140,6 @@ export default {
     })
     bk.call('calendarSignNoticeInit', {}, data => {
       const { isOpen  } = JSON.parse(data)
-      console.log('初始化通知状态', isOpen)
       // 通知开启初始化
       if (isOpen  * 1 === 0) {
         this.isOpen = false
@@ -263,21 +262,19 @@ export default {
       }
     },
     getAwardToMailAddress(val) {
-      if (this.onOff) {
-        this.onOff = false
-        const buryData = {
-          'eventPage': 'fragmentCenter',
-          'eventType': 2,
-          'eventPos': 'myAward',
-          'source': this.from,
-          'awardID': val.id,
-          'activityId': this.activityId
-        }
-        mBuryPoint('13', buryData)
-        const url = `${window.location.origin}/BKH5-debris_mail_address.html?activityId=${this.activityId}&id=${val.id}&activityRecordId=${val.activityRecordId}&from=${this.from}`
-        routerToNative(url)
+      if (!this.onOff) return
+      this.onOff = false
+      const buryData = {
+        'eventPage': 'fragmentCenter',
+        'eventType': 2,
+        'eventPos': 'myAward',
+        'source': this.from,
+        'awardID': val.id,
+        'activityId': this.activityId
       }
-
+      mBuryPoint('13', buryData)
+      const url = `${window.location.origin}/BKH5-debris_mail_address.html?activityId=${this.activityId}&id=${val.id}&activityRecordId=${val.activityRecordId}&from=${this.from}`
+      routerToNative(url)
     },
     getSignUrl(index) {
       if (index * 1 > this.checkinInfo.checkinDays * 1) {
@@ -323,6 +320,7 @@ export default {
     }, 30),
     goAwardList: throttle(function() {
       if (!this.onOff) return
+      this.onOff = false
       // 我的奖品点击更多
       const buryData = {
         'eventPage': 'fragmentCenter',
@@ -334,16 +332,16 @@ export default {
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_list.html?from=${this.from}`
       routerToNative(url)
-      this.onOff = false
     }, 100),
     goSignRecord: throttle(function() {
       if (!this.onOff) return
+      this.onOff = false
       const url = `${window.location.origin}/BKH5-sign_record.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
-      this.onOff = false
     }, 30),
     goAwardCenter: throttle(function() {
       if (!this.onOff) return
+      this.onOff = false
       // 碎片中心奖励中心
       const buryData = {
         'eventPage': 'fragmentCenter',
@@ -355,13 +353,13 @@ export default {
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_center.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
-      this.onOff = false
     }, 100),
     browserBack: throttle(function() {
       bk.call('closePageNative')
     }, 30),
     goToRewardRecord: throttle(function() {
       if (!this.onOff) return
+      this.onOff = false
       // 中奖记录点击
       const buryData = {
         'eventPage': 'fragmentCenter',
@@ -373,7 +371,6 @@ export default {
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_detail.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
-      this.onOff = false
     }, 30),
     openTask: throttle(function(item) {
       if (!this.onOff) return
