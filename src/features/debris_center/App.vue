@@ -113,7 +113,7 @@ export default {
       rewardNum: 0,
       chapterTaskInfoList: {},
       activityExpired: false,
-      onOff: true
+      isAbled: true
     }
   },
   computed: {
@@ -164,7 +164,6 @@ export default {
     })
     bk.register('browserPageResume', () => {
       this.InitData('browserResume')
-      this.onOff = true
       bk.call('getTodayReadTaskChapterNum', {}, data => { // 初始化碎片信息
         const { todayTotalReadChapterNum, nextTaskNeedNum, chipNum   } = JSON.parse(data)
         this.todayTotalReadChapterNum = todayTotalReadChapterNum
@@ -262,8 +261,6 @@ export default {
       }
     },
     getAwardToMailAddress(val) {
-      if (!this.onOff) return
-      this.onOff = false
       const buryData = {
         'eventPage': 'fragmentCenter',
         'eventType': 2,
@@ -318,26 +315,27 @@ export default {
         }
       })
     }, 30),
-    goAwardList: debounce(function() {
-      if (!this.onOff) return
-      this.onOff = false
-      // 我的奖品点击更多
-      const buryData = {
-        'eventPage': 'fragmentCenter',
-        'eventType': 2,
-        'eventPos': 'viewMore',
-        'source': this.from,
-        'activityId': this.activityId
+    goAwardList() {
+      if (this.isAbled) {
+        this.isAbled = !this.isAbled
+        // 我的奖品点击更多
+        const buryData = {
+          'eventPage': 'fragmentCenter',
+          'eventType': 2,
+          'eventPos': 'viewMore',
+          'source': this.from,
+          'activityId': this.activityId
+        }
+        mBuryPoint('13', buryData)
+        const url = `${window.location.origin}/BKH5-debris_award_list.html?from=${this.from}`
+        routerToNative(url)
       }
-      mBuryPoint('13', buryData)
-      const url = `${window.location.origin}/BKH5-debris_award_list.html?from=${this.from}`
-      routerToNative(url)
-    }, 50),
-    goSignRecord: debounce(function() {
+    },
+    goSignRecord() {
       const url = `${window.location.origin}/BKH5-sign_record.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
-    }, 50),
-    goAwardCenter: debounce(function() {
+    },
+    goAwardCenter() {
       // 碎片中心奖励中心
       const buryData = {
         'eventPage': 'fragmentCenter',
@@ -349,11 +347,11 @@ export default {
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_center.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
-    }, 50),
+    },
     browserBack: throttle(function() {
       bk.call('closePageNative')
     }, 30),
-    goToRewardRecord: debounce(function() {
+    goToRewardRecord() {
       // 中奖记录点击
       const buryData = {
         'eventPage': 'fragmentCenter',
@@ -365,9 +363,8 @@ export default {
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_detail.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
-    }, 50),
+    },
     openTask: throttle(function(item) {
-      if (!this.onOff) return
       const buryData = {
         'eventPage': 'fragmentCenter',
         'eventType': 2,
@@ -385,7 +382,6 @@ export default {
           })
         }
       }
-      this.onOff = false
     }, 30),
     addScrollHandler: throttle(function() { // 监听滚动
       let scrollTop =
