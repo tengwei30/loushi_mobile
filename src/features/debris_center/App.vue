@@ -318,7 +318,7 @@ export default {
         }
       })
     }, 30),
-    goAwardList: throttle(function() {
+    goAwardList() {
       if (!this.onOff) return
       this.onOff = false
       // 我的奖品点击更多
@@ -332,14 +332,14 @@ export default {
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_list.html?from=${this.from}`
       routerToNative(url)
-    }, 100),
-    goSignRecord: throttle(function() {
+    },
+    goSignRecord() {
       if (!this.onOff) return
       this.onOff = false
       const url = `${window.location.origin}/BKH5-sign_record.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
-    }, 30),
-    goAwardCenter: throttle(function() {
+    },
+    goAwardCenter() {
       if (!this.onOff) return
       this.onOff = false
       // 碎片中心奖励中心
@@ -353,11 +353,11 @@ export default {
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_center.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
-    }, 100),
+    },
     browserBack: throttle(function() {
       bk.call('closePageNative')
     }, 30),
-    goToRewardRecord: throttle(function() {
+    goToRewardRecord() {
       if (!this.onOff) return
       this.onOff = false
       // 中奖记录点击
@@ -371,7 +371,7 @@ export default {
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_detail.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
-    }, 30),
+    },
     openTask: throttle(function(item) {
       if (!this.onOff) return
       const buryData = {
