@@ -72,7 +72,7 @@
 
 <script>
 import bk from 'bayread-bridge'
-import { getQueryString, routerToNative, throttle, debounce, mBuryPoint } from '@/utils/index'
+import { getQueryString, routerToNative, throttle, mBuryPoint } from '@/utils/index'
 import { toast } from '@/utils/nativeToH5/index'
 import ContentSlot from './components/content_slot'
 import DebrisRule from './components/debris_rule'
@@ -147,7 +147,7 @@ export default {
         this.isOpen = true
       }
     })
-    bk.register('calendarSignNoticeResume', (data) => {
+    bk.register('calendarSignNoticeResume', () => {
       const buryData = {
         'eventPage': 'fragmentCenter',
         'eventType': 2,
@@ -164,6 +164,7 @@ export default {
     })
     bk.register('browserPageResume', () => {
       this.InitData('browserResume')
+      this.isAbled = true
       bk.call('getTodayReadTaskChapterNum', {}, data => { // 初始化碎片信息
         const { todayTotalReadChapterNum, nextTaskNeedNum, chipNum   } = JSON.parse(data)
         this.todayTotalReadChapterNum = todayTotalReadChapterNum
@@ -316,26 +317,29 @@ export default {
       })
     }, 30),
     goAwardList() {
-      if (this.isAbled) {
-        this.isAbled = !this.isAbled
-        // 我的奖品点击更多
-        const buryData = {
-          'eventPage': 'fragmentCenter',
-          'eventType': 2,
-          'eventPos': 'viewMore',
-          'source': this.from,
-          'activityId': this.activityId
-        }
-        mBuryPoint('13', buryData)
-        const url = `${window.location.origin}/BKH5-debris_award_list.html?from=${this.from}`
-        routerToNative(url)
+      if (!this.isAbled) return
+      this.isAbled = !this.isAbled
+      // 我的奖品点击更多
+      const buryData = {
+        'eventPage': 'fragmentCenter',
+        'eventType': 2,
+        'eventPos': 'viewMore',
+        'source': this.from,
+        'activityId': this.activityId
       }
+      mBuryPoint('13', buryData)
+      const url = `${window.location.origin}/BKH5-debris_award_list.html?from=${this.from}`
+      routerToNative(url)
     },
     goSignRecord() {
+      if (!this.isAbled) return
+      this.isAbled = !this.isAbled
       const url = `${window.location.origin}/BKH5-sign_record.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
     },
     goAwardCenter() {
+      if (!this.isAbled) return
+      this.isAbled = !this.isAbled
       // 碎片中心奖励中心
       const buryData = {
         'eventPage': 'fragmentCenter',
@@ -352,6 +356,8 @@ export default {
       bk.call('closePageNative')
     }, 30),
     goToRewardRecord() {
+      if (!this.isAbled) return
+      this.isAbled = !this.isAbled
       // 中奖记录点击
       const buryData = {
         'eventPage': 'fragmentCenter',
