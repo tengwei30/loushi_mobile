@@ -72,7 +72,7 @@
 
 <script>
 import bk from 'bayread-bridge'
-import { getQueryString, routerToNative, throttle, mBuryPoint } from '@/utils/index'
+import { getQueryString, routerToNative, throttle, debounce, mBuryPoint } from '@/utils/index'
 import { toast } from '@/utils/nativeToH5/index'
 import ContentSlot from './components/content_slot'
 import DebrisRule from './components/debris_rule'
@@ -318,7 +318,7 @@ export default {
         }
       })
     }, 30),
-    goAwardList() {
+    goAwardList: debounce(function() {
       if (!this.onOff) return
       this.onOff = false
       // 我的奖品点击更多
@@ -332,16 +332,12 @@ export default {
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_list.html?from=${this.from}`
       routerToNative(url)
-    },
-    goSignRecord() {
-      if (!this.onOff) return
-      this.onOff = false
+    }, 50),
+    goSignRecord: debounce(function() {
       const url = `${window.location.origin}/BKH5-sign_record.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
-    },
-    goAwardCenter() {
-      if (!this.onOff) return
-      this.onOff = false
+    }, 50),
+    goAwardCenter: debounce(function() {
       // 碎片中心奖励中心
       const buryData = {
         'eventPage': 'fragmentCenter',
@@ -353,13 +349,11 @@ export default {
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_center.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
-    },
+    }, 50),
     browserBack: throttle(function() {
       bk.call('closePageNative')
     }, 30),
-    goToRewardRecord() {
-      if (!this.onOff) return
-      this.onOff = false
+    goToRewardRecord: debounce(function() {
       // 中奖记录点击
       const buryData = {
         'eventPage': 'fragmentCenter',
@@ -371,7 +365,7 @@ export default {
       mBuryPoint('13', buryData)
       const url = `${window.location.origin}/BKH5-debris_award_detail.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
-    },
+    }, 50),
     openTask: throttle(function(item) {
       if (!this.onOff) return
       const buryData = {
