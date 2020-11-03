@@ -94,8 +94,8 @@ export default {
         padding: '16px 21px 12px',
         boxSizing: 'border-box'
       },
-      todayTotalReadChapterNum: 1,  // 今日阅读章数
-      nextTaskNeedNum: 1, // 今日再阅读几章
+      todayTotalReadChapterNum: 0,  // 今日阅读章数
+      nextTaskNeedNum: 0, // 今日再阅读几章
       chipNum: 0, // 再阅读几章将到账碎片数
       isOpen: false,
       fragmentItemInfoList: [], // 碎片列表
