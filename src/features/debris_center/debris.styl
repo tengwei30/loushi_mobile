@@ -148,8 +148,9 @@ body, html
     background rgba(0,0,0,0.45)
     z-index 9999
     .modal_activity_content
-      size(243px, 131px)
-      absolute(left 68px top 225px)
+      min-width 243px
+      min-height 131px
+      absolute(top 225px left 68px)
       background #ffffff
       border-radius 12px
       &::before
@@ -167,4 +168,10 @@ body, html
         text-align center
         padding-top 44px
         box-sizing border-box
-  
+      .count__down
+        padding-top 13px
+        font-size 14px
+        color #999999
+        height 20px
+        line-height 20px
+        text-align center
