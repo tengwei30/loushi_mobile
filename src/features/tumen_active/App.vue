@@ -1,18 +1,27 @@
 <template lang="pug">
 #tumenactive
   .active_img
-
+  .toast_modalbox(v-if='showModalToast')
+    .content_box
+      .tip_textbox 当前活动已结束
+      .btn_closebox(@click='closeModal()')  知道了
 </template>
 
 <script>
 export default {
   data() {
-    return {}
+    return {
+      showModalToast: false
+    }
   },
   methods: {
     getQuery() {
       if (window.location.search) {
         let paramsObj= this.changeSearchToObj(window.location.search)
+        let nowDate = new Date().getTime()
+        if (paramsObj.activetyEndTime) {
+          if (nowDate-paramsObj.activetyEndTime>0) this.showModalToast = true
+        }
         paramsObj.title&&(document.title=decodeURIComponent(paramsObj.title))
       }
     },
@@ -26,6 +35,9 @@ export default {
         k++
       }
       return $_REQUEST
+    },
+    closeModal() {
+      this.showModalToast = false
     }
   },
   mounted() {
