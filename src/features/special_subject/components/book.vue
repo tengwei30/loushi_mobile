@@ -1,15 +1,15 @@
 <template>
 <div class="subject_book" @click="handleClickBook">
-  <img :src="bookInfo.bookCoverUrl" class="book_cover" alt=" ">
+  <img :src="bookInfo.bookCoverUrl" class="book_cover" alt=" " @error='errorImg'>
   <div class="book_info">
     <div class="book_name">{{bookInfo.bookName}}</div>
     <div class="book_desc">{{dealDesc}}</div>
     <div class="book_bottom">
       <div class="book_tag_status">
         <span class="book_tag book_item">{{bookInfo.classify}}</span>
-        <span v-if="bookInfo.status" class="book_status book_item">{{bookInfo.status}}</span>
+        <span  class="book_status book_item">{{bookInfo.isSerial ? '连载':'完结'}}</span>
       </div>
-      <div class="book_read">立即阅读</div>
+      <div class="book_read">去阅读</div>
     </div>
   </div>
 </div>
@@ -20,11 +20,18 @@ export default {
     bookInfo: Object
   },
   data() {
-    return {}
+    return {
+      defaultImg: require('@/assets/special_subject/book_default.png')
+    }
   },
   methods: {
     handleClickBook() {
       this.$emit('handleClickBook', this.bookInfo)
+    },
+    errorImg(e) {
+      if (e && e.type === 'error') {
+        e.target.src = this.defaultImg
+      }
     }
   },
   computed: {
@@ -54,6 +61,7 @@ export default {
     height 100px
     border-radius 6px
     margin-right 9px
+    background url('../../../assets/special_subject/book_default.png') no-repeat 100%/contain
   .book_info
     flex 1
     position relative
@@ -74,27 +82,29 @@ export default {
       align-items center
       justify-content space-between
       position absolute
-      bottom 0
-      width 100%
+      bottom -4px
+      width 200%
+      transform scale(0.5)
+      transform-origin left bottom
       .book_tag_status
         font-size 0
         .book_item
-          padding 4px 7px
-          border-radius 5px
+          padding 8px 14px
+          border-radius 10px
           background rgba(240, 240, 240, 1)
-          font-size 10px
+          font-size 20px
           color rgba(153, 153, 153, 1)
           font-weight 400
-          margin-right 9px
+          margin-right 18px
           display inline-block
           line-height 1
       .book_read
-        width 70px
-        height 22px
-        line-height 22px
-        background rgba(51, 51, 51, 1)
-        border-radius 83px 0 0 83px
-        font-size 12px
+        width 140px
+        height 52px
+        line-height 52px
+        background rgba(177, 139, 115, 1)
+        border-radius 166px 0 0 166px
+        font-size 28px
         font-weight 500
         color #ffffff
         text-align center

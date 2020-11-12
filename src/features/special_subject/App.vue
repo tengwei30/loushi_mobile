@@ -1,10 +1,10 @@
 <template lang="pug">
 .special_subject
   .subject_top
-    img(:src='subjectInfo.imgUrl')
+    img(:src='coverUrl' v-if='coverUrl' alt=' ')
   .subject_list
     Book(
-      v-for='item in subjectInfo.bookList'
+      v-for='item in subjectInfo.bookInfoVOList'
       :key='item.bookId'
       :bookInfo='item'
       @handleClickBook='handleClickBook')
@@ -12,45 +12,71 @@
 
 <script>
 import Book from './components/book'
+import { getTopicList } from './request'
+import { getQueryString } from '@/utils/url.js'
+import { mBuryPoint } from '@/utils/buryPoint'
 export default {
   components: {
     Book
   },
   data() {
     return {
-      subjectInfo: {
-        imgUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1605070092963&di=30ce18e43f12b94814a122cfa519f3c5&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F8291602f02c7f8074d57297c274e7e60bfcb43fb5ea82-Iun5f9_fw658',
-        bookList: [
-          {
-            author: '一纸虚妄',
-            bookCoverUrl: 'https://scdn.ibreader.com/group1/M01/FE/20/rBH_v18n5imAcaerAAF7BDJiehY395.jpg',
-            bookName: '绝世无双：都市修罗战神（又名：无敌战神）',
-            classify: '现代都市',
-            index: 1,
-            intro: '他是国家仅存战神，以病弱膏肓之躯，匡护山河万万里！他是大北边境战区无敌战尊，麾下卫兵数百万！返回家乡，未婚妻却被人逼走，生死不知。留有一女，却被人百般欺负！君王一怒，血流万里！当初逼迫未婚妻者杀无赦！当初欺负女儿者满门抄斩！人间最狂，战神中我是王也是皇！又名：无敌战神）主角：君不败',
-            popularity: '36.9万人想读',
-            scheme: 'breader://bookstore/bookDetails?bookId=4218828&source=topic',
-          },
-          {
-            author: '余花花',
-            bookCoverUrl: 'https://scdn.ibreader.com/group1/M01/3F/F0/rBH_vl9Qxs6ANBDYAAGVeEEjINQ779.jpg',
-            bookName: '至尊战神豪婿',
-            classify: '现代都市',
-            index: 2,
-            intro: '他是国家仅存战神，以病弱膏肓之躯，匡护山河万万里！他是大北边境战区无敌战尊，麾下卫兵数百万！返回家乡，未婚妻却被人逼走，生死不知。留有一女，却被人百般欺负！君王一怒，血流万里！当初逼迫未婚妻者杀无赦！当初欺负女儿者满门抄斩！人间最狂，战神中我是王也是皇！又名：无敌战神）主角：君不败',
-            popularity: '36.9万人想读',
-            scheme: 'breader://bookstore/bookDetails?bookId=4218828&source=topic',
-          },
-        ]
-      }
+      subjectInfo: {},
+      source: '',
+      topicId: '',
+      coverUrl: '', // 地址栏携带的顶部图片地址
     }
+  },
+  mounted() {
+    console.log(11)
+    this.init()
   },
   methods: {
+    init() {
+      console.log(window.location.href)
+      let topicId = getQueryString('topicId')
+      let source = getQueryString('source')
+      this.coverUrl = window.decodeURI(getQueryString('coverUrl'))
+      this.source = source
+      this.topicId = topicId
+      this.getTopicList(topicId)
+    },
+    async getTopicList(topicId) {
+      let res = await getTopicList(topicId)
+      console.log(res)
+      if (res.code === 100) {
+        this.subjectInfo = res.data || {}
+      } else {
+        this.$showToast(res.msg)
+      }
+      this.$nextTick(() => {
+        document.title = this.subjectInfo.name || '专题活动'
+        let temp = this.subjectInfo.bookInfoVOList || []
+        temp = temp.map(item => {
+          return item.bookId
+        })
+        mBuryPoint('15', {
+          path: this.source,
+          source: this.source,
+          topic_id: this.topicId,
+          bookIds: temp.join(','),
+          eventType: 1
+        })
+      })
+
+    },
     handleClickBook(target) {
-      console.log(target)
+      mBuryPoint('15', {
+        path: this.source,
+        source: this.source,
+        topic_id: this.topicId,
+        bookId: target.bookId,
+        eventType: 2
+      })
+      window.location.assign(`breader://bookview/bookread?bookId=${target.bookId}&source=${this.source}/topicId_${this.topicId}&userPath=${this.source},topicId_${this.topicId}&chapterNum=0`)
+      // window.location.assign(`breader://bookstore/bookDetails?bookId=${target.bookId}&source=${this.source}/topicId_${this.topicId}&userpath=${this.source},${this.topicId}`)
     }
   },
-  mounted() {},
 }
 </script>
 
