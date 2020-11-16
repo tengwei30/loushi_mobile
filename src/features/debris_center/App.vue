@@ -188,6 +188,7 @@ export default {
         if (Number(code) === 153 || Number(code) === 156) {
           this.code = Number(code)
           // 153 表示活动过期, 156 表示进来这个页面的老用户
+          console.log('后端返回的code', this.code)
           this.fragmentItemInfoList = [{
             exchange: 0,
             id: 1,
@@ -225,7 +226,6 @@ export default {
               }
             }
           }, 1000)
-          return
         }
         if (val === '') {
           const buryData = {
