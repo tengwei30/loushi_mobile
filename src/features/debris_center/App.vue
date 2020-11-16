@@ -68,6 +68,7 @@
       h3 对不起，活动已下线，
         br
         | 可以完成其他任务赢金币哦～
+      p.count__down {{countDown}}s后跳转任务中心
     .modal_activity_content(v-if="code === 156")
       h3 不太符合参与条件哦～
         br
