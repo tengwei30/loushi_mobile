@@ -1,7 +1,7 @@
 <template lang="pug">
 #tumenactive
   .active_img
-    img.back_activeImg(src='../../assets/tu_show/background_tumen.jpeg')
+    img.back_activeImg(:src='isClassPc ? require("../../assets/tu_show/pc_activeImg.jpeg"):require("../../assets/tu_show/background_tumen.jpeg")')
   .toast_modalbox(v-if='showModalToast')
     div(:class='[isClassPc?"context_pcbox":"content_box"]')
       div(:class='[isClassPc?"tip_pctextbox":"tip_textbox"]') 当前活动已结束
