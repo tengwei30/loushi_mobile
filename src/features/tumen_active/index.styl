@@ -1,16 +1,16 @@
 @import '../../styles/index.styl';
 body,html
   size(100%, 100%)
-  overflow hidden
+  background: #000
 #tumenactive
   max-width 600px
   .active_img
     font-size: 16px
     text-align: center
-    background-image: url('../../assets/tu_show/background_tumen.jpg')
-    background-size: cover
-    background-repeat: no-repeat
-    height: 100vh
+    min-height: 100vh
+    .back_activeImg
+      max-width: 100%
+      object-fit: contain
   .toast_modalbox
     position: fixed
     top: 0
@@ -19,7 +19,7 @@ body,html
     left: 0
     background: rgba(0,0,0,.5)
     .content_box
-      width: 200px
+      width: 240px
       background: #fff
       border-radius: 14px
       position: absolute
@@ -38,4 +38,24 @@ body,html
         text-align: center
         font-size: 13px
         padding: 14px 0
+    .context_pcbox
+      width: 100px
+      background: #fff
+      border-radius: 1em
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translateX(-50%) translateY(-50%)
+      .tip_pctextbox
+        text-align: center
+        font-size: 0.8em
+        padding: 1em
+        padding-top: 1em
+        font-family: PingFangSC-Semibold, PingFang SC; 
+        color: #999
+      .btnpc_closebox
+        color: #1890ff
+        text-align: center
+        font-size: 0.8em
+        padding: 0.8em 0
   
