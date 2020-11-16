@@ -1,7 +1,7 @@
 <template lang="pug">
 .header-top.header-top-2
   .header-top-done(v-if="endInfo.vipExperienceCardInfo.status === 0")
-    .header-top-book-done 本书已完结，
+    .header-top-book-done 本书已完结
     .header-top-book-done-other 恭喜你读完一本书，
       span.mark-vpi 送你3天会员卡！
   .header-top-mark-button-fetch-common.header-top-mark-button-fetch(
