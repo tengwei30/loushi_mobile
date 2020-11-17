@@ -64,10 +64,16 @@
         )
   DebrisRule
   .modal_activity(v-show="activityExpired")
-    .modal_activity_content
+    .modal_activity_content(v-if="code === 153")
       h3 对不起，活动已下线，
         br
         | 可以完成其他任务赢金币哦～
+      p.count__down {{countDown}}s后跳转任务中心
+    .modal_activity_content(v-if="code === 156")
+      h3 不太符合参与条件哦～
+        br
+        | 可以完成其他任务抽取手机～
+      p.count__down {{countDown}}s后跳转任务中心
 </template>
 
 <script>
@@ -94,8 +100,8 @@ export default {
         padding: '16px 21px 12px',
         boxSizing: 'border-box'
       },
-      todayTotalReadChapterNum: 1,  // 今日阅读章数
-      nextTaskNeedNum: 1, // 今日再阅读几章
+      todayTotalReadChapterNum: 0,  // 今日阅读章数
+      nextTaskNeedNum: 0, // 今日再阅读几章
       chipNum: 0, // 再阅读几章将到账碎片数
       isOpen: false,
       fragmentItemInfoList: [], // 碎片列表
@@ -113,7 +119,10 @@ export default {
       rewardNum: 0,
       chapterTaskInfoList: {},
       activityExpired: false,
-      isAbled: true
+      isAbled: true,
+      code: 156,
+      countDown: 5,
+      timer: null
     }
   },
   computed: {
@@ -177,8 +186,10 @@ export default {
     async InitData(val = '') {
       let { data, code  } = await getDebrislist(this.activityId)
       try {
-        if (Number(code) === 153) {
-          // 153 表示活动过期
+        if (Number(code) === 153 || Number(code) === 156) {
+          this.code = Number(code)
+          // 153 表示活动过期, 156 表示进来这个页面的老用户
+          console.log('后端返回的code', this.code)
           this.fragmentItemInfoList = [{
             exchange: 0,
             id: 1,
@@ -199,18 +210,23 @@ export default {
           this.activityExpired = true
           const host = window.location.host
 
-          setTimeout(() => {
-            if (host === 'increase.ibreader.com') {
+          this.timer = setInterval(() => {
+            this.countDown = this.countDown - 1
+            if (this.countDown < 1) {
+              this.countDown = 0
+              clearInterval(this.timer)
+              if (host === 'increase.ibreader.com') {
               // routerToNative('https://task.ibreader.com/')
-              window.location.replace(`https://increase.ibreader.com/#/?navShow=${this.from}`)
-              return
-            }
-            if (host === 'testincrease.ibreader.com') {
+                window.location.replace(`https://increase.ibreader.com/#/?navShow=${this.from}`)
+                return
+              }
+              if (host === 'testincrease.ibreader.com') {
               // routerToNative('http://testtask.ibreader.com/')
-              window.location.replace(`http://testtask.ibreader.com/#/?navShow=${this.from}`)
+                window.location.replace(`http://testtask.ibreader.com/#/?navShow=${this.from}`)
+                return
+              }
             }
-          }, 2500)
-          return
+          }, 1000)
         }
         if (val === '') {
           const buryData = {
