@@ -37,8 +37,8 @@ export default {
   computed: {
     dealDesc() {
       let result = this.bookInfo.intro || ''
-      if (result.length > 40) {
-        result = result.substring(0, 40) + '...'
+      if (result.length > 50) {
+        result = result.substring(0, 50) + '...'
       }
       return result
     }
@@ -66,8 +66,8 @@ export default {
     flex 1
     position relative
     .book_name
-      width 240px
-      font-size 13px
+      width 250px
+      font-size 14px
       font-weight 500
       line-height 19px
       color rgba(22, 22, 22, 1)
@@ -78,8 +78,9 @@ export default {
       font-size 12px
       color rgba(153, 153, 153, 1)
       font-weight 400
-      margin 5 0 6px
-      width 190px
+      margin 5px 0 6px
+      width 250px
+      line-height 17px
     .book_bottom
       display flex
       box-sizing border-box
