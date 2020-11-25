@@ -66,10 +66,14 @@ export default {
     flex 1
     position relative
     .book_name
+      width 240px
       font-size 13px
       font-weight 500
       line-height 19px
       color rgba(22, 22, 22, 1)
+      white-space nowrap
+      text-overflow ellipsis
+      overflow hidden
     .book_desc
       font-size 12px
       color rgba(153, 153, 153, 1)
