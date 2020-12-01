@@ -6,4 +6,4 @@ zhangsong<zhangsong@bayread.com>
 - 20201110
   - 创建页面开发
 - 20201202
- - 提现优化上线
+ - 提现优化上线 tag - 1.5.2 
