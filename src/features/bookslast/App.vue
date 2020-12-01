@@ -176,7 +176,7 @@ export default {
     },
     gotoRead(item) {
       // 点击去阅读
-      window.location.assign(`breader://www.bayread.com/bookview/bookread?bookId=${item.book.bookId}&source=bookslast&chapterNum=1`)
+      window.location.assign(`breader://www.bayread.com/bookview/bookread?bookId=${item.book.bookId}&source=bookslast&chapterNum=0`)
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
         enterType: '2',
