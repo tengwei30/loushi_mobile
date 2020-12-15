@@ -6,24 +6,37 @@
   .new__sign__content
     .new__sign__days
       p.new__sign__day__item(
+        v-if="showRedPackageStyle === 0"
         class="new__sign__day__item"
-        v-for="(item, key) in checkin37RedPData"
+        v-for="(item, key) in signList"
+        :style="item.is_finish ? bgActive : null"
+        :key="key"
+        )
+        span.day__item__common(
+          :style="item.is_finish ? colorActive: null") {{ item.num }}
+        img(
+          :src="item.is_finish ? goldActive : goldDefault"
+        )
+        span.day__item__common.day__item__date {{ item.name }}
+      p.new__sign__day__item(
+        v-if="showRedPackageStyle === 1"
+        class="new__sign__day__item"
+        v-for="(item, key) in userTaskRedPackageVOList"
         :style="(Number(item.status) === 1 || Number(item.status) === 2) ? bgActive : null"
         @click="gotoWithdraw(key, item.status)"
         :key="key")
-        span(
-          :class="[((Number(key) === 2 || Number(key) === 6) && Number(item.status) === 2) || ((Number(key) === 2 || Number(key) === 6) && Number(item.status) === 3)?  'day__item__gold__active': 'day__item__gold', 'day__item__common']"
-          :style="(Number(item.status) === 1 && (key !== 2 || key !== 6))? colorActive: null") {{ (Number(key) === 2 || Number(key) === 6)? (Number(item.status) === 2  ? '已领取' : Number(item.status) === 3 ? '已过期' : `0.${key + 1}元` ) : `+${10 * Number(key + 1)}` }}
+        span.day__item__common(
+          :class="[goldStyle(item.status, key) ? 'day__item__gold__active': 'day__item__gold']"
+          :style="(Number(item.status) === 1 && (key !== 2 || key !== 6))? colorActive: null") {{ isGoldRedPackage(item.status, key) }}
         img(:class="[((Number(key) === 2 || Number(key) === 6) && Number(item.status) !== 3 && Number(item.status) !== 2) ? 'red_package_default' : ((Number(key) === 2 || Number(key) === 6)) ? 'red_package_active' : '']"
           :src="(Number(key) === 2 || Number(key) === 6)? ((Number(item.status) === 2)?  redPackageGet: (Number(item.status) === 3) ? redPackageExpire : redPackageDefault): ((Number(item.status) === 1) ? goldActive : goldDefault)"
-          alt=""
         )
         span.day__item__common.day__item__date {{key + 1}}天
 </template>
 <script>
 export default {
   name: 'Sign',
-  props: ['checkin37RedPData'],
+  props: ['userTaskRedPackageVOList', 'day', 'showRedPackageStyle'],
   data() {
     return {
       colorActive: {
@@ -37,13 +50,80 @@ export default {
       redPackageDefault: require('@/assets/welfare_task/hongbao.png'),
       redPackageExpire: require('@/assets/welfare_task/red_package_expire.png'),
       redPackageGet: require('@/assets/welfare_task/new_red_package_get.png'),
-      days: 0
+      signList: [
+        {
+          name: '1天',
+          is_finish: false,
+          num: 0
+        },
+        {
+          name: '2天',
+          is_finish: true,
+          num: 0
+        },
+        {
+          name: '3天',
+          is_finish: false,
+          num: 0
+        },
+        {
+          name: '4天',
+          is_finish: false,
+          num: 0
+        },
+        {
+          name: '5天',
+          is_finish: false,
+          num: 0
+        },
+        {
+          name: '6天',
+          is_finish: false,
+          num: 0
+        },
+        {
+          name: '7天',
+          is_finish: false,
+          num: 0
+        }
+      ],
     }
   },
+  computed: {
+  },
   mounted() {
-    console.log('------', this.checkin37RedPData)
+    this.$nextTick(() => {
+      if (!this.day) return
+      if (this.day && this.day.alert && this.day.gold) {
+        this.$finishModal('签到任务完成', this.day.gold)
+      }
+      for (let i = 0; i < this.signList.length; i++) {
+        let data = this.signList[i]
+        if (i < this.day.weekCheckInDays) {
+          data.is_finish = true
+        }
+        data.num = parseInt(this.day.startWeekGold) + i * 10
+      }
+    })
   },
   methods: {
+    isGoldRedPackage(status, key) {  // 显示红包还是金币设置
+      if ((Number(key) === 2 || Number(key) === 6)) {
+        if (Number(status) === 2) {
+          return '已领取'
+        }
+        if (Number(status) === 3) {
+          return '已过期'
+        } else {
+          return `0.${key + 1}元`
+        }
+      } else {
+        return `+${10 * Number(key + 1)}`
+      }
+    },
+    goldStyle(status, key) {
+      return ((Number(key) === 2 || Number(key) === 6) && (Number(status) === 2) || Number(status) === 3)
+    },
     gotoRule() {
       console.log('点击规则')
     }
