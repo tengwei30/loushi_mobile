@@ -2,11 +2,77 @@ import { post } from '@/config/axios.config'
 /**
  * 获取任务列表
  */
+let adTypes7 = null // type = 7 的 8 个icon广告位
+let adTypes8 = null // type = 7 的 8 个icon广告位
 
 export const getTaskLists = async() => {
   let { data } = await post('/task_api/task/list')
-  if (data) return data.filter(item => item.type === 3 || item.type === 7 || item.type === 8)
+  if (data) {
+    adTypes7 = data.filter(item => item.type === 7)
+    adTypes8 = data.filter(item => item.type === 8)
+    return data.filter(item => item.type === 3)
+  }
 }
+
+/**
+ * 8个icon的广告位
+ */
+export const getFourAdLists = () => {
+  let adPosFour = [], adPosLists = []
+  if (!adTypes7) return
+  adTypes7.filter(item => {
+    const extra = item.extraResultList[0]
+    if (extra && extra.type === 1) {
+      adPosLists.push(item)
+    }
+    if (extra && extra.type === 2) {
+      adPosFour.push(extra.adPos)
+    }
+  })
+  if (adPosFour.length !== 0) {
+    const adStr = adPosFour.join(',')
+    return new Promise((resolve, reject) => {
+      getAdLists(adStr).then(data => {
+        adPosLists = adPosLists.concat(data)
+        resolve(adPosLists)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  }
+}
+
+/**
+ *
+ * banner 2个 广告位
+ */
+
+export const getAdBannerLists = () => {
+  let adPosBannerLists = []
+  const data = adTypes8.length > 0 ? JSON.parse(adTypes8[0].extraResult) : []
+  adPosBannerLists = data.filter(item => item.type === 1)
+  if (adPosBannerLists.length > 1) {
+    return Promise.resolve(adPosBannerLists)
+  }
+  let adPosBanner = []
+  data.filter(item => {
+    if (item.type === 2) {
+      adPosBanner.push(item.adPos)
+    }
+  })
+  if (adPosBanner.length !== 0) {
+    const adStr = adPosBanner.join(',')
+    return new Promise((resolve, reject) => {
+      getAdLists(adStr).then(data => {
+        adPosBannerLists = adPosBannerLists.concat(data)
+        resolve(adPosBannerLists)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  }
+}
+
 
 /**
  * 广告ID
@@ -18,5 +84,22 @@ export const getAdLists = async(adPosList) => {
     adPosList,
     pageSize: 1
   })
-  if (data) console.log('--请求的广告--', data)
+  // if (data) return data.adInfoList
+  if (data) {
+    const res = data.adInfoList
+    let result = []
+    res.map(item => {
+      if (item.adList && item.adList.length !== 0) {
+        result.push({
+          ...item.adList[0].opAdInfo,
+          adPos: item.adPos,
+          adCodeId: item.adList[0].adCodeId,
+          advertiserId: item.adList[0].advertiserId,
+          adApiType: item.adList[0].adApiType
+        })
+      }
+    })
+    return result
+  }
+  return null
 }

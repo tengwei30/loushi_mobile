@@ -35,6 +35,7 @@ export default {
 .day__welfare
   padding 0 21px
   box-sizing border-box
+  margin-top 30px
   .welfare__title
     display flex
     flex-direction row

@@ -126,6 +126,7 @@ export default {
     },
     gotoRule() {
       console.log('点击规则')
+      this.$emit('gotoRule')
     }
   }
 }
@@ -135,7 +136,6 @@ export default {
 .welfare__task__sign
   padding: 0 0.27rem;
   box-sizing: border-box;
-  margin-bottom: 0.8rem;
   .new__sign__title
     padding: 0.69rem 0 0.51rem;
     font-size: 0.48rem;

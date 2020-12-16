@@ -6,15 +6,34 @@
       :userTaskRedPackageVOList="userTaskRedPackageVOList"
       :day="day"
       :showRedPackageStyle="showRedPackageStyle"
+      @gotoRule='gotoRule'
     )
+  .readAdTask(v-if="showReadAd")
+    p.read__desc 您本日还没有签到成功，马上去资讯平台领红包吧，满30个就可以签到哦～
+    button.btn(@goReadAd="goReadAd('txt')") 去看资讯
   DayWelfare
   ExtraWelfare
   DayTask
-  AdTask
+  AdTask(
+    v-if="adTaskLists.length > 0"
+    :adTaskLists="adTaskLists"
+    v-on:startTask="startTask"
+  )
+  AdBanner(
+    v-if="adBannerLists.length > 0"
+    :adBannerLists="adBannerLists"
+    v-on:startTask="startTask"
+  )
+  ReadModal(
+    v-if="day && day.dialog"
+    @goReadAd="goReadAd"
+    @closeModal="closeModal"
+  )
 </template>
 
 <script>
-import { getTaskLists } from './request.js'
+import { routerToNative } from '@/utils/index'
+import { getTaskLists, getFourAdLists, getAdBannerLists } from './request.js'
 export default {
   name: 'welfareTask',
   components: {
@@ -22,7 +41,9 @@ export default {
     DayWelfare: () => import('./components/DayWelfare'),
     ExtraWelfare: () => import('./components/ExtraWelfare'),
     DayTask: () => import('./components/DayTask'),
-    AdTask: () => import('./components/AdTask')
+    AdTask: () => import('./components/AdTask'),
+    AdBanner: () => import('./components/AdBanner'),
+    ReadModal: () => import('./components/ReadModal'),
   },
   data() {
     return {
@@ -50,10 +71,46 @@ export default {
         }
       ], // 新人签到
       showRedPackageStyle: 0, // 是否是新签到模式
-      day: null
+      day: null,
+      adTaskLists: [],
+      adBannerLists: [],
+      clickFlag: true,
+      showReadAd: false,
     }
   },
-  methods: {},
+  methods: {
+    gotoRule() {  // 跳转规则
+      let origin = window.location.origin
+      let url = origin + '/BKH5-sign_activity_rule.html'
+      routerToNative(url)
+      return
+    },
+    goReadAd(type = '') {  // 去看资讯完成补签
+      if (type === 'txt') { // 埋点区分点击那个点
+      } else {
+        setTimeout(() => {
+          if (this.day && this.day.dialog) this.day.dialog = false
+        }, 1500)
+      }
+      window.location.href = 'breader://action/luckyPrize?new=1'
+    },
+    closeModal() {  // 关闭看资讯弹窗
+      this.day.dialog = false
+    },
+    startTask(val) {  // 开始做任务
+      if (val.maxLimit) {
+        if (val.maxLimit - val.finishTimes < 1) {
+          this.$showToast('今日次数已用完，明日再来～')
+          return
+        }
+      }
+      window.location.assign(val.scheme)
+      this.clickFlag = false
+      setTimeout(() => {
+        this.clickFlag = true
+      }, 2000)
+    }
+  },
   mounted() {},
   async created() {
     let data = await getTaskLists()
@@ -62,6 +119,12 @@ export default {
     this.day = extraData
     this.showRedPackageStyle = showRedPackageStyle
     this.userTaskRedPackageVOList = userTaskRedPackageVOList
+    if (this.day.conditionStatus * 1 === 2) {
+      this.showReadAd = true
+    }
+    this.adTaskLists = await getFourAdLists()
+    this.adBannerLists = await getAdBannerLists()
+    console.log('banner', this.adBannerLists)
   }
 }
 </script>
