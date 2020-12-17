@@ -103,3 +103,23 @@ export const getAdLists = async(adPosList) => {
   }
   return null
 }
+
+/**
+ * 单书激励任务列表
+ */
+export const getSingleBookList = async() => {
+  let { data } = await post('/task_api/task/getSingleBookList')
+  if (data) return data
+}
+
+/**
+ *
+ * @param {Integer} readChapterCount 阅读章数
+ * @param {Integer} chapterCoinRate 单章兑换金币汇率
+ */
+export const getServiceAreaTaskList = async(readChapterCount, chapterCoinRate) => {
+  let { data } = await post('/task_api/task/getServiceAreaTaskList', {
+    readChapterCount, chapterCoinRate
+  })
+  if (data) return data
+}

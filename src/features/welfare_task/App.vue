@@ -34,6 +34,7 @@
 <script>
 import { routerToNative } from '@/utils/index'
 import { getTaskLists, getFourAdLists, getAdBannerLists } from './request.js'
+import bk from 'bayread-bridge'
 export default {
   name: 'welfareTask',
   components: {
@@ -113,18 +114,26 @@ export default {
   },
   mounted() {},
   async created() {
+    bk.call('getTodayReadMotivationChapterNum  ', {}, data => { // 初始化碎片信息
+      const { readChapterCount, chapterCoinRate } = JSON.parse(data)
+      console.log('调用getTodayReadMotivationChapterNum', readChapterCount, chapterCoinRate, data)
+    })
+    bk.register('browserPageResume', () => {
+      console.log('调用页面重新方法')
+    })
     let data = await getTaskLists()
-    const signday = data.filter(item => item.type === 3)
+    if (!data) return
+    const signday = data.filter(item => item.type === 3) || [{}]
     const { extraData = null, showRedPackageStyle, userTaskRedPackageVOList = null } = signday[0]
     this.day = extraData
     this.showRedPackageStyle = showRedPackageStyle
     this.userTaskRedPackageVOList = userTaskRedPackageVOList
-    if (this.day.conditionStatus * 1 === 2) {
+    const { conditionStatus } = this.day
+    if (conditionStatus * 1 === 2) {
       this.showReadAd = true
     }
     this.adTaskLists = await getFourAdLists()
     this.adBannerLists = await getAdBannerLists()
-    console.log('banner', this.adBannerLists)
   }
 }
 </script>
