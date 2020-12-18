@@ -12,8 +12,12 @@
     p.read__desc 您本日还没有签到成功，马上去资讯平台领红包吧，满30个就可以签到哦～
     button.btn(@goReadAd="goReadAd('txt')") 去看资讯
   DayWelfare
-  ExtraWelfare
-  DayTask
+  ExtraWelfare(
+    :singleBookLists="singleBookLists"
+  )
+  DayTask(
+    :dayTaskLists="dayTaskLists"
+  )
   AdTask(
     v-if="adTaskLists.length > 0"
     :adTaskLists="adTaskLists"
@@ -33,7 +37,7 @@
 
 <script>
 import { routerToNative } from '@/utils/index'
-import { getTaskLists, getFourAdLists, getAdBannerLists } from './request.js'
+import { getTaskLists, getFourAdLists, getAdBannerLists, getSingleBookList, getServiceAreaTaskList } from './request.js'
 import bk from 'bayread-bridge'
 export default {
   name: 'welfareTask',
@@ -77,10 +81,14 @@ export default {
       adBannerLists: [],
       clickFlag: true,
       showReadAd: false,
+      readChapterCount: 0,
+      chapterCoinRate: 0,
+      dayTaskLists: [],
+      singleBookLists: []
     }
   },
   methods: {
-    gotoRule() {  // 跳转规则
+    gotoRule() {  // 跳转到规则说明页面
       let origin = window.location.origin
       let url = origin + '/BKH5-sign_activity_rule.html'
       routerToNative(url)
@@ -116,7 +124,8 @@ export default {
   async created() {
     bk.call('getTodayReadMotivationChapterNum  ', {}, data => { // 初始化碎片信息
       const { readChapterCount, chapterCoinRate } = JSON.parse(data)
-      console.log('调用getTodayReadMotivationChapterNum', readChapterCount, chapterCoinRate, data)
+      this.readChapterCount = readChapterCount
+      this.chapterCoinRate = chapterCoinRate
     })
     bk.register('browserPageResume', () => {
       console.log('调用页面重新方法')
@@ -132,6 +141,10 @@ export default {
     if (conditionStatus * 1 === 2) {
       this.showReadAd = true
     }
+    this.singleBookLists = await getSingleBookList()
+    const { excitationUserTaskVOList, taskVOS } = await getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate)
+    console.log('啦啦啦', excitationUserTaskVOList, taskVOS)
+    this.dayTaskLists = taskVOS
     this.adTaskLists = await getFourAdLists()
     this.adBannerLists = await getAdBannerLists()
   }

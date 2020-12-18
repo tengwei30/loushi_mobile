@@ -19,7 +19,11 @@
 </template>
 <script>
 export default {
-
+  props: ['singleBookLists'],
+  methods: {},
+  mounted() {
+    console.log('--- 单书激励 ---', this.singleBookLists)
+  }
 }
 </script>
 <style lang="stylus">

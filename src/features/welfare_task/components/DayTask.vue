@@ -4,17 +4,27 @@
   ul.task__list
     li.task__item
       span.task__item__title 明日再来并阅读30章
-      span.task__item__gold 200金币
+      span.task__item__gold__common.task__item__gold 200金币
     li.task__item
       span.task__item__title 明日再来并阅读30章
-      span.task__item__gold 200金币
+      span.task__item__gold__common.task__item__gold 200金币
     li.task__item
       span.task__item__title 明日再来并阅读30章
-      span.task__item__gold 200金币
+      span.task__item__gold__common.task__item__gold__finish 已领取
 </template>
 <script>
 export default {
+  props: ['dayTaskLists'],
+  data() {
+    return {
+    }
+  },
+  methods: {
 
+  },
+  mounted() {
+    console.log('dayTaskLists', this.dayTaskLists)
+  }
 }
 </script>
 <style lang="stylus">
@@ -47,9 +57,8 @@ export default {
         color #666666
         height 20px
         line-height  20px
-      span.task__item__gold
+      span.task__item__gold__common
         size(87px 25px)
-        background #FF5933
         border-radius 4px
         color #ffffff
         line-height 25px
@@ -61,6 +70,15 @@ export default {
           content ''
           absolute(right -8px top 3px)
           size(18px 18px)
+      span.task__item__gold
+        background #FF5933
+        &::after
           background url('../../../assets/welfare_task/task_default_icon.png') no-repeat center center
+          background-size 100% 100%
+      span.task__item__gold__finish
+        background #999999
+        opacity 0.4
+        &::after
+          background url('../../../assets/welfare_task/task_finish_icon.png') no-repeat center center
           background-size 100% 100%
 </style>

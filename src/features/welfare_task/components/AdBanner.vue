@@ -15,11 +15,7 @@ export default {
       this.$emit('startTask', item)
     }
   },
-  mounted() {
-    this.$nextTick(() => {
-
-    })
-  }
+  mounted() {}
 }
 </script>
 <style lang="stylus">
