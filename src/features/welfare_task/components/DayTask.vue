@@ -2,7 +2,10 @@
 .day__task
   .day__task__title 待完成福利
   ul.task__list
-    li.task__item(v-for="(item, key) in dayTaskLists" :key="key")
+    li.task__item(
+      v-for="(item, key) in dayTaskLists"
+      :key="key"
+      @click="openTask(item)")
       span.task__item__title {{ item.name }}
       span.task__item__gold__common(
         :class="item.isFinish === 1 ? 'task__item__gold__finish' : 'task__item__gold' "
@@ -14,7 +17,11 @@ export default {
   data() {
     return {}
   },
-  methods: {},
+  methods: {
+    openTask(item) {
+      this.$emit('openTask', item)
+    }
+  },
   mounted() {
     console.log('dayTaskLists', this.dayTaskLists)
   }

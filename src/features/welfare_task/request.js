@@ -126,8 +126,11 @@ export const getServiceAreaTaskList = async(readChapterCount, chapterCoinRate) =
 
 /**
  * 用户手动触发完成接口
+ * taskId 任务ID
+ * readChapter 当天阅读章节数
+ * historyReadChapter 历史阅读章节数
  */
-export const getTaskFinish = async() => {
-  let { data } = await post('/task_api/task/finish', {})
-  if (data) return data
+export const getTaskFinish = async(taskId, readChapter, historyReadChapter) => {
+  let { code } = await post('/task_api/task/finish', { taskId, readChapter, historyReadChapter })
+  if (code) return code
 }

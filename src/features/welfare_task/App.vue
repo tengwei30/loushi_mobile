@@ -27,6 +27,7 @@
   DayTask(
     v-if="dayTaskLists.length !== 0"
     :dayTaskLists="dayTaskLists"
+    @openTask="openTask"
   )
   AdTask(
     v-if="adTaskLists.length > 0"
@@ -38,6 +39,10 @@
     :adBannerLists="adBannerLists"
     v-on:startTask="startTask"
   )
+  .task_rule(v-show="showRule")
+    p 温馨提示：
+    p 1.完成任务后可在【我的】页面中进入【我的钱包】查看金币流水
+    p 2.【我的钱包】中点击页面右上角【提现】按钮可进行提现。
   ReadModal(
     v-if="day && day.dialog"
     @goReadAd="goReadAd"
@@ -46,8 +51,8 @@
 </template>
 
 <script>
-import { routerToNative } from '@/utils/index'
-import { getTaskLists, getFourAdLists, getAdBannerLists, getSingleBookList, getServiceAreaTaskList } from './request.js'
+import { routerToNative, throttle } from '@/utils/index'
+import { getTaskLists, getFourAdLists, getAdBannerLists, getSingleBookList, getServiceAreaTaskList, getTaskFinish } from './request.js'
 import bk from 'bayread-bridge'
 export default {
   name: 'welfareTask',
@@ -91,7 +96,7 @@ export default {
       adBannerLists: [],  // 双图的banner列表
       clickFlag: true,
       showReadAd: false,  // 是否显示看广告补签
-      readChapterCount: 0,  // 阅读章数
+      readChapterCount: 10,  // 阅读章数
       chapterCoinRate: 0, // 单章兑换金币汇率
       historyReadChapter: 0,  // 历史阅读章节数
       dayTaskLists: [], // 每日任务列表
@@ -99,10 +104,32 @@ export default {
       excitationUserTaskVOList: [],  // 当日连续阅读进度
       totalCoin: 0,
       receivedCoin: 0,
-      showReadPercent: 0
+      showReadPercent: 0,
+      showRule: false, // 展示温馨提示
     }
   },
   methods: {
+    openTask: throttle(function(item) {
+      if (item.isFinish * 1 === 0) {
+        console.log('item', item)
+        getTaskFinish(item.id, this.readChapterCount, this.historyReadChapter).then(res => {
+          console.log('res', res)
+          if (res * 1 !== 100) {
+            bk.call('goReadBook', {}, () => {
+              console.log('去阅读')
+            })
+          } else {
+            // this.$showToast('完成任务')
+            console.log('手动完成任务')
+            getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate).then(res => {
+              this.dayTaskLists = []
+              this.dayTaskLists = res.taskVOS
+            })
+          }
+        })
+
+      }
+    }, 30),
     routerToRead(val, key) { // 点击阅读激励
       console.log(val, key)
       window.location.assign(`breader://www.bayread.com/bookview/bookread?bookId=${val.bookId}&source=welfareTask&chapterNum=0`)
@@ -125,7 +152,7 @@ export default {
     closeModal() {  // 关闭看资讯弹窗
       this.day.dialog = false
     },
-    startTask(val) {  // 开始做任务
+    startTask(val) {  // 开始做广告任务
       if (val.maxLimit) {
         if (val.maxLimit - val.finishTimes < 1) {
           this.$showToast('今日次数已用完，明日再来～')
@@ -137,6 +164,18 @@ export default {
       setTimeout(() => {
         this.clickFlag = true
       }, 2000)
+    },
+    async InitData() {  // 初始化数据
+      const { excitationUserTaskVOList, taskVOS, receivedCoin, totalCoin } = await getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate)
+      this.dayTaskLists = taskVOS
+      this.excitationUserTaskVOList = excitationUserTaskVOList
+
+      const { excitationSingleBookInfoVOList = [], showReadPercent } = await getSingleBookList()
+      this.singleBookLists = excitationSingleBookInfoVOList
+      this.showReadPercent = showReadPercent
+      this.receivedCoin = receivedCoin
+      this.totalCoin = totalCoin
+      this.showRule = true
     }
   },
   mounted() {},
@@ -161,15 +200,7 @@ export default {
     if (conditionStatus * 1 === 2) {
       this.showReadAd = true
     }
-    const { excitationSingleBookInfoVOList = [], showReadPercent } = await getSingleBookList()
-    this.singleBookLists = excitationSingleBookInfoVOList
-    this.showReadPercent = showReadPercent
-    const { excitationUserTaskVOList, taskVOS, receivedCoin, totalCoin } = await getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate)
-    console.log('啦啦啦', excitationUserTaskVOList, taskVOS)
-    this.dayTaskLists = taskVOS
-    this.excitationUserTaskVOList = excitationUserTaskVOList
-    this.receivedCoin = receivedCoin
-    this.totalCoin = totalCoin
+    this.InitData()
     this.adTaskLists = await getFourAdLists()
     this.adBannerLists = await getAdBannerLists()
   }

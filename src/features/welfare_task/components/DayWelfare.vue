@@ -19,9 +19,9 @@
         p.task__chapter(:style="changeBgChapterImage(item.isFinish)")
           span {{ item.totalReadChapter }}
           span 章
-      p.progress__bar
+      p.progress__bar(ref="BarDOM")
         span.progress__bar__active(:style="width")
-    h5.footer_desc 还需阅读20章节
+    h5.footer_desc 还需阅读{{ needChapter }}章节
 </template>
 <script>
 export default {
@@ -37,8 +37,10 @@ export default {
         'color': '#FCF1D0'
       },
       width: {
-        'width': '0%'
-      }
+        'width': '0px'
+      },
+      widthIndex: [15, 93, 171, 257],
+      needChapter: 0
     }
   },
   methods: {
@@ -65,7 +67,34 @@ export default {
     }
   },
   mounted() {
-    console.log('excitationUserTaskVOList', this.excitationUserTaskVOList)
+    this.$nextTick(() => {
+      const BarDOMWidth = this.$refs.BarDOM.clientWidth
+      //
+      const Index = this.excitationUserTaskVOList.findIndex(item => item.totalReadChapter >= this.readChapterCount)
+      if (this.readChapterCount === 0) return
+      if (Index === 0) return this.width.width = '15px'
+
+      const startChapter = this.excitationUserTaskVOList[Index - 1].totalReadChapter
+      const endChapter = this.excitationUserTaskVOList[Index].totalReadChapter
+      // const nextChapter = this.excitationUserTaskVOList[Index + 1].totalReadChapter
+      const secChapter = endChapter - startChapter
+      const stepChapter = this.readChapterCount - startChapter
+      if (secChapter === stepChapter) { // 今日阅读章节数和任务的章节数相等时
+        if (Index === 3) {
+          this.needChapter = 0
+          return this.width.width = `${BarDOMWidth}px`
+        }
+        this.needChapter =  this.excitationUserTaskVOList[Index + 1].totalReadChapter - this.readChapterCount
+        this.width.width = `${this.widthIndex[Index]}px`
+        return
+      }
+      this.needChapter = endChapter - this.readChapterCount // 到下一个任务还需要阅读多少章
+      const startWidth = this.widthIndex[Index - 1]
+      const endWidth = this.widthIndex[Index]
+      const secWidth = endWidth - startWidth
+      this.width.width = `${secWidth/secChapter * stepChapter + startWidth}px`
+
+    })
   }
 }
 </script>
@@ -164,7 +193,6 @@ export default {
         opacity 0.21
         .progress__bar__active
           absolute(top 0 left 0)
-          // width 10px
           height 2px
           display inline-block
           background #FCF1D0
