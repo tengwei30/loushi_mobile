@@ -2,26 +2,19 @@
 .day__task
   .day__task__title 待完成福利
   ul.task__list
-    li.task__item
-      span.task__item__title 明日再来并阅读30章
-      span.task__item__gold__common.task__item__gold 200金币
-    li.task__item
-      span.task__item__title 明日再来并阅读30章
-      span.task__item__gold__common.task__item__gold 200金币
-    li.task__item
-      span.task__item__title 明日再来并阅读30章
-      span.task__item__gold__common.task__item__gold__finish 已领取
+    li.task__item(v-for="(item, key) in dayTaskLists" :key="key")
+      span.task__item__title {{ item.name }}
+      span.task__item__gold__common(
+        :class="item.isFinish === 1 ? 'task__item__gold__finish' : 'task__item__gold' "
+        ) {{ item.isFinish === 1 ? '已领取' : `${item.rewardNum} 金币` }}
 </template>
 <script>
 export default {
   props: ['dayTaskLists'],
   data() {
-    return {
-    }
+    return {}
   },
-  methods: {
-
-  },
+  methods: {},
   mounted() {
     console.log('dayTaskLists', this.dayTaskLists)
   }

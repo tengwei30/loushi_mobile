@@ -11,11 +11,21 @@
   .readAdTask(v-if="showReadAd")
     p.read__desc 您本日还没有签到成功，马上去资讯平台领红包吧，满30个就可以签到哦～
     button.btn(@goReadAd="goReadAd('txt')") 去看资讯
-  DayWelfare
+  DayWelfare(
+    v-if="excitationUserTaskVOList.length !== 0"
+    :excitationUserTaskVOList="excitationUserTaskVOList"
+    :receivedCoin="receivedCoin"
+    :totalCoin="totalCoin"
+    :readChapterCount="readChapterCount"
+  )
   ExtraWelfare(
+    v-if="singleBookLists.length !== 0"
     :singleBookLists="singleBookLists"
+    :showReadPercent="showReadPercent"
+    @routerToRead="routerToRead"
   )
   DayTask(
+    v-if="dayTaskLists.length !== 0"
     :dayTaskLists="dayTaskLists"
   )
   AdTask(
@@ -77,17 +87,26 @@ export default {
       ], // 新人签到
       showRedPackageStyle: 0, // 是否是新签到模式
       day: null,
-      adTaskLists: [],
-      adBannerLists: [],
+      adTaskLists: [],  // 8个小icon广告列表
+      adBannerLists: [],  // 双图的banner列表
       clickFlag: true,
-      showReadAd: false,
-      readChapterCount: 0,
-      chapterCoinRate: 0,
-      dayTaskLists: [],
-      singleBookLists: []
+      showReadAd: false,  // 是否显示看广告补签
+      readChapterCount: 0,  // 阅读章数
+      chapterCoinRate: 0, // 单章兑换金币汇率
+      historyReadChapter: 0,  // 历史阅读章节数
+      dayTaskLists: [], // 每日任务列表
+      singleBookLists: [], // 单书激励任务列表
+      excitationUserTaskVOList: [],  // 当日连续阅读进度
+      totalCoin: 0,
+      receivedCoin: 0,
+      showReadPercent: 0
     }
   },
   methods: {
+    routerToRead(val, key) { // 点击阅读激励
+      console.log(val, key)
+      window.location.assign(`breader://www.bayread.com/bookview/bookread?bookId=${val.bookId}&source=welfareTask&chapterNum=0`)
+    },
     gotoRule() {  // 跳转到规则说明页面
       let origin = window.location.origin
       let url = origin + '/BKH5-sign_activity_rule.html'
@@ -123,9 +142,10 @@ export default {
   mounted() {},
   async created() {
     bk.call('getTodayReadMotivationChapterNum  ', {}, data => { // 初始化碎片信息
-      const { readChapterCount, chapterCoinRate } = JSON.parse(data)
+      const { readChapterCount, chapterCoinRate, historyReadChapter } = JSON.parse(data)
       this.readChapterCount = readChapterCount
       this.chapterCoinRate = chapterCoinRate
+      this.historyReadChapter = historyReadChapter
     })
     bk.register('browserPageResume', () => {
       console.log('调用页面重新方法')
@@ -141,10 +161,15 @@ export default {
     if (conditionStatus * 1 === 2) {
       this.showReadAd = true
     }
-    this.singleBookLists = await getSingleBookList()
-    const { excitationUserTaskVOList, taskVOS } = await getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate)
+    const { excitationSingleBookInfoVOList = [], showReadPercent } = await getSingleBookList()
+    this.singleBookLists = excitationSingleBookInfoVOList
+    this.showReadPercent = showReadPercent
+    const { excitationUserTaskVOList, taskVOS, receivedCoin, totalCoin } = await getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate)
     console.log('啦啦啦', excitationUserTaskVOList, taskVOS)
     this.dayTaskLists = taskVOS
+    this.excitationUserTaskVOList = excitationUserTaskVOList
+    this.receivedCoin = receivedCoin
+    this.totalCoin = totalCoin
     this.adTaskLists = await getFourAdLists()
     this.adBannerLists = await getAdBannerLists()
   }

@@ -4,29 +4,68 @@
     .welfare__title__left
       .title__left__top
         img(src="@/assets/welfare_task/day_welfare_title.png")
-        span.has__read__chapter 20章
+        span.has__read__chapter {{ readChapterCount }}章
       .title__left__bottom
-        | 已经通过阅读到账1303金币
+        | 已经通过阅读到账{{ receivedCoin }}金币
     .welfare__title__right
       img(src="@/assets/welfare_task/day_welfare_title_icon.png")
       p 今日可领
-        span 1000
+        span {{ totalCoin }}
   .welfare__progress
     h3.title 当日连续阅读福利
     .progress__content
-      .progress__item(v-for="item in 4")
-        p.start__task 500金币
-        p.task__chapter
-          span 0
+      .progress__item(v-for="(item, key) in excitationUserTaskVOList" :key="key")
+        p.start__task(:style="changeBgCoinImage(item.isFinish)") {{ item.totalReadChapter === 0 ? '开始阅读' : `${item.rewardNum}金币` }}
+        p.task__chapter(:style="changeBgChapterImage(item.isFinish)")
+          span {{ item.totalReadChapter }}
           span 章
       p.progress__bar
+        span.progress__bar__active(:style="width")
     h5.footer_desc 还需阅读20章节
 </template>
 <script>
 export default {
+  props: ['excitationUserTaskVOList', 'receivedCoin', 'totalCoin', 'readChapterCount'],
   data() {
     return {
+      bgChapterImage: {
+        'background-image': `url(${require('../../../assets/welfare_task/day_welfare_chapter_default.png')})`,
+        'color': '#FCF1D0'
+      },
+      bgCoinImage: {
+        'background-image': `url(${require('../../../assets/welfare_task/progress_default.png')})`,
+        'color': '#FCF1D0'
+      },
+      width: {
+        'width': '0%'
+      }
     }
+  },
+  methods: {
+    changeBgChapterImage(isFinish) {
+      return isFinish * 1 === 1 ?
+        {
+          'background-image': `url(${require('../../../assets/welfare_task/day_welfare_chapter.png')})`,
+          'color': '#D23131'
+        }:
+        {
+          'background-image': `url(${require('../../../assets/welfare_task/day_welfare_chapter_default.png')})`,
+          'color': '#FCF1D0'
+        }
+    },
+    changeBgCoinImage(isFinish) {
+      return isFinish * 1 === 1 ?
+        {
+          'background-image': `url(${require('../../../assets/welfare_task/day_welfate_active.png')})`,
+          'color': '#D23131'
+        } : {
+          'background-image': `url(${require('../../../assets/welfare_task/progress_default.png')})`,
+          'color': '#FCF1D0'
+        }
+    }
+  },
+  mounted() {
+    console.log('excitationUserTaskVOList', this.excitationUserTaskVOList)
   }
 }
 </script>
@@ -87,7 +126,7 @@ export default {
       .progress__item
         p.start__task
           size(60px 25px)
-          background-image url('../../../assets/welfare_task/day_welfate_active.png')
+          // background-image url('../../../assets/welfare_task/day_welfate_active.png')
           color #D23131
           background-repeat no-repeat
           background-position center center
@@ -101,12 +140,10 @@ export default {
         p.task__chapter
           margin 21px auto 0
           size(26px 36px)
-          background-image url('../../../assets/welfare_task/day_welfare_chapter.png')
+          // background-image url('../../../assets/welfare_task/day_welfare_chapter.png')
           background-repeat no-repeat
           background-position center center
           background-size 100% 100%
-          font-size 12px
-          transform scale(0.81)
           color #D23131
           text-align center
           display flex
@@ -116,6 +153,8 @@ export default {
           span
             display inline-block
             height 12px
+            font-size 12px
+            transform scale(0.75, 0.75)
       .progress__bar
         absolute(left 0 top 47px right 0)
         margin 0 auto
@@ -123,6 +162,19 @@ export default {
         background #A93333
         border-radius 3.5px
         opacity 0.21
+        .progress__bar__active
+          absolute(top 0 left 0)
+          // width 10px
+          height 2px
+          display inline-block
+          background #FCF1D0
+          border-radius 4px
+          &::after
+            content ''
+            size(8px 11px)
+            absolute(right 0 top -5px)
+            background url('../../../assets/welfare_task/day_welfare_chapter.png') no-repeat center center
+            background-size 100% 100%
     h5.footer_desc
       font-size 12px
       color #FCF1D0

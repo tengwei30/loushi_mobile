@@ -123,3 +123,11 @@ export const getServiceAreaTaskList = async(readChapterCount, chapterCoinRate) =
   })
   if (data) return data
 }
+
+/**
+ * 用户手动触发完成接口
+ */
+export const getTaskFinish = async() => {
+  let { data } = await post('/task_api/task/finish', {})
+  if (data) return data
+}

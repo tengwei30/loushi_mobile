@@ -2,27 +2,22 @@
 .extra__welfare
   .extra__title
     h3.title 额外福利
-    p.desc 超过98%的用户都在阅读的大热书籍
+    p.desc 超过{{ showReadPercent }}%的用户都在阅读的大热书籍
   .extra_content
-    .extra_content_item
-      span.img
-      span.btn 立即阅读
-      span.icon 现代都市
-    .extra_content_item
-      span.img
-      span.btn 立即阅读
-      span.icon 现代都市
-    .extra_content_item
-      span.img
-      span.btn 立即阅读
-      span.icon 现代都市
+    .extra_content_item(v-for="(item, key) in singleBookLists" :key="key")
+      img.img(:src="item.bookCoverUrl")
+      span.btn(@click="routerToRead(item, key)") 立即阅读
+      span.icon {{ item.classify }}
 </template>
 <script>
 export default {
-  props: ['singleBookLists'],
-  methods: {},
+  props: ['singleBookLists', 'showReadPercent'],
+  methods: {
+    routerToRead(item, key) {
+      this.$emit('routerToRead', item, key)
+    }
+  },
   mounted() {
-    console.log('--- 单书激励 ---', this.singleBookLists)
   }
 }
 </script>
@@ -68,7 +63,6 @@ export default {
       position relative
       .img
         size(90px, 120px)
-        background red
       .btn
         margin-top 10px
         display inline-block
