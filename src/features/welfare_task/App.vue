@@ -98,9 +98,6 @@ export default {
             // 通知开启初始化
             if (isSuccess * 1 === 0) return
             this.isOpen = 1
-            toast({
-              content: '明日任务提醒开启成功'
-            })
           })
           return
         }
@@ -197,9 +194,6 @@ export default {
       }
     })
     bk.register('calendarSignNoticeResume', () => {
-      toast({
-        content: '明日任务提醒开启成功'
-      })
       this.isOpen = 1
     })
     let data = await getTaskLists()
