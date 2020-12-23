@@ -17,8 +17,7 @@ export default {
       this.$emit('routerToRead', item, key)
     }
   },
-  mounted() {
-  }
+  mounted() {}
 }
 </script>
 <style lang="stylus">

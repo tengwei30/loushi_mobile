@@ -68,16 +68,19 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
+      console.log('头部excitationUserTaskVOList', this.excitationUserTaskVOList, this.readChapterCount)
       const BarDOMWidth = this.$refs.BarDOM.clientWidth
       //
       const Index = this.excitationUserTaskVOList.findIndex(item => item.totalReadChapter >= this.readChapterCount)
       if (this.readChapterCount === 0) {
         console.log('excitationUserTaskVOList', this.excitationUserTaskVOList)
-        this.needChapter = this.excitationUserTaskVOList && this.excitationUserTaskVOList[1].totalReadChapter
+        this.needChapter =  this.excitationUserTaskVOList[1].totalReadChapter
         return this.width.width = '0px'
       }
       if (Index === 0) {
+        this.needChapter =  this.excitationUserTaskVOList[1].totalReadChapter
         this.width.width = '15px'
+        return
       }
 
       const startChapter = this.excitationUserTaskVOList[Index - 1].totalReadChapter
