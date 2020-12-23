@@ -71,12 +71,16 @@ export default {
       const BarDOMWidth = this.$refs.BarDOM.clientWidth
       //
       const Index = this.excitationUserTaskVOList.findIndex(item => item.totalReadChapter >= this.readChapterCount)
-      if (this.readChapterCount === 0) return
-      if (Index === 0) return this.width.width = '15px'
+      if (this.readChapterCount === 0) {
+        this.needChapter = this.excitationUserTaskVOList[1].totalReadChapter
+        return this.width.width = '0px'
+      }
+      if (Index === 0) {
+        this.width.width = '15px'
+      }
 
       const startChapter = this.excitationUserTaskVOList[Index - 1].totalReadChapter
       const endChapter = this.excitationUserTaskVOList[Index].totalReadChapter
-      // const nextChapter = this.excitationUserTaskVOList[Index + 1].totalReadChapter
       const secChapter = endChapter - startChapter
       const stepChapter = this.readChapterCount - startChapter
       if (secChapter === stepChapter) { // 今日阅读章节数和任务的章节数相等时

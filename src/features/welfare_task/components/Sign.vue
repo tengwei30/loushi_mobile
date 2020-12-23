@@ -58,7 +58,7 @@ export default {
         },
         {
           name: '2天',
-          is_finish: true,
+          is_finish: false,
           num: 0
         },
         {
