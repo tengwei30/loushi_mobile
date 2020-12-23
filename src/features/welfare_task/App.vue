@@ -52,6 +52,7 @@
 
 <script>
 import { routerToNative, throttle } from '@/utils/index'
+// import { toast } from '@/utils/nativeToH5/index'
 import { getTaskLists, getFourAdLists, getAdBannerLists, getSingleBookList, getServiceAreaTaskList, getTaskFinish } from './request.js'
 import bk from 'bayread-bridge'
 export default {
@@ -67,29 +68,7 @@ export default {
   },
   data() {
     return {
-      userTaskRedPackageVOList: [
-        {
-          status: 1,
-        },
-        {
-          status: 0,
-        },
-        {
-          status: 0,
-        },
-        {
-          status: 0,
-        },
-        {
-          status: 1,
-        },
-        {
-          status: 1,
-        },
-        {
-          status: 0,
-        }
-      ], // 新人签到
+      userTaskRedPackageVOList: [], // 新人签到
       showRedPackageStyle: 0, // 是否是新签到模式
       day: null,
       adTaskLists: [],  // 8个小icon广告列表
@@ -106,14 +85,26 @@ export default {
       receivedCoin: 0,
       showReadPercent: 0,
       showRule: false, // 展示温馨提示
+      isOpen: 0
     }
   },
   methods: {
     openTask: throttle(function(item) {
       if (item.isFinish * 1 === 0) {
         console.log('item', item)
+        if (item.subType === 4) {
+          bk.call('handleCalendarSignNotice', {}, (data) => {
+            const { isSuccess } = JSON.parse(data)
+            // 通知开启初始化
+            if (isSuccess * 1 === 0) return
+            this.isOpen = 1
+            toast({
+              content: '明日任务提醒开启成功'
+            })
+          })
+          return
+        }
         getTaskFinish(item.id, this.readChapterCount, this.historyReadChapter).then(res => {
-          console.log('res', res)
           if (res * 1 !== 100) {
             bk.call('goReadBook', {}, () => {
               console.log('去阅读')
@@ -167,6 +158,7 @@ export default {
     },
     async InitData() {  // 初始化数据
       const { excitationUserTaskVOList, taskVOS, receivedCoin, totalCoin } = await getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate)
+      taskVOS[0].isFinish = this.isOpen
       this.dayTaskLists = taskVOS
       this.excitationUserTaskVOList = excitationUserTaskVOList
 
@@ -176,6 +168,11 @@ export default {
       this.receivedCoin = receivedCoin
       this.totalCoin = totalCoin
       this.showRule = true
+      bk.call('buryingPoint', {
+        eventName: 'H5_WELFARE_TASK_ENTER',
+        // map: {
+        // }
+      })
     }
   },
   mounted() {},
@@ -188,6 +185,22 @@ export default {
     })
     bk.register('browserPageResume', () => {
       console.log('调用页面重新方法')
+      this.InitData()
+    })
+    bk.call('calendarSignNoticeInit', {}, data => {
+      const { isOpen  } = JSON.parse(data)
+      // 通知开启初始化
+      if (isOpen  * 1 === 0) {
+        this.isOpen = 0
+      } else {
+        this.isOpen = 1
+      }
+    })
+    bk.register('calendarSignNoticeResume', () => {
+      toast({
+        content: '明日任务提醒开启成功'
+      })
+      this.isOpen = 1
     })
     let data = await getTaskLists()
     if (!data) return
