@@ -134,3 +134,9 @@ export const getTaskFinish = async(taskId, readChapter, historyReadChapter) => {
   let { code } = await post('/task_api/task/finish', { taskId, readChapter, historyReadChapter })
   if (code) return code
 }
+
+
+export const getUserInfo = async() => {
+  let { data } = await post('/api/user/userInfoQuickApp ')
+  if (data && data.userInfo) return data.userInfo
+}

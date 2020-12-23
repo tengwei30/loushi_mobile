@@ -125,8 +125,12 @@ export default {
       return ((Number(key) === 2 || Number(key) === 6) && (Number(status) === 2) || Number(status) === 3)
     },
     gotoRule() {
-      console.log('点击规则')
       this.$emit('gotoRule')
+    },
+    otoWithdraw(key, status) {
+      if (key !== 2 && key !== 6) return
+      // 跳转到提现页面
+      this.$emit('gotoWithdraw', status, key)
     }
   }
 }

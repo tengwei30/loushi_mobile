@@ -7,6 +7,7 @@
       :day="day"
       :showRedPackageStyle="showRedPackageStyle"
       @gotoRule='gotoRule'
+      @gotoWithdraw="gotoWithdraw"
     )
   .readAdTask(v-if="showReadAd")
     p.read__desc 您本日还没有签到成功，马上去资讯平台领红包吧，满30个就可以签到哦～
@@ -51,9 +52,9 @@
 </template>
 
 <script>
-import { routerToNative, throttle } from '@/utils/index'
+import { routerToNative, throttle, getCookie } from '@/utils/index'
 // import { toast } from '@/utils/nativeToH5/index'
-import { getTaskLists, getFourAdLists, getAdBannerLists, getSingleBookList, getServiceAreaTaskList, getTaskFinish } from './request.js'
+import { getTaskLists, getFourAdLists, getAdBannerLists, getSingleBookList, getServiceAreaTaskList, getTaskFinish, getUserInfo } from './request.js'
 import bk from 'bayread-bridge'
 export default {
   name: 'welfareTask',
@@ -86,10 +87,46 @@ export default {
       showReadPercent: 0,
       showRule: false, // 展示温馨提示
       isOpen: 0,
-      userInfoBO: {}
+      userInfoBO: {},
+      userInfo: null
     }
   },
   methods: {
+    isLogin() { // 通过有无sessionId 判断这个用户有没有登录
+      const sid = getCookie('sessionid') === null ? '' : getCookie('sessionid')
+      if (sid === null || typeof sid === 'undefined' || sid === '') {
+        return false
+      } else {
+        return true
+      }
+    },
+    gotoWithdraw: throttle(function(status, key) { // 点击跳转提现
+      console.log('key', key)
+      if (!this.isLogin()) {  // 判断用户是否登录 isBindPhone - false 表示登录页面
+        window.location = 'breader://common/login?isBindPhone=false'
+        return
+      }
+      if ((this.userInfo && (this.userInfo.phoneNum === null || this.userInfo.phoneNum === ''))) {
+        // 判断是否绑定手机号
+        window.location = 'breader://common/login?isBindPhone=true'
+        return
+      }
+      if (Number(status) === 1 || Number(status) === 0) {
+        const url = `${window.location.origin}/#/withdraw`
+        routerToNative(url)
+        // window.location.href = `breader://common/browser?url=${encodeURIComponent(
+        //   url
+        // )}`
+        return
+      }
+      if (Number(status) === 3) {
+        this.$showToast('该红包已过期，第7天记得来哦！')
+        return
+      }
+      if (Number(status) === 2) {
+        this.$showToast('您已经领取过了哦！')
+      }
+    }, 30),
     openTask: throttle(function(item) {
       if (item.isFinish * 1 === 0) {
         if (item.subType === 4) {
@@ -176,7 +213,9 @@ export default {
       })
     }
   },
-  mounted() {},
+  mounted() {
+    getUserInfo()
+  },
   async created() {
     bk.call('getTodayReadMotivationChapterNum  ', {}, data => { // 初始化碎片信息
       const { readChapterCount, chapterCoinRate, historyReadChapter } = JSON.parse(data)
@@ -214,6 +253,7 @@ export default {
     this.InitData()
     this.adTaskLists = await getFourAdLists()
     this.adBannerLists = await getAdBannerLists()
+    this.userInfo = await getUserInfo()
   }
 }
 </script>
