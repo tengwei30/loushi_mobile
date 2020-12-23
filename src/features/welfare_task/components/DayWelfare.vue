@@ -72,6 +72,7 @@ export default {
       //
       const Index = this.excitationUserTaskVOList.findIndex(item => item.totalReadChapter >= this.readChapterCount)
       if (this.readChapterCount === 0) {
+        console.log('excitationUserTaskVOList', this.excitationUserTaskVOList)
         this.needChapter = this.excitationUserTaskVOList && this.excitationUserTaskVOList[1].totalReadChapter
         return this.width.width = '0px'
       }
@@ -185,7 +186,7 @@ export default {
           align-items center
           span
             display inline-block
-            height 12px
+            height 10px
             font-size 12px
             transform scale(0.75, 0.75)
       .progress__bar
