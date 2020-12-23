@@ -85,15 +85,17 @@ export default {
       receivedCoin: 0,
       showReadPercent: 0,
       showRule: false, // 展示温馨提示
-      isOpen: 0
+      isOpen: 0,
+      userInfoBO: {}
     }
   },
   methods: {
     openTask: throttle(function(item) {
       if (item.isFinish * 1 === 0) {
-        console.log('item', item)
         if (item.subType === 4) {
-          bk.call('handleCalendarSignNotice', {}, (data) => {
+          bk.call('handleCalendarSignNotice', {
+            registerDay: this.userInfoBO && this.userInfoBO.registerDay
+          }, (data) => {
             const { isSuccess } = JSON.parse(data)
             // 通知开启初始化
             if (isSuccess * 1 === 0) return
@@ -107,7 +109,6 @@ export default {
               console.log('去阅读')
             })
           } else {
-            // this.$showToast('完成任务')
             console.log('手动完成任务')
             getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate).then(res => {
               this.dayTaskLists = []
@@ -154,10 +155,13 @@ export default {
       }, 2000)
     },
     async InitData() {  // 初始化数据
-      const { excitationUserTaskVOList, taskVOS, receivedCoin, totalCoin } = await getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate)
-      taskVOS[0].isFinish = this.isOpen
+      const { excitationUserTaskVOList, taskVOS, receivedCoin, totalCoin, userInfoBO } = await getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate)
+      if (taskVOS[0].subType === 4) {
+        taskVOS[0].isFinish = this.isOpen
+      }
       this.dayTaskLists = taskVOS
       this.excitationUserTaskVOList = excitationUserTaskVOList
+      this.userInfoBO = userInfoBO
 
       const { excitationSingleBookInfoVOList = [], showReadPercent } = await getSingleBookList()
       this.singleBookLists = excitationSingleBookInfoVOList
