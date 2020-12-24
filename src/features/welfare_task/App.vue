@@ -53,7 +53,7 @@
 
 <script>
 import { routerToNative, throttle, getCookie } from '@/utils/index'
-// import { toast } from '@/utils/nativeToH5/index'
+import { setHeader } from '@/utils/nativeToH5/index'
 import { getTaskLists, getFourAdLists, getAdBannerLists, getSingleBookList, getServiceAreaTaskList, getTaskFinish, getUserInfo } from './request.js'
 import bk from 'bayread-bridge'
 export default {
@@ -193,7 +193,7 @@ export default {
     },
     async InitData() {  // 初始化数据
       const { excitationUserTaskVOList, taskVOS, receivedCoin, totalCoin, userInfoBO } = await getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate)
-      if (taskVOS[0].subType === 4) {
+      if (taskVOS.length !== 0 && taskVOS[0].subType === 4) {
         taskVOS[0].isFinish = this.isOpen
       }
       this.dayTaskLists = taskVOS
@@ -242,13 +242,24 @@ export default {
     let data = await getTaskLists()
     if (!data) return
     const signday = data.filter(item => item.type === 3) || [{}]
-    const { extraData = null, showRedPackageStyle, userTaskRedPackageVOList = null } = signday[0]
+    const { extraData = null, showRedPackageStyle, userTaskRedPackageVOList = null, id = null } = signday[0]
     this.day = extraData
     this.showRedPackageStyle = showRedPackageStyle
     this.userTaskRedPackageVOList = userTaskRedPackageVOList
     const { conditionStatus } = this.day
     if (conditionStatus * 1 === 2) {
       this.showReadAd = true
+    }
+    if (this.showRedPackageStyle * 1 === 0) {
+      setHeader({
+        title: '福利中心',
+        rightText: '签到记录',
+        rightTextColor: '#999999'
+      }, () => {
+        console.log('点击签到记录')
+        const url = `${window.location.origin}/BKH5-sign_record.html?taskId=${id}`
+        routerToNative(url)
+      })
     }
     this.InitData()
     this.adTaskLists = await getFourAdLists()
