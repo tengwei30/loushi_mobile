@@ -242,7 +242,7 @@ export default {
     let data = await getTaskLists()
     if (!data) return
     const signday = data.filter(item => item.type === 3) || [{}]
-    const { extraData = null, showRedPackageStyle, userTaskRedPackageVOList = null, id = null } = signday[0]
+    const { extraData = null, showRedPackageStyle, userTaskRedPackageVOList = null, id = 1 } = signday[0]
     this.day = extraData
     this.showRedPackageStyle = showRedPackageStyle
     this.userTaskRedPackageVOList = userTaskRedPackageVOList
