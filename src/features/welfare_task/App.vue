@@ -254,7 +254,9 @@ export default {
       setHeader({
         title: '福利中心',
         rightText: '签到记录',
-        rightTextColor: '#999999'
+        rightTextColor: '#999999',
+        titleColor: '#444444',
+        bgColor: '#ffffff'
       }, () => {
         console.log('点击签到记录')
         const url = `${window.location.origin}/BKH5-sign_record.html?taskId=${id}`
