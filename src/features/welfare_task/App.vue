@@ -227,6 +227,11 @@ export default {
       console.log('调用页面重新方法')
       this.InitData()
     })
+    bk.register('titleCallBack', () => {
+      console.log('--- 点击跳转 ---')
+      const url = `${window.location.origin}/BKH5-sign_record.html?taskId=1`
+      routerToNative(url)
+    })
     bk.call('calendarSignNoticeInit', {}, data => {
       const { isOpen  } = JSON.parse(data)
       // 通知开启初始化
@@ -242,7 +247,7 @@ export default {
     let data = await getTaskLists()
     if (!data) return
     const signday = data.filter(item => item.type === 3) || [{}]
-    const { extraData = null, showRedPackageStyle, userTaskRedPackageVOList = null, id = 1 } = signday[0]
+    const { extraData = null, showRedPackageStyle, userTaskRedPackageVOList = null } = signday[0]
     this.day = extraData
     this.showRedPackageStyle = showRedPackageStyle
     this.userTaskRedPackageVOList = userTaskRedPackageVOList
@@ -256,12 +261,9 @@ export default {
         rightText: '签到记录',
         rightTextColor: '#999999',
         titleColor: '#444444',
-        bgColor: '#ffffff'
-      }, () => {
-        console.log('点击签到记录')
-        const url = `${window.location.origin}/BKH5-sign_record.html?taskId=${id}`
-        routerToNative(url)
-      })
+        bgColor: '#ffffff',
+        callback: 'titleCallBack'
+      }, () => {})
     }
     this.InitData()
     this.adTaskLists = await getFourAdLists()
