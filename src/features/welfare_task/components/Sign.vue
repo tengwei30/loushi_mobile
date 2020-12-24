@@ -127,7 +127,7 @@ export default {
     gotoRule() {
       this.$emit('gotoRule')
     },
-    otoWithdraw(key, status) {
+    gotoWithdraw(key, status) {
       if (key !== 2 && key !== 6) return
       // 跳转到提现页面
       this.$emit('gotoWithdraw', status, key)
