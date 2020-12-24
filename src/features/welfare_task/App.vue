@@ -88,7 +88,8 @@ export default {
       showRule: false, // 展示温馨提示
       isOpen: 0,
       userInfoBO: {},
-      userInfo: null
+      userInfo: null,
+      taskId: 1
     }
   },
   methods: {
@@ -211,12 +212,17 @@ export default {
         // map: {
         // }
       })
+    },
+    titleCallBack() {
+      const url = `${window.location.origin}/BKH5-sign_record.html?taskId=${this.taskId}`
+      routerToNative(url)
     }
   },
   mounted() {
     getUserInfo()
   },
   async created() {
+    window.titleCallBack = this.titleCallBack
     bk.call('getTodayReadMotivationChapterNum  ', {}, data => { // 初始化碎片信息
       const { readChapterCount, chapterCoinRate, historyReadChapter } = JSON.parse(data)
       this.readChapterCount = readChapterCount
@@ -226,11 +232,6 @@ export default {
     bk.register('browserPageResume', () => {
       console.log('调用页面重新方法')
       this.InitData()
-    })
-    bk.register('titleCallBack', () => {
-      console.log('--- 点击跳转 ---')
-      const url = `${window.location.origin}/BKH5-sign_record.html?taskId=1`
-      routerToNative(url)
     })
     bk.call('calendarSignNoticeInit', {}, data => {
       const { isOpen  } = JSON.parse(data)
@@ -247,8 +248,9 @@ export default {
     let data = await getTaskLists()
     if (!data) return
     const signday = data.filter(item => item.type === 3) || [{}]
-    const { extraData = null, showRedPackageStyle, userTaskRedPackageVOList = null } = signday[0]
+    const { extraData = null, showRedPackageStyle, userTaskRedPackageVOList = null, id = 1 } = signday[0]
     this.day = extraData
+    this.taskId = id
     this.showRedPackageStyle = showRedPackageStyle
     this.userTaskRedPackageVOList = userTaskRedPackageVOList
     const { conditionStatus } = this.day
