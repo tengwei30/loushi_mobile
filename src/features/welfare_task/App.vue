@@ -116,7 +116,7 @@ export default {
       bk.call('buryingPoint', {
         eventName: 'H5_WELFARE_CLICK_READPACKAGE',
         map: {
-          isProd,
+          isProd: this.isProd,
           status
         }
       })
@@ -140,7 +140,7 @@ export default {
           taskId: item.id,
           registerDay: this.userInfoBO && this.userInfoBO.registerDay,
           from: 'welfarePage',
-          isProd
+          isProd: this.isProd
         }
       })
       if (item.isFinish * 1 === 0) {
@@ -179,7 +179,7 @@ export default {
           key,
           bookId: val.bookId,
           registerDay: this.userInfoBO && this.userInfoBO.registerDay,
-          isProd
+          isProd: this.isProd
         }
       })
     },
@@ -193,7 +193,7 @@ export default {
       bk.call('buryingPoint', {
         eventName: 'H5_WELFARE_CLICK_SIGN_AD',
         map: {
-          isProd,
+          isProd: this.isProd,
           type  //  txt 表示点击固定文案部分。''表示点击弹窗
         }
       })
@@ -218,7 +218,7 @@ export default {
       bk.call('buryingPoint', {
         eventName: 'H5_WELFARE_CLICK_AD',
         map: {
-          isProd,
+          isProd: this.isProd,
           scheme: val.scheme
         }
       })
@@ -249,7 +249,7 @@ export default {
       bk.call('buryingPoint', {
         eventName: 'H5_WELFARE_TASK_ENTER',
         map: {
-          isProd,
+          isProd: this.isProd,
           signleBook: this.singleBookLists.length !== 0 ? 1 : 0,  // 1 表示有单书激励
           readMotivation: this.dayTaskLists.length !== 0 ? 1 : 0  // 1 表示有阅读激励
         }
@@ -259,7 +259,7 @@ export default {
       bk.call('buryingPoint', {
         eventName: 'H5_WELFARE_CLICK_SIGN_RECORD',
         map: {
-          isProd,
+          isProd: this.isProd,
         }
       })
       const url = `${window.location.origin}/BKH5-sign_record.html?taskId=${this.taskId}`
