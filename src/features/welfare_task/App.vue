@@ -204,10 +204,13 @@ export default {
       this.totalCoin = totalCoin
       this.showRule = true
 
-      const { excitationSingleBookInfoVOList = null, showReadPercent = 0 } = await getSingleBookList()
-      this.singleBookLists = excitationSingleBookInfoVOList
-      this.showReadPercent = showReadPercent
-
+      const data = await getSingleBookList()
+      try {
+        this.singleBookLists = data.excitationSingleBookInfoVOList || []
+        this.showReadPercent = data.showReadPercent || 0
+      } catch (error) {
+        console.error('error ---> ', error)
+      }
       bk.call('buryingPoint', {
         eventName: 'H5_WELFARE_TASK_ENTER',
         map: {
