@@ -16,3 +16,5 @@ zhangsong<zhangsong@bayread.com>
  - 接口调试
 - 2020.12.23
  - 添加日历模块
+- 2020.12.28
+ - 添加埋点

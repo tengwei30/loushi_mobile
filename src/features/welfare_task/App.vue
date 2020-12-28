@@ -89,7 +89,8 @@ export default {
       isOpen: 0,
       userInfoBO: {},
       userInfo: null,
-      taskId: 1
+      taskId: 1,
+      isProd: process.env.VUE_APP_DEVELOP_ENV === 'false'
     }
   },
   methods: {
@@ -112,12 +113,16 @@ export default {
         window.location = 'breader://common/login?isBindPhone=true'
         return
       }
+      bk.call('buryingPoint', {
+        eventName: 'H5_WELFARE_CLICK_READPACKAGE',
+        map: {
+          isProd,
+          status
+        }
+      })
       if (Number(status) === 1 || Number(status) === 0) {
         const url = `${window.location.origin}/#/withdraw`
         routerToNative(url)
-        // window.location.href = `breader://common/browser?url=${encodeURIComponent(
-        //   url
-        // )}`
         return
       }
       if (Number(status) === 3) {
@@ -128,7 +133,16 @@ export default {
         this.$showToast('您已经领取过了哦！')
       }
     }, 30),
-    openTask: throttle(function(item) {
+    openTask: throttle(function(item) { // 开启阅读任务
+      bk.call('buryingPoint', {
+        eventName: 'H5_WELFARE_CLICK_TASK',
+        map: {
+          taskId: item.id,
+          registerDay: this.userInfoBO && this.userInfoBO.registerDay,
+          from: 'welfarePage',
+          isProd
+        }
+      })
       if (item.isFinish * 1 === 0) {
         if (item.subType === 4) {
           bk.call('handleCalendarSignNotice', {
@@ -157,9 +171,17 @@ export default {
 
       }
     }, 30),
-    routerToRead(val, key) { // 点击阅读激励
-      console.log(val, key)
+    routerToRead(val, key) { // 点击单书阅读激励
       window.location.assign(`breader://www.bayread.com/bookview/bookread?bookId=${val.bookId}&source=welfareTask&chapterNum=0`)
+      bk.call('buryingPoint', {
+        eventName: 'H5_WELFARE_CLICK_SINGLE_TASK',
+        map: {
+          key,
+          bookId: val.bookId,
+          registerDay: this.userInfoBO && this.userInfoBO.registerDay,
+          isProd
+        }
+      })
     },
     gotoRule() {  // 跳转到规则说明页面
       let origin = window.location.origin
@@ -168,6 +190,13 @@ export default {
       return
     },
     goReadAd(type = '') {  // 去看资讯完成补签
+      bk.call('buryingPoint', {
+        eventName: 'H5_WELFARE_CLICK_SIGN_AD',
+        map: {
+          isProd,
+          type  //  txt 表示点击固定文案部分。''表示点击弹窗
+        }
+      })
       if (type === 'txt') { // 埋点区分点击那个点
       } else {
         setTimeout(() => {
@@ -186,6 +215,13 @@ export default {
           return
         }
       }
+      bk.call('buryingPoint', {
+        eventName: 'H5_WELFARE_CLICK_AD',
+        map: {
+          isProd,
+          scheme: val.scheme
+        }
+      })
       window.location.assign(val.scheme)
       this.clickFlag = false
       setTimeout(() => {
@@ -214,12 +250,19 @@ export default {
       bk.call('buryingPoint', {
         eventName: 'H5_WELFARE_TASK_ENTER',
         map: {
+          isProd,
           signleBook: this.singleBookLists.length !== 0 ? 1 : 0,  // 1 表示有单书激励
           readMotivation: this.dayTaskLists.length !== 0 ? 1 : 0  // 1 表示有阅读激励
         }
       })
     },
-    titleCallBack() {
+    titleCallBack() { // 点击右上角签到记录页面
+      bk.call('buryingPoint', {
+        eventName: 'H5_WELFARE_CLICK_SIGN_RECORD',
+        map: {
+          isProd,
+        }
+      })
       const url = `${window.location.origin}/BKH5-sign_record.html?taskId=${this.taskId}`
       routerToNative(url)
     }
