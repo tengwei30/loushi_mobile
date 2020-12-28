@@ -193,24 +193,27 @@ export default {
       }, 2000)
     },
     async InitData() {  // 初始化数据
-      const { excitationUserTaskVOList, taskVOS, receivedCoin, totalCoin, userInfoBO } = await getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate)
+      const { excitationUserTaskVOList = null, taskVOS, receivedCoin, totalCoin, userInfoBO } = await getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate)
       if (taskVOS.length !== 0 && taskVOS[0].subType === 4) {
         taskVOS[0].isFinish = this.isOpen
       }
       this.dayTaskLists = taskVOS
       this.excitationUserTaskVOList = excitationUserTaskVOList
       this.userInfoBO = userInfoBO
-
-      const { excitationSingleBookInfoVOList = [], showReadPercent } = await getSingleBookList()
-      this.singleBookLists = excitationSingleBookInfoVOList
-      this.showReadPercent = showReadPercent
       this.receivedCoin = receivedCoin
       this.totalCoin = totalCoin
       this.showRule = true
+
+      const { excitationSingleBookInfoVOList = null, showReadPercent = 0 } = await getSingleBookList()
+      this.singleBookLists = excitationSingleBookInfoVOList
+      this.showReadPercent = showReadPercent
+
       bk.call('buryingPoint', {
         eventName: 'H5_WELFARE_TASK_ENTER',
-        // map: {
-        // }
+        map: {
+          signleBook: this.singleBookLists.length !== 0 ? 1 : 0,  // 1 表示有单书激励
+          readMotivation: this.dayTaskLists.length !== 0 ? 1 : 0  // 1 表示有阅读激励
+        }
       })
     },
     titleCallBack() {
