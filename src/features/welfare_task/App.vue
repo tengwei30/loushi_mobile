@@ -56,6 +56,8 @@ import { routerToNative, throttle, getCookie } from '@/utils/index'
 import { setHeader } from '@/utils/nativeToH5/index'
 import { getTaskLists, getFourAdLists, getAdBannerLists, getSingleBookList, getServiceAreaTaskList, getTaskFinish, getUserInfo } from './request.js'
 import bk from 'bayread-bridge'
+
+const isProd = process.env.VUE_APP_DEVELOP_ENV === 'false'
 export default {
   name: 'welfareTask',
   components: {
@@ -89,8 +91,7 @@ export default {
       isOpen: 0,
       userInfoBO: {},
       userInfo: null,
-      taskId: 1,
-      isProd: process.env.VUE_APP_DEVELOP_ENV === 'false'
+      taskId: 1
     }
   },
   methods: {
@@ -102,8 +103,7 @@ export default {
         return true
       }
     },
-    gotoWithdraw: throttle(function(status, key) { // 点击跳转提现
-      console.log('key', key)
+    gotoWithdraw: throttle(function(status) { // 点击跳转提现
       if (!this.isLogin()) {  // 判断用户是否登录 isBindPhone - false 表示登录页面
         window.location = 'breader://common/login?isBindPhone=false'
         return
@@ -116,7 +116,7 @@ export default {
       bk.call('buryingPoint', {
         eventName: 'H5_WELFARE_CLICK_READPACKAGE',
         map: {
-          isProd: this.isProd,
+          isProd,
           status
         }
       })
@@ -140,7 +140,7 @@ export default {
           taskId: item.id,
           registerDay: this.userInfoBO && this.userInfoBO.registerDay,
           from: 'welfarePage',
-          isProd: this.isProd
+          isProd
         }
       })
       if (item.isFinish * 1 === 0) {
@@ -179,7 +179,7 @@ export default {
           key,
           bookId: val.bookId,
           registerDay: this.userInfoBO && this.userInfoBO.registerDay,
-          isProd: this.isProd
+          isProd
         }
       })
     },
@@ -193,7 +193,7 @@ export default {
       bk.call('buryingPoint', {
         eventName: 'H5_WELFARE_CLICK_SIGN_AD',
         map: {
-          isProd: this.isProd,
+          isProd,
           type  //  txt 表示点击固定文案部分。''表示点击弹窗
         }
       })
@@ -218,7 +218,7 @@ export default {
       bk.call('buryingPoint', {
         eventName: 'H5_WELFARE_CLICK_AD',
         map: {
-          isProd: this.isProd,
+          isProd,
           scheme: val.scheme
         }
       })
@@ -241,15 +241,15 @@ export default {
 
       const data = await getSingleBookList()
       try {
-        this.singleBookLists = data.excitationSingleBookInfoVOList || []
-        this.showReadPercent = data.showReadPercent || 0
+        this.singleBookLists = data && data.excitationSingleBookInfoVOList || []
+        this.showReadPercent = data && data.showReadPercent || 0
       } catch (error) {
         console.error('error ---> ', error)
       }
       bk.call('buryingPoint', {
         eventName: 'H5_WELFARE_TASK_ENTER',
         map: {
-          isProd: this.isProd,
+          isProd,
           signleBook: this.singleBookLists.length !== 0 ? 1 : 0,  // 1 表示有单书激励
           readMotivation: this.dayTaskLists.length !== 0 ? 1 : 0  // 1 表示有阅读激励
         }
@@ -259,7 +259,7 @@ export default {
       bk.call('buryingPoint', {
         eventName: 'H5_WELFARE_CLICK_SIGN_RECORD',
         map: {
-          isProd: this.isProd,
+          isProd,
         }
       })
       const url = `${window.location.origin}/BKH5-sign_record.html?taskId=${this.taskId}`
