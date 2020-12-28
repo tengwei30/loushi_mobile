@@ -4,9 +4,9 @@
     h3.title 额外福利
     p.desc 超过{{ showReadPercent }}%的用户都在阅读的大热书籍
   .extra_content
-    .extra_content_item(v-for="(item, key) in singleBookLists" :key="key")
+    .extra_content_item(v-for="(item, key) in singleBookLists" :key="key" @click="routerToRead(item, key)")
       img.img(:src="item.bookCoverUrl")
-      span.btn(@click="routerToRead(item, key)") 立即阅读
+      span.btn 立即阅读
       span.icon {{ item.classify }}
 </template>
 <script>
