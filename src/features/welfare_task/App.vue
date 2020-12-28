@@ -238,7 +238,6 @@ export default {
       this.userInfoBO = userInfoBO
       this.receivedCoin = receivedCoin
       this.totalCoin = totalCoin
-      this.showRule = true
 
       const data = await getSingleBookList()
       try {
@@ -320,6 +319,7 @@ export default {
     this.adTaskLists = await getFourAdLists()
     this.adBannerLists = await getAdBannerLists()
     this.userInfo = await getUserInfo()
+    this.showRule = true
   }
 }
 </script>
