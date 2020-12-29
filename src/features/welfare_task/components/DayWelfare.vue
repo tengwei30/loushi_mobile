@@ -73,7 +73,8 @@ export default {
       //
       let Index = 0
       if (this.readChapterCount > this.excitationUserTaskVOList[this.excitationUserTaskVOList.length - 1 ].totalReadChapter) {
-        Index = this.excitationUserTaskVOList.length -1
+        this.needChapter = 0
+        return this.width.width = `${BarDOMWidth}px`
       } else {
         Index = this.excitationUserTaskVOList.findIndex(item => item.totalReadChapter >= this.readChapterCount)
       }
