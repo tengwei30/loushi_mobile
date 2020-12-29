@@ -71,9 +71,13 @@ export default {
       console.log('头部excitationUserTaskVOList', this.excitationUserTaskVOList, this.readChapterCount)
       const BarDOMWidth = this.$refs.BarDOM.clientWidth
       //
-      const Index = this.excitationUserTaskVOList.findIndex(item => item.totalReadChapter >= this.readChapterCount)
+      let Index = 0
+      if (this.readChapterCount > this.excitationUserTaskVOList[this.excitationUserTaskVOList.length - 1 ].totalReadChapter) {
+        Index = this.excitationUserTaskVOList.length -1
+      } else {
+        Index = this.excitationUserTaskVOList.findIndex(item => item.totalReadChapter >= this.readChapterCount)
+      }
       if (this.readChapterCount === 0) {
-        console.log('excitationUserTaskVOList', this.excitationUserTaskVOList)
         this.needChapter =  this.excitationUserTaskVOList[1].totalReadChapter
         return this.width.width = '0px'
       }

@@ -78,7 +78,7 @@ export default {
       adBannerLists: [],  // 双图的banner列表
       clickFlag: true,
       showReadAd: false,  // 是否显示看广告补签
-      readChapterCount: 8,  // 阅读章数
+      readChapterCount: 0,  // 阅读章数
       chapterCoinRate: 0, // 单章兑换金币汇率
       historyReadChapter: 0,  // 历史阅读章节数
       dayTaskLists: [], // 每日任务列表
