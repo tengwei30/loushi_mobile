@@ -74,6 +74,8 @@ export default {
         border-radius 11px
         color #ffffff
         font-weight bold
+        line-height 12px
+        box-sizing border-box
       .icon
         display inline-block
         size(62px 15px)
