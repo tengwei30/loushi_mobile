@@ -78,15 +78,17 @@ export default {
         Index = this.excitationUserTaskVOList.findIndex(item => item.totalReadChapter >= this.readChapterCount)
       }
       if (this.readChapterCount === 0) {
-        const lastIndex = this.excitationUserTaskVOList.findLastIndex(item => item.isFinish === 1)
-        console.log('lastIndex', lastIndex)
+        const isFinishArr = this.excitationUserTaskVOList.filter(item => item.isFinish === 1)
+        const lastIndex = isFinishArr.length - 1
         this.needChapter =  this.excitationUserTaskVOList[1].totalReadChapter
         if (this.excitationUserTaskVOList[0].totalReadChapter === 0) {
           return this.width.width = '0px'
         }
         if (lastIndex === 3) {
+          this.needChapter = 0
           return this.width.width = `${BarDOMWidth}px`
         }
+        this.needChapter = this.excitationUserTaskVOList[isFinishArr.length].totalReadChapter
         this.width.width = `${this.widthIndex[lastIndex]}px`
       }
       if (Index === 0) {
