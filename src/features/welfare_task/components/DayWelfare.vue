@@ -78,7 +78,7 @@ export default {
         Index = this.excitationUserTaskVOList.findIndex(item => item.totalReadChapter >= this.readChapterCount)
       }
       console.log('打印', Index, this.readChapterCount)
-      if (this.readChapterCount === 0) {
+      if (this.readChapterCount * 1 === 0) {
         const isFinishArr = this.excitationUserTaskVOList.filter(item => item.isFinish === 1)
         const lastIndex = isFinishArr && isFinishArr.length - 1 || 0
         console.log('里面打印', isFinishArr, lastIndex)
