@@ -121,8 +121,11 @@ export default {
         }
       })
       if (Number(status) === 1 || Number(status) === 0) {
-        const url = `${window.location.origin}/#/withdraw`
-        routerToNative(url)
+        let withdrawUrl =  `${window.location.origin}/#/withdraw`
+        if (window.location.origin === 'http://testincrease.ibreader.com') {
+          withdrawUrl = 'http://testtask.ibreader.com/#/withdraw'
+        }
+        routerToNative(withdrawUrl)
         return
       }
       if (Number(status) === 3) {
