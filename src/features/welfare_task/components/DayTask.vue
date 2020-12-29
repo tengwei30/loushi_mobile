@@ -56,12 +56,15 @@ export default {
       span.task__item__title
         color #666666
         height 20px
-        line-height  20px
+        padding 18px 0
+        line-height 20px
       span.task__item__gold__common
         size(87px 25px)
         border-radius 4px
         color #ffffff
-        line-height 25px
+        line-height 14px
+        padding-top 6px
+        padding-bottom 5px
         text-align center
         padding-right 9px
         box-sizing border-box

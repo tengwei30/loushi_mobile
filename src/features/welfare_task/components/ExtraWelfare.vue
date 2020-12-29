@@ -68,7 +68,7 @@ export default {
         display inline-block
         font-size 12px
         size(70px, 22px)
-        line-height 22px
+        padding 5px 0
         text-align center
         background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
         border-radius 11px
@@ -80,7 +80,7 @@ export default {
         font-size 12px
         color #ffffff
         line-height 12px
-        padding 1px 0 0 4px
+        padding 2px 0 1px 4px
         box-sizing border-box
         z-index 9999
         absolute(top 15px left 0)

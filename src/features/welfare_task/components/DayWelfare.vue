@@ -68,7 +68,6 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      console.log('头部excitationUserTaskVOList', this.excitationUserTaskVOList, this.readChapterCount)
       const BarDOMWidth = this.$refs.BarDOM.clientWidth
       //
       let Index = 0
