@@ -79,9 +79,13 @@ export default {
       }
       if (this.readChapterCount === 0) {
         const lastIndex = this.excitationUserTaskVOList.findLastIndex(item => item.isFinish === 1)
+        console.log('lastIndex', lastIndex)
         this.needChapter =  this.excitationUserTaskVOList[1].totalReadChapter
         if (this.excitationUserTaskVOList[0].totalReadChapter === 0) {
           return this.width.width = '0px'
+        }
+        if (lastIndex === 3) {
+          return this.width.width = `${BarDOMWidth}px`
         }
         this.width.width = `${this.widthIndex[lastIndex]}px`
       }
@@ -90,7 +94,6 @@ export default {
         this.width.width = '15px'
         return
       }
-
       const startChapter = this.excitationUserTaskVOList[Index - 1].totalReadChapter
       const endChapter = this.excitationUserTaskVOList[Index].totalReadChapter
       const secChapter = endChapter - startChapter
