@@ -196,9 +196,9 @@ export default {
         absolute(left 0 top 47px right 0)
         margin 0 auto
         size(267px, 2px)
-        background #A93333
+        background-color #A93333
         border-radius 3.5px
-        opacity 0.21
+        background rgba(0,0,0,0.18)
         .progress__bar__active
           absolute(top 0 left 0)
           height 2px

@@ -36,7 +36,7 @@ export default {
   .day__task__title
     font-size 16px
     font-family PingFangSC-Medium, PingFang SC
-    font-weight 500
+    font-weight bold
     color #000000
     line-height 22px
     padding-bottom  15px

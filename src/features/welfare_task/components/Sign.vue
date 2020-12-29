@@ -13,7 +13,7 @@
         :key="key"
         )
         span.day__item__common(
-          :style="item.is_finish ? colorActive: null") {{ item.num }}
+          :style="item.is_finish ? colorActive: null") +{{ item.num }}
         img(
           :src="item.is_finish ? goldActive : goldDefault"
         )

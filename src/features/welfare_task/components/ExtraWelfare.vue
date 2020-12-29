@@ -34,7 +34,7 @@ export default {
       height 22px
       font-size 16px
       font-family PingFangSC-Medium, PingFang SC
-      font-weight 500
+      font-weight bold
       color #000000
       line-height 22px
     p.desc
@@ -62,6 +62,7 @@ export default {
       position relative
       .img
         size(90px, 120px)
+        border-radius 4px
       .btn
         margin-top 10px
         display inline-block
