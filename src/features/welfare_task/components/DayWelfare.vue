@@ -82,7 +82,6 @@ export default {
         const isFinishArr = this.excitationUserTaskVOList.filter(item => item.isFinish === 1)
         const lastIndex = isFinishArr && isFinishArr.length - 1 || 0
         console.log('里面打印', isFinishArr, lastIndex)
-        this.needChapter =  this.excitationUserTaskVOList[1].totalReadChapter
         // if (this.excitationUserTaskVOList[0].totalReadChapter === 0) {
         //   return this.width.width = '0px'
         // }
@@ -90,6 +89,7 @@ export default {
           this.needChapter = 0
           return this.width.width = `${BarDOMWidth}px`
         }
+        console.log('width ----> ', `${this.widthIndex[lastIndex]}px`)
         this.needChapter = this.excitationUserTaskVOList[isFinishArr.length].totalReadChapter
         this.width.width = `${this.widthIndex[lastIndex]}px`
       }
