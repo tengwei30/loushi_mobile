@@ -75,7 +75,7 @@ export default {
           font-size 12px
           color #ffffff
           font-weight bold
-          absolute(top 3px left 0 right 0)
+          absolute(top 2px left 0 right 0)
           text-align center
       .icon
         display inline-block
