@@ -67,6 +67,7 @@ export default {
         img
           width 100%
           display inline-block
+          border-radius 5px
       .btn
         margin-top 10px
         display inline-block
@@ -78,7 +79,7 @@ export default {
         border-radius 11px
         color #ffffff
         font-weight bold
-        line-height 14px
+        line-height 15px
         box-sizing border-box
       .icon
         display inline-block
