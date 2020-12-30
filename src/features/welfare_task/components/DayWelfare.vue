@@ -92,6 +92,7 @@ export default {
         console.log('width ----> ', `${this.widthIndex[lastIndex]}px`)
         this.needChapter = this.excitationUserTaskVOList[isFinishArr.length].totalReadChapter
         this.width.width = `${this.widthIndex[lastIndex]}px`
+        return
       }
       if (Index === 0) {
         this.needChapter =  this.excitationUserTaskVOList[1].totalReadChapter
