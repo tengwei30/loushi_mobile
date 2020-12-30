@@ -65,18 +65,18 @@ export default {
         size(90px, 120px)
         border-radius 4px
       .btn
-        margin-top 10px
-        display inline-flex
+        margin 10px auto 0
+        display inline-block
         size(70px, 22px)
-        justify-content center
-        align-items center
+        position relative
         background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
         border-radius 11px
         span
           font-size 12px
           color #ffffff
           font-weight bold
-          padding 0
+          absolute(top 2px left 0 right 0)
+          text-align center
       .icon
         display inline-block
         size(62px 15px)
