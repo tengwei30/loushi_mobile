@@ -80,13 +80,12 @@ export default {
       }
       const isFinishArr = this.excitationUserTaskVOList.filter(item => item.isFinish === 1) || []
       const lastIndex = isFinishArr && isFinishArr.length - 1 || 0
-      console.log('sssssssss', this.excitationUserTaskVOList[lastIndex].totalReadChapter, isFinishArr, lastIndex, this.readChapterCount)
       if (this.readChapterCount * 1 < this.excitationUserTaskVOList[lastIndex].totalReadChapter) {
         if (lastIndex === 3) {
           this.needChapter = 0
           return this.width.width = `${BarDOMWidth}px`
         }
-        this.needChapter = this.excitationUserTaskVOList[isFinishArr.length].totalReadChapter
+        this.needChapter = this.excitationUserTaskVOList[isFinishArr.length].totalReadChapter - this.readChapterCount
         this.width.width = `${this.widthIndex[lastIndex]}px`
         return
       }
