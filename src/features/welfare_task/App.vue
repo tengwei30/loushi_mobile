@@ -83,7 +83,25 @@ export default {
       historyReadChapter: 0,  // 历史阅读章节数
       dayTaskLists: [], // 每日任务列表
       singleBookLists: [], // 单书激励任务列表
-      excitationUserTaskVOList: [],  // 当日连续阅读进度
+      excitationUserTaskVOList: [
+      //   {
+      //   rewardNum: 10,
+      //   isFinish: 1,
+      //   totalReadChapter: 5
+      // }, {
+      //   rewardNum: 20,
+      //   isFinish: 1,
+      //   totalReadChapter: 10
+      // }, {
+      //   rewardNum: 30,
+      //   isFinish: 1,
+      //   totalReadChapter: 15
+      // }, {
+      //   rewardNum: 40,
+      //   isFinish: 0,
+      //   totalReadChapter: 20
+      // }
+      ],  // 当日连续阅读进度
       totalCoin: 0,
       receivedCoin: 0,
       showReadPercent: 0,
@@ -237,6 +255,7 @@ export default {
         taskVOS[0].isFinish = this.isOpen
       }
       this.dayTaskLists = taskVOS
+      // console.log('excitationUserTaskVOList', excitationUserTaskVOList)
       this.excitationUserTaskVOList = excitationUserTaskVOList
       this.userInfoBO = userInfoBO
       this.receivedCoin = receivedCoin
