@@ -67,7 +67,7 @@ export default {
           absolute(right -8px top 3px)
           size(18px 18px)
         .txt
-          absolute(top 3px left 0 right 7px)
+          absolute(top 2.5px left 0 right 7px)
           text-align center
       span.task__item__gold
         background #FF5933
