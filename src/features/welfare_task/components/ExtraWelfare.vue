@@ -6,7 +6,8 @@
   .extra_content
     .extra_content_item(v-for="(item, key) in singleBookLists" :key="key" @click="routerToRead(item, key)")
       img.img(:src="item.bookCoverUrl")
-      span.btn 立即阅读
+      span.btn
+        span 立即阅读
       span.icon {{ item.classify }}
 </template>
 <script>
@@ -65,17 +66,17 @@ export default {
         border-radius 4px
       .btn
         margin-top 10px
-        display inline-block
-        font-size 12px
+        display inline-flex
         size(70px, 22px)
-        padding 5px 0
-        text-align center
+        justify-content center
+        align-items center
         background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
         border-radius 11px
-        color #ffffff
-        font-weight bold
-        line-height 15px
-        box-sizing border-box
+        span
+          font-size 12px
+          color #ffffff
+          font-weight bold
+          padding 0
       .icon
         display inline-block
         size(62px 15px)
