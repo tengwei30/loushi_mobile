@@ -5,7 +5,8 @@
     p.desc 超过{{ showReadPercent }}%的用户都在阅读的大热书籍
   .extra_content
     .extra_content_item(v-for="(item, key) in singleBookLists" :key="key" @click="routerToRead(item, key)")
-      img.img(:src="item.bookCoverUrl")
+      .img
+        img(:src="item.bookCoverUrl")
       span.btn 立即阅读
       span.icon {{ item.classify }}
 </template>
@@ -62,7 +63,10 @@ export default {
       position relative
       .img
         size(90px, 120px)
-        border-radius 4px
+        border-radius 5px
+        img
+          width 100%
+          display inline-block
       .btn
         margin-top 10px
         display inline-block
@@ -74,7 +78,7 @@ export default {
         border-radius 11px
         color #ffffff
         font-weight bold
-        line-height 12px
+        line-height 14px
         box-sizing border-box
       .icon
         display inline-block
