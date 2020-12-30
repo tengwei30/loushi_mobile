@@ -57,6 +57,8 @@ export default {
       span.task__item__title
         color #666666
         line-height 56px
+        padding-top 2px
+        box-sizing border-box
       span.task__item__gold__common
         size(87px 25px)
         border-radius 4px
@@ -67,7 +69,7 @@ export default {
           absolute(right -8px top 3px)
           size(18px 18px)
         .txt
-          absolute(top 2.5px left 0 right 7px)
+          absolute(top 2px left 0 right 7px)
           text-align center
       span.task__item__gold
         background #FF5933
