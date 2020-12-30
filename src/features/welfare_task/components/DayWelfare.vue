@@ -68,6 +68,23 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
+      // this.excitationUserTaskVOList = [{
+      //   rewardNum: 10,
+      //   isFinish: 1,
+      //   totalReadChapter: 5
+      // }, {
+      //   rewardNum: 20,
+      //   isFinish: 1,
+      //   totalReadChapter: 10
+      // }, {
+      //   rewardNum: 30,
+      //   isFinish: 1,
+      //   totalReadChapter: 15
+      // }, {
+      //   rewardNum: 40,
+      //   isFinish: 0,
+      //   totalReadChapter: 20
+      // }]
       const BarDOMWidth = this.$refs.BarDOM.clientWidth
       //
       let Index = 0
@@ -77,15 +94,13 @@ export default {
       } else {
         Index = this.excitationUserTaskVOList.findIndex(item => item.totalReadChapter >= this.readChapterCount)
       }
-      console.log('打印', Index, this.readChapterCount)
-      if (this.readChapterCount * 1 === 0) {
-        const isFinishArr = this.excitationUserTaskVOList.filter(item => item.isFinish === 1)
-        const lastIndex = isFinishArr && isFinishArr.length - 1 || 0
+      const isFinishArr = this.excitationUserTaskVOList.filter(item => item.isFinish === 1) || []
+      const lastIndex = isFinishArr && isFinishArr.length - 1 || 0
+      if (this.readChapterCount * 1 === 0 && this.readChapterCount * 1 < this.excitationUserTaskVOList[isFinishArr.length - 1].totalReadChapter) {
         if (lastIndex === 3) {
           this.needChapter = 0
           return this.width.width = `${BarDOMWidth}px`
         }
-        console.log('width ----> ', `${this.widthIndex[lastIndex]}px`)
         this.needChapter = this.excitationUserTaskVOList[isFinishArr.length].totalReadChapter
         this.width.width = `${this.widthIndex[lastIndex]}px`
         return
