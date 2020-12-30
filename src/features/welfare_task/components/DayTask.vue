@@ -9,7 +9,8 @@
       span.task__item__title {{ item.name }}
       span.task__item__gold__common(
         :class="item.isFinish === 1 ? 'task__item__gold__finish' : 'task__item__gold' "
-        ) {{ item.isFinish === 1 ? '已领取' : `${item.rewardNum} 金币` }}
+        )
+        span.txt {{ item.isFinish === 1 ? '已领取' : `${item.rewardNum}金币` }}
 </template>
 <script>
 export default {
@@ -55,24 +56,19 @@ export default {
       font-size 14px
       span.task__item__title
         color #666666
-        height 20px
-        padding 18px 0
-        line-height 22px
+        line-height 56px
       span.task__item__gold__common
         size(87px 25px)
         border-radius 4px
         color #ffffff
-        line-height 14px
-        padding-top 6px
-        padding-bottom 5px
-        text-align center
-        padding-right 9px
-        box-sizing border-box
         position relative
         &::after
           content ''
           absolute(right -8px top 3px)
           size(18px 18px)
+        .txt
+          absolute(top 3px left 0 right 7px)
+          text-align center
       span.task__item__gold
         background #FF5933
         &::after

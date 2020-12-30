@@ -15,7 +15,7 @@
     h3.title 当日连续阅读福利
     .progress__content
       .progress__item(v-for="(item, key) in excitationUserTaskVOList" :key="key")
-        p.start__task(:style="changeBgCoinImage(item.isFinish)") {{ item.totalReadChapter === 0 ? '开始阅读' : `${item.rewardNum}金币` }}
+        p.start__task(:style="changeBgCoinImage(item.isFinish, item.totalReadChapter)") {{ item.totalReadChapter === 0 ? '开始阅读' : `${item.rewardNum}金币` }}
         p.task__chapter(:style="changeBgChapterImage(item.isFinish)")
           span {{ item.totalReadChapter }}
           span 章
@@ -55,8 +55,9 @@ export default {
           'color': '#FCF1D0'
         }
     },
-    changeBgCoinImage(isFinish) {
-      return isFinish * 1 === 1 ?
+    changeBgCoinImage(isFinish, totalReadChapter) {
+
+      return isFinish * 1 === 1 && totalReadChapter * 1 !== 0 ?
         {
           'background-image': `url(${require('../../../assets/welfare_task/day_welfate_active.png')})`,
           'color': '#D23131'
