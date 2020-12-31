@@ -174,21 +174,18 @@ export default {
       .progress__item
         p.start__task
           size(60px 25px)
-          // background-image url('../../../assets/welfare_task/day_welfate_active.png')
           color #D23131
           background-repeat no-repeat
           background-position center center
-          // background url('../../../assets/welfare_task/day_welfate_active.png') no-repeat center center
           background-size 100% 100%
           text-align center
           font-size 12px
           font-weight bold
-          padding-top 2px
+          padding-top 2.5px
           box-sizing border-box
         p.task__chapter
           margin 21px auto 0
           size(26px 36px)
-          // background-image url('../../../assets/welfare_task/day_welfare_chapter.png')
           background-repeat no-repeat
           background-position center center
           background-size 100% 100%
