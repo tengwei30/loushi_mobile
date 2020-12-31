@@ -68,14 +68,17 @@ export default {
         margin 10px auto 0
         display inline-block
         size(70px, 22px)
-        position relative
         background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
         border-radius 11px
         span
+          clear both
+          float left
           font-size 12px
           color #ffffff
           font-weight bold
-          absolute(top 2px left 0 right 0)
+          line-height 22px
+          display inline-block
+          width 100%
           text-align center
       .icon
         display inline-block

@@ -64,12 +64,17 @@ export default {
         border-radius 4px
         color #ffffff
         position relative
+        padding-right 6px
+        box-sizing border-box
         &::after
           content ''
           absolute(right -8px top 3px)
           size(18px 18px)
         .txt
-          absolute(top 2px left 0 right 7px)
+          // absolute(top 2px left 0 right 7px)
+          line-height 25px
+          width 100%
+          display inline-block
           text-align center
       span.task__item__gold
         background #FF5933
