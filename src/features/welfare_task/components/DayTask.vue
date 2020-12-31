@@ -72,6 +72,8 @@ export default {
           size(18px 18px)
         .txt
           // absolute(top 2px left 0 right 7px)
+          clear both
+          float left
           line-height 25px
           width 100%
           display inline-block
