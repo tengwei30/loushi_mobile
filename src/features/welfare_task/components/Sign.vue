@@ -166,7 +166,7 @@ export default {
       content: '';
       position: absolute;
       right: 1.3rem;
-      top: -1.1rem;
+      top: -1rem;
       width: 2.13rem;
       height: 1.44rem;
       background: url('../../../assets/welfare_task/new_sign_bg_icon.png') no-repeat center center;
