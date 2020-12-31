@@ -19,7 +19,7 @@
         p.task__chapter(:style="changeBgChapterImage(item.isFinish)")
           span {{ item.totalReadChapter }}
           span 章
-      p.progress__bar(ref="BarDOM")
+      p.progress__bar(ref="BarDOM" v-if="needChapter !== 0")
         span.progress__bar__active(:style="width")
     h5.footer_desc 还需阅读{{ needChapter }}章节
 </template>
