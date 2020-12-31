@@ -76,7 +76,7 @@ export default {
           font-size 12px
           color #ffffff
           font-weight bold
-          line-height 22px
+          line-height 23px
           display inline-block
           width 100%
           text-align center

@@ -75,7 +75,7 @@ export default {
           float left
           line-height 25px
           width 100%
-          padding-top 2px
+          padding-top 1px
           box-sizing border-box
           display inline-block
           text-align center
