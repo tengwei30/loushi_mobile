@@ -79,8 +79,7 @@ export default {
         Index = this.excitationUserTaskVOList.findIndex(item => item.totalReadChapter >= this.readChapterCount)
       }
       const isFinishArr = this.excitationUserTaskVOList.filter(item => item.isFinish === 1) || []
-      const lastIndex = isFinishArr && isFinishArr.length > 1 && isFinishArr.length - 1 || 0
-      console.log(this.excitationUserTaskVOList[lastIndex], lastIndex)
+      const lastIndex = isFinishArr.length > 0 && isFinishArr.length - 1 || 0
       if (this.readChapterCount * 1 < this.excitationUserTaskVOList[lastIndex].totalReadChapter) {
         if (lastIndex === 3) {
           this.needChapter = 0

@@ -30,6 +30,9 @@ export default {
 </script>
 <style lang="stylus">
 @import '../../../styles/index.styl';
+span
+  margin 0
+  padding 0
 .day__task
   margin-top 30px
   padding 0 20px
@@ -66,17 +69,16 @@ export default {
         position relative
         padding-right 7px
         box-sizing border-box
+        font-size initial
         &::after
           content ''
           absolute(right -8px top 3px)
           size(18px 18px)
         .txt
-          clear both
-          float left
+          font-size 14px
           line-height 25px
           width 100%
-          padding-top 1px
-          box-sizing border-box
+          // box-sizing border-box
           display inline-block
           text-align center
       span.task__item__gold

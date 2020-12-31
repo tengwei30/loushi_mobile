@@ -84,23 +84,23 @@ export default {
       dayTaskLists: [], // 每日任务列表
       singleBookLists: [], // 单书激励任务列表
       excitationUserTaskVOList: [
-      //   {
-      //   rewardNum: 10,
-      //   isFinish: 1,
-      //   totalReadChapter: 5
-      // }, {
-      //   rewardNum: 20,
-      //   isFinish: 1,
-      //   totalReadChapter: 10
-      // }, {
-      //   rewardNum: 30,
-      //   isFinish: 1,
-      //   totalReadChapter: 15
-      // }, {
-      //   rewardNum: 40,
-      //   isFinish: 0,
-      //   totalReadChapter: 20
-      // }
+        // {
+        //   rewardNum: 0,
+        //   isFinish: 1,
+        //   totalReadChapter: 0
+        // }, {
+        //   rewardNum: 20,
+        //   isFinish: 1,
+        //   totalReadChapter: 10
+        // }, {
+        //   rewardNum: 30,
+        //   isFinish: 1,
+        //   totalReadChapter: 15
+        // }, {
+        //   rewardNum: 40,
+        //   isFinish: 0,
+        //   totalReadChapter: 20
+        // }
       ],  // 当日连续阅读进度
       totalCoin: 0,
       receivedCoin: 0,
