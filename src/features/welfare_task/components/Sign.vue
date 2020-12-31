@@ -212,6 +212,7 @@ export default {
           font-weight: 600;
           color: #999999;
           line-height: 0.45rem;
+          position relative
         .day__item__date
           color: #999999;
           font-weight: 400!important;
