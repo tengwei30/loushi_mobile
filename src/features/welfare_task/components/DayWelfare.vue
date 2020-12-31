@@ -7,7 +7,7 @@
         span.has__read__chapter {{ readChapterCount }}章
       .title__left__bottom
         | 已经通过阅读到账{{ receivedCoin }}金币
-    .welfare__title__right
+    .welfare__title__right(v-if="Number(totalCoin) !== 0")
       img(src="@/assets/welfare_task/day_welfare_title_icon.png")
       p 今日可领
         span {{ totalCoin }}
@@ -79,7 +79,8 @@ export default {
         Index = this.excitationUserTaskVOList.findIndex(item => item.totalReadChapter >= this.readChapterCount)
       }
       const isFinishArr = this.excitationUserTaskVOList.filter(item => item.isFinish === 1) || []
-      const lastIndex = isFinishArr && isFinishArr.length - 1 || 0
+      const lastIndex = isFinishArr && isFinishArr.length > 1 && isFinishArr.length - 1 || 0
+      console.log(this.excitationUserTaskVOList[lastIndex], lastIndex)
       if (this.readChapterCount * 1 < this.excitationUserTaskVOList[lastIndex].totalReadChapter) {
         if (lastIndex === 3) {
           this.needChapter = 0
