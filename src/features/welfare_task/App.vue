@@ -178,14 +178,16 @@ export default {
         }
         getTaskFinish(item.id, this.readChapterCount, this.historyReadChapter).then(res => {
           if (res * 1 !== 100) {
-            bk.call('goReadBook', {}, () => {
-              console.log('去阅读')
-            })
-          } else {
-            console.log('手动完成任务')
             getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate).then(res => {
               this.dayTaskLists = []
+              this.excitationUserTaskVOList = []
               this.dayTaskLists = res.taskVOS
+              this.excitationUserTaskVOList = res.excitationUserTaskVOList
+            })
+
+          } else {
+            bk.call('goReadBook', {}, () => {
+              console.log('去阅读')
             })
           }
         })
