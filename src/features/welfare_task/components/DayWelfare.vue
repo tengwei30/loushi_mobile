@@ -70,7 +70,6 @@ export default {
   mounted() {
     this.$nextTick(() => {
       const BarDOMWidth = this.$refs.BarDOM.clientWidth
-      //
       let Index = 0
       if (this.readChapterCount > this.excitationUserTaskVOList[this.excitationUserTaskVOList.length - 1 ].totalReadChapter) {
         this.needChapter = 0
@@ -91,9 +90,14 @@ export default {
       }
       if (Index === 0) {
         this.needChapter =  this.excitationUserTaskVOList[1].totalReadChapter
-        this.width.width = '15px'
+        if (this.readChapterCount * 1 !== 0) {
+          this.width.width = '15px'
+        } else {
+          this.width.width = '0px'
+        }
         return
       }
+
       const startChapter = this.excitationUserTaskVOList[Index - 1].totalReadChapter
       const endChapter = this.excitationUserTaskVOList[Index].totalReadChapter
       const secChapter = endChapter - startChapter
