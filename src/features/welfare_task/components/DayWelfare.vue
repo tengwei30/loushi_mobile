@@ -150,9 +150,12 @@ export default {
         size(27px, 28px)
       p
         font-size 14px
-        color #FF4900
+        color #333333
         line-height 20px
         font-weight bold
+        span
+          color #FF4900
+          font-weight bold
   .welfare__progress
     margin-top 20px
     padding 15px 15px 0
