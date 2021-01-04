@@ -152,7 +152,6 @@ export default {
         font-size 14px
         color #333333
         line-height 20px
-        font-weight bold
         span
           color #FF4900
           font-weight bold
