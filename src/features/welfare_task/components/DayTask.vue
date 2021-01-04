@@ -10,7 +10,7 @@
       span.task__item__gold__common(
         :class="item.isFinish === 1 ? 'task__item__gold__finish' : 'task__item__gold' "
         )
-        span.txt {{ item.isFinish === 1 ? '已领取' : `${item.rewardNum}金币` }}
+        span.txt {{ item.isFinish === 1 ? (key === 0 ? '已完成' : '已领取') : `${item.rewardNum}金币` }}
 </template>
 <script>
 export default {
