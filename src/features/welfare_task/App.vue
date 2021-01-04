@@ -177,14 +177,22 @@ export default {
           return
         }
         getTaskFinish(item.id, this.readChapterCount, this.historyReadChapter).then(res => {
-          if (res * 1 !== 100) {
+          if (res * 1 === 100) {
+            bk.call('calendarSignNoticeInit', {}, data => {
+              const { isOpen  } = JSON.parse(data)
+              // 通知开启初始化
+              if (isOpen  * 1 === 0) {
+                this.isOpen = 0
+              } else {
+                this.isOpen = 1
+              }
+            })
             getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate).then(res => {
               this.dayTaskLists = []
               this.excitationUserTaskVOList = []
               this.dayTaskLists = res.taskVOS
               this.excitationUserTaskVOList = res.excitationUserTaskVOList
             })
-
           } else {
             bk.call('goReadBook', {}, () => {
               console.log('去阅读')
