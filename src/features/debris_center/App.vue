@@ -144,6 +144,7 @@ export default {
     }
   },
   created() {
+    this.platform =localStorage.getItem('platformId')
     bk.call('getTodayReadTaskChapterNum', {}, data => { // 初始化碎片信息
       const { todayTotalReadChapterNum, nextTaskNeedNum, chipNum   } = JSON.parse(data)
       this.todayTotalReadChapterNum = todayTotalReadChapterNum
@@ -426,7 +427,6 @@ export default {
   async mounted() {
     // 添加事件监听
     window.addEventListener('scroll', this.addScrollHandler)
-    this.platform =localStorage.getItem('platformId')
     this.InitData()
   },
 }
