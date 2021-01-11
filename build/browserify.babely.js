@@ -2,6 +2,7 @@ var fs = require('fs')
 var path = require('path')
 var browserify = require('browserify')
 var babelify = require('babelify')
+var UglifyJS = require('uglify-js')
 var rgex = /^(chunk-vendors)|(chunk-swiper)\.[\w]/
 var bableFileArray = []
 
@@ -57,11 +58,15 @@ function dealCompile(url, item) {
     .require(resolve(`/${url}/${item}.js`), { entry: true })
     .bundle(function(res) {
       console.log(res, 456)
-      fs.unlink(resolve(`/${url}/${item}.js`), function(err) {
+      fs.unlink(resolve(`/${url}/${item}.js`), function() {
         try {
           var readerStream = fs.createReadStream(resolve(`/dist/${item}.js`))
           var writerStream = fs.createWriteStream(resolve(`/${url}/${item}.js`))
           readerStream.pipe(writerStream)
+          readerStream.on('end', function() {
+            console.log('/${url}/${item}.js', `/${url}/${item}.js`)
+            fs.writeFileSync(`/${url}/${item}.js`, UglifyJS.minify(fs.readFileSync(`/${url}/${item}.js`, 'utf-8')).code)
+          })
           console.log('结束')
           fs.unlink(resolve(`/dist/${item}.js`), function(errunlink) {
             try {
@@ -78,6 +83,6 @@ function dealCompile(url, item) {
     .on('error', function(err) {
       console.log('Error' + err.message)
     })
-    .pipe(fs.createWriteStream(`dist/${item}.js`))
+    .pipe(fs.createWriteStream(`${url}/${item}.js))
 }
 
