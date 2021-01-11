@@ -62,7 +62,9 @@
           :awardImgs="item.imgList"
           v-on:goAwardCenter='goAwardCenter'
         )
-  DebrisRule
+  DebrisRule(
+    :platform="platform"
+  )
   .modal_activity(v-show="activityExpired")
     .modal_activity_content(v-if="code === 153")
       h3 对不起，活动已下线，
@@ -122,7 +124,8 @@ export default {
       isAbled: true,
       code: 156,
       countDown: 5,
-      timer: null
+      timer: null,
+      platform: '6'
     }
   },
   computed: {
@@ -423,6 +426,7 @@ export default {
   async mounted() {
     // 添加事件监听
     window.addEventListener('scroll', this.addScrollHandler)
+    this.platform =localStorage.getItem('platformId')
     this.InitData()
   },
 }
