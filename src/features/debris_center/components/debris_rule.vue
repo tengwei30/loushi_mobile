@@ -86,10 +86,13 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      if (this.platform !== '6') {
+      if (this.platform === '6') return
+      if (this.platform === '7' || this.platform === '51') {
+        console.log('this.platform', this.platform)
         this.activityDate = '2021年1月12日-2021年3月12日'
         this.activityCycleDateFirst = '2021年1月12日-2021年3月12日'
         this.activityCycleDateSecond = '2021年3月13日-2021年5月11日'
+        return
       }
     })
   }
