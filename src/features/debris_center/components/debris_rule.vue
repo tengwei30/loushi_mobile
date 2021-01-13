@@ -87,6 +87,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
+      console.log('platform', this.platform)
       if (this.platform === '6') return
       if (this.platform === '7' || this.platform === '51') {
         this.activityDate = '2021年1月12日-2021年3月12日'
