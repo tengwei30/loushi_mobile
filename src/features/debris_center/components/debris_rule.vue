@@ -4,7 +4,7 @@
     h2.rule_title 规则
     .rule_desc
       h3 一、活动参与要求
-      p 1、本活动面向注册必阅免费小说（以下称本产品）的所有用户。
+      p 1、本活动面向注册{{ appName }}免费小说（以下称本产品）的所有用户。
       p 2、同一注册账号、同一手机号、同一终端设备或同一微信号，符合以上任一条件的，均视为同一用户。
     .rule_desc
       h3 二、活动时间
@@ -81,17 +81,19 @@ export default {
     return {
       activityDate: '2020年12月29日-2021年2月27日',
       activityCycleDateFirst: '2020年10月29日-2020年12月28日',
-      activityCycleDateSecond: '2020年12月29日-2021年2月27日'
+      activityCycleDateSecond: '2020年12月29日-2021年2月27日',
+      appName: '必阅'
     }
   },
   mounted() {
     this.$nextTick(() => {
+      console.log('platform', this.platform)
       if (this.platform === '6') return
       if (this.platform === '7' || this.platform === '51') {
-        console.log('this.platform', this.platform)
         this.activityDate = '2021年1月12日-2021年3月12日'
         this.activityCycleDateFirst = '2021年1月12日-2021年3月12日'
         this.activityCycleDateSecond = '2021年3月13日-2021年5月11日'
+        this.appName = this.platform === '7' ? '坚果' : '洋葱'
         return
       }
     })

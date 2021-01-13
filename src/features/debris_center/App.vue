@@ -63,6 +63,7 @@
           v-on:goAwardCenter='goAwardCenter'
         )
   DebrisRule(
+    v-if="platform.length !== 0"
     :platform="platform"
   )
   .modal_activity(v-show="activityExpired")
@@ -125,7 +126,7 @@ export default {
       code: 156,
       countDown: 5,
       timer: null,
-      platform: '6'
+      platform: ''
     }
   },
   computed: {
@@ -144,7 +145,6 @@ export default {
     }
   },
   created() {
-    this.platform =localStorage.getItem('platformId')
     bk.call('getTodayReadTaskChapterNum', {}, data => { // 初始化碎片信息
       const { todayTotalReadChapterNum, nextTaskNeedNum, chipNum   } = JSON.parse(data)
       this.todayTotalReadChapterNum = todayTotalReadChapterNum
@@ -185,6 +185,7 @@ export default {
         this.chipNum = chipNum
       })
     })
+    this.InitData()
   },
   methods: {
     async InitData(val = '') {
@@ -424,10 +425,13 @@ export default {
       }
     }, 30),
   },
-  async mounted() {
+  mounted() {
     // 添加事件监听
     window.addEventListener('scroll', this.addScrollHandler)
-    this.InitData()
+    setTimeout(() => {
+      this.platform = localStorage.getItem('platformId') || '6'
+    }, 100)
+    console.log('获取platform', localStorage.getItem('platformId'), this.platform)
   },
 }
 </script>
