@@ -428,7 +428,9 @@ export default {
   mounted() {
     // 添加事件监听
     window.addEventListener('scroll', this.addScrollHandler)
-    this.platform = localStorage.getItem('platformId') || '6'
+    setTimeout(() => {
+      this.platform = localStorage.getItem('platformId') || '6'
+    }, 100)
     console.log('获取platform', localStorage.getItem('platformId'), this.platform)
   },
 }
