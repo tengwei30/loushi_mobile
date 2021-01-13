@@ -62,7 +62,9 @@
           :awardImgs="item.imgList"
           v-on:goAwardCenter='goAwardCenter'
         )
-  DebrisRule
+  DebrisRule(
+    :platform="platform"
+  )
   .modal_activity(v-show="activityExpired")
     .modal_activity_content(v-if="code === 153")
       h3 对不起，活动已下线，
@@ -122,7 +124,8 @@ export default {
       isAbled: true,
       code: 156,
       countDown: 5,
-      timer: null
+      timer: null,
+      platform: '6'
     }
   },
   computed: {
@@ -141,6 +144,7 @@ export default {
     }
   },
   created() {
+    this.platform =localStorage.getItem('platformId')
     bk.call('getTodayReadTaskChapterNum', {}, data => { // 初始化碎片信息
       const { todayTotalReadChapterNum, nextTaskNeedNum, chipNum   } = JSON.parse(data)
       this.todayTotalReadChapterNum = todayTotalReadChapterNum
