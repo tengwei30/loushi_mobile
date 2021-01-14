@@ -333,7 +333,8 @@ export default {
     this.taskId = id
     this.showRedPackageStyle = showRedPackageStyle
     this.userTaskRedPackageVOList = userTaskRedPackageVOList
-    const { conditionStatus } = this.day
+    const { conditionStatus } = this.day || {}
+    console.log(this.day, conditionStatus, 22)
     if (conditionStatus * 1 === 2) {
       this.showReadAd = true
     }
