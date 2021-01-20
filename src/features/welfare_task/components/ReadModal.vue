@@ -33,7 +33,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 8888;
+  z-index: 9999;
 }
 .modal__content__adInfo {
   width: 8.13rem;
