@@ -11,7 +11,7 @@
     )
   .readAdTask(v-if="showReadAd")
     p.read__desc 您本日还没有签到成功，马上去资讯平台领红包吧，满30个就可以签到哦～
-    button.btn(@goReadAd="goReadAd('txt')") 去看资讯
+    button.btn(@click="goReadAd('txt')") 去看资讯
   DayWelfare(
     v-if="excitationUserTaskVOList.length !== 0"
     :excitationUserTaskVOList="excitationUserTaskVOList"
