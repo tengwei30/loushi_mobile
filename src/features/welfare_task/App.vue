@@ -228,12 +228,6 @@ export default {
           type  //  txt 表示点击固定文案部分。''表示点击弹窗
         }
       })
-      if (type === 'txt') { // 埋点区分点击那个点
-      } else {
-        setTimeout(() => {
-          if (this.day && this.day.dialog) this.day.dialog = false
-        }, 1500)
-      }
       window.location.href = 'breader://action/luckyPrize?new=1'
     },
     closeModal() {  // 关闭看资讯弹窗

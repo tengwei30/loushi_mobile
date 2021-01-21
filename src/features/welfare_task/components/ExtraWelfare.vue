@@ -88,7 +88,7 @@ export default {
         line-height 12px
         padding 2px 0 1px 4px
         box-sizing border-box
-        z-index 9999
+        z-index 9998
         absolute(top 15px left 0)
         background url('../../../assets/welfare_task/extra_icon.png') no-repeat center center
         background-size 100% 100%
