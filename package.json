@@ -88,6 +88,7 @@
     "swiper": "^5.3.7",
     "terser-webpack-plugin": "^2.3.5",
     "vue-awesome-swiper": "^4.1.1",
+    "vue-luck-draw": "^3.3.9",
     "vue-template-compiler": "^2.6.9",
     "webpack-bundle-analyzer": "^3.3.2"
   },
