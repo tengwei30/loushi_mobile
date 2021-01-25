@@ -49,7 +49,7 @@
         .draw_pop_bg
         .draw_pop_text
          | 恭喜你抽中{{rewardPrize.title}} 碎片碎片碎片
-        .draw_pop_btn(@click='closePrizePop') 知道了
+        .draw_pop_btn(@click='closePrizePop') {{rewardList.length === 0 ? '知道了' : '继续抽奖'}}
 
 </template>
 
@@ -141,7 +141,9 @@ export default {
         imgs: [{ src: require('../../assets/debris_luck_draw/draw_center_icon.png'), width: '100%' }]
       },
       defaultConfig: {
-        gutter: 6
+        gutter: 6,
+        accelerationTime: 500,
+        decelerationTime: 1500
       },
       defaultStyle: {
         fontColor: 'rgba(244, 57, 57, 1)',
@@ -164,7 +166,6 @@ export default {
       rewardList: [], // 获奖列表
       rewardPrize: {}, // 弹窗显示的奖品
       isClickedDrawBtn: false, // 是否允许点击抽奖按钮,在抽奖过程中不允许点击,
-      count: 1
     }
   },
   methods: {
@@ -229,9 +230,7 @@ export default {
         return
       }
       this.$refs.luckyGrid.play()
-      setTimeout(() => {
-        this.$refs.luckyGrid.stop(index)
-      }, 3000)
+      this.$refs.luckyGrid.stop(index)
     },
     // 关闭奖品弹窗(点击关闭弹窗，如果获奖列表还有数据，会继续转盘弹窗，奖励其实已经全部发放)
     closePrizePop() {

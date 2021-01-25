@@ -9,7 +9,10 @@
     <div class="award_detail_time">中奖时间：{{momentDate(info.createTime)}}</div>
     <div class="award_detail_bottom">
       <div class="award_detail_progress">进度: {{statusText}}</div>
-      <div class="award_detail_btn" v-if="info.needPost != 0" @click="goMailAddress">邮寄地址</div>
+      <div class="award_detail_btn">
+        <div class="award_detail_btn_email" v-if="info.needPost != 0" @click="goMailAddress">邮寄地址</div>
+        <div class="award_detail_btn_post" @click="goDebrisComment">评论</div>
+      </div>
     </div>
   </div>
 </template>
@@ -35,6 +38,10 @@ export default {
     },
     momentDate(time) {
       return moment(time).format('YYYY-MM-DD')
+    },
+    // 跳转碎片评论
+    goDebrisComment() {
+      this.$emit('goDebrisComment')
     }
   },
   computed: {
@@ -60,7 +67,7 @@ export default {
 <style lang="stylus">
 .award_detail
   width 335px
-  margin 20px auto 0
+  margin 0 auto 20px
   .award_detail_cover
     width 100%
     height 252px
@@ -87,17 +94,29 @@ export default {
     margin 18px 0
     font-weight 500
   .award_detail_bottom
-    font-size 15px
+    font-size 14px
     color #666666
     font-weight 500
     display flex
     align-items center
     justify-content space-between
     .award_detail_btn
-      background rgba(244, 244, 244, 1)
-      width 78px
-      height 22px
-      line-height 22px
-      text-align center
-      border-radius 22px
+      display flex
+      font-weight 400
+      .award_detail_btn_email
+        background #F4F4F4
+        width 64px
+        height 22px
+        line-height 22px
+        text-align center
+        border-radius 22px
+      .award_detail_btn_post
+        background #F4F4F4
+        width 64px
+        height 22px
+        line-height 22px
+        text-align center
+        border-radius 22px
+        margin-left 8.5px
+
 </style>
