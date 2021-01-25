@@ -38,14 +38,30 @@
       :title='taskTitle',
       :desc='desc'
       :styles="styles"
+      fontColor="#8D3000"
     )
       ul.task_list
         li.single_task(v-for="item in taskInfoList")
           p.task_name {{ item.name }}
           p.task_state(
             @click="openTask(item)"
-            :style="{backgroundImage: item.isFinish * 1 === 0 ? taskFinishDefault : taskFinishBg, color: item.isFinish * 1 === 0 ? '#FFFFFF' : '#F43A3A'}"
-            ) {{ item.isFinish * 1 === 0 ? '待领取' : '已到账' }}
+            )
+            span 去阅读
+  .signleBook_module
+    ContentSlot(
+      title='专享书籍领碎片',
+      :desc='singleBookDesc'
+      :styles="styles"
+      fontColor="#317EB4"
+      isSingleBook=true
+    )
+      ul.single_list
+        li.single_book
+          span.single_book_cover 我是图片
+          div.single_book_desc
+            span.single_book_title 我是标题部分
+            span.single_book_class 我是类型
+          span.single_book_btn
   .award_center_list
     ContentSlot(
       title='奖励中心',
@@ -101,7 +117,8 @@ export default {
       from: getQueryString('from') || 'tab',
       styles: {
         padding: '16px 21px 12px',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        color: ''
       },
       todayTotalReadChapterNum: 0,  // 今日阅读章数
       nextTaskNeedNum: 0, // 今日再阅读几章
@@ -126,7 +143,8 @@ export default {
       code: 156,
       countDown: 5,
       timer: null,
-      platform: ''
+      platform: '',
+      singleBookDesc: '看专项书籍领取稀有碎片，阅读满6章必得碎片'
     }
   },
   computed: {

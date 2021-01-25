@@ -2,8 +2,10 @@
 #contentslot
   .header_title
     .header_left
-      h2.title {{ title }}
-      p.desc(v-if="desc") {{ desc }}
+      h2.title(:style="{color: fontColor}") {{ title }}
+      p.desc(v-if="desc" :style="{color: fontColor}") {{ desc }}
+    .header_right(v-if="isSingleBook")
+      h3.title(:style="{color: fontColor}") 每日3枚
     .header_right(v-if="isSign")
       h3.title 签到提醒
       img.onOff(@click="openNotification()" :src="imgUrl")
@@ -22,7 +24,7 @@ export default {
       type: String,
       default: ''
     },
-    isSign: {
+    isSign: { // 控制开启签到提醒按钮开关
       type: Boolean,
       default: false
     },
@@ -32,6 +34,14 @@ export default {
     imgUrl: {
       type: String,
       default: require('../../../assets/debris_center/open_icon@2x.png')
+    },
+    fontColor: {
+      type: String,
+      default: '#ffffff'
+    },
+    isSingleBook: { // 控制单书右侧文案显示
+      type: Boolean,
+      default: false
     }
   },
   mounted() {
@@ -48,17 +58,18 @@ export default {
 @import '../../../styles/index.styl';
   #contentslot
     width 346px
+    min-height 200px
     margin 0 auto
     background #FFFFFF
     box-sizing border-box
     margin-top 20px
+    border-radius 10px
+    box-shadow 0px 0px 8px 0px rgba(0, 0, 0, 0.09)
     .header_title
       padding 0 20px
       box-sizing border-box
       min-height 46px
       width 346px
-      border-radius 8px 8px 0 0
-      background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
       display flex
       flex-direction row
       justify-content space-between
@@ -73,14 +84,13 @@ export default {
           font-size 16px
           font-family PingFangSC-Medium, PingFang SC
           font-weight 500
-          color #FFFFFF
           line-height 22px
+          padding-top 22px
         p.desc
           height 17px
           font-size 12px
           font-family PingFangSC-Regular, PingFang SC
           font-weight 400
-          color #FFFFFF
           line-height 17px
       .header_right
         display flex
@@ -101,8 +111,5 @@ export default {
     .content
       width 346px
       min-height 60px
-      border-radius 0 0 8px 8px
-      border 2px solid #FF9836
       border-top 0
-      box-shadow 0px 0px 7px 0px rgba(221, 221, 221, 0.5)
 </style>

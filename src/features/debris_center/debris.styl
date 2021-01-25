@@ -19,7 +19,8 @@ body, html
     .header_space
       fixed(left 0 right 0 top 0)
       size(100%, 57px)
-      background #F44004
+      border none
+      background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
       z-index 9990
     .header_nav
       fixed(left 0px right 0px top 29px)
@@ -87,7 +88,7 @@ body, html
     .sign_img
       width 100%
       height auto
-      display flex 
+      display flex
       flex-direction row
       flex-wrap wrap
       img
@@ -110,36 +111,34 @@ body, html
     margin 20px auto
     ul.task_list
       li.single_task
-        display flex 
+        display flex
         flex-direction row
         justify-content space-between
         padding-bottom 15px
-        .task_name        
+        .task_name
           height 20px
           font-size 14px
           font-family PingFangSC-Regular, PingFang SC
           font-weight 400
-          color #333333
-          line-height 20px
+          color #8D3000
+          padding 9px 0
+          box-sizing border-box
+          line-height normal
         .task_state
-          size(74px 22px)
-          font-size 12px
+          size(78px 40px)
           font-family PingFangSC-Regular, PingFang SC
           font-weight 400
           color #FFFFFF
-          line-height 22px
-          text-indent 10px
-          // background url('../../assets/debris_center/default_task.png') no-repeat center center/100%
+          background-image url('../../assets/debris_center/task_name_bg.png')
           background-repeat no-repeat
           background-position center center/100%
           background-size 100% 100%
-          position relative
-          &::after
-            content ''
-            absolute(right -1px top 0)
-            size(24px 24px)
-            background url('../../assets/debris_center/debris_icon.png') no-repeat center center/100%
-            background-size 100% 100%
+          text-align center
+          box-sizing border-box
+          line-height 40px
+          font-size initial
+          span
+            font-size 12px
   .award_center_list
     width 346px
     margin 20px auto 0
@@ -175,3 +174,6 @@ body, html
         height 20px
         line-height 20px
         text-align center
+  .signleBook_module
+    width 346px
+    margin 20px auto
