@@ -11,7 +11,7 @@
       img.draw_luck_bg(
         src='../../assets/debris_luck_draw/draw_luck_bg.png'
       )
-      .luck_draw_notice 恭喜您抽中东北大米碎片～
+      .luck_draw_notice 参与抽奖，抽取珍惜碎片～
       LuckyGrid.draw_luck(
         ref="luckyGrid"
         width="336px"
