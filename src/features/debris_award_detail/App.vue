@@ -8,6 +8,7 @@
     img.left_img(
       slot='left'
       src='../../assets/debris_award_detail/nav_back.png'
+      @click='nvaBack'
     )
     div.left_right(
       slot='right'
@@ -26,6 +27,7 @@
 </template>
 
 <script>
+import bk from 'bayread-bridge'
 import AwardDetail from './components/award_detail'
 import HeaderNav from '@/components/HeaderNav'
 import { callOnline } from '@/utils/common.js'
@@ -115,6 +117,10 @@ export default {
       skipUrl({
         skipUrl: `${location.origin}/BKH5-debris_comment.html?from=awardDetail`
       })
+    },
+    // 返回上一页面
+    nvaBack() {
+      bk.call('closePageNative')
     }
   },
   mounted() {

@@ -6,6 +6,7 @@
       img.left_img(
         slot='left'
         src='../../assets/debris_luck_draw/nav_back.png'
+        @click='nvaBack'
       )
     .luck_draw_center
       img.draw_luck_bg(
@@ -34,7 +35,8 @@
           @click='clickDrawLuckBtn(item)'
           :disabled='isClickedDrawBtn'
         )
-          | {{item.text}}
+          template(v-if='item.type === 3') {{rewardList.length === 0 ? item.text : ('剩余抽奖次数' + rewardList.length)}}
+          template(v-else) {{item.text}}
     .rule
       .rule_title 活动规则：
       .rule_content
@@ -54,6 +56,7 @@
 </template>
 
 <script>
+import bk from 'bayread-bridge'
 // 解决移动端button不能点击端问题(定一个全局函数是为了解决重复定义事件问题)
 function touchstartFun() {}
 import HeaderNav from '@/components/HeaderNav'
@@ -239,6 +242,10 @@ export default {
         this.startCallBack()
       }
     },
+    // 返回上一页面
+    nvaBack() {
+      bk.call('closePageNative')
+    }
   },
   computed: {
     luckBtnsFilter() {

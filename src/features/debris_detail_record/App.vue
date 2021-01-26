@@ -9,6 +9,7 @@
       img.left_img(
         slot='left'
         src='../../assets/debris_detail_record/nav_back.png'
+        @click='nvaBack'
       )
     .debris_box(v-if='list.length > 0')
       DetailItem(
@@ -22,6 +23,7 @@
 </template>
 
 <script>
+import bk from 'bayread-bridge'
 import DetailItem from './components/DetailItem'
 import HeaderNav from '@/components/HeaderNav'
 export default {
@@ -36,7 +38,12 @@ export default {
       ]
     }
   },
-  methods: {},
+  methods: {
+    // 返回上一页面
+    nvaBack() {
+      bk.call('closePageNative')
+    }
+  },
   mounted() {},
 }
 </script>
