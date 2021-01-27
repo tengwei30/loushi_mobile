@@ -1,9 +1,24 @@
 <template lang="pug">
 .debris_award_detail(v-if='isLoaded')
+  HeaderNav(
+    title='奖励明细'
+    :headerSpaceStyle="{height: '68px', background: 'linear-gradient(to right, #F43A3A 10%, #FFC87A)'}"
+    :headerNav="{height: '48px', fontSize: '16px', color: '#ffffff', padding: '0 0 0 16px'}"
+  )
+    img.left_img(
+      slot='left'
+      src='../../assets/debris_award_detail/nav_back.png'
+      @click='nvaBack'
+    )
+    div.left_right(
+      slot='right'
+      @click='goDebrisDetailRecord'
+    ) 碎片明细
   template(v-if='list.length > 0')
     div(ref='clientBox')
       AwardDetail(v-for='(item,index) in list' :key='index'
       @goMailAddress='goMailAddress'
+      @goDebrisComment='goDebrisComment'
       :info='item')
     .debris_award_detail_tip
       .debris_award_detail_text(@click='callOnline') 我有疑问?
@@ -13,7 +28,9 @@
 </template>
 
 <script>
+import bk from 'bayread-bridge'
 import AwardDetail from './components/award_detail'
+import HeaderNav from '@/components/HeaderNav'
 import { callOnline } from '@/utils/common.js'
 import { skipUrl, toast, closeCurrentPage } from '@/utils/nativeToH5/index'
 import { getQueryString } from '@/utils/url'
@@ -22,11 +39,12 @@ import { mBuryPoint } from '@/utils/index'
 import { getDebrisAwardDetail } from './request'
 export default {
   components: {
-    AwardDetail
+    AwardDetail,
+    HeaderNav
   },
   data() {
     return {
-      list: [],
+      list: [{ fragmentPrizeBigImgUrl: 'https://www.baidu.com', fragmentPrizeTitle: 'p40S' }],
       pageIndex: 0,
       isLoadedAll: false,
       isLoaded: false
@@ -89,6 +107,23 @@ export default {
         }
       }
     },
+    // 碎片明细记录
+    goDebrisDetailRecord() {
+      skipUrl({
+        skipUrl: `${location.origin}/BKH5-debris_detail_record.html?from=awardDetail`
+      })
+    },
+    // 跳转碎片评论
+    goDebrisComment(target) {
+      console.log(`${location.origin}/BKH5-debris_comment.html?from=awardDetail&info=` + encodeURIComponent(JSON.stringify(target)))
+      skipUrl({
+        skipUrl: `${location.origin}/BKH5-debris_comment.html?from=awardDetail&info=` + encodeURIComponent(JSON.stringify(target))
+      })
+    },
+    // 返回上一页面
+    nvaBack() {
+      bk.call('closePageNative')
+    }
   },
   mounted() {
     mBuryPoint(13, {

@@ -166,6 +166,13 @@ module.exports = {
             reuseExistingChunk: true,
             chunks: 'all'
           },
+          'chunk-vue-luck-draw': {
+            name: 'chunk-vue-luck-draw',
+            priority: 20,
+            test: /[\\/]node_modules[\\/]_?vue-luck-draw(.*)/,
+            reuseExistingChunk: true,
+            chunks: 'all'
+          },
         }
       })
       config.plugin('AutoInjectPlugin').use(AutoInjectPlugin)
