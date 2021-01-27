@@ -1,5 +1,7 @@
 <template lang="pug">
 #debris_app
+  P.header_right_record(@click="goToRewardRecord()") 中奖记录
+  P.header_right_record_rule 活动规则
   header
     .header_space(:style="{opacity: opacity}")
     .header_nav
@@ -8,7 +10,6 @@
          v-if="from !== 'tab'"
         :style="{backgroundImage: backgroundImage}")
       | 碎片中心
-      span.header_right_record(@click="goToRewardRecord()") 中奖记录
     .award_list_root
       h3.header_title 我的奖品
       .award_list
@@ -19,19 +20,17 @@
           v-on:getAwardToMailAddress="getAwardToMailAddress"
         )
   .sign_module
-    ContentSlot(
-      title='签到领碎片',
-      desc=''
-      :styles="styles"
-      isSign=true
-      :imgUrl="imgUrl"
+    Sign(
       v-on:openCalendarSignNotice="openCalendarSignNotice"
+      v-on:goSignRecord="goSignRecord"
+      :imgUrl="imgUrl"
     )
+    //ContentSlot(
+      title='签到领碎片',
+      desc='' :styles="styles" isSign=true :imgUrl="imgUrl" v-on:openCalendarSignNotice="openCalendarSignNotice")
       .sign_img(@click="goSignRecord()")
         img(
-          v-for='(item, index) in checkinRewardInfoList'
-          :src="getSignUrl(Number(index) + 1)"
-          )
+          v-for='(item, index) in checkinRewardInfoList' :src="getSignUrl(Number(index) + 1)" )
       p.sign_day_num(@click="goSignRecord()") 您已成功签到{{ checkinInfo.checkinDays }}天，获得{{ checkinInfo.checkinFragmentCount }}枚碎片，别中断哦～
   .task_module(v-if="chapterTaskInfoList && taskInfoList.length !== 0")
     ContentSlot(
@@ -43,25 +42,25 @@
       ul.task_list
         li.single_task(v-for="item in taskInfoList")
           p.task_name {{ item.name }}
-          p.task_state(
-            @click="openTask(item)"
-            )
-            span 去阅读
+          p.task_state(@click="openTask(item)" :style="item.isFinish*1 === 1 ? taskStyle : ''")
+            span {{ item.isFinish*1 === 0 ? '待领取' : '已领取'}}
   .signleBook_module
     ContentSlot(
       title='专享书籍领碎片',
       :desc='singleBookDesc'
       :styles="styles"
-      fontColor="#317EB4"
+      fontColor="#317eb4"
       isSingleBook=true
     )
       ul.single_list
-        li.single_book
-          span.single_book_cover 我是图片
+        li.single_book(v-for="key in 2")
+          span.single_book_cover
           div.single_book_desc
             span.single_book_title 我是标题部分
+            span.single_book_info 我是描述部分我是描述部分我是描述部分我是描述部分我是描述部分
             span.single_book_class 我是类型
           span.single_book_btn
+            span 去阅读
   .award_center_list
     ContentSlot(
       title='奖励中心',
@@ -78,10 +77,8 @@
           :awardImgs="item.imgList"
           v-on:goAwardCenter='goAwardCenter'
         )
-  DebrisRule(
-    v-if="platform.length !== 0"
-    :platform="platform"
-  )
+  .space_bottom(style="width: 100%; height: 80px")
+  // DebrisRule(v-if="platform.length !== 0" :platform="platform")
   .modal_activity(v-show="activityExpired")
     .modal_activity_content(v-if="code === 153")
       h3 对不起，活动已下线，
@@ -100,16 +97,18 @@ import bk from 'bayread-bridge'
 import { getQueryString, routerToNative, throttle, mBuryPoint } from '@/utils/index'
 import { toast } from '@/utils/nativeToH5/index'
 import ContentSlot from './components/content_slot'
-import DebrisRule from './components/debris_rule'
+// import DebrisRule from './components/debris_rule'
 import Comment from './components/comment'
 import Award from './components/award'
+import Sign from './components/sign'
 import { getDebrislist } from './request'
 export default {
   components: {
     ContentSlot,
-    DebrisRule,
+    // DebrisRule,
     Comment,
-    Award
+    Award,
+    Sign
   },
   data() {
     return {
@@ -144,7 +143,12 @@ export default {
       countDown: 5,
       timer: null,
       platform: '',
-      singleBookDesc: '看专项书籍领取稀有碎片，阅读满6章必得碎片'
+      singleBookDesc: '看专项书籍领取稀有碎片，阅读满6章必得碎片',
+      taskStyle: {
+        color: '#8D3000',
+        background: '#FFECDB',
+        boxShadow: 'none'
+      }
     }
   },
   computed: {
