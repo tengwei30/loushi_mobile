@@ -18,6 +18,7 @@
     div(ref='clientBox')
       AwardDetail(v-for='(item,index) in list' :key='index'
       @goMailAddress='goMailAddress'
+      @goDebrisComment='goDebrisComment'
       :info='item')
     .debris_award_detail_tip
       .debris_award_detail_text(@click='callOnline') 我有疑问?
@@ -43,7 +44,7 @@ export default {
   },
   data() {
     return {
-      list: [],
+      list: [{ fragmentPrizeBigImgUrl: 'https://www.baidu.com', fragmentPrizeTitle: 'p40S' }],
       pageIndex: 0,
       isLoadedAll: false,
       isLoaded: false
@@ -113,9 +114,10 @@ export default {
       })
     },
     // 跳转碎片评论
-    goDebrisComment() {
+    goDebrisComment(target) {
+      console.log(`${location.origin}/BKH5-debris_comment.html?from=awardDetail&info=` + encodeURIComponent(JSON.stringify(target)))
       skipUrl({
-        skipUrl: `${location.origin}/BKH5-debris_comment.html?from=awardDetail`
+        skipUrl: `${location.origin}/BKH5-debris_comment.html?from=awardDetail&info=` + encodeURIComponent(JSON.stringify(target))
       })
     },
     // 返回上一页面

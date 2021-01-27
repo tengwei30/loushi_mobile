@@ -41,7 +41,10 @@ export default {
     },
     // 跳转碎片评论
     goDebrisComment() {
-      this.$emit('goDebrisComment')
+      this.$emit('goDebrisComment', {
+        fragmentPrizeBigImgUrl: this.info.fragmentPrizeBigImgUrl,
+        fragmentPrizeTitle: this.info.fragmentPrizeTitle
+      })
     }
   },
   computed: {

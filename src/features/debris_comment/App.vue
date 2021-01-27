@@ -12,8 +12,8 @@
         @click='nvaBack'
       )
     .debris_comment_info
-      img(src='../../assets/debris_comment/nav_back.png')
-      .debris_comment_info_text 华为p30
+      img(:src='info.fragmentPrizeBigImgUrl')
+      .debris_comment_info_text {{info.fragmentPrizeTitle}}
     .debris_comment_content
       div.debris_comment_textarea_box
         div.debris_comment_textarea(contenteditable="true"
@@ -55,6 +55,7 @@
 import bk from 'bayread-bridge'
 import HeaderNav from '@/components/HeaderNav'
 import { initOss, getOneUploadedUrl } from '@/utils/upload'
+import { getQueryString } from '@/utils/url'
 export default {
   components: {
     HeaderNav
@@ -63,9 +64,8 @@ export default {
     return {
       comment: '',
       imgList: [
-        'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fbbs.jf311.com%2Fdata%2Fattachment%2Fforum%2F201505%2F25%2F113407e6v4pom4yen44ee4.jpg&refer=http%3A%2F%2Fbbs.jf311.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1614221507&t=e35d13763901b8e294f228bae618ea36',
-        'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fblog%2F201508%2F10%2F20150810150356_hnves.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1614221507&t=091e255036854f896c2f3834a466c3dd'
-      ]
+      ],
+      info: {}
     }
   },
   methods: {
@@ -113,7 +113,9 @@ export default {
       bk.call('closePageNative')
     }
   },
-  mounted() {},
+  mounted() {
+    this.info = getQueryString('info') ? JSON.parse(getQueryString('info')) : {}
+  },
 }
 </script>
 
