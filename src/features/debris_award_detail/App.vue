@@ -37,6 +37,8 @@ import { getQueryString } from '@/utils/url'
 import { debounce } from '@/utils/utils.js'
 import { mBuryPoint } from '@/utils/index'
 import { getDebrisAwardDetail } from './request'
+
+// const isProd = process.env.VUE_APP_DEVELOP_ENV === 'false'
 export default {
   components: {
     AwardDetail,
@@ -44,7 +46,7 @@ export default {
   },
   data() {
     return {
-      list: [{ fragmentPrizeBigImgUrl: 'https://www.baidu.com', fragmentPrizeTitle: 'p40S' }],
+      list: [],
       pageIndex: 0,
       isLoadedAll: false,
       isLoaded: false
@@ -115,7 +117,6 @@ export default {
     },
     // 跳转碎片评论
     goDebrisComment(target) {
-      console.log(`${location.origin}/BKH5-debris_comment.html?from=awardDetail&info=` + encodeURIComponent(JSON.stringify(target)))
       skipUrl({
         skipUrl: `${location.origin}/BKH5-debris_comment.html?from=awardDetail&info=` + encodeURIComponent(JSON.stringify(target))
       })

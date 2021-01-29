@@ -1,7 +1,7 @@
 <template lang="pug">
   .debris_detail
     HeaderNav(
-      title='奖励明细'
+      title='碎片明细'
       :headerSpaceStyle="{height: '68px', background: 'linear-gradient(to right, #F43A3A 10%, #FFC87A)', opacity: 1}"
       :headerNav="{height: '48px', fontSize: '16px', color: '#ffffff'}"
       height='68px'
@@ -26,6 +26,7 @@
 import bk from 'bayread-bridge'
 import DetailItem from './components/DetailItem'
 import HeaderNav from '@/components/HeaderNav'
+import { getDebrisDetailList } from './request'
 export default {
   components: {
     DetailItem,
@@ -42,9 +43,15 @@ export default {
     // 返回上一页面
     nvaBack() {
       bk.call('closePageNative')
+    },
+    async init() {
+      let res = await getDebrisDetailList()
+      console.log(res)
     }
   },
-  mounted() {},
+  mounted() {
+    this.init()
+  },
 }
 </script>
 

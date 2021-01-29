@@ -60,6 +60,7 @@ import bk from 'bayread-bridge'
 // 解决移动端button不能点击端问题(定一个全局函数是为了解决重复定义事件问题)
 function touchstartFun() {}
 import HeaderNav from '@/components/HeaderNav'
+import { getPrizeListFetch, drawAwardFetch } from './request'
 export default {
   components: {
     HeaderNav
@@ -188,16 +189,19 @@ export default {
             type: 3
           }
         ]
+        this.init()
       }
     },
     // 点击抽奖
-    clickDrawLuckBtn(target) {
+    async clickDrawLuckBtn(target) {
       // 当奖品弹窗弹出才允许再次抽奖
       if (this.isClickedDrawBtn) {
         return
       }
       this.isClickedDrawBtn = true
       this.btnType = target.type
+      // let res = await drawAwardFetch(target.type)
+      console.log(drawAwardFetch)
       if (this.btnType === 3) {
         this.rewardList = [
           {
@@ -245,6 +249,10 @@ export default {
     // 返回上一页面
     nvaBack() {
       bk.call('closePageNative')
+    },
+    async init() {
+      let res = await getPrizeListFetch()
+      console.log(res)
     }
   },
   computed: {
@@ -255,7 +263,7 @@ export default {
     }
   },
   mounted() {
-
+    this.init()
   },
   created() {
     document.addEventListener('touchstart', touchstartFun, false)
