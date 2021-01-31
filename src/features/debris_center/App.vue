@@ -90,6 +90,9 @@
         br
         | 可以完成其他任务抽取手机～
       p.count__down {{countDown}}s后跳转任务中心
+  .award_gift
+  .new_person_guidance
+    Guidance(:steps="steps")
 </template>
 
 <script>
@@ -101,6 +104,7 @@ import ContentSlot from './components/content_slot'
 import Comment from './components/comment'
 import Award from './components/award'
 import Sign from './components/sign'
+import Guidance from './components/guidance'
 import { getDebrislist } from './request'
 export default {
   components: {
@@ -108,7 +112,8 @@ export default {
     // DebrisRule,
     Comment,
     Award,
-    Sign
+    Sign,
+    Guidance
   },
   data() {
     return {
@@ -148,7 +153,8 @@ export default {
         color: '#8D3000',
         background: '#FFECDB',
         boxShadow: 'none'
-      }
+      },
+      steps: '1'
     }
   },
   computed: {
