@@ -91,8 +91,13 @@
         | 可以完成其他任务抽取手机～
       p.count__down {{countDown}}s后跳转任务中心
   .award_gift
-  .new_person_guidance
-    Guidance(:steps="steps")
+  .new_person_guidance(v-if="!showGuidance")
+    Guidance(
+      :taskInfoList="taskInfoList"
+      :title='taskTitle',
+      :desc='desc'
+      @closeGuidance='closeGuidance'
+      :styles="styles")
 </template>
 
 <script>
@@ -154,7 +159,7 @@ export default {
         background: '#FFECDB',
         boxShadow: 'none'
       },
-      steps: '1'
+      showGuidance: false
     }
   },
   computed: {
@@ -216,6 +221,10 @@ export default {
     this.InitData()
   },
   methods: {
+    closeGuidance() { // 关闭引导弹窗
+      console.log('点击关闭弹窗')
+      this.showGuidance = !this.showGuidance
+    },
     async InitData(val = '') {
       let { data, code  } = await getDebrislist(this.activityId)
       try {

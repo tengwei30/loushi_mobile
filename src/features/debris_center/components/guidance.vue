@@ -1,33 +1,74 @@
 <template lang="pug">
 #person_guidance
-  .first_step(v-if="steps === '1'")
-    span.title 我知道了
+  .first_step(v-if="step === '1'")
+    span.title(@click="nextStep()") 我知道了
     span.desc
       | 参与抽奖赢
       em(:style="{color: '#FCA66B'}") 碎片
       img.img_icon(src="../../../assets/debris_center/step_icon.png")
     span.path
     span.gift
-  .second_step(v-if="steps === '2'")
-    span.title 我知道了
+  .second_step(v-if="step === '2'")
+    span.title(@click="nextStep()") 我知道了
     span.desc
       | 完成阅读任务可获得更多
       em 碎片
       img.img_icon(src="../../../assets/debris_center/step_icon.png")
     span.path
     span.gift
-  .three_step(v-if="steps === '3'")
-    span.title 我知道了
+      .gift_content
+        .header_title
+          h2.second_title 今日阅读 30章
+          p.second_desc 已通过阅读到账8枚碎片，再阅读2章，到账1枚
+        ul.second_task_list
+          li.second_single_task(v-for="(item, key) in taskInfoList" v-if="key < 2")
+            p.second_task_name {{ item.name }}
+            p.second_task_state
+              span 待领取
+  .three_step(v-if="step === '3'")
+    span.title(@click="nextStep()") 我知道了
     span.desc
       | 阅读专享书籍获得更多
       em 碎片
       img.img_icon(src="../../../assets/debris_center/step_icon.png")
     span.path
     span.gift
+      .three_single_book
+        span.single_book_cover
+        div.single_book_desc
+          span.single_book_title 我是标题部分
+          span.single_book_info 我是描述部分我是描述部分我是描述部分我是描述部分我是描述部分
+          span.single_book_class 我是类型
+        span.single_book_btn
+          span 去阅读
 </template>
 <script>
+import ContentSlot from './content_slot'
 export default {
-  props: ['steps']
+  props: ['taskInfoList', 'taskTitle', 'desc'],
+  components: {
+    ContentSlot
+  },
+  data() {
+    return {
+      step: '1'
+    }
+  },
+  methods: {
+    nextStep() {
+      if (this.step === '1') {
+        this.step = '2'
+        return
+      } else if (this.step === '2') {
+        this.step = '3'
+        return
+      }
+      if (this.step === '3') {
+        this.$emit('closeGuidance')
+      }
+    }
+  },
+  mounted() {}
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -35,6 +76,8 @@ export default {
 #person_guidance
   position relative
   size(100%, 100%)
+  background #000000
+  background-color rgba(0,0,0,0.7)
   .first_step, .second_step, .three_step
     font-size 14px
     color #ffffff
@@ -55,7 +98,7 @@ export default {
       align-items center
       padding 5px 13px
       box-sizing border-box
-      box-shadow 0px 0px 11px 0px #FFFFFF
+      box-shadow 0px 0px 11px 0px #FFFFFF inset
       border 2px solid #FFFFFF
       border-radius 10px
       margin-bottom 9px
@@ -108,8 +151,8 @@ export default {
         background #ffffff
       &:before
         content ''
-        absolute(left 2px top 2px)
-        size(94px, 66px)
+        absolute(left 7px top 0px)
+        size(80px, 78px)
         border-radius 35px
         background url('../../../assets/debris_center/award_gift.png') no-repeat center center
         background-size 100% 100%
@@ -121,14 +164,113 @@ export default {
       width 356px!important
       min-height 207px!important
       &:after
+        content ''
+        absolute(left 2px top 2px)
         size(352px, 203px)
+        border-radius 35px
+        background transparent
       &:before
         content ''
         background none
+      .gift_content
+        size(352px, 203px)
+        background #ffffff
+        border-radius 35px
+        absolute(left 2px top 2px)
+        padding 28px 16px 30px
+        box-sizing border-box
+        .header_title
+          color #8D3000
+          line-height 18px
+          h2.second_title
+            font-size 18px
+            font-weight bold
+            padding-bottom 12px
+          p.second_desc
+            font-weight normal
+            font-size 14px
+        .second_task_list
+          color #8D3000
+          height 203px
+          overflow hidden
+          .second_single_task
+            display flex
+            flex-direction row
+            justify-content space-between
+            padding 16px 0 18px
+            .second_task_state
+              size(78px 28px)
+              font-family PingFangSC-Regular, PingFang SC
+              font-weight 400
+              color #FFFFFF
+              background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
+              box-shadow 0px 0px 6px 0px rgba(246, 82, 69, 0.48)
+              border-radius 15px
+              text-align center
+              box-sizing border-box
+              line-height 28px
+              font-size initial
+              span
+                font-size 12px
   .three_step
     bottom 83px
     .gift
       min-height 141px!important
-      &:after
+      .three_single_book
         size(352px, 137px)
+        absolute(left 2px top 2px)
+        border-radius 35px
+        background #ffffff
+        padding 24px 10px 24px 14px
+        box-sizing border-box
+        display flex
+        flex-direction row
+        justify-content space-between
+        .single_book_cover
+          display inline-block
+          size(72px 95px)
+          borde-radius 4px
+          background yellow
+        .single_book_btn
+          size(78px 28px)
+          background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
+          align-self center
+          border-radius 15px
+          line-height 28px
+          text-align center
+          font-size initial
+          span
+            font-size 12px
+            color #FFFFFF
+            font-family PingFangSC-Regular, PingFang SC
+        .single_book_desc
+          flex 1
+          padding 0 16px 0 10px
+          box-sizing border-box
+          display flex
+          flex-direction column
+          justify-content flex-start
+          position relative
+          .single_book_title
+            font-size 16px
+            font-family PingFangSC-Medium, PingFang SC
+            font-weight bold
+            color #000000
+          .single_book_info
+            padding-top 10px
+            width 100%
+            font-size 14px
+            font-family PingFangSC-Regular, PingFang SC
+            color #999999
+            overflow hidden
+            text-overflow ellipsis
+            display -webkit-box
+            -webkit-line-clamp 2
+            -webkit-box-orient vertical
+          .single_book_class
+            font-size 12px
+            transform scale(0.8)
+            font-family PingFangSC-Regular, PingFang SC
+            color #999999
+            absolute(left 6px bottom 0)
 </style>
