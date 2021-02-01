@@ -1,5 +1,8 @@
 <template lang="pug">
 #debris_center_rule
+  .debris_header_nav
+    span.header_back
+    | 规则
   .debris_rule
     .debris_rule_content
       h2.rule_title 活动规则：
@@ -102,6 +105,23 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../styles/index.styl';
+.debris_header_nav
+  size(100%, 69px)
+  border none
+  background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
+  text-align center
+  font-size 16px
+  color #FFFFFF
+  padding 35px 0 17px
+  box-sizing border-box
+  font-weight bold
+  position sticky
+  top 0
+  span.header_back
+    size(28px, 28px)
+    background url('../../assets/debris_center/debris_back@2x.png') no-repeat center center
+    background-size 100% 100%
+    absolute(left 15px bottom 11px)
 .debris_rule
   height auto
   padding 20px 13px 35px 20px
