@@ -26,10 +26,14 @@ export function jumpBookRanking() {
  * 跳转书籍详情
  * @param {Object} json bookId 书籍的bookId
  */
-export function jumpBookDetail(json = { bookId: '' }) {
-  const { bookId } = json
+export function jumpBookDetail(json = { bookId: '', source: '', userPath: '' }) {
+  const {
+    bookId,
+    source,
+    userPath
+  } = json
   console.log(bookId)
-  window.location.assign(`breader://bookstore/bookDetails?bookId=${bookId}`)
+  window.location.assign(`breader://bookstore/bookDetails?bookId=${bookId}&source=${source}&userPath=${userPath}&chapterNum=0`)
 }
 
 /**
