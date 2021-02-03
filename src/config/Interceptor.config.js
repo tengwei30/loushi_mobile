@@ -38,7 +38,7 @@ axios.interceptors.request.use(
       'application/json, text/plain, */*; charset=utf-8'
     config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     config.headers.common['Pragma'] = 'no-cache'
-    config.headers.common['X-client'] = setHeader() || 'version=6.1.50.3.2;dID=;signVersion=2;pkv=1;model=SM-G900P;manufacturer=Samsung'
+    config.headers.common['X-client'] = setHeader() || 'version=6.1.51.1.12;dID=;signVersion=2;pkv=1;model=SM-G900P;manufacturer=Samsung'
     return config
   },
   error => {

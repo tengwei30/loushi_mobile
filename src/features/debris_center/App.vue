@@ -122,7 +122,7 @@ export default {
   },
   data() {
     return {
-      activityId: getQueryString('activityId') || '128',
+      activityId: getQueryString('activityId') || '129',
       from: getQueryString('from') || 'tab',
       styles: {
         padding: '16px 21px 12px',
