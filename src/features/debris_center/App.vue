@@ -44,27 +44,31 @@
           p.task_name {{ item.name }}
           p.task_state(@click="openTask(item)" :style="item.isFinish*1 === 1 ? taskStyle : ''")
             span {{ item.isFinish*1 === 0 ? '待领取' : '已领取'}}
-  .signleBook_module
+  .signleBook_module(v-if="excitationSingleBookInfoVOList.length > 0")
     ContentSlot(
       title='专享书籍领碎片',
       :desc='singleBookDesc'
       :styles="styles"
       fontColor="#317eb4"
-      isSingleBook=true
+      isShowRight=true
+      rightText="每日3枚"
     )
       ul.single_list
-        li.single_book(v-for="key in 2")
-          span.single_book_cover
+        li.single_book(v-for="item in excitationSingleBookInfoVOList" :key="item.bookId")
+          img.single_book_cover(:src="item.bookCoverUrl")
           div.single_book_desc
-            span.single_book_title 我是标题部分
-            span.single_book_info 我是描述部分我是描述部分我是描述部分我是描述部分我是描述部分
-            span.single_book_class 我是类型
+            span.single_book_title {{item.bookName}}
+            span.single_book_info {{ item.intro }}
+            span.single_book_class {{ item.classify }}
           span.single_book_btn
             span 去阅读
   .award_center_list
     ContentSlot(
       title='奖励中心',
       :styles="styles"
+      fontColor="#8D3000"
+      isShowRight=true
+      rightText="查看更多"
       v-if="commentInfoList && commentInfoList.length !== 0"
     )
       .comment(v-for="item in commentInfoList")
@@ -78,7 +82,6 @@
           v-on:goAwardCenter='goAwardCenter'
         )
   .space_bottom(style="width: 100%; height: 80px")
-  // DebrisRule(v-if="platform.length !== 0" :platform="platform")
   .modal_activity(v-show="activityExpired")
     .modal_activity_content(v-if="code === 153")
       h3 对不起，活动已下线，
@@ -91,7 +94,7 @@
         | 可以完成其他任务抽取手机～
       p.count__down {{countDown}}s后跳转任务中心
   .award_gift
-  .new_person_guidance(v-if="!showGuidance")
+  .new_person_guidance(v-if="showGuidance")
     Guidance(
       :taskInfoList="taskInfoList"
       :title='taskTitle',
@@ -153,6 +156,7 @@ export default {
         boxShadow: 'none'
       },
       showGuidance: false,
+      excitationSingleBookInfoVOList: []  // 专享书籍列表
     }
   },
   computed: {
@@ -217,6 +221,7 @@ export default {
     closeGuidance() { // 关闭引导弹窗
       console.log('点击关闭弹窗')
       this.showGuidance = !this.showGuidance
+      localStorage.setItem('guidance_step', '3')
     },
     async InitData(val = '') {
       let { data, code  } = await getDebrislist(this.activityId)
@@ -281,10 +286,11 @@ export default {
           fragmentPrizeTwoEnable
         } = data
         const guidanceStep = localStorage.getItem('guidance_step')
-        if (guidanceStep && guidanceStep === '1') {
-          this.showGuidance = true
+        if (guidanceStep) {
+          this.showGuidance = false
         } else if (fragmentPrizeTwoEnable * 1 === 1) {
           localStorage.setItem('guidance_step', '1')
+          this.showGuidance = true
         }
 
         this.chapterTaskInfoList = chapterTaskInfoList
@@ -297,6 +303,7 @@ export default {
         this.checkinInfo = checkinInfo
         this.commentInfoList = commentInfoList
         this.fragmentItemInfoList = fragmentItemInfoList
+        this.excitationSingleBookInfoVOList = chapterTaskInfoList.excitationSingleBookInfoVOList || []
 
         if (checkinInfo) {
           const { fragmentPrizeInfoList=[]} = checkinInfo

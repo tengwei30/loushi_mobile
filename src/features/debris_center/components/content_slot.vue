@@ -4,8 +4,8 @@
     .header_left
       h2.title(:style="{color: fontColor}") {{ title }}
       p.desc(v-if="desc" :style="{color: fontColor}") {{ desc }}
-    .header_right(v-if="isSingleBook")
-      h3.title(:style="{color: fontColor}") 每日3枚
+    .header_right(v-if="isShowRight")
+      h3.title(:style="{color: fontColor}") {{ rightText }}
     .header_right(v-if="isSign")
       h3.title 签到提醒
       img.onOff(@click="openNotification()" :src="imgUrl")
@@ -39,13 +39,17 @@ export default {
       type: String,
       default: '#ffffff'
     },
-    isSingleBook: { // 控制单书右侧文案显示
+    isShowRight: { // 控制右侧文案显示
       type: Boolean,
       default: false
+    },
+    rightText: {
+      type: String,
+      default: ''
     }
   },
   mounted() {
-    console.log(this.desc)
+    console.log(this.title)
   },
   methods: {
     openNotification() {
@@ -104,7 +108,6 @@ export default {
           font-weight 400
           color #FFFFFF
           line-height 12px
-          padding-right 6px
         img.onOff
           size(26px 14px)
           display inline-block
