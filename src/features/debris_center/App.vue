@@ -104,21 +104,14 @@
 import bk from 'bayread-bridge'
 import { getQueryString, routerToNative, throttle, mBuryPoint } from '@/utils/index'
 import { toast } from '@/utils/nativeToH5/index'
-import ContentSlot from './components/content_slot'
-// import DebrisRule from './components/debris_rule'
-import Comment from './components/comment'
-import Award from './components/award'
-import Sign from './components/sign'
-import Guidance from './components/guidance'
 import { getDebrislist } from './request'
 export default {
   components: {
-    ContentSlot,
-    // DebrisRule,
-    Comment,
-    Award,
-    Sign,
-    Guidance
+    ContentSlot: () => import('./components/content_slot'),
+    Comment: () => import('./components/comment'),
+    Award: () => import('./components/award'),
+    Sign: () => import('./components/sign'),
+    Guidance: () => import('./components/guidance')
   },
   data() {
     return {
@@ -159,7 +152,7 @@ export default {
         background: '#FFECDB',
         boxShadow: 'none'
       },
-      showGuidance: false
+      showGuidance: false,
     }
   },
   computed: {
@@ -231,7 +224,6 @@ export default {
         if (Number(code) === 153 || Number(code) === 156) {
           this.code = Number(code)
           // 153 表示活动过期, 156 表示进来这个页面的老用户
-          console.log('后端返回的code', this.code)
           this.fragmentItemInfoList = [{
             exchange: 0,
             id: 1,
@@ -285,8 +277,16 @@ export default {
           commentInfoList = [],
           fragmentItemInfoList = [],
           chapterTaskInfoList = {},
-          activityId
+          activityId,
+          fragmentPrizeTwoEnable
         } = data
+        const guidanceStep = localStorage.getItem('guidance_step')
+        if (guidanceStep && guidanceStep === '1') {
+          this.showGuidance = true
+        } else if (fragmentPrizeTwoEnable * 1 === 1) {
+          localStorage.setItem('guidance_step', '1')
+        }
+
         this.chapterTaskInfoList = chapterTaskInfoList
         if (chapterTaskInfoList) {
           const { taskVOS = []} = chapterTaskInfoList
@@ -296,9 +296,6 @@ export default {
         this.checkinRewardInfoList = checkinRewardInfoList
         this.checkinInfo = checkinInfo
         this.commentInfoList = commentInfoList
-
-        // fragmentItemInfoList[0].userFragmentCount = 9
-        // fragmentItemInfoList[0].exchange = 1
         this.fragmentItemInfoList = fragmentItemInfoList
 
         if (checkinInfo) {
