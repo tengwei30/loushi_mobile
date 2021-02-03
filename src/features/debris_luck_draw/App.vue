@@ -31,7 +31,7 @@
         :class="{'free_draw_btn': luckBtnsFilter.length === 1}"
       )
         button.draw_luck_btn(
-          v-for='item in luckBtnsFilter' :key='item.text'
+          v-for='item in luckBtnsFilter' :key='item.type'
           @click='clickDrawLuckBtn(item)'
           :disabled='isClickedDrawBtn'
         )
@@ -61,6 +61,7 @@ import bk from 'bayread-bridge'
 function touchstartFun() {}
 import HeaderNav from '@/components/HeaderNav'
 import { getPrizeListFetch, drawAwardFetch } from './request'
+import { getQueryString } from '@/utils'
 export default {
   components: {
     HeaderNav
@@ -73,68 +74,64 @@ export default {
       prizes: [
         {
           x: 0, y: 0,
-          id: 1,
-          fonts: [{ text: '20个金币', top: '68%' }],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }, { src: require('../../assets/debris_luck_draw/icon_thanks.png'), height: '50%', top: '12%' }],
+          fonts: [],
+          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
         },
         {
           x: 1, y: 0,
-          id: 2,
-          fonts: [{ text: '1个手机碎片', top: '68%' }],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }, { src: require('../../assets/debris_luck_draw/icon_thanks.png'), height: '50%', top: '12%' }],
+          fonts: [],
+          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
         },
         {
           x: 2, y: 0,
           id: 3,
-          fonts: [{ text: '1吸尘器碎片', top: '68%' }],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }, { src: require('../../assets/debris_luck_draw/icon_thanks.png'), height: '50%', top: '12%' }],
+          fonts: [],
+          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
         },
         {
           x: 3, y: 0,
-          id: 4,
-          fonts: [{ text: '谢谢参与', top: '68%', fontSize: '0', }],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }, { src: require('../../assets/debris_luck_draw/icon_thanks.png'), height: '50%', top: '25%' }],
+          fonts: [],
+          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
         },
         {
           x: 3, y: 1,
-          id: 5,
-          fonts: [{ text: '1个电脑碎片', top: '68%' }],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }, { src: require('../../assets/debris_luck_draw/icon_thanks.png'), height: '50%', top: '12%' }],
+          fonts: [],
+          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
         },
         {
           x: 3, y: 2,
-          fonts: [{ text: '谢谢参与', top: '68%' }],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }, { src: require('../../assets/debris_luck_draw/icon_thanks.png'), height: '50%', top: '12%' }],
+          fonts: [],
+          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
         },
         {
           x: 3, y: 3,
-          fonts: [{ text: '谢谢参与', top: '68%' }],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }, { src: require('../../assets/debris_luck_draw/icon_thanks.png'), height: '50%', top: '12%' }],
+          fonts: [],
+          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
         },
         {
           x: 2, y: 3,
-          fonts: [{ text: '1个星球币', top: '68%' }],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }, { src: require('../../assets/debris_luck_draw/icon_thanks.png'), height: '50%', top: '12%' }],
+          fonts: [],
+          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
         },
         {
           x: 1, y: 3,
-          fonts: [{ text: '1个星球币', top: '68%' }],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }, { src: require('../../assets/debris_luck_draw/icon_thanks.png'), height: '50%', top: '12%' }],
+          fonts: [],
+          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
         },
         {
           x: 0, y: 3,
-          fonts: [{ text: '5个星球币', top: '68%' }],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }, { src: require('../../assets/debris_luck_draw/icon_thanks.png'), height: '50%', top: '12%' }],
+          fonts: [],
+          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
         },
         {
           x: 0, y: 2,
-          fonts: [{ text: '5个星球币', top: '68%' }],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }, { src: require('../../assets/debris_luck_draw/icon_thanks.png'), height: '50%', top: '12%' }],
+          fonts: [],
+          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
         },
         {
           x: 0, y: 1,
-          fonts: [{ text: '谢谢参与', top: '15%', fontSize: '0', fontColor: 'red', letterSpacing: 20 }],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }, { src: require('../../assets/debris_luck_draw/icon_thanks.png'), height: '50%',  top: '25%' }],
+          fonts: [],
+          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
         },
       ],
       button: {
@@ -156,15 +153,7 @@ export default {
       activeStyle: {
       },
       opacity: 0,
-      luckBtns: [
-        {
-          text: '免费抽1次',
-          type: 1
-        },
-        {
-          text: '30金币抽1次'
-        }
-      ],
+      luckBtns: [],
       btnType: 1, // 点击按钮的类型
       isShowPrize: false, // 是否显示奖励弹窗
       rewardList: [], // 获奖列表
@@ -250,9 +239,43 @@ export default {
     nvaBack() {
       bk.call('closePageNative')
     },
-    async init() {
-      let res = await getPrizeListFetch()
+    // 初始化页面
+    async init(activityId) {
+      let res = await getPrizeListFetch(activityId)
       console.log(res)
+      if (res.code === 100 && res.data) {
+        this.dealPrizeList(res.data.fragmentPrizeLotteryDrawItemVOList)
+        this.luckBtns = res.data.fragmentPrizeLotteryDrawTypeVOList
+      }
+      console.log(this.prizes)
+    },
+    // 处理获得的奖品列表
+    dealPrizeList(data) {
+      this.prizes.map((item, index) => {
+        let current = data[index]
+        if (current.img) {
+          item.imgs.push({
+            src: current.img,
+            height: '50%',
+            top: '12%'
+          })
+          item.fonts.push({
+            text: current.title,
+            fontSize: '10px',
+            top: '68%'
+          })
+        } else {
+          item.fonts.push({
+            text: current.title,
+            fontSize: '20px',
+            top: '12%',
+            lengthLimit: '70%'
+          })
+        }
+        item.id = current.id
+      })
+
+      return data
     }
   },
   computed: {
@@ -263,7 +286,7 @@ export default {
     }
   },
   mounted() {
-    this.init()
+    this.init(getQueryString('activityId'))
   },
   created() {
     document.addEventListener('touchstart', touchstartFun, false)

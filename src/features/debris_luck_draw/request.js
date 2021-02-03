@@ -1,12 +1,14 @@
-import { get, post } from '@/config/axios.config'
+import { post } from '@/config/axios.config'
 
 
 /**
  * 获取转盘奖品列表
  */
 
-export const getPrizeListFetch = () => {
-  return get('/activity_api/fragmentPrize/getLotteryDrawList')
+export const getPrizeListFetch = (activityId) => {
+  return post('/activity_api/fragmentPrize/getLotteryDrawList', {
+    activityId
+  })
 }
 
 /**
