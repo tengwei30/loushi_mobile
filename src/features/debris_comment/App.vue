@@ -56,7 +56,7 @@
 import bk from 'bayread-bridge'
 import HeaderNav from '@/components/HeaderNav'
 import { initOss, getOneUploadedUrl } from '@/utils/upload'
-import { getQueryString, throttle } from '@/utils/index'
+import { getQueryString, throttle, nBuryPoint } from '@/utils/index'
 import { submitComment } from './request'
 export default {
   components: {
@@ -108,8 +108,12 @@ export default {
     },
     // 发表评论
     submitComment: throttle(async function() {
+      nBuryPoint('H5_DEBRIS_COMMENT_CLICK_POST', {
+        activityId: getQueryString('activityId'),
+        id: this.info.id
+      })
       try {
-        let res = await submitComment(this.comment, this.imgList)
+        let res = await submitComment(this.comment, this.imgList, this.info.id)
         console.log(res, 111)
       } catch (error) {
         this.$showToast('网络错误请稍后重试')
@@ -122,6 +126,12 @@ export default {
   },
   mounted() {
     this.info = getQueryString('info') ? JSON.parse(getQueryString('info')) : {}
+    this.$nextTick(() => {
+      nBuryPoint('H5_DEBRIS_COMMENT', {
+        activityId: getQueryString('activityId'),
+        id: this.info.id
+      })
+    })
   },
 }
 </script>

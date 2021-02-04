@@ -182,8 +182,9 @@ export default {
       if (this.isClickedDrawBtn) {
         return
       }
-      nBuryPoint('H5_DEBRIS_LUCK_DRAW', {
-        activityId: getQueryString('activityId')
+      nBuryPoint('H5_DEBRIS_LUCK_DRAW_CLICK', {
+        activityId: getQueryString('activityId'),
+        type: target.type
       })
       this.isClickedDrawBtn = true
       this.btnType = target.type
