@@ -27,6 +27,7 @@ import bk from 'bayread-bridge'
 import DetailItem from './components/DetailItem'
 import HeaderNav from '@/components/HeaderNav'
 import { getDebrisDetailList } from './request'
+import { getQueryString } from '@/utils'
 export default {
   components: {
     DetailItem,
@@ -45,7 +46,7 @@ export default {
       bk.call('closePageNative')
     },
     async init() {
-      let res = await getDebrisDetailList()
+      let res = await getDebrisDetailList(getQueryString('activityId'))
       console.log(res)
     }
   },

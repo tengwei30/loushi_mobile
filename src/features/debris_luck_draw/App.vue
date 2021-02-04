@@ -15,8 +15,6 @@
       .luck_draw_notice 参与抽奖，抽取珍惜碎片～
       LuckyGrid.draw_luck(
         ref="luckyGrid"
-        width="336px"
-        height="295px"
         rows="4"
         cols="4"
         :blocks="blocks"
@@ -35,22 +33,18 @@
           @click='clickDrawLuckBtn(item)'
           :disabled='isClickedDrawBtn'
         )
-          template(v-if='item.type === 3') {{rewardList.length === 0 ? item.text : ('剩余抽奖次数' + rewardList.length)}}
-          template(v-else) {{item.text}}
+          template(v-if='item.type === 3') {{rewardList.length === 0 ? item.name : ('剩余抽奖次数' + rewardList.length)}}
+          template(v-else) {{item.name}}
     .rule
       .rule_title 活动规则：
-      .rule_content
-        | 活动规则：<br>
-        | 1.每日可获得一次免费抽奖机会<br>
-        | 2.免费抽奖次数用完后，可使用金币购买抽奖次数，30个金币购买1次抽奖，150金币购买6次。<br>
-        | 3.中奖后系统会自动发放到您的账户中。<br>
-        | 4.抽奖奖项包括：5G手机碎片1枚，金条碎片1枚，纳丽丝洗衣液碎片1枚，纸抽碎片1枚，金龙鱼调和油+香米套装碎片1枚，洗碗巾碎片1枚，幸福相约沐浴露碎片1枚，牙膏碎片1枚，VIP碎片1枚，100金币碎片1枚，50枚金币碎片1枚，20金币。<br>
-        | 5.抽奖一旦完成，不可取消，抽奖金币不予退还。<br>
-    .draw_pop(v-show='isShowPrize')
+      .rule_content(v-html='ruleContent')
+    .draw_pop(v-show='isShowPrize && rewardPrize')
       .draw_pop_content
-        .draw_pop_bg
-        .draw_pop_text
-         | 恭喜你抽中{{rewardPrize.title}} 碎片碎片碎片
+        .draw_pop_bg(v-if='rewardPrize.type !== 3')
+        .draw_pop_text(v-if='rewardPrize.type !== 3')
+         | 恭喜你抽中{{rewardPrize.title}}
+        .draw_pop_text.draw_pop_text_thanks(v-else)
+         | {{rewardPrize.title}}
         .draw_pop_btn(@click='closePrizePop') {{rewardList.length === 0 ? '知道了' : '继续抽奖'}}
 
 </template>
@@ -138,7 +132,7 @@ export default {
         x: 1, y: 1,
         col: 2,
         row: 2,
-        fonts: [{ text: '每日免费抽1次', fontSize: '14', fontColor: '#FFBA35', top: '90%' }],
+        fonts: [{ text: '每日免费抽1次', fontSize: '0.37rem', fontColor: '#FFBA35', top: '90%' }],
         imgs: [{ src: require('../../assets/debris_luck_draw/draw_center_icon.png'), width: '100%' }]
       },
       defaultConfig: {
@@ -148,7 +142,7 @@ export default {
       },
       defaultStyle: {
         fontColor: 'rgba(244, 57, 57, 1)',
-        fontSize: '12px',
+        fontSize: '0.32rem',
       },
       activeStyle: {
       },
@@ -159,6 +153,7 @@ export default {
       rewardList: [], // 获奖列表
       rewardPrize: {}, // 弹窗显示的奖品
       isClickedDrawBtn: false, // 是否允许点击抽奖按钮,在抽奖过程中不允许点击,
+      ruleContent: ''
     }
   },
   methods: {
@@ -189,33 +184,14 @@ export default {
       }
       this.isClickedDrawBtn = true
       this.btnType = target.type
-      // let res = await drawAwardFetch(target.type)
-      console.log(drawAwardFetch)
-      if (this.btnType === 3) {
-        this.rewardList = [
-          {
-            id: 1,
-            title: '20金币'
-          }, {
-            id: 2,
-            title: '1个手机碎片'
-          }, {
-            id: 3,
-            title: '1个吸尘器碎片'
-          }, {
-            id: 4,
-            title: '很遗憾并未获奖'
-          }
-        ]
-      } else {
-        this.rewardList = [
-          {
-            id: 5,
-            title: '1个电脑碎片'
-          }
-        ]
+      let res = await drawAwardFetch(target.type)
+      if (res.code === 100) {
+        this.rewardList = res.data ? res.data.fragmentPrizeLotteryDrawItemVOList : []
+        if (target.type === 1) {
+          this.init()
+        }
+        this.startCallBack()
       }
-      this.startCallBack()
     },
     // 抽奖开始(将接口返回的获奖列表逐个弹窗)
     startCallBack() {
@@ -242,12 +218,11 @@ export default {
     // 初始化页面
     async init(activityId) {
       let res = await getPrizeListFetch(activityId)
-      console.log(res)
       if (res.code === 100 && res.data) {
         this.dealPrizeList(res.data.fragmentPrizeLotteryDrawItemVOList)
         this.luckBtns = res.data.fragmentPrizeLotteryDrawTypeVOList
+        this.ruleContent = res.data.rule
       }
-      console.log(this.prizes)
     },
     // 处理获得的奖品列表
     dealPrizeList(data) {
@@ -261,13 +236,13 @@ export default {
           })
           item.fonts.push({
             text: current.title,
-            fontSize: '10px',
+            fontSize: '0.27rem',
             top: '68%'
           })
         } else {
           item.fonts.push({
             text: current.title,
-            fontSize: '20px',
+            fontSize: '0.53rem',
             top: '12%',
             lengthLimit: '70%'
           })

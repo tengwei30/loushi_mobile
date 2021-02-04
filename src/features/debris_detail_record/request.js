@@ -1,10 +1,12 @@
-import { get } from '@/config/axios.config'
+import { post } from '@/config/axios.config'
 
 
 /**
- * 获取奖励明细列表
+ * 获取碎片记录奖励明细列表
  */
 
-export const getDebrisDetailList = () => {
-  return get('/activity_api/fragmentPrize/lastExchangeMsg')
+export const getDebrisDetailList = (activityId) => {
+  return post('/activity_api/fragmentPrize/getRecords', {
+    activityId
+  })
 }
