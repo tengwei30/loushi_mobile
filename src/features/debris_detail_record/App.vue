@@ -13,8 +13,8 @@
       )
     .debris_box(v-if='list.length > 0')
       DetailItem(
-        v-for='item in list'
-        :key='item.id'
+        v-for='(item, index) in list'
+        :key='index + item.desc'
         :info='item'
       )
     .debris_detail_null(v-else)
@@ -27,7 +27,7 @@ import bk from 'bayread-bridge'
 import DetailItem from './components/DetailItem'
 import HeaderNav from '@/components/HeaderNav'
 import { getDebrisDetailList } from './request'
-import { getQueryString } from '@/utils'
+import { getQueryString, nBuryPoint } from '@/utils'
 export default {
   components: {
     DetailItem,
@@ -35,9 +35,7 @@ export default {
   },
   data() {
     return {
-      list: [
-        { id: 1 }, { id: 2 }, { id: 3 }
-      ]
+      list: []
     }
   },
   methods: {
@@ -48,10 +46,16 @@ export default {
     async init() {
       let res = await getDebrisDetailList(getQueryString('activityId'))
       console.log(res)
+      if (res.code === 100) {
+        this.list = res.data.fragmentPrizeUserRecordVOList
+      }
     }
   },
   mounted() {
     this.init()
+    nBuryPoint('H5_DEBRIS_DETAIL_RECORD', {
+      activityId: getQueryString('activityId')
+    })
   },
 }
 </script>

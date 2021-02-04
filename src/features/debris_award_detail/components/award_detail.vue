@@ -43,7 +43,8 @@ export default {
     goDebrisComment() {
       this.$emit('goDebrisComment', {
         fragmentPrizeBigImgUrl: this.info.fragmentPrizeBigImgUrl,
-        fragmentPrizeTitle: this.info.fragmentPrizeTitle
+        fragmentPrizeTitle: this.info.fragmentPrizeTitle,
+        id: this.info.id
       })
     }
   },

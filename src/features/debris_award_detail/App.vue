@@ -35,10 +35,9 @@ import { callOnline } from '@/utils/common.js'
 import { skipUrl, toast, closeCurrentPage } from '@/utils/nativeToH5/index'
 import { getQueryString } from '@/utils/url'
 import { debounce } from '@/utils/utils.js'
-import { mBuryPoint } from '@/utils/index'
+import { mBuryPoint, nBuryPoint } from '@/utils/index'
 import { getDebrisAwardDetail } from './request'
 
-// const isProd = process.env.VUE_APP_DEVELOP_ENV === 'false'
 export default {
   components: {
     AwardDetail,
@@ -119,6 +118,10 @@ export default {
     goDebrisComment(target) {
       skipUrl({
         skipUrl: `${location.origin}/BKH5-debris_comment.html?from=awardDetail&info=` + encodeURIComponent(JSON.stringify(target))
+      })
+      nBuryPoint('H5_DEBRIS_AWARD_DETAIL_COMMENT_CLICK', {
+        activityId: getQueryString('activityId'),
+        id: target.id
       })
     },
     // 返回上一页面

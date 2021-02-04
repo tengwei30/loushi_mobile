@@ -55,7 +55,7 @@ import bk from 'bayread-bridge'
 function touchstartFun() {}
 import HeaderNav from '@/components/HeaderNav'
 import { getPrizeListFetch, drawAwardFetch } from './request'
-import { getQueryString } from '@/utils'
+import { getQueryString, nBuryPoint } from '@/utils'
 export default {
   components: {
     HeaderNav
@@ -182,6 +182,9 @@ export default {
       if (this.isClickedDrawBtn) {
         return
       }
+      nBuryPoint('H5_DEBRIS_LUCK_DRAW', {
+        activityId: getQueryString('activityId')
+      })
       this.isClickedDrawBtn = true
       this.btnType = target.type
       let res = await drawAwardFetch(target.type)
@@ -262,6 +265,9 @@ export default {
   },
   mounted() {
     this.init(getQueryString('activityId'))
+    nBuryPoint('H5_DEBRIS_LUCK_DRAW', {
+      activityId: getQueryString('activityId')
+    })
   },
   created() {
     document.addEventListener('touchstart', touchstartFun, false)

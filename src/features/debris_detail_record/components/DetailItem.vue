@@ -1,21 +1,27 @@
 <template lang="pug">
   .debris_detail_item
     .detail_left
-      .detail_left_tip 碎片专享书籍阅读6章
-      .detail_left_time 2021-01-31 12:00:11
+      .detail_left_tip {{info.desc}}
+      .detail_left_time {{info.updateTime | dealTime}}
     .detail_right
       .detail_right_info(
-        v-for='item in info.id'
-        :key='"id:" + item'
+        v-for='(item, index) in info.fragmentPrizeUserRecordDetailVOList'
+        :key='index + item.desc'
       )
-        | {{item % 2 === 1 ? 'ipad碎片' : '扫地机器人碎片'}}
-        span.detail_right_info_count +1
+        | {{item.desc}}
+        span.detail_right_info_count + {{item.count}}
 </template>
 <script>
+import moment from 'moment'
 export default {
   props: {
     info: {
       default: {}
+    }
+  },
+  filters: {
+    dealTime(target) {
+      return moment(target).format('YYYY-MM-DD h:mm:ss')
     }
   },
   data() {
@@ -44,7 +50,10 @@ export default {
     opacity 0.25
   .detail_left
     line-height 1.1
-    white-space nowrap
+    // white-space nowrap
+    width 160px
+    flex-grow 0
+    flex-shrink 0
     .detail_left_tip
       font-weight 400
     .detail_left_time
@@ -56,6 +65,7 @@ export default {
     align-self stretch
     display flex
     flex-direction column
+    margin-left 5px
     .detail_right_info
       text-align right
       line-height 1
