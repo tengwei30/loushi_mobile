@@ -3,30 +3,30 @@
   .header_title
     .header_left
       h2.title
-        | 已连续签到1天
+        | 已连续签到{{ checkinInfo.checkinDays }}天
         img(
           src="../../../assets/debris_center/sign_icon_record.png"
           @click="() => this.$emit('goSignRecord')")
-      p.desc 再签3天可获得大礼包
+      //- p.desc 再签3天可获得大礼包
     .header_right
       h3.title 签到提醒
       img.onOff(@click="() => this.$emit('openCalendarSignNotice')" :src="imgUrl")
   .content
     .content_day
       Swiper.swiper(:options="swiperOption")
-        SwiperSlide.swiper-slide(v-for="item in 10")
+        SwiperSlide.swiper-slide(v-for="(item, key) in checkinRewardInfoList")
           .img_cover
-            img.sign_default_cover(src="../../../assets/debris_center/sign_default.png")
-            p.sign_debris_number
-              span +1
-          span.sign_title {{ item }}日
+            img.sign_default_cover(:src="setImg(item, key)")
+            p.sign_debris_number(v-if="checkinInfo.checkinDays <= key")
+              span +{{ item.rewardFragmentCount }}
+          span.sign_title {{ item.checkinDayNum }}日
 </template>
 
 <script>
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
 export default {
-  props: ['openCalendarSignNotice', 'imgUrl', 'goSignRecord'],
+  props: ['openCalendarSignNotice', 'imgUrl', 'goSignRecord', 'checkinRewardInfoList', 'checkinInfo'],
   components: {
     Swiper,
     SwiperSlide
@@ -37,14 +37,28 @@ export default {
         slidesPerView: 5,
         spaceBetween: 17,
         centeredSlides: false,
-        // pagination: {
-        //   el: '.swiper-pagination',
-        //   clickable: true
-        // }
+      }
+    }
+  },
+  computed: {
+    lists() {
+      return this.checkinRewardInfoList
+    }
+  },
+  methods: {
+    setImg(item, key) {
+      const { rewardFragmentCount } = item
+      if (key < this.checkinInfo.checkinDays) {
+        return require('../../../assets/debris_center/sign_finish.png')
+      } else if (rewardFragmentCount * 1 > 1) {
+        return require('../../../assets/debris_center/sign_gift.png')
+      } else {
+        return require('../../../assets/debris_center/sign_default.png')
       }
     }
   },
   mounted() {
+    console.log('签到数据', this.lists)
   }
 }
 </script>
@@ -70,18 +84,18 @@ export default {
     flex-direction row
     justify-content space-between
     align-items center
+    padding-top 20px
     .header_left
       display flex
       flex-direction column
       justify-content center
-      align-items space-between
+      align-items center
       h2.title
         height 22px
         font-size 16px
         font-family PingFangSC-Medium, PingFang SC
         font-weight 500
         line-height 22px
-        padding-top 20px
         color #FFFFFF
         display flex
         flex-direction row
@@ -90,13 +104,13 @@ export default {
           size(16px 16px)
           border-radius 8px
           margin-left 10px
-      p.desc
-        height 17px
-        font-size 12px
-        font-family PingFangSC-Regular, PingFang SC
-        font-weight 400
-        line-height 17px
-        color #FFFFFF
+      // p.desc
+      //   height 17px
+      //   font-size 12px
+      //   font-family PingFangSC-Regular, PingFang SC
+      //   font-weight 400
+      //   line-height 17px
+      //   color #FFFFFF
     .header_right
       display flex
       flex-direction row

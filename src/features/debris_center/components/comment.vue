@@ -17,8 +17,7 @@
 export default {
   props: {
     avatarUrl: {
-      type: String,
-      required: true,
+      type: String || null,
       default: ''
     },
     userId: {

@@ -55,9 +55,10 @@ export function nBuryPoint(eventKey=null, eventValue = {}) {
   const defaultData = {
     isProd,
     url: window.location.href,
-    eventTime: Date.now()
+    eventTime: Date.now(),
+    platformId: window.localStorage.getItem('platformId') || ''
   }
-  console.log('Native 买点', eventKey, eventValue)
+  console.log('Native 埋点', eventKey, eventValue)
   bk.call('buryingPoint', {
     eventName: eventKey,
     map: { ...defaultData, ...eventValue }
