@@ -1,5 +1,7 @@
 <template lang="pug">
 #debris_app
+  P.header_right_record(@click="goToRewardRecord()") 中奖记录
+  P.header_right_record_rule 活动规则
   header
     .header_space(:style="{opacity: opacity}")
     .header_nav
@@ -8,7 +10,6 @@
          v-if="from !== 'tab'"
         :style="{backgroundImage: backgroundImage}")
       | 碎片中心
-      span.header_right_record(@click="goToRewardRecord()") 中奖记录
     .award_list_root
       h3.header_title 我的奖品
       .award_list
@@ -19,37 +20,55 @@
           v-on:getAwardToMailAddress="getAwardToMailAddress"
         )
   .sign_module
-    ContentSlot(
-      title='签到领碎片',
-      desc=''
-      :styles="styles"
-      isSign=true
-      :imgUrl="imgUrl"
+    Sign(
       v-on:openCalendarSignNotice="openCalendarSignNotice"
+      v-on:goSignRecord="goSignRecord"
+      :imgUrl="imgUrl"
     )
+    //ContentSlot(
+      title='签到领碎片',
+      desc='' :styles="styles" isSign=true :imgUrl="imgUrl" v-on:openCalendarSignNotice="openCalendarSignNotice")
       .sign_img(@click="goSignRecord()")
         img(
-          v-for='(item, index) in checkinRewardInfoList'
-          :src="getSignUrl(Number(index) + 1)"
-          )
+          v-for='(item, index) in checkinRewardInfoList' :src="getSignUrl(Number(index) + 1)" )
       p.sign_day_num(@click="goSignRecord()") 您已成功签到{{ checkinInfo.checkinDays }}天，获得{{ checkinInfo.checkinFragmentCount }}枚碎片，别中断哦～
   .task_module(v-if="chapterTaskInfoList && taskInfoList.length !== 0")
     ContentSlot(
       :title='taskTitle',
       :desc='desc'
       :styles="styles"
+      fontColor="#8D3000"
     )
       ul.task_list
         li.single_task(v-for="item in taskInfoList")
           p.task_name {{ item.name }}
-          p.task_state(
-            @click="openTask(item)"
-            :style="{backgroundImage: item.isFinish * 1 === 0 ? taskFinishDefault : taskFinishBg, color: item.isFinish * 1 === 0 ? '#FFFFFF' : '#F43A3A'}"
-            ) {{ item.isFinish * 1 === 0 ? '待领取' : '已到账' }}
+          p.task_state(@click="openTask(item)" :style="item.isFinish*1 === 1 ? taskStyle : ''")
+            span {{ item.isFinish*1 === 0 ? '待领取' : '已领取'}}
+  .signleBook_module(v-if="excitationSingleBookInfoVOList.length > 0")
+    ContentSlot(
+      title='专享书籍领碎片',
+      :desc='singleBookDesc'
+      :styles="styles"
+      fontColor="#317eb4"
+      isShowRight=true
+      rightText="每日3枚"
+    )
+      ul.single_list
+        li.single_book(v-for="item in excitationSingleBookInfoVOList" :key="item.bookId")
+          img.single_book_cover(:src="item.bookCoverUrl")
+          div.single_book_desc
+            span.single_book_title {{item.bookName}}
+            span.single_book_info {{ item.intro }}
+            span.single_book_class {{ item.classify }}
+          span.single_book_btn
+            span 去阅读
   .award_center_list
     ContentSlot(
       title='奖励中心',
       :styles="styles"
+      fontColor="#8D3000"
+      isShowRight=true
+      rightText="查看更多"
       v-if="commentInfoList && commentInfoList.length !== 0"
     )
       .comment(v-for="item in commentInfoList")
@@ -62,10 +81,7 @@
           :awardImgs="item.imgList"
           v-on:goAwardCenter='goAwardCenter'
         )
-  DebrisRule(
-    v-if="platform.length !== 0"
-    :platform="platform"
-  )
+  .space_bottom(style="width: 100%; height: 80px")
   .modal_activity(v-show="activityExpired")
     .modal_activity_content(v-if="code === 153")
       h3 对不起，活动已下线，
@@ -77,31 +93,37 @@
         br
         | 可以完成其他任务抽取手机～
       p.count__down {{countDown}}s后跳转任务中心
+  .award_gift
+  .new_person_guidance(v-if="showGuidance")
+    Guidance(
+      :taskInfoList="taskInfoList"
+      :title='taskTitle',
+      :desc='desc'
+      @closeGuidance='closeGuidance'
+      :styles="styles")
 </template>
 
 <script>
 import bk from 'bayread-bridge'
 import { getQueryString, routerToNative, throttle, mBuryPoint } from '@/utils/index'
 import { toast } from '@/utils/nativeToH5/index'
-import ContentSlot from './components/content_slot'
-import DebrisRule from './components/debris_rule'
-import Comment from './components/comment'
-import Award from './components/award'
 import { getDebrislist } from './request'
 export default {
   components: {
-    ContentSlot,
-    DebrisRule,
-    Comment,
-    Award
+    ContentSlot: () => import('./components/content_slot'),
+    Comment: () => import('./components/comment'),
+    Award: () => import('./components/award'),
+    Sign: () => import('./components/sign'),
+    Guidance: () => import('./components/guidance')
   },
   data() {
     return {
-      activityId: getQueryString('activityId') || '128',
+      activityId: getQueryString('activityId') || '129',
       from: getQueryString('from') || 'tab',
       styles: {
         padding: '16px 21px 12px',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        color: ''
       },
       todayTotalReadChapterNum: 0,  // 今日阅读章数
       nextTaskNeedNum: 0, // 今日再阅读几章
@@ -126,7 +148,15 @@ export default {
       code: 156,
       countDown: 5,
       timer: null,
-      platform: ''
+      platform: '',
+      singleBookDesc: '看专项书籍领取稀有碎片，阅读满6章必得碎片',
+      taskStyle: {
+        color: '#8D3000',
+        background: '#FFECDB',
+        boxShadow: 'none'
+      },
+      showGuidance: false,
+      excitationSingleBookInfoVOList: []  // 专享书籍列表
     }
   },
   computed: {
@@ -188,13 +218,17 @@ export default {
     this.InitData()
   },
   methods: {
+    closeGuidance() { // 关闭引导弹窗
+      console.log('点击关闭弹窗')
+      this.showGuidance = !this.showGuidance
+      localStorage.setItem('guidance_step', '3')
+    },
     async InitData(val = '') {
       let { data, code  } = await getDebrislist(this.activityId)
       try {
         if (Number(code) === 153 || Number(code) === 156) {
           this.code = Number(code)
           // 153 表示活动过期, 156 表示进来这个页面的老用户
-          console.log('后端返回的code', this.code)
           this.fragmentItemInfoList = [{
             exchange: 0,
             id: 1,
@@ -248,8 +282,17 @@ export default {
           commentInfoList = [],
           fragmentItemInfoList = [],
           chapterTaskInfoList = {},
-          activityId
+          activityId,
+          fragmentPrizeTwoEnable
         } = data
+        const guidanceStep = localStorage.getItem('guidance_step')
+        if (guidanceStep) {
+          this.showGuidance = false
+        } else if (fragmentPrizeTwoEnable * 1 === 1) {
+          localStorage.setItem('guidance_step', '1')
+          this.showGuidance = true
+        }
+
         this.chapterTaskInfoList = chapterTaskInfoList
         if (chapterTaskInfoList) {
           const { taskVOS = []} = chapterTaskInfoList
@@ -259,10 +302,8 @@ export default {
         this.checkinRewardInfoList = checkinRewardInfoList
         this.checkinInfo = checkinInfo
         this.commentInfoList = commentInfoList
-
-        // fragmentItemInfoList[0].userFragmentCount = 9
-        // fragmentItemInfoList[0].exchange = 1
         this.fragmentItemInfoList = fragmentItemInfoList
+        this.excitationSingleBookInfoVOList = chapterTaskInfoList.excitationSingleBookInfoVOList || []
 
         if (checkinInfo) {
           const { fragmentPrizeInfoList=[]} = checkinInfo

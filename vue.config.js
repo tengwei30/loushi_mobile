@@ -238,12 +238,6 @@ module.exports = {
         // ws: true,
         changeOrigin: true,
       },
-    // proxy: {
-    //   '/*': {
-    //     target: 'http://192.168.0.188:28092/',
-    //     // ws: true,
-    //     changeOrigin: true,
-    //   },
       // '/api': {
       //   target: 'http://testapi.ibreader.com/',
       //   // ws: true,
