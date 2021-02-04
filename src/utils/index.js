@@ -7,7 +7,7 @@ import {
 import { compareVersion } from '@/utils/string'
 import { getCookie } from '@/utils/utils'
 import { routerToNative } from '@/utils/native'
-import { mBuryPoint } from '@/utils/buryPoint'
+import { mBuryPoint, nBuryPoint } from '@/utils/buryPoint'
 import {
   throttle,
   formatIsoTime,
@@ -31,5 +31,6 @@ export {
   requestAnimFrame,
   getCookie,
   routerToNative,
-  mBuryPoint
+  mBuryPoint,
+  nBuryPoint
 }

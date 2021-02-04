@@ -1,7 +1,7 @@
 <template lang="pug">
 #debris_app
   P.header_right_record(@click="goToRewardRecord()") 中奖记录
-  P.header_right_record_rule 活动规则
+  P.header_right_record_rule(@click="goToActivityRule()") 活动规则
   header
     .header_space(:style="{opacity: opacity}")
     .header_nav
@@ -24,6 +24,9 @@
       v-on:openCalendarSignNotice="openCalendarSignNotice"
       v-on:goSignRecord="goSignRecord"
       :imgUrl="imgUrl"
+      v-if="checkinRewardInfoList.length !== 0"
+      :checkinRewardInfoList="checkinRewardInfoList"
+      :checkinInfo="checkinInfo"
     )
     //ContentSlot(
       title='签到领碎片',
@@ -93,7 +96,7 @@
         br
         | 可以完成其他任务抽取手机～
       p.count__down {{countDown}}s后跳转任务中心
-  .award_gift
+  .award_gift(@click="clickAward()")
   .new_person_guidance(v-if="showGuidance")
     Guidance(
       :taskInfoList="taskInfoList"
@@ -105,7 +108,7 @@
 
 <script>
 import bk from 'bayread-bridge'
-import { getQueryString, routerToNative, throttle, mBuryPoint } from '@/utils/index'
+import { getQueryString, routerToNative, throttle, mBuryPoint, nBuryPoint } from '@/utils/index'
 import { toast } from '@/utils/nativeToH5/index'
 import { getDebrislist } from './request'
 export default {
@@ -156,7 +159,8 @@ export default {
         boxShadow: 'none'
       },
       showGuidance: false,
-      excitationSingleBookInfoVOList: []  // 专享书籍列表
+      fragmentPrizeTwoEnable: 0,
+      excitationSingleBookInfoVOList: [],  // 专享书籍列表
     }
   },
   computed: {
@@ -200,6 +204,11 @@ export default {
         'activityId': this.activityId
       }
       mBuryPoint('13', buryData)
+      nBuryPoint('H5_DEBRIS_CENTER_OPEN_CALENDAR', { // 开启签到提醒
+        'source': this.from,
+        'isOpen': 1,
+        'activityId': this.activityId
+      })
       toast({
         content: '签到提醒开启成功'
       })
@@ -219,7 +228,6 @@ export default {
   },
   methods: {
     closeGuidance() { // 关闭引导弹窗
-      console.log('点击关闭弹窗')
       this.showGuidance = !this.showGuidance
       localStorage.setItem('guidance_step', '3')
     },
@@ -275,6 +283,11 @@ export default {
             'activityId': this.activityId
           }
           mBuryPoint('13', buryData)
+          nBuryPoint('H5_DEBRIS_CENTER_ENTER', {  // 进入碎片中心
+            'source': this.from,
+            'activityId': this.activityId,
+            'fragmentPrizeTwoEnable': this.fragmentPrizeTwoEnable, // 二期是否开启 0 -- close  1 -- open
+          })
         }
         const {
           checkinRewardInfoList = [],
@@ -292,7 +305,7 @@ export default {
           localStorage.setItem('guidance_step', '1')
           this.showGuidance = true
         }
-
+        this.fragmentPrizeTwoEnable = fragmentPrizeTwoEnable
         this.chapterTaskInfoList = chapterTaskInfoList
         if (chapterTaskInfoList) {
           const { taskVOS = []} = chapterTaskInfoList
@@ -333,6 +346,11 @@ export default {
         'activityId': this.activityId
       }
       mBuryPoint('13', buryData)
+      nBuryPoint('H5_DEBRIS_CENTER_CLICK_MAILADDRESS', {  // 点击去添加地址页面
+        'source': this.from,
+        'awardID': val.id,
+        'activityId': this.activityId
+      })
       const url = `${window.location.origin}/BKH5-debris_mail_address.html?activityId=${this.activityId}&id=${val.id}&activityRecordId=${val.activityRecordId}&from=${this.from}`
       routerToNative(url)
     },
@@ -342,6 +360,14 @@ export default {
       } else {
         return require(`@/assets/debris_center/sign/active_${index}.png`)
       }
+    },
+    clickAward: throttle(function() { // 点击浮窗去抽奖
+      const url = `${window.location.origin}/BKH5-debris_luck_draw.html?activityId=${this.activityId}&from=${this.from}`
+      routerToNative(url)
+      mBuryPoint('H5_DEBRIS_CENTER_CLICK_AWARD_MODAL')
+    }, 30),
+    goToActivityRule() {
+      mBuryPoint('H5_DEBRIS_CENTER_CLICK_ACTIVITY_RULE')
     },
     openCalendarSignNotice: throttle(function() {
       bk.call('handleCalendarSignNotice', {}, (data) => {
@@ -359,6 +385,11 @@ export default {
             'activityId': this.activityId
           }
           mBuryPoint('13', buryData)
+          nBuryPoint('H5_DEBRIS_CENTER_OPEN_CALENDAR_NOTICE', { // 点击开启日历提醒
+            'source': this.from,
+            'isOpen': 1,
+            'activityId': this.activityId
+          })
           toast({
             content: '签到提醒开启成功'
           })
@@ -372,6 +403,11 @@ export default {
             'activityId': this.activityId
           }
           mBuryPoint('13', buryData)
+          nBuryPoint('H5_DEBRIS_CENTER_CLOSE_CALENDAR_NOTICE', {
+            'source': this.from,
+            'isOpen': 0,
+            'activityId': this.activityId
+          })
           toast({
             content: '签到提醒关闭成功'
           })
@@ -390,6 +426,10 @@ export default {
         'activityId': this.activityId
       }
       mBuryPoint('13', buryData)
+      nBuryPoint('H5_DEBRIS_CENTER_CLICK_AWARD_MORE', {
+        'source': this.from,
+        'activityId': this.activityId
+      })
       const url = `${window.location.origin}/BKH5-debris_award_list.html?from=${this.from}`
       routerToNative(url)
     },
@@ -411,6 +451,10 @@ export default {
         'activityId': this.activityId
       }
       mBuryPoint('13', buryData)
+      nBuryPoint('H5_DEBRIS_CENTER_CLICK_AWARD_CENTER', { // 点击查看更多去奖励中心
+        'source': this.from,
+        'activityId': this.activityId
+      })
       const url = `${window.location.origin}/BKH5-debris_award_center.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
     },
@@ -429,6 +473,7 @@ export default {
         'activityId': this.activityId
       }
       mBuryPoint('13', buryData)
+      nBuryPoint('H5_DEBRIS_CENTER_CLICK_AWARD_RECORD')
       const url = `${window.location.origin}/BKH5-debris_award_detail.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
     },
@@ -441,6 +486,10 @@ export default {
         'activityId': this.activityId
       }
       mBuryPoint('13', buryData)
+      nBuryPoint('H5_DEBRIS_CENTER_CLICK_STRAT_TASK', {
+        'source': this.from,
+        'activityId': this.activityId
+      })
       if (item.isFinish * 1 === 0) {
         if (this.from !== 'tab') {
           this.browserBack()
