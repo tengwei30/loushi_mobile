@@ -6,7 +6,7 @@ import {
 } from '@/utils/url'
 import { compareVersion } from '@/utils/string'
 import { getCookie } from '@/utils/utils'
-import { routerToNative } from '@/utils/native'
+import { routerToNative, jumpBookDetail } from '@/utils/native'
 import { mBuryPoint } from '@/utils/buryPoint'
 import {
   throttle,
@@ -16,6 +16,9 @@ import {
   requestAnimFrame,
 } from '@/utils/utils'
 import BROWSER from '@/utils/browser'
+
+
+import { skipUrl } from './nativeToH5/index'
 
 export {
   getUrlParamsByObject,
@@ -31,5 +34,7 @@ export {
   requestAnimFrame,
   getCookie,
   routerToNative,
-  mBuryPoint
+  mBuryPoint,
+  jumpBookDetail,
+  skipUrl
 }
