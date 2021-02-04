@@ -69,6 +69,7 @@ export default {
     margin-top 20px
     border-radius 10px
     box-shadow 0px 0px 8px 0px rgba(0, 0, 0, 0.09)
+    padding-top 22px
     .header_title
       padding 0 20px
       box-sizing border-box
@@ -89,7 +90,6 @@ export default {
           font-family PingFangSC-Medium, PingFang SC
           font-weight 500
           line-height 22px
-          padding-top 22px
         p.desc
           height 17px
           font-size 12px
