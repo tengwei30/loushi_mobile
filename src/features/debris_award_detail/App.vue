@@ -143,6 +143,8 @@ export default {
     this.initPage()
     this.scrollEvent()
     bk.register('browserPageResume', () => {
+      this.pageIndex = 0
+      this.list = []
       this.initPage()
     })
   },
