@@ -42,7 +42,7 @@
       .draw_pop_content
         .draw_pop_bg(v-if='rewardPrize.type !== 3')
         .draw_pop_text(v-if='rewardPrize.type !== 3')
-         | 恭喜你抽中{{rewardPrize.title}}
+         | 恭喜你抽中{{rewardPrize.title + '+' + rewardPrize.rewardNum}}
         .draw_pop_text.draw_pop_text_thanks(v-else)
          | {{rewardPrize.title}}
         .draw_pop_btn(@click='closePrizePop') {{rewardList.length === 0 ? '知道了' : '继续抽奖'}}
@@ -232,6 +232,7 @@ export default {
     dealPrizeList(data) {
       this.prizes.map((item, index) => {
         let current = data[index]
+        let text = `${current.title}+${current.rewardNum}`
         if (current.img) {
           item.imgs.push({
             src: current.img,
@@ -239,13 +240,13 @@ export default {
             top: '12%'
           })
           item.fonts.push({
-            text: current.title,
+            text,
             fontSize: '0.27rem',
             top: '68%'
           })
         } else {
           item.fonts.push({
-            text: current.title,
+            text,
             fontSize: '0.53rem',
             top: '12%',
             lengthLimit: '70%'

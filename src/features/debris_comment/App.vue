@@ -58,6 +58,7 @@ import HeaderNav from '@/components/HeaderNav'
 import { initOss, getOneUploadedUrl } from '@/utils/upload'
 import { getQueryString, throttle, nBuryPoint } from '@/utils/index'
 import { submitComment } from './request'
+import { toast } from '@/utils/nativeToH5'
 export default {
   components: {
     HeaderNav
@@ -113,8 +114,16 @@ export default {
         id: this.info.id
       })
       try {
-        let res = await submitComment(this.comment, this.imgList, this.info.id)
+        let res = await submitComment(this.comment, this.imgList.join(), this.info.id)
         console.log(res, 111)
+        if (res.code === 100) {
+          toast({
+            content: '发布成功'
+          })
+          bk.call('closePageNative')
+        } else {
+          this.$showToast(res.msg)
+        }
       } catch (error) {
         this.$showToast('网络错误请稍后重试')
       }

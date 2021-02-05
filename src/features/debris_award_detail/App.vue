@@ -137,6 +137,9 @@ export default {
     })
     this.initPage()
     this.scrollEvent()
+    bk.register('browserPageResume', () => {
+      this.initPage()
+    })
   },
 }
 </script>
