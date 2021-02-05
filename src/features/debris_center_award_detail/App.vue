@@ -118,13 +118,13 @@ export default {
     // 碎片明细记录
     goDebrisDetailRecord() {
       skipUrl({
-        skipUrl: `${location.origin}/BKH5-debris_detail_record.html?from=awardDetail`
+        skipUrl: `${location.origin}/BKH5-debris_center_detail_record.html?from=awardDetail`
       })
     },
     // 跳转碎片评论
     goDebrisComment(target) {
       skipUrl({
-        skipUrl: `${location.origin}/BKH5-debris_comment.html?from=awardDetail&info=` + encodeURIComponent(JSON.stringify(target))
+        skipUrl: `${location.origin}/BKH5-debris_center_comment.html?from=awardDetail&info=` + encodeURIComponent(JSON.stringify(target))
       })
       nBuryPoint('H5_DEBRIS_AWARD_DETAIL_COMMENT_CLICK', {
         activityId: getQueryString('activityId'),
