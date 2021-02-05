@@ -285,7 +285,9 @@ export default {
           fragmentItemInfoList = [],
           chapterTaskInfoList = {},
           activityId,
-          fragmentPrizeTwoEnable
+          fragmentPrizeTwoEnable,
+          simpleCheckinRewardInfoList,
+          rewardFragmentPrizeMsg
         } = data
         const guidanceStep = localStorage.getItem('guidance_step')
         if (guidanceStep) {
@@ -308,15 +310,20 @@ export default {
         this.excitationSingleBookInfoVOList = chapterTaskInfoList.excitationSingleBookInfoVOList || []
 
         if (checkinInfo) {
-          const { fragmentPrizeInfoList=[]} = checkinInfo
-          if (this.checkinInfo.alert * 1 === 1) {
-            bk.call('showChipRewardDialog', {
-              data: fragmentPrizeInfoList,
-              checkinGiftBag,
-              simpleCheckinRewardInfoList,
-              rewardFragmentPrizeMsg
-            })
-          }
+          const { fragmentPrizeInfoList=[], checkinGiftBag = null, checkinDays, checkinFragmentCount, fragmentCount } = checkinInfo
+          // if (this.checkinInfo.alert * 1 === 1) {
+          bk.call('showChipRewardDialog', {
+            data: fragmentPrizeInfoList,  // 获得的奖励碎片集合
+            debrisSign: {
+              checkinGiftBag, // 本次访问是否赠送了首次签到礼包  1=赠送礼包，0=没有赠送礼包
+              simpleCheckinRewardInfoList,  // 客户端弹窗使用签到奖励信息
+              rewardFragmentPrizeMsg, // 客户端弹窗使用奖励明细
+              checkinDays,  // 签到天数
+              checkinFragmentCount, // 用户连续签到总共获取的碎片数
+              fragmentCount // 用户本次签到获取的碎片数
+            }
+          })
+          // }
         }
         const rewardLists = this.taskInfoList.filter(item => item.isFinish * 1 === 1)
         if (rewardLists.length === 1) {
@@ -354,13 +361,13 @@ export default {
       }
     },
     clickAward: throttle(function() { // 点击浮窗去抽奖
-      const url = `${window.location.origin}/BKH5-debris_luck_draw.html?activityId=${this.activityId}&from=${this.from}`
+      const url = `${window.location.origin}/BKH5-debris_center_luck_draw.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
       mBuryPoint('H5_DEBRIS_CENTER_CLICK_AWARD_MODAL')
     }, 30),
     goToActivityRule() {
       mBuryPoint('H5_DEBRIS_CENTER_CLICK_ACTIVITY_RULE')
-      const url = `${window.location.origin}/BKH5-debris_center_rule.html?from=${this.from}`
+      const url = `${window.location.origin}/BKH5-debris_center_rule.html?from=${this.from}&platform=${this.platform}`
       routerToNative(url)
     },
     openCalendarSignNotice: throttle(function() {
@@ -466,7 +473,7 @@ export default {
       }
       mBuryPoint('13', buryData)
       nBuryPoint('H5_DEBRIS_CENTER_CLICK_AWARD_RECORD')
-      const url = `${window.location.origin}/BKH5-debris_award_detail.html?activityId=${this.activityId}&from=${this.from}`
+      const url = `${window.location.origin}/BKH5-debris_center_award_detail.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
     },
     openTask: throttle(function(item) {

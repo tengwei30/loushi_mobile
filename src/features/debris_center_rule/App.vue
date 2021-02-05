@@ -1,7 +1,7 @@
 <template lang="pug">
 #debris_center_rule
   .debris_header_nav
-    span.header_back
+    span.header_back(@click="browserBack()")
     | 规则
   .debris_rule
     .debris_rule_content
@@ -75,7 +75,7 @@
 
 <script>
 import { getQueryString } from '@/utils'
-
+import { closeCurrentPage } from '@/utils/nativeToH5/index'
 export default {
   data() {
     return {
@@ -86,7 +86,11 @@ export default {
       platform: getQueryString('platform') || '6'
     }
   },
-  methods: {},
+  methods: {
+    browserBack() {
+      closeCurrentPage()
+    }
+  },
   mounted() {
     this.$nextTick(() => {
       console.log('platform', this.platform)
