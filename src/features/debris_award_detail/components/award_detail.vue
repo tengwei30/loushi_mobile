@@ -11,7 +11,7 @@
       <div class="award_detail_progress">进度: {{statusText}}</div>
       <div class="award_detail_btn">
         <div class="award_detail_btn_email" v-if="info.needPost != 0" @click="goMailAddress">邮寄地址</div>
-        <div class="award_detail_btn_post" @click="goDebrisComment">评论</div>
+        <div class="award_detail_btn_post" v-if="!info.haveComment" @click="goDebrisComment">评论</div>
       </div>
     </div>
   </div>
@@ -43,7 +43,8 @@ export default {
     goDebrisComment() {
       this.$emit('goDebrisComment', {
         fragmentPrizeBigImgUrl: this.info.fragmentPrizeBigImgUrl,
-        fragmentPrizeTitle: this.info.fragmentPrizeTitle
+        fragmentPrizeTitle: this.info.fragmentPrizeTitle,
+        id: this.info.id
       })
     }
   },

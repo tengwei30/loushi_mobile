@@ -23,7 +23,7 @@
     .debris_img_box
       .debris_img_item(
         v-for='(item, index) in imgList'
-        :key='item'
+        :key='item + index'
         v-if='index < 3'
       )
         img(
@@ -39,6 +39,7 @@
           accept='image/*'
           @change='handleSelectImg'
           multiple
+          ref='uploadImgInput'
         )
     .debris_comment_btn.active(
       v-if='imgList.length > 0 && comment.length > 0'
@@ -55,7 +56,9 @@
 import bk from 'bayread-bridge'
 import HeaderNav from '@/components/HeaderNav'
 import { initOss, getOneUploadedUrl } from '@/utils/upload'
-import { getQueryString } from '@/utils/url'
+import { getQueryString, throttle, nBuryPoint } from '@/utils/index'
+import { submitComment } from './request'
+import { toast } from '@/utils/nativeToH5'
 export default {
   components: {
     HeaderNav
@@ -78,9 +81,8 @@ export default {
     },
     // 选择图片
     handleSelectImg(e) {
-      console.log(e.target.files, 33)
+      console.log(e)
       let files = e.target.files
-      console.log(Array.from(files))
       if (files) {
         Array.from(files).map(file => {
           this.dealUploadImg(file)
@@ -98,6 +100,7 @@ export default {
         if (this.imgList.length < 3) {
           this.imgList.push(url)
         }
+        this.$refs.uploadImgInput.value = ''
       })
     },
     // 删除图片
@@ -105,9 +108,26 @@ export default {
       this.imgList.splice(index, 1)
     },
     // 发表评论
-    submitComment() {
-      console.log(this.imgList, this.comment)
-    },
+    submitComment: throttle(async function() {
+      nBuryPoint('H5_DEBRIS_COMMENT_CLICK_POST', {
+        activityId: getQueryString('activityId'),
+        id: this.info.id
+      })
+      try {
+        let res = await submitComment(this.comment, this.imgList.join(), this.info.id)
+        console.log(res, 111)
+        if (res.code === 100) {
+          toast({
+            content: '发布成功'
+          })
+          bk.call('closePageNative')
+        } else {
+          this.$showToast(res.msg)
+        }
+      } catch (error) {
+        this.$showToast('网络错误请稍后重试')
+      }
+    }, 50),
     // 返回上一页面
     nvaBack() {
       bk.call('closePageNative')
@@ -115,6 +135,12 @@ export default {
   },
   mounted() {
     this.info = getQueryString('info') ? JSON.parse(getQueryString('info')) : {}
+    this.$nextTick(() => {
+      nBuryPoint('H5_DEBRIS_COMMENT', {
+        activityId: getQueryString('activityId'),
+        id: this.info.id
+      })
+    })
   },
 }
 </script>
