@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     goAwardCenter() {
-      this.$emit('goAwardCenter')
+      this.$emit('goAwardCenter', '查看更多')
     }
   }
 }

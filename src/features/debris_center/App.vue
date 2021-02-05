@@ -14,39 +14,27 @@
       h3.header_title 我的奖品
       .award_list
         p.click_more_award(@click="goAwardList()") 查看更多
-        Award(
-          v-for="item in fragmentItemInfoList"
+        Award(v-for="item in fragmentItemInfoList"
           :awardInfo="item"
-          v-on:getAwardToMailAddress="getAwardToMailAddress"
-        )
+          v-on:getAwardToMailAddress="getAwardToMailAddress")
   .sign_module
-    Sign(
-      v-on:openCalendarSignNotice="openCalendarSignNotice"
+    Sign(v-on:openCalendarSignNotice="openCalendarSignNotice"
       v-on:goSignRecord="goSignRecord"
       :imgUrl="imgUrl"
       v-if="checkinRewardInfoList.length !== 0"
       :checkinRewardInfoList="checkinRewardInfoList"
-      :checkinInfo="checkinInfo"
-    )
-    //ContentSlot(
-      title='签到领碎片',
-      desc='' :styles="styles" isSign=true :imgUrl="imgUrl" v-on:openCalendarSignNotice="openCalendarSignNotice")
-      .sign_img(@click="goSignRecord()")
-        img(
-          v-for='(item, index) in checkinRewardInfoList' :src="getSignUrl(Number(index) + 1)" )
-      p.sign_day_num(@click="goSignRecord()") 您已成功签到{{ checkinInfo.checkinDays }}天，获得{{ checkinInfo.checkinFragmentCount }}枚碎片，别中断哦～
+      :checkinInfo="checkinInfo")
   .task_module(v-if="chapterTaskInfoList && taskInfoList.length !== 0")
     ContentSlot(
       :title='taskTitle',
       :desc='desc'
       :styles="styles"
-      fontColor="#8D3000"
-    )
+      fontColor="#8D3000")
       ul.task_list
         li.single_task(v-for="item in taskInfoList")
           p.task_name {{ item.name }}
           p.task_state(@click="openTask(item)" :style="item.isFinish*1 === 1 ? taskStyle : ''")
-            span {{ item.isFinish*1 === 0 ? '待领取' : '已领取'}}
+            | {{ item.isFinish*1 === 0 ? '待领取' : '已领取'}}
   .signleBook_module(v-if="excitationSingleBookInfoVOList.length > 0")
     ContentSlot(
       title='专享书籍领碎片',
@@ -54,17 +42,18 @@
       :styles="styles"
       fontColor="#317eb4"
       isShowRight=true
-      rightText="每日3枚"
-    )
+      rightText="每日3枚")
       ul.single_list
-        li.single_book(v-for="item in excitationSingleBookInfoVOList" :key="item.bookId")
+        li.single_book(
+          v-for="item in excitationSingleBookInfoVOList"
+          @click="clickSignleBook(item)"
+          :key="item.bookId")
           img.single_book_cover(:src="item.bookCoverUrl")
           div.single_book_desc
             span.single_book_title {{item.bookName}}
             span.single_book_info {{ item.intro }}
             span.single_book_class {{ item.classify }}
-          span.single_book_btn
-            span 去阅读
+          span.single_book_btn 去阅读
   .award_center_list
     ContentSlot(
       title='奖励中心',
@@ -72,8 +61,8 @@
       fontColor="#8D3000"
       isShowRight=true
       rightText="查看更多"
-      v-if="commentInfoList && commentInfoList.length !== 0"
-    )
+      @goAwardCenter="goAwardCenter"
+      v-if="commentInfoList && commentInfoList.length !== 0")
       .comment(v-for="item in commentInfoList")
         Comment(
           :avatarUrl='item.headImg'
@@ -82,8 +71,7 @@
           :awardName='item.tag'
           :awardDesc='item.content'
           :awardImgs="item.imgList"
-          v-on:goAwardCenter='goAwardCenter'
-        )
+          v-on:goAwardCenter='goAwardCenter')
   .space_bottom(style="width: 100%; height: 80px")
   .modal_activity(v-show="activityExpired")
     .modal_activity_content(v-if="code === 153")
@@ -96,11 +84,13 @@
         br
         | 可以完成其他任务抽取手机～
       p.count__down {{countDown}}s后跳转任务中心
-  .award_gift(@click="clickAward()")
+  .award_gift(
+    v-if="fragmentPrizeTwoEnable === 1"
+    @click="clickAward()")
   .new_person_guidance(v-if="showGuidance")
-    Guidance(
-      :taskInfoList="taskInfoList"
-      :title='taskTitle',
+    Guidance(:taskInfoList="taskInfoList"
+      :singleBookGuidance="excitationSingleBookInfoVOList[0]"
+      :title='taskTitle'
       :desc='desc'
       @closeGuidance='closeGuidance'
       :styles="styles")
@@ -126,8 +116,7 @@ export default {
       styles: {
         padding: '16px 21px 12px',
         boxSizing: 'border-box',
-        color: ''
-      },
+        color: '' },
       todayTotalReadChapterNum: 0,  // 今日阅读章数
       nextTaskNeedNum: 0, // 今日再阅读几章
       chipNum: 0, // 再阅读几章将到账碎片数
@@ -227,6 +216,9 @@ export default {
     this.InitData()
   },
   methods: {
+    clickSignleBook: throttle(function(item) {
+      window.location.assign(`breader://www.bayread.com/bookview/bookread?bookId=${item.bookId}&source=debrisCenter&chapterNum=0`)
+    }, 30),
     closeGuidance() { // 关闭引导弹窗
       this.showGuidance = !this.showGuidance
       localStorage.setItem('guidance_step', '3')
@@ -256,19 +248,16 @@ export default {
           this.checkinRewardInfoList = Array(10).fill(1)
           this.activityExpired = true
           const host = window.location.host
-
           this.timer = setInterval(() => {
             this.countDown = this.countDown - 1
             if (this.countDown < 1) {
               this.countDown = 0
               clearInterval(this.timer)
               if (host === 'increase.ibreader.com') {
-              // routerToNative('https://task.ibreader.com/')
                 window.location.replace(`https://increase.ibreader.com/#/?navShow=${this.from}`)
                 return
               }
               if (host === 'testincrease.ibreader.com') {
-              // routerToNative('http://testtask.ibreader.com/')
                 window.location.replace(`http://testtask.ibreader.com/#/?navShow=${this.from}`)
                 return
               }
@@ -305,7 +294,7 @@ export default {
           localStorage.setItem('guidance_step', '1')
           this.showGuidance = true
         }
-        this.fragmentPrizeTwoEnable = fragmentPrizeTwoEnable
+        this.fragmentPrizeTwoEnable = Number(fragmentPrizeTwoEnable)
         this.chapterTaskInfoList = chapterTaskInfoList
         if (chapterTaskInfoList) {
           const { taskVOS = []} = chapterTaskInfoList
@@ -368,6 +357,8 @@ export default {
     }, 30),
     goToActivityRule() {
       mBuryPoint('H5_DEBRIS_CENTER_CLICK_ACTIVITY_RULE')
+      const url = `${window.location.origin}/BKH5-debris_center_rule.html?from=${this.from}`
+      routerToNative(url)
     },
     openCalendarSignNotice: throttle(function() {
       bk.call('handleCalendarSignNotice', {}, (data) => {
@@ -439,10 +430,9 @@ export default {
       const url = `${window.location.origin}/BKH5-sign_record.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
     },
-    goAwardCenter() {
-      if (!this.isAbled) return
+    goAwardCenter(val) { // 碎片中心奖励中心
+      if (!this.isAbled || val !== '查看更多') return
       this.isAbled = !this.isAbled
-      // 碎片中心奖励中心
       const buryData = {
         'eventPage': 'fragmentCenter',
         'eventType': 2,
@@ -461,10 +451,9 @@ export default {
     browserBack: throttle(function() {
       bk.call('closePageNative')
     }, 30),
-    goToRewardRecord() {
+    goToRewardRecord() { // 中奖记录点击
       if (!this.isAbled) return
       this.isAbled = !this.isAbled
-      // 中奖记录点击
       const buryData = {
         'eventPage': 'fragmentCenter',
         'eventType': 2,
@@ -521,7 +510,6 @@ export default {
     setTimeout(() => {
       this.platform = localStorage.getItem('platformId') || '6'
     }, 100)
-    console.log('获取platform', localStorage.getItem('platformId'), this.platform)
   },
 }
 </script>

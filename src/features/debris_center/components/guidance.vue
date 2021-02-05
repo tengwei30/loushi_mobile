@@ -34,18 +34,18 @@
     span.path
     span.gift
       .three_single_book
-        span.single_book_cover
+        img.single_book_cover(:src="singleBookGuidance.bookCoverUrl")
         div.single_book_desc
-          span.single_book_title 我是标题部分
-          span.single_book_info 我是描述部分我是描述部分我是描述部分我是描述部分我是描述部分
-          span.single_book_class 我是类型
+          span.single_book_title {{ singleBookGuidance.bookName }}
+          span.single_book_info {{ singleBookGuidance.intro }}
+          span.single_book_class {{ singleBookGuidance.classify }}
         span.single_book_btn
           span 去阅读
 </template>
 <script>
 import ContentSlot from './content_slot'
 export default {
-  props: ['taskInfoList', 'taskTitle', 'desc'],
+  props: ['taskInfoList', 'taskTitle', 'desc', 'singleBookGuidance'],
   components: {
     ContentSlot
   },
