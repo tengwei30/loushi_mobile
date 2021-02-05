@@ -147,6 +147,7 @@ export default {
     bk.register('browserPageResume', () => {
       this.pageIndex = 0
       this.list = []
+      this.isLoadedAll = false
       this.initPage()
     })
   },
