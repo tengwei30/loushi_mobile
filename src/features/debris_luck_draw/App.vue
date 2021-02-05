@@ -232,7 +232,8 @@ export default {
     dealPrizeList(data) {
       this.prizes.map((item, index) => {
         let current = data[index]
-        let text = `${current.title}+${current.rewardNum}`
+        let text = current.title
+        text = text + (current.rewardNum === 0 ? '' : `+${current.rewardNum}`)
         if (current.img) {
           item.imgs.push({
             src: current.img,

@@ -13,6 +13,7 @@
     div.left_right(
       slot='right'
       @click='goDebrisDetailRecord'
+      v-if='fragmentPrizeTwoEnable === 1'
     ) 碎片明细
   template(v-if='list.length > 0')
     div(ref='clientBox')
@@ -48,7 +49,8 @@ export default {
       list: [],
       pageIndex: 0,
       isLoadedAll: false,
-      isLoaded: false
+      isLoaded: false,
+      fragmentPrizeTwoEnable: 0, // 是否显示碎片明细
     }
   },
   methods: {
@@ -62,6 +64,9 @@ export default {
         activityId: getQueryString('activityId'),
       })
       this.isLoaded = true
+      if (res.code === 100) {
+        this.fragmentPrizeTwoEnable = res.data.fragmentPrizeTwoEnable
+      }
       if (res.code === 100 && res.data && res.data.fragmentPrizeUserExchangeRecordList.length > 0) {
         this.list = [...this.list, ...res.data.fragmentPrizeUserExchangeRecordList]
         this.isLoadedAll = false
