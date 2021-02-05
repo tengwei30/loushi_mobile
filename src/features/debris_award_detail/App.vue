@@ -67,6 +67,7 @@ export default {
       if (res.code === 100) {
         this.fragmentPrizeTwoEnable = res.data.fragmentPrizeTwoEnable
       }
+      console.log(res.data, 'res.data')
       if (res.code === 100 && res.data && res.data.fragmentPrizeUserExchangeRecordList.length > 0) {
         this.list = [...this.list, ...res.data.fragmentPrizeUserExchangeRecordList]
         this.isLoadedAll = false
@@ -82,6 +83,7 @@ export default {
       } else {
         this.isLoadedAll = true
       }
+      console.log(this.list, 'list')
 
     },
     goMailAddress(target, awardID) {
