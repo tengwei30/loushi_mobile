@@ -62,8 +62,8 @@ export default {
         activityId: getQueryString('activityId'),
       })
       this.isLoaded = true
-      if (res.code === 100 && res.data.length > 0) {
-        this.list = [...this.list, ...res.data]
+      if (res.code === 100 && res.data && res.data.fragmentPrizeUserExchangeRecordList.length > 0) {
+        this.list = [...this.list, ...res.data.fragmentPrizeUserExchangeRecordList]
         this.isLoadedAll = false
         this.pageIndex += 1
       } else if (res.code == 153) {
