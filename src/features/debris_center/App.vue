@@ -441,6 +441,7 @@ export default {
       routerToNative(url)
     },
     goAwardCenter(val) { // 碎片中心奖励中心
+      console.log('点击查看更多', val)
       if (!this.isAbled || val !== '查看更多') return
       this.isAbled = !this.isAbled
       const buryData = {

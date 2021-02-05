@@ -4,7 +4,7 @@
     .header_left
       h2.title(:style="{color: fontColor}") {{ title }}
       p.desc(v-if="desc" :style="{color: fontColor}") {{ desc }}
-    .header_right(v-if="isShowRight" @click="this.$emit('goAwardCenter', rightText)")
+    .header_right(v-if="isShowRight" @click="goAwardCenter")
       h3.title(:style="{color: fontColor}") {{ rightText }}
     .header_right(v-if="isSign")
       h3.title 签到提醒
@@ -52,6 +52,9 @@ export default {
     console.log(this.title)
   },
   methods: {
+    goAwardCenter() {
+      this.$emit('goAwardCenter', this.rightText)
+    },
     openNotification() {
       this.$emit('openCalendarSignNotice')
     }
