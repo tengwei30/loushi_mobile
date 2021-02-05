@@ -228,16 +228,16 @@ module.exports = {
     disableHostCheck: true, // 配置内网穿透
     // sockHost: 'localhost:80',
     proxy: {
-      // '/*': {
-      //   target: 'http://testapi.ibreader.com/',
-      //   // ws: true,
-      //   changeOrigin: true,
-      // },
       '/*': {
-        target: 'http://192.168.1.36:28089/',
+        target: 'http://testapi.ibreader.com/',
         // ws: true,
         changeOrigin: true,
       },
+      // '/*': {
+      //   target: 'http://192.168.1.36:28089/',
+      //   // ws: true,
+      //   changeOrigin: true,
+      // },
       // '/api': {
       //   target: 'http://testapi.ibreader.com/',
       //   // ws: true,
