@@ -33,7 +33,6 @@ export default {
   },
   data() {
     return {
-      initialValue: 5,
       swiperOption: {
         slidesPerView: 5,
         spaceBetween: 17,
