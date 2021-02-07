@@ -311,20 +311,20 @@ export default {
 
         if (checkinInfo) {
           const { fragmentPrizeInfoList=[], checkinGiftBag = null, checkinDays, checkinFragmentCount, fragmentCount } = checkinInfo
-          // if (this.checkinInfo.alert * 1 === 1) {
-          bk.call('showChipRewardDialog', {
-            data: fragmentPrizeInfoList,  // 获得的奖励碎片集合
-            debrisSign: {
-              checkinGiftBag, // 本次访问是否赠送了首次签到礼包  1=赠送礼包，0=没有赠送礼包
-              simpleCheckinRewardInfoList,  // 客户端弹窗使用签到奖励信息
-              rewardFragmentPrizeMsg, // 客户端弹窗使用奖励明细
-              checkinDays,  // 签到天数
-              checkinFragmentCount, // 用户连续签到总共获取的碎片数
-              fragmentCount, // 用户本次签到获取的碎片数
-              url: `${window.location.origin}/BKH5-debris_center_detail_record.html?activityId=${this.activityId}&from=${this.from}`
-            }
-          })
-          // }
+          if (this.checkinInfo.alert * 1 === 1) {
+            bk.call('showChipRewardDialog', {
+              data: fragmentPrizeInfoList,  // 获得的奖励碎片集合
+              debrisSign: {
+                checkinGiftBag, // 本次访问是否赠送了首次签到礼包  1=赠送礼包，0=没有赠送礼包
+                simpleCheckinRewardInfoList,  // 客户端弹窗使用签到奖励信息
+                rewardFragmentPrizeMsg, // 客户端弹窗使用奖励明细
+                checkinDays,  // 签到天数
+                checkinFragmentCount, // 用户连续签到总共获取的碎片数
+                fragmentCount, // 用户本次签到获取的碎片数
+                url: `${window.location.origin}/BKH5-debris_center_detail_record.html?activityId=${this.activityId}&from=${this.from}`
+              }
+            })
+          }
         }
         const rewardLists = this.taskInfoList.filter(item => item.isFinish * 1 === 1)
         if (rewardLists.length === 1) {
