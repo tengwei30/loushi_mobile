@@ -178,6 +178,9 @@ export default {
     },
     // 点击抽奖
     async clickDrawLuckBtn(target) {
+      if (target.enable != 1) {
+        return
+      }
       // 当奖品弹窗弹出才允许再次抽奖
       if (this.isClickedDrawBtn) {
         return
