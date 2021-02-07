@@ -56,6 +56,7 @@ function touchstartFun() {}
 import HeaderNav from '@/components/HeaderNav'
 import { getPrizeListFetch, drawAwardFetch } from './request'
 import { getQueryString, nBuryPoint } from '@/utils'
+import { toast } from '@/utils/nativeToH5'
 export default {
   components: {
     HeaderNav
@@ -198,6 +199,11 @@ export default {
           this.init()
         }
         this.startCallBack()
+      } else {
+        this.isClickedDrawBtn = false
+        toast({
+          content: res.msg || '网络错误'
+        })
       }
     },
     // 抽奖开始(将接口返回的获奖列表逐个弹窗)
