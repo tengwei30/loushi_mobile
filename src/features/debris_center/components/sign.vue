@@ -14,8 +14,9 @@
     .content_day
       Swiper.swiper(:options="swiperOption")
         SwiperSlide.swiper-slide(v-for="(item, key) in checkinRewardInfoList")
-          .img_cover(:style="{'--processBg': key <= checkinInfo.checkinDays ? '#F65245' : '#FFE1C7'}")
+          .img_cover(:style="{'--processBg': key < checkinInfo.checkinDays ? '#F65245' : '#FFE1C7'}")
             img.sign_default_cover(:src="setImg(item, key)")
+            span.process_bg
             p.sign_debris_number(v-if="checkinInfo.checkinDays <= key")
               span +{{ item.rewardFragmentCount }}
           span.sign_title {{ item.checkinDayNum }}日
@@ -144,21 +145,22 @@ export default {
           .img_cover
             position relative
             size(46px, 46px)
+            z-index 9
             .sign_default_cover
-              width 100%
-              absolute(top 0)
-              z-index 9
-            &::before
-              content ''
-              absolute(right 40px top 0 bottom 0)
+              size(46px 46px)
+              absolute(top 0 left 0)
+              z-index 12
+            .process_bg
+              absolute(right -30px top 0 bottom 0)
               z-index 1
               margin auto
-              width 31.5px
+              width 35px
+              display inline-block
               height 12px
               background var(--processBg)
             p.sign_debris_number
               absolute(right -6px top -10px)
-              z-index 11
+              z-index 19
               min-width 28px
               height 15px
               background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
@@ -177,6 +179,6 @@ export default {
             padding-top 0
             text-align center
             font-family PingFangSC-Regular, PingFang SC
-      .swiper .swiper-slide:nth-of-type(1) .img_cover::before
-        background none!important
+      .swiper .swiper-slide:last-child .img_cover .process_bg
+        width 0
 </style>
