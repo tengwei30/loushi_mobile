@@ -321,7 +321,7 @@ export default {
               checkinDays,  // 签到天数
               checkinFragmentCount, // 用户连续签到总共获取的碎片数
               fragmentCount, // 用户本次签到获取的碎片数
-              url: `${window.location.origin}/BKH5-debris_center_luck_draw.html?activityId=${this.activityId}&from=${this.from}`
+              url: `${window.location.origin}/BKH5-debris_center_detail_record.html?activityId=${this.activityId}&from=${this.from}`
             }
           })
           // }

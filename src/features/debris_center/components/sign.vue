@@ -7,7 +7,6 @@
         img(
           src="../../../assets/debris_center/sign_icon_record.png"
           @click="() => this.$emit('goSignRecord')")
-      //- p.desc 再签3天可获得大礼包
     .header_right
       h3.title 签到提醒
       img.onOff(@click="() => this.$emit('openCalendarSignNotice')" :src="imgUrl")
@@ -15,7 +14,7 @@
     .content_day
       Swiper.swiper(:options="swiperOption")
         SwiperSlide.swiper-slide(v-for="(item, key) in checkinRewardInfoList")
-          .img_cover
+          .img_cover(:style="{'--processBg': key <= checkinInfo.checkinDays ? '#F65245' : '#FFE1C7'}")
             img.sign_default_cover(:src="setImg(item, key)")
             p.sign_debris_number(v-if="checkinInfo.checkinDays <= key")
               span +{{ item.rewardFragmentCount }}
@@ -41,10 +40,19 @@ export default {
       }
     }
   },
-  computed: {
-    lists() {
-      return this.checkinRewardInfoList
+  computed: {},
+  created() {
+    const { checkinDays } = this.checkinInfo
+    const lastFiveDays = this.checkinRewardInfoList && (this.checkinRewardInfoList.length - checkinDays)
+    if (lastFiveDays < 5) {
+      this.swiperOption.initialSlide = this.checkinRewardInfoList.length - 5
+      return
     }
+    if (checkinDays < 3) {
+      this.swiperOption.initialSlide = 0
+      return
+    }
+    this.swiperOption.initialSlide = checkinDays - 2
   },
   methods: {
     setImg(item, key) {
@@ -58,9 +66,7 @@ export default {
       }
     }
   },
-  mounted() {
-    console.log('签到数据', this.lists)
-  }
+  mounted() {}
 }
 </script>
 
@@ -105,13 +111,6 @@ export default {
           size(16px 16px)
           border-radius 8px
           margin-left 10px
-      // p.desc
-      //   height 17px
-      //   font-size 12px
-      //   font-family PingFangSC-Regular, PingFang SC
-      //   font-weight 400
-      //   line-height 17px
-      //   color #FFFFFF
     .header_right
       display flex
       flex-direction row
@@ -147,15 +146,19 @@ export default {
             size(46px, 46px)
             .sign_default_cover
               width 100%
+              absolute(top 0)
+              z-index 9
             &::before
               content ''
               absolute(right 40px top 0 bottom 0)
+              z-index 1
               margin auto
-              width 30px
+              width 31.5px
               height 12px
-              background #FFE1C7
+              background var(--processBg)
             p.sign_debris_number
               absolute(right -6px top -10px)
+              z-index 11
               min-width 28px
               height 15px
               background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
