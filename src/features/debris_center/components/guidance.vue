@@ -23,8 +23,7 @@
         ul.second_task_list
           li.second_single_task(v-for="(item, key) in taskInfoList" v-if="key < 2")
             p.second_task_name {{ item.name }}
-            p.second_task_state
-              span 待领取
+            p.second_task_state 待领取
   .three_step(v-if="step === '3'")
     span.title(@click="nextStep()") 我知道了
     span.desc
@@ -39,8 +38,7 @@
           span.single_book_title {{ singleBookGuidance.bookName }}
           span.single_book_info {{ singleBookGuidance.intro }}
           span.single_book_class {{ singleBookGuidance.classify }}
-        span.single_book_btn
-          span 去阅读
+        span.single_book_btn 去阅读
 </template>
 <script>
 import ContentSlot from './content_slot'
@@ -73,6 +71,17 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../../styles/index.styl';
+.second_task_state, .single_book_btn
+  width 66px
+  line-height normal
+  padding 5px 0
+  box-sizing border-box
+  background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
+  border-radius 15px
+  text-align center
+  font-size 12px
+  color #FFFFFF
+  font-family PingFangSC-Regular, PingFang SC
 #person_guidance
   position relative
   size(100%, 100%)
@@ -198,20 +207,6 @@ export default {
             flex-direction row
             justify-content space-between
             padding 16px 0 18px
-            .second_task_state
-              size(78px 28px)
-              font-family PingFangSC-Regular, PingFang SC
-              font-weight 400
-              color #FFFFFF
-              background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
-              box-shadow 0px 0px 6px 0px rgba(246, 82, 69, 0.48)
-              border-radius 15px
-              text-align center
-              box-sizing border-box
-              line-height 28px
-              font-size initial
-              span
-                font-size 12px
   .three_step
     bottom 83px
     .gift
@@ -230,19 +225,8 @@ export default {
           display inline-block
           size(72px 95px)
           borde-radius 4px
-          background yellow
         .single_book_btn
-          size(78px 28px)
-          background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
           align-self center
-          border-radius 15px
-          line-height 28px
-          text-align center
-          font-size initial
-          span
-            font-size 12px
-            color #FFFFFF
-            font-family PingFangSC-Regular, PingFang SC
         .single_book_desc
           flex 1
           padding 0 16px 0 10px
@@ -256,6 +240,8 @@ export default {
             font-family PingFangSC-Medium, PingFang SC
             font-weight bold
             color #000000
+            width 156px
+            ellipsis(true)
           .single_book_info
             padding-top 10px
             width 100%
