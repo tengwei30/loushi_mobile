@@ -31,7 +31,7 @@
         button.draw_luck_btn(
           v-for='item in luckBtnsFilter' :key='item.type'
           @click='clickDrawLuckBtn(item)'
-          :disabled='isClickedDrawBtn'
+          :disabled='isClickedDrawBtn || item.enable != 1'
         )
           template(v-if='item.type === 3') {{rewardList.length === 0 ? item.name : ('剩余抽奖次数' + rewardList.length)}}
           template(v-else) {{item.name}}
