@@ -220,8 +220,8 @@ export default {
     scrollStep(step, val) { // 新手引导滚动引导
       setTimeout(() => {
         if (step === '2') {
-          document.documentElement.scrollTop = val - 8
-          document.body.scrollTop = val - 8
+          document.documentElement.scrollTop = val
+          document.body.scrollTop = val
           return
         }
         if (step === '3') {

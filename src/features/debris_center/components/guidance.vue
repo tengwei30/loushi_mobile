@@ -1,7 +1,7 @@
 <template lang="pug">
-#person_guidance
+#person_guidance(@click='nextStep()')
   .first_step(v-if="step === '1'")
-    span.title(@click="nextStep()") 我知道了
+    span.title 我知道了
     span.desc
       | 参与抽奖赢
       em(:style="{color: '#FCA66B'}") 碎片
@@ -9,7 +9,7 @@
     span.path
     span.gift
   .second_step(v-if="step === '2'")
-    span.title(@click="nextStep()") 我知道了
+    span.title 我知道了
     span.desc
       | 完成阅读任务可获得更多
       em 碎片
@@ -25,7 +25,7 @@
             p.second_task_name {{ item.name }}
             p.second_task_state 待领取
   .three_step(v-if="step === '3'")
-    span.title(@click="nextStep()") 我知道了
+    span.title 我知道了
     span.desc
       | 阅读专享书籍获得更多
       em 碎片
