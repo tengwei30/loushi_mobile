@@ -163,17 +163,8 @@ export default {
       console.log(prize, this.btnType)
       this.isClickedDrawBtn = false
       this.isShowPrize = true
-      if (this.btnType === 1) {
+      if (this.rewardList.length === 0) {
         // 点击免费抽奖后，重新调用页面接口获取信息
-        this.luckBtns = [
-          {
-            text: '30金币抽1次'
-          },
-          {
-            text: '150金币抽6次',
-            type: 3
-          }
-        ]
         this.init()
       }
     },
