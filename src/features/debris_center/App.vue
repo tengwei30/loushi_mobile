@@ -221,10 +221,12 @@ export default {
       setTimeout(() => {
         if (step === '2') {
           document.documentElement.scrollTop = val - 8
+          document.body.scrollTop = val - 8
           return
         }
         if (step === '3') {
           document.documentElement.scrollTop = this.$refs.singleBookRef.offsetTop - val - 10
+          document.body.scrollTop = this.$refs.singleBookRef.offsetTop - val - 10
         }
       }, 10)
     },

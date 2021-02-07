@@ -65,7 +65,6 @@ export default {
         this.step = '3'
         this.$nextTick(() => {
           const scrollHeight = this.$refs.stepThree.getBoundingClientRect().top
-          console.log('3333', scrollHeight)
           this.$emit('scrollStep', '3', scrollHeight)
         })
         return
