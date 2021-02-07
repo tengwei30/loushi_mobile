@@ -114,7 +114,7 @@ export default {
       activityId: getQueryString('activityId') || '129',
       from: getQueryString('from') || 'tab',
       styles: {
-        padding: '16px 21px 12px',
+        padding: '16px 15px 12px',
         boxSizing: 'border-box',
         color: '' },
       todayTotalReadChapterNum: 0,  // 今日阅读章数
@@ -290,7 +290,7 @@ export default {
           rewardFragmentPrizeMsg
         } = data
         const guidanceStep = localStorage.getItem('guidance_step')
-        if (guidanceStep) {
+        if (guidanceStep && guidanceStep === '3') {
           this.showGuidance = false
         } else if (fragmentPrizeTwoEnable * 1 === 1) {
           localStorage.setItem('guidance_step', '1')
