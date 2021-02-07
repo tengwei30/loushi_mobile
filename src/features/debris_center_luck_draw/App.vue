@@ -31,7 +31,7 @@
         button.draw_luck_btn(
           v-for='item in luckBtnsFilter' :key='item.type'
           @click='clickDrawLuckBtn(item)'
-          :disabled='isClickedDrawBtn'
+          :disabled='isClickedDrawBtn || item.enable != 1'
         )
           template(v-if='item.type === 3') {{rewardList.length === 0 ? item.name : ('剩余抽奖次数' + rewardList.length)}}
           template(v-else) {{item.name}}
@@ -56,6 +56,7 @@ function touchstartFun() {}
 import HeaderNav from '@/components/HeaderNav'
 import { getPrizeListFetch, drawAwardFetch } from './request'
 import { getQueryString, nBuryPoint } from '@/utils'
+import { toast } from '@/utils/nativeToH5'
 export default {
   components: {
     HeaderNav
@@ -198,6 +199,11 @@ export default {
           this.init()
         }
         this.startCallBack()
+      } else {
+        this.isClickedDrawBtn = false
+        toast({
+          content: res.msg || '网络错误'
+        })
       }
     },
     // 抽奖开始(将接口返回的获奖列表逐个弹窗)
