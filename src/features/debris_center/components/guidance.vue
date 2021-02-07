@@ -15,7 +15,7 @@
       em 碎片
       img.img_icon(src="../../../assets/debris_center/step_icon.png")
     span.path
-    span.gift
+    span.gift(ref="stepSecond")
       .gift_content
         .header_title
           h2.second_title 今日阅读 30章
@@ -31,7 +31,7 @@
       em 碎片
       img.img_icon(src="../../../assets/debris_center/step_icon.png")
     span.path
-    span.gift
+    span.gift(ref="stepThree")
       .three_single_book
         img.single_book_cover(:src="singleBookGuidance.bookCoverUrl")
         div.single_book_desc
@@ -56,9 +56,18 @@ export default {
     nextStep() {
       if (this.step === '1') {
         this.step = '2'
+        this.$nextTick(() => {
+          const scrollHeight = this.$refs.stepSecond.offsetHeight
+          this.$emit('scrollStep', '2', scrollHeight)
+        })
         return
       } else if (this.step === '2') {
         this.step = '3'
+        this.$nextTick(() => {
+          const scrollHeight = this.$refs.stepThree.getBoundingClientRect().top
+          console.log('3333', scrollHeight)
+          this.$emit('scrollStep', '3', scrollHeight)
+        })
         return
       }
       if (this.step === '3') {

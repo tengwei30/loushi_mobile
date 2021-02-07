@@ -43,7 +43,7 @@
       fontColor="#317eb4"
       isShowRight=true
       rightText="每日3枚")
-      ul.single_list
+      ul.single_list(ref="singleBookRef")
         li.single_book(
           v-for="item in excitationSingleBookInfoVOList"
           @click="clickSignleBook(item)"
@@ -93,6 +93,7 @@
       :title='taskTitle'
       :desc='desc'
       @closeGuidance='closeGuidance'
+      @scrollStep="scrollStep"
       :styles="styles")
 </template>
 
@@ -216,6 +217,17 @@ export default {
     this.InitData()
   },
   methods: {
+    scrollStep(step, val) { // 新手引导滚动引导
+      setTimeout(() => {
+        if (step === '2') {
+          document.documentElement.scrollTop = val - 8
+          return
+        }
+        if (step === '3') {
+          document.documentElement.scrollTop = this.$refs.singleBookRef.offsetTop - val - 10
+        }
+      }, 10)
+    },
     clickSignleBook: throttle(function(item) {
       window.location.assign(`breader://www.bayread.com/bookview/bookread?bookId=${item.bookId}&source=debrisCenter&chapterNum=0`)
     }, 30),
