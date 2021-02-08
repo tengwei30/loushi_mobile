@@ -21,7 +21,7 @@ export default {
   },
   filters: {
     dealTime(target) {
-      return moment(target).format('YYYY-MM-DD h:mm:ss')
+      return moment(target).format('YYYY-MM-DD HH:mm:ss')
     }
   },
   data() {
