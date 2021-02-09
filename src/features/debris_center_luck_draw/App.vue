@@ -271,7 +271,7 @@ export default {
     })
   },
   created() {
-    document.addEventListener('touchstart', touchstartFun, false)
+    // document.addEventListener('touchstart', touchstartFun, false)
   },
   watch: {
     isShowPrize() {
