@@ -82,7 +82,9 @@ export default {
     },
     // 选择图片
     handleSelectImg(e) {
-      this.upload(e)
+      let files = e.target.files || e.dataTransfer.files
+      if (!files.length) return
+      this.imgPreview(files[0])
     },
     // 图片上传函数
     async dealUploadImg(file) {
@@ -126,6 +128,7 @@ export default {
     nvaBack() {
       bk.call('closePageNative')
     },
+    // 将处理过的base64图片转为file
     dataURLtoFile(dataurl, filename) {
 	    var arr = dataurl.split(','),
 	        mime = arr[0].match(/:(.*?);/)[1],
@@ -137,15 +140,12 @@ export default {
 	    }
 	    return new File([u8arr], filename, { type: mime })
     },
+    // 处理后的图片上传服务器
     postImg(data, filename) {
       var file = this.dataURLtoFile(data, filename)
       this.dealUploadImg(file)
     },
-    upload(e) {
-      let files = e.target.files || e.dataTransfer.files
-      if (!files.length) return
-      this.imgPreview(files[0])
-    },
+    // 获取图片信息
     imgPreview(file) {
       let self = this
       let Orientation
@@ -180,6 +180,7 @@ export default {
         }
       }
     },
+    // 处理旋转的图片
     rotateImg(img, direction, canvas) {
       // 最小与最大旋转方向，图片旋转4次后回到原方向
       const min_step = 0
@@ -229,6 +230,7 @@ export default {
         break
       }
     },
+    // 将旋转的图片回复正常，并返回图片
     compress(img, Orientation) {
       let canvas = document.createElement('canvas')
       let ctx = canvas.getContext('2d')
