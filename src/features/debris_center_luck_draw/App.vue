@@ -271,7 +271,7 @@ export default {
     })
   },
   created() {
-    document.addEventListener('touchstart', touchstartFun, false)
+    // document.addEventListener('touchstart', touchstartFun, false)
   },
   watch: {
     isShowPrize() {
@@ -282,11 +282,11 @@ export default {
       }
     },
     isClickedDrawBtn() {
-      if (this.isClickedDrawBtn) {
-        document.removeEventListener('touchstart', touchstartFun, false)
-      } else {
-        document.addEventListener('touchstart', touchstartFun, false)
-      }
+      // if (this.isClickedDrawBtn) {
+      //   document.removeEventListener('touchstart', touchstartFun, false)
+      // } else {
+      //   document.addEventListener('touchstart', touchstartFun, false)
+      // }
     }
   }
 }
