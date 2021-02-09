@@ -52,7 +52,7 @@
 <script>
 import bk from 'bayread-bridge'
 // 解决移动端button不能点击端问题(定一个全局函数是为了解决重复定义事件问题)
-function touchstartFun() {}
+// function touchstartFun() {}
 import HeaderNav from '@/components/HeaderNav'
 import { getPrizeListFetch, drawAwardFetch } from './request'
 import { getQueryString, nBuryPoint } from '@/utils'
