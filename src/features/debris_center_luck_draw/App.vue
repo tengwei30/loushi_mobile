@@ -186,9 +186,6 @@ export default {
       let res = await drawAwardFetch(target.type)
       if (res.code === 100) {
         this.rewardList = res.data ? res.data.fragmentPrizeLotteryDrawItemVOList : []
-        if (target.type === 1) {
-          this.init()
-        }
         this.startCallBack()
       } else {
         this.isClickedDrawBtn = false
