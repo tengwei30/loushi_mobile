@@ -20,7 +20,8 @@
       AwardDetail(v-for='(item,index) in list' :key='index'
       @goMailAddress='goMailAddress'
       @goDebrisComment='goDebrisComment'
-      :info='item')
+      :info='item'
+      :fragmentPrizeTwoEnable='fragmentPrizeTwoEnable')
     .debris_award_detail_tip
       .debris_award_detail_text(@click='callOnline') 我有疑问?
   .debris_award_detail_null(v-else)
