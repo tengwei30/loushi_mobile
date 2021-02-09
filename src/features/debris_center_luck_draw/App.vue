@@ -208,6 +208,7 @@ export default {
     // 关闭奖品弹窗(点击关闭弹窗，如果获奖列表还有数据，会继续转盘弹窗，奖励其实已经全部发放)
     closePrizePop() {
       this.isShowPrize = false
+      console.log(this.isShowPrize, 2222)
       if (this.rewardList.length > 0) {
         this.startCallBack()
       }
