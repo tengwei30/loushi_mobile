@@ -8,7 +8,7 @@
     .header_right
       h3.title 签到提醒
       img.onOff(@click="() => this.$emit('openCalendarSignNotice')" :src="imgUrl")
-  .content
+  .content(@click="() => this.$emit('goSignRecord')")
     .content_day
       Swiper.swiper(:options="swiperOption")
         SwiperSlide.swiper-slide(v-for="(item, key) in checkinRewardInfoList")
