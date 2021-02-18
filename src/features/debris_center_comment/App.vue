@@ -16,9 +16,10 @@
       .debris_comment_info_text {{info.fragmentPrizeTitle}}
     .debris_comment_content
       div.debris_comment_textarea_box
-        div.debris_comment_textarea(contenteditable="true"
-        ref='textarea'
-        @keyup='handleInput')
+        textarea.debris_comment_textarea(contenteditable="true"
+        v-model='comment'
+        placeholder='请输入评论内容'
+        maxlength='100')
         div.debris_comment_textarea_count {{comment.length}}/100字
     .debris_img_box
       .debris_img_item(
@@ -69,17 +70,10 @@ export default {
       imgList: [
       ],
       info: {},
-      headerImage: ''
+      headerImage: '',
     }
   },
   methods: {
-    handleInput(e) {
-      if (e.target.innerText.length > 100) {
-        let tempInnerText = e.target.innerText.substring(0, 100)
-        e.target.innerText = tempInnerText
-      }
-      this.comment = e.target.innerText
-    },
     // 选择图片
     handleSelectImg(e) {
       let files = e.target.files || e.dataTransfer.files
