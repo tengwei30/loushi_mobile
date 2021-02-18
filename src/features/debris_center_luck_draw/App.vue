@@ -38,7 +38,7 @@
     .rule
       .rule_title 活动规则：
       .rule_content(v-html='ruleContent')
-    .draw_pop(v-show='isShowPrize && rewardPrize')
+    .draw_pop(v-show='isShowPrize')
       .draw_pop_content
         .draw_pop_bg(v-if='rewardPrize.type !== 3')
         .draw_pop_text(v-if='rewardPrize.type !== 3')
@@ -274,20 +274,20 @@ export default {
     // document.addEventListener('touchstart', touchstartFun, false)
   },
   watch: {
-    isShowPrize() {
-      if (this.isShowPrize) {
-        document.body.style.overflow = 'hidden'
-      } else {
-        document.body.style.overflow = ''
-      }
-    },
-    isClickedDrawBtn() {
-      // if (this.isClickedDrawBtn) {
-      //   document.removeEventListener('touchstart', touchstartFun, false)
-      // } else {
-      //   document.addEventListener('touchstart', touchstartFun, false)
-      // }
-    }
+    // isShowPrize() {
+    //   if (this.isShowPrize) {
+    //     document.body.style.overflow = 'hidden'
+    //   } else {
+    //     document.body.style.overflow = ''
+    //   }
+    // },
+    // isClickedDrawBtn() {
+    //   if (this.isClickedDrawBtn) {
+    //     document.removeEventListener('touchstart', touchstartFun, false)
+    //   } else {
+    //     document.addEventListener('touchstart', touchstartFun, false)
+    //   }
+    // }
   }
 }
 </script>
