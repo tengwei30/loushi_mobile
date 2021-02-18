@@ -300,13 +300,14 @@ export default {
           chapterTaskInfoList = {},
           activityId,
           fragmentPrizeTwoEnable,
+          fragmentPrizeTwoVersionEnable,
           simpleCheckinRewardInfoList,
           rewardFragmentPrizeMsg
         } = data
         const guidanceStep = localStorage.getItem('guidance_step')
         if (guidanceStep && guidanceStep === '3') {
           this.showGuidance = false
-        } else if (fragmentPrizeTwoEnable * 1 === 1) {
+        } else if (fragmentPrizeTwoEnable * 1 === 1 && fragmentPrizeTwoVersionEnable * 1 === 1) {
           localStorage.setItem('guidance_step', '1')
           this.showGuidance = true
         }
