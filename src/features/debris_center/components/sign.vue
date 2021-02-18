@@ -1,12 +1,10 @@
 <template lang="pug">
 #sign_cotent
   .header_title
-    .header_left
+    .header_left(@click="() => this.$emit('goSignRecord')")
       h2.title
         | 已连续签到{{ checkinInfo.checkinDays }}天
-        img(
-          src="../../../assets/debris_center/sign_icon_record.png"
-          @click="() => this.$emit('goSignRecord')")
+        img(src="../../../assets/debris_center/sign_icon_record.png")
     .header_right
       h3.title 签到提醒
       img.onOff(@click="() => this.$emit('openCalendarSignNotice')" :src="imgUrl")

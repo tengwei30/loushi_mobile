@@ -112,7 +112,7 @@ export default {
           color #FFFFFF
           line-height 12px
         img.onOff
-          size(26px 14px)
+          size(26px 16px)
           display inline-block
     .content
       width 346px
