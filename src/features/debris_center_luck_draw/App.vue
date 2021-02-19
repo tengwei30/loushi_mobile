@@ -12,7 +12,7 @@
       img.draw_luck_bg(
         src='../../assets/debris_luck_draw/draw_luck_bg.png'
       )
-      .luck_draw_notice 参与抽奖，抽取珍惜碎片～{{isShowPrize}}
+      .luck_draw_notice 参与抽奖，抽取珍惜碎片～
       LuckyGrid.draw_luck(
         ref="luckyGrid"
         rows="4"
@@ -209,6 +209,7 @@ export default {
     closePrizePop() {
       this.isShowPrize = false
       console.log(this.isShowPrize, this.rewardList, 2222)
+      this.$forceUpdate()
       if (this.rewardList.length > 0) {
         this.startCallBack()
       }
