@@ -12,7 +12,7 @@
       img.draw_luck_bg(
         src='../../assets/debris_luck_draw/draw_luck_bg.png'
       )
-      .luck_draw_notice 参与抽奖，抽取珍惜碎片～
+      .luck_draw_notice 参与抽奖，抽取珍惜碎片～{{isShowPrize}}{{test}}
       LuckyGrid.draw_luck(
         ref="luckyGrid"
         rows="4"
@@ -154,7 +154,8 @@ export default {
       rewardList: [], // 获奖列表
       rewardPrize: {}, // 弹窗显示的奖品
       isClickedDrawBtn: false, // 是否允许点击抽奖按钮,在抽奖过程中不允许点击,
-      ruleContent: ''
+      ruleContent: '',
+      test: 0
     }
   },
   methods: {
@@ -208,6 +209,7 @@ export default {
     // 关闭奖品弹窗(点击关闭弹窗，如果获奖列表还有数据，会继续转盘弹窗，奖励其实已经全部发放)
     closePrizePop() {
       this.isShowPrize = false
+      this.test = 1
       console.log(this.isShowPrize, this.rewardList, 2222)
       this.$forceUpdate()
       if (this.rewardList.length > 0) {
