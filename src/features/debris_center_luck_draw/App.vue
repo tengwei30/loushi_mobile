@@ -238,7 +238,7 @@ export default {
         let current = data[index]
         let text = current.title
         text = text + (current.rewardNum === 0 ? '' : `+${current.rewardNum}`)
-        if (current.img && current.type !== 3) {
+        if (current.type !== 3) {
           item.imgs.push({
             src: current.img,
             height: '50%',
@@ -250,11 +250,10 @@ export default {
             top: '68%'
           })
         } else {
-          item.fonts.push({
-            text: '谢谢参与',
-            fontSize: '0.53rem',
-            top: '12%',
-            lengthLimit: '70%'
+          item.imgs.push({
+            src: current.img,
+            height: '50%',
+            top: '25%'
           })
         }
         item.id = current.id
