@@ -12,7 +12,7 @@
       img.draw_luck_bg(
         src='../../assets/debris_luck_draw/draw_luck_bg.png'
       )
-      .luck_draw_notice 参与抽奖，抽取珍惜碎片～{{isShowPrize}}{{test}}
+      .luck_draw_notice 参与抽奖，抽取珍惜碎片～
       LuckyGrid.draw_luck(
         ref="luckyGrid"
         rows="4"
@@ -30,7 +30,7 @@
       )
         button.draw_luck_btn(
           v-for='item in luckBtnsFilter' :key='item.type'
-          @click.stop='clickDrawLuckBtn(item)'
+          @click='clickDrawLuckBtn(item)'
           :disabled='isClickedDrawBtn || item.enable != 1'
         )
           template(v-if='item.type === 3') {{rewardList.length === 0 ? item.name : ('剩余抽奖次数' + rewardList.length)}}
@@ -45,7 +45,7 @@
          | 恭喜你抽中{{rewardPrize.title + '+' + rewardPrize.rewardNum}}
         .draw_pop_text.draw_pop_text_thanks(v-else)
          | {{rewardPrize.title}}
-        .draw_pop_btn(@click='closePrizePop') {{rewardList.length === 0 ? '知道了' : '继续抽奖'}}
+        .draw_pop_btn(@click.stop='closePrizePop') {{rewardList.length === 0 ? '知道了' : '继续抽奖'}}
 
 </template>
 
@@ -155,19 +155,20 @@ export default {
       rewardPrize: {}, // 弹窗显示的奖品
       isClickedDrawBtn: false, // 是否允许点击抽奖按钮,在抽奖过程中不允许点击,
       ruleContent: '',
-      test: 0
+      activityId: ''
     }
   },
   methods: {
     // 奖励函数
-    endCallBack(prize) {
-      console.log(prize, this.btnType)
-      this.isClickedDrawBtn = false
-      this.isShowPrize = true
+    async endCallBack(prize) {
+      console.log(prize, this.btnType, 111)
       if (this.rewardList.length === 0) {
         // 点击免费抽奖后，重新调用页面接口获取信息
-        this.init()
+        await this.init(true)
       }
+      console.log(333)
+      this.isClickedDrawBtn = false
+      this.isShowPrize = true
     },
     // 点击抽奖
     async clickDrawLuckBtn(target) {
@@ -209,7 +210,6 @@ export default {
     // 关闭奖品弹窗(点击关闭弹窗，如果获奖列表还有数据，会继续转盘弹窗，奖励其实已经全部发放)
     closePrizePop() {
       this.isShowPrize = false
-      this.test = 1
       console.log(this.isShowPrize, this.rewardList, 2222)
       this.$forceUpdate()
       if (this.rewardList.length > 0) {
@@ -220,13 +220,16 @@ export default {
     nvaBack() {
       bk.call('closePageNative')
     },
-    // 初始化页面
-    async init(activityId) {
-      let res = await getPrizeListFetch(activityId)
+    // 初始化页面(flag=true是获取抽奖后，重新刷新抽奖按钮状态)
+    async init(flag) {
+      let res = await getPrizeListFetch(this.activityId)
+      console.log(res, 222)
       if (res.code === 100 && res.data) {
-        this.dealPrizeList(res.data.fragmentPrizeLotteryDrawItemVOList)
         this.luckBtns = res.data.fragmentPrizeLotteryDrawTypeVOList
-        this.ruleContent = res.data.rule
+        if (!flag) {
+          this.dealPrizeList(res.data.fragmentPrizeLotteryDrawItemVOList)
+          this.ruleContent = res.data.rule
+        }
       }
     },
     // 处理获得的奖品列表
@@ -268,9 +271,10 @@ export default {
     }
   },
   mounted() {
-    this.init(getQueryString('activityId'))
+    this.activityId = getQueryString('activityId')
+    this.init()
     nBuryPoint('H5_DEBRIS_LUCK_DRAW', {
-      activityId: getQueryString('activityId')
+      activityId: this.activityId
     })
   },
   created() {
