@@ -12,7 +12,7 @@
       img.draw_luck_bg(
         src='../../assets/debris_luck_draw/draw_luck_bg.png'
       )
-      .luck_draw_notice 参与抽奖，抽取珍惜碎片～
+      .luck_draw_notice 参与抽奖，抽取珍惜碎片～{{isShowPrize}}
       LuckyGrid.draw_luck(
         ref="luckyGrid"
         rows="4"
@@ -30,7 +30,7 @@
       )
         button.draw_luck_btn(
           v-for='item in luckBtnsFilter' :key='item.type'
-          @click='clickDrawLuckBtn(item)'
+          @click.stop='clickDrawLuckBtn(item)'
           :disabled='isClickedDrawBtn || item.enable != 1'
         )
           template(v-if='item.type === 3') {{rewardList.length === 0 ? item.name : ('剩余抽奖次数' + rewardList.length)}}
@@ -271,6 +271,7 @@ export default {
     })
   },
   created() {
+    // document.cookie = 'vId=a7ba06a02283404ea13dbf09e8b4dc84'
     // document.addEventListener('touchstart', touchstartFun, false)
   },
   watch: {
