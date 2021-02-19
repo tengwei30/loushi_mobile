@@ -209,9 +209,9 @@ export default {
     closePrizePop() {
       this.isShowPrize = false
       console.log(this.isShowPrize, this.rewardList, 2222)
-      // if (this.rewardList.length > 0) {
-      //   this.startCallBack()
-      // }
+      if (this.rewardList.length > 0) {
+        this.startCallBack()
+      }
     },
     // 返回上一页面
     nvaBack() {
