@@ -124,7 +124,7 @@ export default {
         line-height 12px
         padding-right 6px
       img.onOff
-        size(26px 14px)
+        size(26px 28px)
         display inline-block
   .content
     padding 0 10px
