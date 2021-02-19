@@ -69,8 +69,8 @@ export default {
         this.fragmentPrizeTwoEnable = res.data.fragmentPrizeTwoEnable
       }
       console.log(res.data, 'res.data')
-      if (res.code === 100 && res.data && res.data.fragmentPrizeUserExchangeRecordList.length > 0) {
-        this.list = [...this.list, ...res.data.fragmentPrizeUserExchangeRecordList]
+      if (res.code === 100 && res.data && res.data.fragmentPrizeUserExchangeRecordVOList.length > 0) {
+        this.list = [...this.list, ...res.data.fragmentPrizeUserExchangeRecordVOList]
         this.isLoadedAll = false
         this.pageIndex += 1
       } else if (res.code == 153) {
