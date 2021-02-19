@@ -1,5 +1,5 @@
 <template lang="pug">
-#person_guidance(@click='nextStep()')
+#person_guidance(v-on:click.stop='nextStep()')
   .first_step(v-if="step === '1'")
     span.title 我知道了
     span.desc
