@@ -239,7 +239,7 @@ export default {
     closeGuidance() { // 关闭引导弹窗
       this.showGuidance = !this.showGuidance
       localStorage.setItem('guidance_step', '3')
-      document.getElementsByTagName('body')[0].style.overflowY = 'scroll'
+      document.getElementsByTagName('html')[0].style.overflowY = 'scroll'
     },
     async InitData(val = '') {
       let { data, code  } = await getDebrislist(this.activityId)
@@ -313,8 +313,10 @@ export default {
           this.showGuidance = false
         } else if (fragmentPrizeTwoEnable * 1 === 1 && fragmentPrizeTwoVersionEnable * 1 === 1) {
           localStorage.setItem('guidance_step', '1')
-          this.showGuidance = true
-          document.getElementsByTagName('body')[0].style.overflowY = 'hidden'
+          setTimeout(() => {
+            this.showGuidance = true
+            document.getElementsByTagName('html')[0].style.overflowY = 'hidden'
+          }, 2500)
         }
         this.fragmentPrizeTwoEnable = Number(fragmentPrizeTwoEnable)
         this.chapterTaskInfoList = chapterTaskInfoList
@@ -471,7 +473,6 @@ export default {
       routerToNative(url)
     },
     goAwardCenter(val) { // 碎片中心奖励中心
-      console.log('点击查看更多', val)
       if (!this.isAbled || val !== '查看更多') return
       this.isAbled = !this.isAbled
       const buryData = {

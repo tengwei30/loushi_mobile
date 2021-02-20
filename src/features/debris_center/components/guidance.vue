@@ -1,5 +1,5 @@
 <template lang="pug">
-#person_guidance(v-on:click.stop='nextStep()')
+#person_guidance(@click.stop='nextStep()' @touchmove.stop.prevent)
   .first_step(v-if="step === '1'")
     span.title 我知道了
     span.desc
@@ -115,8 +115,8 @@ export default {
       align-items center
       padding 5px 13px
       box-sizing border-box
-      box-shadow 0px 0px 11px 0px #FFFFFF inset
-      border 2px solid #FFFFFF
+      box-shadow inset 0px 0px 11px 0px #FFFFFF
+      border 1px solid #FFFFFF
       border-radius 10px
       margin-bottom 9px
       position relative
