@@ -328,13 +328,14 @@ export default {
         this.commentInfoList = commentInfoList
         this.fragmentItemInfoList = fragmentItemInfoList
         this.excitationSingleBookInfoVOList = chapterTaskInfoList.excitationSingleBookInfoVOList || []
-        if (this.position === 'singleBook') {
+        if (this.position === 'singleBook' && this.excitationSingleBookInfoVOList.length !== 0) {
           this.$nextTick(() => {
-            document.documentElement.scrollTop = this.$refs.singleBookRoot.getBoundingClientRect().top
-            document.body.scrollTop = this.$refs.singleBookRoot.getBoundingClientRect().top
+            setTimeout(() => {
+              const NodeList = document.querySelectorAll('.task_list li')
+              NodeList[NodeList.length - 1].scrollIntoView({ behavior: 'smooth' })
+            }, 500)
           })
         }
-
         if (checkinInfo) {
           const { fragmentPrizeInfoList=[], checkinGiftBag = null, checkinDays, checkinFragmentCount, fragmentCount } = checkinInfo
           if (this.checkinInfo.alert * 1 === 1) {
