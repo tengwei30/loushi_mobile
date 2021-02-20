@@ -42,7 +42,10 @@
       .draw_pop_content
         .draw_pop_bg(v-if='rewardPrize.type !== 3')
         .draw_pop_text(v-if='rewardPrize.type !== 3')
-         | 恭喜你抽中{{rewardPrize.title + '+' + rewardPrize.rewardNum}}
+          template(v-if='rewardPrize.type === 2')
+            | 恭喜你抽中{{rewardPrize.title + '+' + rewardPrize.rewardNum}}
+          template(v-else)
+            | 恭喜你抽中{{rewardPrize.title}}的碎片{{rewardPrize.rewardNum}}枚
         .draw_pop_text.draw_pop_text_thanks(v-else)
          | {{rewardPrize.title}}
         .draw_pop_btn(@click.stop='closePrizePop') {{rewardList.length === 0 ? '知道了' : '继续抽奖'}}
