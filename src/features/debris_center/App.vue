@@ -35,7 +35,9 @@
           p.task_name {{ item.name }}
           p.task_state(@click="openTask(item)" :style="item.isFinish*1 === 1 ? taskStyle : ''")
             | {{ item.isFinish*1 === 0 ? '待领取' : '已领取'}}
-  .signleBook_module(v-if="excitationSingleBookInfoVOList.length > 0")
+  .signleBook_module(
+    v-if="excitationSingleBookInfoVOList.length > 0"
+    ref="singleBookRoot")
     ContentSlot(
       title='专享书籍领碎片',
       :desc='singleBookDesc'
@@ -114,6 +116,7 @@ export default {
     return {
       activityId: getQueryString('activityId') || '129',
       from: getQueryString('from') || 'tab',
+      position: getQueryString('position') || '',
       styles: {
         padding: '16px 15px 12px',
         boxSizing: 'border-box',
@@ -325,6 +328,12 @@ export default {
         this.commentInfoList = commentInfoList
         this.fragmentItemInfoList = fragmentItemInfoList
         this.excitationSingleBookInfoVOList = chapterTaskInfoList.excitationSingleBookInfoVOList || []
+        if (this.position === 'singleBook') {
+          this.$nextTick(() => {
+            document.documentElement.scrollTop = this.$refs.singleBookRoot.getBoundingClientRect().top
+            document.body.scrollTop = this.$refs.singleBookRoot.getBoundingClientRect().top
+          })
+        }
 
         if (checkinInfo) {
           const { fragmentPrizeInfoList=[], checkinGiftBag = null, checkinDays, checkinFragmentCount, fragmentCount } = checkinInfo
