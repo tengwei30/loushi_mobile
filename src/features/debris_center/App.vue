@@ -333,7 +333,7 @@ export default {
             setTimeout(() => {
               const NodeList = document.querySelectorAll('.task_list li')
               NodeList[NodeList.length - 1].scrollIntoView({ behavior: 'smooth' })
-            }, 500)
+            }, 1000)
           })
         }
         if (checkinInfo) {
