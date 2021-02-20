@@ -96,12 +96,12 @@ export default {
     -webkit-text-fill-color transparent
     display inline
   .award_detail_time
-    font-size 15px
+    font-size initial
     color #666666
     margin 18px 0
     font-weight 500
   .award_detail_bottom
-    font-size 14px
+    font-size initial
     color #666666
     font-weight 500
     display flex
@@ -112,18 +112,18 @@ export default {
       font-weight 400
       .award_detail_btn_email
         background #F4F4F4
-        width 64px
-        height 22px
-        line-height 22px
+        width 68px
+        height 24px
+        line-height 24px
         text-align center
-        border-radius 22px
+        border-radius 24px
       .award_detail_btn_post
         background #F4F4F4
-        width 64px
-        height 22px
-        line-height 22px
+        width 68px
+        height 24px
+        line-height 24px
         text-align center
-        border-radius 22px
+        border-radius 24px
         margin-left 8.5px
 
 </style>
