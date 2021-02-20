@@ -42,7 +42,10 @@
       .draw_pop_content
         .draw_pop_bg(v-if='rewardPrize.type !== 3')
         .draw_pop_text(v-if='rewardPrize.type !== 3')
-         | 恭喜你抽中{{rewardPrize.title + '+' + rewardPrize.rewardNum}}
+          template(v-if='rewardPrize.type === 2')
+            | 恭喜你抽中{{rewardPrize.title + '+' + rewardPrize.rewardNum}}
+          template(v-else)
+            | 恭喜你抽中{{rewardPrize.title}}的碎片{{rewardPrize.rewardNum}}枚
         .draw_pop_text.draw_pop_text_thanks(v-else)
          | {{rewardPrize.title}}
         .draw_pop_btn(@click.stop='closePrizePop') {{rewardList.length === 0 ? '知道了' : '继续抽奖'}}
@@ -133,7 +136,7 @@ export default {
         x: 1, y: 1,
         col: 2,
         row: 2,
-        fonts: [{ text: '每日免费抽1次', fontSize: '0.37rem', fontColor: '#FFBA35', top: '90%' }],
+        fonts: [{ text: '每日免费抽1次', fontSize: '0.37rem', fontColor: '#FFBA35', top: '88%' }],
         imgs: [{ src: require('../../assets/debris_luck_draw/draw_center_icon.png'), width: '100%' }]
       },
       defaultConfig: {
@@ -241,7 +244,7 @@ export default {
         if (current.type !== 3) {
           item.imgs.push({
             src: current.img,
-            height: '50%',
+            height: '36px',
             top: '12%'
           })
           item.fonts.push({
@@ -252,7 +255,7 @@ export default {
         } else {
           item.imgs.push({
             src: current.img,
-            height: '50%',
+            height: '36px',
             top: '25%'
           })
         }
