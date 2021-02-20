@@ -316,7 +316,7 @@ export default {
           setTimeout(() => {
             this.showGuidance = true
             document.getElementsByTagName('html')[0].style.overflowY = 'hidden'
-          }, 2500)
+          }, 3500)
         }
         this.fragmentPrizeTwoEnable = Number(fragmentPrizeTwoEnable)
         this.chapterTaskInfoList = chapterTaskInfoList
