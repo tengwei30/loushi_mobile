@@ -56,7 +56,7 @@
 import bk from 'bayread-bridge'
 import HeaderNav from '@/components/HeaderNav'
 import { initOss, getOneUploadedUrl } from '@/utils/upload'
-import { getQueryString, throttle, nBuryPoint } from '@/utils/index'
+import { getQueryString, throttle, nBuryPoint } from '@/utils'
 import { submitComment } from './request'
 import { toast } from '@/utils/nativeToH5'
 import Exif from 'exif-js'
