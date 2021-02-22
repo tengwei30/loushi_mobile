@@ -37,7 +37,7 @@ import { callOnline } from '@/utils/common.js'
 import { skipUrl, toast, closeCurrentPage } from '@/utils/nativeToH5/index'
 import { getQueryString } from '@/utils/url'
 import { debounce } from '@/utils/utils.js'
-import { mBuryPoint, nBuryPoint } from '@/utils/index'
+import { mBuryPoint, nBuryPoint } from '@/utils'
 import { getDebrisAwardDetail } from './request'
 
 export default {
@@ -124,12 +124,12 @@ export default {
     },
     // 跳转碎片评论
     goDebrisComment(target) {
-      skipUrl({
-        skipUrl: `${location.origin}/BKH5-debris_center_comment.html?from=awardDetail&info=` + encodeURIComponent(JSON.stringify(target))
-      })
       nBuryPoint('H5_DEBRIS_AWARD_DETAIL_COMMENT_CLICK', {
         activityId: getQueryString('activityId'),
         id: target.id
+      })
+      skipUrl({
+        skipUrl: `${location.origin}/BKH5-debris_center_comment.html?from=awardDetail&info=` + encodeURIComponent(JSON.stringify(target))
       })
     },
     // 返回上一页面
