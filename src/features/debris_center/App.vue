@@ -33,7 +33,7 @@
       ul.task_list
         li.single_task(v-for="item in taskInfoList")
           p.task_name {{ item.name }}
-          p.task_state(@click="openTask(item)" :style="item.isFinish*1 === 1 ? taskStyle : ''")
+          span.task_state(@click="openTask(item)" :style="item.isFinish*1 === 1 ? taskStyle : ''")
             | {{ item.isFinish*1 === 0 ? '待领取' : '已领取'}}
   .signleBook_module(
     v-if="excitationSingleBookInfoVOList.length > 0"
