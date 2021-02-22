@@ -33,8 +33,8 @@
       ul.task_list
         li.single_task(v-for="item in taskInfoList")
           p.task_name {{ item.name }}
-          span.task_state(@click="openTask(item)" :style="item.isFinish*1 === 1 ? taskStyle : ''")
-            | {{ item.isFinish*1 === 0 ? '待领取' : '已领取'}}
+          p.task_state(@click="openTask(item)" :style="item.isFinish*1 === 1 ? taskStyle : ''")
+            span {{ item.isFinish*1 === 0 ? '待领取' : '已领取'}}
   .signleBook_module(
     v-if="excitationSingleBookInfoVOList.length > 0"
     ref="singleBookRoot")
@@ -55,7 +55,8 @@
             span.single_book_title {{item.bookName}}
             span.single_book_info {{ item.intro }}
             span.single_book_class {{ item.classify }}
-          span.single_book_btn 去阅读
+          p.single_book_btn
+            span 去阅读
   .award_center_list
     ContentSlot(
       title='奖励中心',
@@ -325,7 +326,7 @@ export default {
             setTimeout(() => {
               const NodeList = document.querySelector('.task_list li:last-child')
               console.log('----', NodeList)
-              NodeList.scrollIntoView({ behavior: 'smooth' })
+              NodeList.scrollIntoView(true)
             }, 1000)
           })
         }
