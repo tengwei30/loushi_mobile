@@ -467,7 +467,7 @@ export default {
     goSignRecord() {
       if (!this.isAbled) return
       this.isAbled = !this.isAbled
-      const url = `${window.location.origin}/BKH5-sign_record.html?activityId=${this.activityId}&from=${this.from}`
+      const url = `${window.location.origin}/BKH5-debris_center_sign_record.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
     },
     goAwardCenter(val) { // 碎片中心奖励中心
