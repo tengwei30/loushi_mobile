@@ -342,18 +342,21 @@ export default {
                 fragmentCount, // 用户本次签到获取的碎片数
                 url: `${window.location.origin}/BKH5-debris_center_detail_record.html?activityId=${this.activityId}&from=${this.from}`
               }
+            }, (data) => {
+              const { chipSignDialogDismiss } = JSON.parse(data)
+              console.log('chipSignDialogDismiss', chipSignDialogDismiss)
+              if (chipSignDialogDismiss * 1 === 1) {
+                const guidanceStep = localStorage.getItem('guidance_step')
+                if (guidanceStep && guidanceStep === '3') {
+                  this.showGuidance = false
+                } else if (fragmentPrizeTwoEnable * 1 === 1 && fragmentPrizeTwoVersionEnable * 1 === 1) {
+                  localStorage.setItem('guidance_step', '1')
+                  this.showGuidance = true
+                  document.getElementsByTagName('html')[0].style.overflowY = 'hidden'
+                }
+              }
             })
           }
-        }
-        const guidanceStep = localStorage.getItem('guidance_step')
-        if (guidanceStep && guidanceStep === '3') {
-          this.showGuidance = false
-        } else if (fragmentPrizeTwoEnable * 1 === 1 && fragmentPrizeTwoVersionEnable * 1 === 1) {
-          localStorage.setItem('guidance_step', '1')
-          setTimeout(() => {
-            this.showGuidance = true
-            document.getElementsByTagName('html')[0].style.overflowY = 'hidden'
-          }, 4000)
         }
         const rewardLists = this.taskInfoList.filter(item => item.isFinish * 1 === 1)
         if (rewardLists.length === 1) {
