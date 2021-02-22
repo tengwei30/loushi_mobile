@@ -178,19 +178,19 @@ export default {
     bottom 9px
     align-items center
     .gift
-      width 356px!important
+      width 357px!important
       min-height 207px!important
+      padding 2px
+      box-sizing border-box
       &:after
         content ''
-        absolute(left 2px top 2px)
-        size(352px, 203px)
         border-radius 35px
         background transparent
       &:before
         content ''
         background none
       .gift_content
-        size(352px, 203px)
+        size(352px, 202px)
         background #ffffff
         border-radius 35px
         absolute(left 2px top 2px)
@@ -220,8 +220,7 @@ export default {
     .gift
       min-height 141px!important
       .three_single_book
-        size(352px, 137px)
-        absolute(left 2px top 2px)
+        size(352px, 136px)
         border-radius 35px
         background #ffffff
         padding 24px 10px 24px 14px

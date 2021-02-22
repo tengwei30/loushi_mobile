@@ -4,7 +4,7 @@
     .header_left
       h2.title(:style="{color: fontColor}") {{ title }}
       p.desc(v-if="desc" :style="{color: fontColor}") {{ desc }}
-    .header_right(v-if="isShowRight" @click="goAwardCenter")
+    .header_right(v-if="isShowRight" @click="goAwardCenter" :class="desc ? 'alignSelf' : ''")
       h3.title(:style="{color: fontColor}") {{ rightText }}
     .header_right(v-if="isSign")
       h3.title 签到提醒
@@ -48,9 +48,7 @@ export default {
       default: ''
     }
   },
-  mounted() {
-    console.log(this.title)
-  },
+  mounted() {},
   methods: {
     goAwardCenter() {
       this.$emit('goAwardCenter', this.rightText)
@@ -89,9 +87,9 @@ export default {
         align-items space-between
         h2.title
           height 22px
-          font-size 16px
+          font-size 18px
           font-family PingFangSC-Medium, PingFang SC
-          font-weight 500
+          font-weight bold
           line-height 22px
         p.desc
           height 17px
@@ -118,4 +116,7 @@ export default {
       width 346px
       min-height 60px
       border-top 0
+  .alignSelf
+    align-self flex-start!important
+    padding-top 5px!important
 </style>

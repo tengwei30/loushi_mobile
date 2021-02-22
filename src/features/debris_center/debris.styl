@@ -9,13 +9,15 @@ body, html
 .task_state, .single_book_btn
   width 66px
   line-height normal
-  padding 5px 0
+  // padding 5px 0
+  height 28px
   box-sizing border-box
   background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
   border-radius 15px
   text-align center
   font-size 12px
   color #FFFFFF
+  line-height 30px
   font-family PingFangSC-Regular, PingFang SC
 #debris_app
   size(100%, 100%)
@@ -28,8 +30,8 @@ body, html
     min-width 60px
     height 22px
     color #8D3000
-    opacity 0.43
-    background #FFECDB
+    background-color #FFECDB
+    background rgba(255, 236, 219,0.43)
     border-radius 14px 0 0 14px
     text-align center
     line-height 22px
@@ -230,10 +232,18 @@ body, html
           color #999999
           absolute(left 6px bottom 0)
   .award_gift
-    fixed(right 0 bottom 0)
-    size(119px 117px)
+    fixed(right 17px bottom 20px)
+    size(83px 81px)
     background url('../../assets/debris_center/award_gift.png') no-repeat center center
     background-size 100% 100%
+    animation pulse 1.5s linear infinite
+    @keyframes pulse
+      0%
+        transform scale(0.9)
+      50%
+        transform scale(1.0)
+      100%
+        transform scale(0.9)
   .new_person_guidance
     fixed(left 0 right 0 top 0 bottom 0)
     z-index 99999
