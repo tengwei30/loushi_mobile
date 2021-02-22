@@ -323,8 +323,9 @@ export default {
         if (this.position === 'singleBook' && this.excitationSingleBookInfoVOList.length !== 0) {
           this.$nextTick(() => {
             setTimeout(() => {
-              const NodeList = document.querySelectorAll('.task_list li')
-              NodeList[NodeList.length - 1].scrollIntoView({ behavior: 'smooth' })
+              const NodeList = document.querySelector('.task_list li:last-child')
+              console.log('----', NodeList)
+              NodeList.scrollIntoView({ behavior: 'smooth' })
             }, 1000)
           })
         }
