@@ -14,7 +14,7 @@
   .debris_mail_address_rule
     .debris_mail_address_rule_title 注意事项:
     .debris_mail_address_rule_content
-      | 1.请认真填写您的地址，若因地址有误造成的未收到货品，造成的后果，由用户自行承担 <br>2.提交邮寄地址后，平台会在3个工作日内联系您，若未联系您，请通过“我的”页面-“帮助中心”-“电话客服”联系我们
+      | 请认真填写您的地址，若因地址有误造成的未收到货品，造成的后果，由用户自行承担
 
 </template>
 
