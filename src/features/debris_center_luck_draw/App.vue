@@ -252,7 +252,7 @@ export default {
             src: current.img,
             activeSrc: current.img,
             height: '36px',
-            top: '12%'
+            top: '11%'
           })
           item.fonts.push({
             text,
@@ -264,7 +264,7 @@ export default {
             src: current.img,
             activeSrc: current.img,
             height: '36px',
-            top: '25%'
+            top: '23%'
           })
         }
         item.imgs.push({
