@@ -24,7 +24,7 @@
           li.second_single_task(v-for="(item, key) in taskInfoList" v-if="key < 2")
             p.second_task_name {{ item.name }}
             p.second_task_state 待领取
-  .three_step(v-if="step === '3'")
+  .three_step(v-if="step === '3' && singleBookGuidance")
     span.title 我知道了
     span.desc
       | 阅读专享书籍获得更多
@@ -62,6 +62,10 @@ export default {
         })
         return
       } else if (this.step === '2') {
+        if (!this.singleBookGuidance) {
+          this.$emit('closeGuidance')
+          return
+        }
         this.step = '3'
         this.$nextTick(() => {
           const scrollHeight = this.$refs.stepThree.getBoundingClientRect().top
@@ -180,7 +184,7 @@ export default {
     .gift
       width 357px!important
       min-height 207px!important
-      padding 2px
+      padding 2px 3px 2px 2px
       box-sizing border-box
       &:after
         content ''
@@ -219,6 +223,7 @@ export default {
     bottom 83px
     .gift
       min-height 141px!important
+      padding 2px 3px 2px 2px
       .three_single_book
         size(352px, 136px)
         border-radius 35px

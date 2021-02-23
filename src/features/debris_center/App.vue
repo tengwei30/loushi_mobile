@@ -332,6 +332,9 @@ export default {
             }, 1000)
           })
         }
+        // 测试代码
+        this.showGuidance = true
+
         if (checkinInfo) {
           const { fragmentPrizeInfoList=[], checkinGiftBag = null, checkinDays, checkinFragmentCount, fragmentCount } = checkinInfo
           if (this.checkinInfo.alert * 1 === 1) {
@@ -348,7 +351,6 @@ export default {
               }
             }, (data) => {
               const { chipSignDialogDismiss } = JSON.parse(data)
-              console.log('chipSignDialogDismiss', chipSignDialogDismiss)
               if (chipSignDialogDismiss * 1 === 1) {
                 const guidanceStep = localStorage.getItem('guidance_step')
                 if (guidanceStep && guidanceStep === '3') {
