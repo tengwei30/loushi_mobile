@@ -26,7 +26,7 @@
       .debris_award_detail_text(@click='callOnline') 我有疑问?
   .debris_award_detail_null(v-else)
     img(src='@/assets/debris_award_detail/debris_detail_null.png')
-    div 您暂时没有奖品哦～
+    div 您暂时没有获奖
 </template>
 
 <script>
