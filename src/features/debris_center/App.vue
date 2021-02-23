@@ -1,7 +1,9 @@
 <template lang="pug">
 #debris_app
-  P.header_right_record(@click="goToRewardRecord()") 中奖记录
-  P.header_right_record_rule(@click="goToActivityRule()") 活动规则
+  P.header_right_record(@click="goToRewardRecord()")
+    span 中奖记录
+  P.header_right_record_rule(@click="goToActivityRule()")
+    span 活动规则
   header
     .header_space(:style="{opacity: opacity}")
     .header_nav

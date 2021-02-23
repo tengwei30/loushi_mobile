@@ -97,6 +97,7 @@ export default {
           font-family PingFangSC-Regular, PingFang SC
           font-weight 400
           line-height 17px
+          padding-top 8px
       .header_right
         display flex
         flex-direction row

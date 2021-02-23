@@ -69,7 +69,7 @@ export default {
       display flex
       flex-direction column
       justify-content: space-around
-      padding 0 24px 0 10px
+      padding 0 20px 0 10px
       span.user_ID
         font-size 12px
         height 17px
@@ -91,6 +91,7 @@ export default {
       font-size 12px
       font-family PingFangSC-Regular, PingFang SC
       font-weight 400
+      max-width 106px
       color #FFFFFF
       line-height 22px
       height 22px
