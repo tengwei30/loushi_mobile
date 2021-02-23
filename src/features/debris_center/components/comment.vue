@@ -104,7 +104,7 @@ export default {
         background-size cover
         size(16px 16px)
   .comment_desc
-    margin 14px 0 15px
+    margin 14px 0 10px
     width 310px
     min-height 55px
     background #FFF7EE
