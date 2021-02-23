@@ -73,63 +73,63 @@ export default {
         {
           x: 0, y: 0,
           fonts: [],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
+          imgs: [],
         },
         {
           x: 1, y: 0,
           fonts: [],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
+          imgs: [],
         },
         {
           x: 2, y: 0,
           id: 3,
           fonts: [],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
+          imgs: [],
         },
         {
           x: 3, y: 0,
           fonts: [],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
+          imgs: [],
         },
         {
           x: 3, y: 1,
           fonts: [],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
+          imgs: [],
         },
         {
           x: 3, y: 2,
           fonts: [],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
+          imgs: [],
         },
         {
           x: 3, y: 3,
           fonts: [],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
+          imgs: [],
         },
         {
           x: 2, y: 3,
           fonts: [],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
+          imgs: [],
         },
         {
           x: 1, y: 3,
           fonts: [],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
+          imgs: [],
         },
         {
           x: 0, y: 3,
           fonts: [],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
+          imgs: [],
         },
         {
           x: 0, y: 2,
           fonts: [],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
+          imgs: [],
         },
         {
           x: 0, y: 1,
           fonts: [],
-          imgs: [{ src: require('../../assets/debris_luck_draw/default.png'), activeSrc: require('../../assets/debris_luck_draw/active.png'), width: '100%', height: '100%' }],
+          imgs: [],
         },
       ],
       button: {
@@ -147,8 +147,13 @@ export default {
       defaultStyle: {
         fontColor: 'rgba(244, 57, 57, 1)',
         fontSize: '0.32rem',
+        borderRadius: 12,
+        shadow: '0 2 3 #ebf1f4'
       },
       activeStyle: {
+        background: '#fff',
+        borderRadius: 20,
+        shadow: ''
       },
       opacity: 0,
       luckBtns: [],
@@ -241,11 +246,13 @@ export default {
         let current = data[index]
         let text = current.title
         text = text + (current.rewardNum === 0 ? '' : `+${current.rewardNum}`)
+        item.background = '#fff'
         if (current.type !== 3) {
           item.imgs.push({
             src: current.img,
+            activeSrc: current.img,
             height: '36px',
-            top: '12%'
+            top: '11%'
           })
           item.fonts.push({
             text,
@@ -253,12 +260,19 @@ export default {
             top: '68%'
           })
         } else {
-          item.imgs.push({
+          item.imgs.unshift({
             src: current.img,
+            activeSrc: current.img,
             height: '36px',
-            top: '25%'
+            top: '23%'
           })
         }
+        item.imgs.push({
+          src: require('../../assets/debris_luck_draw/default1.png'),
+          activeSrc: require('../../assets/debris_luck_draw/active.png'),
+          width: '100%',
+          height: '100%'
+        })
         item.id = current.id
       })
 
