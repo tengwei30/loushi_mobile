@@ -193,8 +193,8 @@ export default {
         content ''
         background none
       .gift_content
-        width 9.315rem
-        height 5.336rem
+        width 9.32rem
+        height 5.348rem
         background #ffffff
         border-radius 34px
         absolute(left 2px top 2px)
@@ -226,7 +226,7 @@ export default {
       padding 2px
       .three_single_book
         width 9.315rem
-        height 3.62rem
+        height 3.6286rem
         border-radius 0.89rem
         background #ffffff
         padding 24px 10px 24px 14px

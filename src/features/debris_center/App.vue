@@ -333,7 +333,7 @@ export default {
           })
         }
         // 测试代码
-        this.showGuidance = true
+        // this.showGuidance = true
 
         if (checkinInfo) {
           const { fragmentPrizeInfoList=[], checkinGiftBag = null, checkinDays, checkinFragmentCount, fragmentCount } = checkinInfo
