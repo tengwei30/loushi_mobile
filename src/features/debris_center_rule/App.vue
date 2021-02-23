@@ -4,7 +4,7 @@
     span.header_back(@click="browserBack()")
     | 规则
   .debris_rule
-    .debris_rule_content(v-if="fragmentPrizeTwoEnable === '0' && platform !== '6'")
+    .debris_rule_content(v-if="fragmentPrizeTwoEnable === '0' || platform !== '6'")
       h2.rule_title 活动规则：
       .rule_desc
         h3 一、活动参与要求
