@@ -4,7 +4,7 @@
     span.header_back(@click="browserBack()")
     | 规则
   .debris_rule
-    .debris_rule_content(v-if="fragmentPrizeTwoEnable === '0'")
+    .debris_rule_content(v-if="fragmentPrizeTwoEnable === '0' && platform !== '6'")
       h2.rule_title 活动规则：
       .rule_desc
         h3 一、活动参与要求
@@ -71,7 +71,7 @@
         p 5、请实物中奖用户提供正确的联系方式，如不正确导致无法收到奖品，本产品不予负责。
         p 6、除奖品质量问题外，本活动奖品概不换货。
         p 7、如本规则与《用户协议》或《隐私政策》约定不一致的，以本规则为准
-    .debris_rule_content(v-if="fragmentPrizeTwoEnable === '1'")
+    .debris_rule_content(v-if="fragmentPrizeTwoEnable === '1' && platform === '6'")
       h2.rule_title 活动规则：
       .rule_desc
         h3 一、活动参与要求
