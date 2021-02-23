@@ -123,7 +123,7 @@ body, html
     background-size 100% 100%
     absolute(left 15px top 0)
 .record__day__top
-  background url("../../assets/task/sign_record_bg.png") no-repeat center bottom
+  background url("../../assets/debris_center/header_bg@2x.png") no-repeat center bottom
   background-size 100%
   min-height 244px
   position relative
@@ -172,24 +172,26 @@ body, html
   margin 0 auto
   min-height 12.35rem
   background rgba(255, 255, 255, 1)
-  // box-shadow 5px 5px 8px 0px rgba(255, 119, 65, 0.02), -5px 5px 8px 0px rgba(255, 119, 65, 0.02)
   border-radius 0.37rem
   padding 0 0.53rem 0 0.56rem
   box-sizing border-box
+  padding 0 30px
 .record__list li
   display flex
   flex-direction row
   padding 0.41rem 0 0.39rem
-  border-bottom 0.03rem solid #f5f5f5
+  border-bottom 0.03rem solid rgba(228, 228, 228, 0.25)
 .record__list li:last-child
   border-bottom none
 .record__list li p
   flex 1
-  text-align center
+  text-align left
   font-size 0.43rem
   font-weight 400
   line-height 0.59rem
   height 0.59rem
+.record__list li p:nth-of-type(2)
+  text-align right
 .record__list .record__list__title p
   height 0.67rem
   font-size 0.48rem

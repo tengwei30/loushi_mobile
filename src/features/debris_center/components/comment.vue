@@ -95,7 +95,7 @@ export default {
       color #FFFFFF
       line-height 22px
       height 22px
-      padding 0 12px
+      padding 0 13px 0 12px
       text-align center
       background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
       border-radius 11px
