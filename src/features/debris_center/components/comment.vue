@@ -92,13 +92,17 @@ export default {
       font-family PingFangSC-Regular, PingFang SC
       font-weight 400
       max-width 106px
-      color #FFFFFF
+      color #F43939
       line-height 22px
       height 22px
-      padding 0 13px 0 12px
-      text-align center
-      background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
-      border-radius 11px
+      padding 0 13px 0 22px
+      position relative
+      &:before
+        content ''
+        absolute(top 1px left 0)
+        background url('../../../assets/debris_center/gongxi@3x.png') no-repeat center center
+        background-size cover
+        size(16px 16px)
   .comment_desc
     margin 14px 0 15px
     width 310px

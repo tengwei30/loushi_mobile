@@ -72,7 +72,7 @@ export default {
     box-shadow 0px 0px 8px 0px rgba(0, 0, 0, 0.09)
     padding-top 22px
     .header_title
-      padding 0 20px
+      padding 0 15px
       box-sizing border-box
       min-height 46px
       width 346px
