@@ -78,10 +78,11 @@
 <script>
 import { getQueryString } from '@/utils'
 import { closeCurrentPage } from '@/utils/nativeToH5/index'
+const fragmentPrizeTwoEnable = getQueryString('fragmentPrizeTwoEnable') || '0'
 export default {
   data() {
     return {
-      activityDate: '2021年02月28日-2021年04月28日',
+      activityDate: fragmentPrizeTwoEnable === '0' ? '2020年12月29日-2021年2月27日' : '2021年02月28日-2021年04月28日',
       activityCycleDateFirst: '2020年10月29日-2020年12月28日',
       activityCycleDateSecond: '2020年12月29日-2021年2月27日',
       appName: '必阅',
@@ -95,7 +96,6 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      console.log('platform', this.platform)
       if (this.platform === '6') return
       if (this.platform === '7' || this.platform === '51') {
         this.activityDate = '2021年1月12日-2021年3月12日'

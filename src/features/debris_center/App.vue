@@ -404,7 +404,7 @@ export default {
     }, 30),
     goToActivityRule() {
       mBuryPoint('H5_DEBRIS_CENTER_CLICK_ACTIVITY_RULE')
-      const url = `${window.location.origin}/BKH5-debris_center_rule.html?from=${this.from}&platform=${this.platform}`
+      const url = `${window.location.origin}/BKH5-debris_center_rule.html?from=${this.from}&platform=${this.platform}&fragmentPrizeTwoEnable=${this.fragmentPrizeTwoEnable}`
       routerToNative(url)
     },
     openCalendarSignNotice: throttle(function() {
