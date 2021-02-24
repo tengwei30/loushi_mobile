@@ -104,7 +104,7 @@
 
 <script>
 import bk from 'bayread-bridge'
-import { getQueryString, routerToNative, throttle, mBuryPoint, nBuryPoint } from '@/utils/index'
+import { getQueryString, routerToNative, throttle, nBuryPoint } from '@/utils/index'
 import { toast } from '@/utils/nativeToH5/index'
 import { getDebrislist } from './request'
 export default {
@@ -191,15 +191,6 @@ export default {
       }
     })
     bk.register('calendarSignNoticeResume', () => {
-      const buryData = {
-        'eventPage': 'fragmentCenter',
-        'eventType': 2,
-        'eventPos': 'signIn',
-        'source': this.from,
-        'isOpen': 1,
-        'activityId': this.activityId
-      }
-      mBuryPoint('13', buryData)
       nBuryPoint('H5_DEBRIS_CENTER_OPEN_CALENDAR', { // 开启签到提醒
         'source': this.from,
         'isOpen': 1,
@@ -286,13 +277,6 @@ export default {
           }, 1000)
         }
         if (val === '') {
-          const buryData = {
-            'eventPage': 'fragmentCenter',
-            'eventType': 1,
-            'source': this.from,
-            'activityId': this.activityId
-          }
-          mBuryPoint('13', buryData)
           nBuryPoint('H5_DEBRIS_CENTER_ENTER', {  // 进入碎片中心
             'source': this.from,
             'activityId': this.activityId,
@@ -375,15 +359,6 @@ export default {
       }
     },
     getAwardToMailAddress(val) {
-      const buryData = {
-        'eventPage': 'fragmentCenter',
-        'eventType': 2,
-        'eventPos': 'myAward',
-        'source': this.from,
-        'awardID': val.id,
-        'activityId': this.activityId
-      }
-      mBuryPoint('13', buryData)
       nBuryPoint('H5_DEBRIS_CENTER_CLICK_MAILADDRESS', {  // 点击去添加地址页面
         'source': this.from,
         'awardID': val.id,
@@ -402,10 +377,10 @@ export default {
     clickAward: throttle(function() { // 点击浮窗去抽奖
       const url = `${window.location.origin}/BKH5-debris_center_luck_draw.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
-      mBuryPoint('H5_DEBRIS_CENTER_CLICK_AWARD_MODAL')
+      nBuryPoint('H5_DEBRIS_CENTER_CLICK_AWARD_MODAL')
     }, 30),
     goToActivityRule() {
-      mBuryPoint('H5_DEBRIS_CENTER_CLICK_ACTIVITY_RULE')
+      nBuryPoint('H5_DEBRIS_CENTER_CLICK_ACTIVITY_RULE')
       const url = `${window.location.origin}/BKH5-debris_center_rule.html?from=${this.from}&platform=${this.platform}&fragmentPrizeTwoEnable=${this.fragmentPrizeTwoEnable}`
       routerToNative(url)
     },
@@ -416,15 +391,6 @@ export default {
         if (isSuccess * 1 === 0) return
         this.isOpen = !this.isOpen
         if (this.isOpen) {
-          const buryData = {
-            'eventPage': 'fragmentCenter',
-            'eventType': 2,
-            'eventPos': 'signIn',
-            'source': this.from,
-            'isOpen': 1,
-            'activityId': this.activityId
-          }
-          mBuryPoint('13', buryData)
           nBuryPoint('H5_DEBRIS_CENTER_OPEN_CALENDAR_NOTICE', { // 点击开启日历提醒
             'source': this.from,
             'isOpen': 1,
@@ -434,15 +400,6 @@ export default {
             content: '签到提醒开启成功'
           })
         } else {
-          const buryData = {
-            'eventPage': 'fragmentCenter',
-            'eventType': 2,
-            'eventPos': 'signIn',
-            'source': this.from,
-            'isOpen': 0,
-            'activityId': this.activityId
-          }
-          mBuryPoint('13', buryData)
           nBuryPoint('H5_DEBRIS_CENTER_CLOSE_CALENDAR_NOTICE', {
             'source': this.from,
             'isOpen': 0,
@@ -458,14 +415,6 @@ export default {
       if (!this.isAbled) return
       this.isAbled = !this.isAbled
       // 我的奖品点击更多
-      const buryData = {
-        'eventPage': 'fragmentCenter',
-        'eventType': 2,
-        'eventPos': 'viewMore',
-        'source': this.from,
-        'activityId': this.activityId
-      }
-      mBuryPoint('13', buryData)
       nBuryPoint('H5_DEBRIS_CENTER_CLICK_AWARD_MORE', {
         'source': this.from,
         'activityId': this.activityId
@@ -482,14 +431,6 @@ export default {
     goAwardCenter(val) { // 碎片中心奖励中心
       if (!this.isAbled || val !== '查看更多') return
       this.isAbled = !this.isAbled
-      const buryData = {
-        'eventPage': 'fragmentCenter',
-        'eventType': 2,
-        'eventPos': 'awardCenterViewMore',
-        'source': this.from,
-        'activityId': this.activityId
-      }
-      mBuryPoint('13', buryData)
       nBuryPoint('H5_DEBRIS_CENTER_CLICK_AWARD_CENTER', { // 点击查看更多去奖励中心
         'source': this.from,
         'activityId': this.activityId
@@ -503,27 +444,11 @@ export default {
     goToRewardRecord() { // 中奖记录点击
       if (!this.isAbled) return
       this.isAbled = !this.isAbled
-      const buryData = {
-        'eventPage': 'fragmentCenter',
-        'eventType': 2,
-        'eventPos': 'awardRecord',
-        'source': this.from,
-        'activityId': this.activityId
-      }
-      mBuryPoint('13', buryData)
       nBuryPoint('H5_DEBRIS_CENTER_CLICK_AWARD_RECORD')
       const url = `${window.location.origin}/BKH5-debris_center_award_detail.html?activityId=${this.activityId}&from=${this.from}`
       routerToNative(url)
     },
     openTask: throttle(function(item) {
-      const buryData = {
-        'eventPage': 'fragmentCenter',
-        'eventType': 2,
-        'eventPos': 'todayRead',
-        'source': this.from,
-        'activityId': this.activityId
-      }
-      mBuryPoint('13', buryData)
       nBuryPoint('H5_DEBRIS_CENTER_CLICK_STRAT_TASK', {
         'source': this.from,
         'activityId': this.activityId
