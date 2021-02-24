@@ -70,7 +70,7 @@ export default {
         source: 'help_center',
         type: 'phone_click'
       })
-      window.location='tel:01051274970'
+      window.location='tel:01052132489'
     },
     callOnline() { // 跳转在线客服
       if (!this.clickFlag) return
