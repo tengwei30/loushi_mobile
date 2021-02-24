@@ -6,9 +6,6 @@
       p.desc(v-if="desc" :style="{color: fontColor}") {{ desc }}
     .header_right(v-if="isShowRight" @click="goAwardCenter" :class="desc ? 'alignSelf' : ''")
       h3.title(:style="{color: fontColor}") {{ rightText }}
-    .header_right(v-if="isSign")
-      h3.title 签到提醒
-      img.onOff(@click="openNotification()" :src="imgUrl")
   .content(:style="styles")
     <slot></slot>
 </template>
@@ -23,10 +20,6 @@ export default {
     desc: {
       type: String,
       default: ''
-    },
-    isSign: { // 控制开启签到提醒按钮开关
-      type: Boolean,
-      default: false
     },
     styles: {
       type: Object
@@ -52,9 +45,6 @@ export default {
   methods: {
     goAwardCenter() {
       this.$emit('goAwardCenter', this.rightText)
-    },
-    openNotification() {
-      this.$emit('openCalendarSignNotice')
     }
   }
 }

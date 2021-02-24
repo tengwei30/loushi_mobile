@@ -168,13 +168,11 @@ export default {
   },
   methods: {
     // 奖励函数
-    async endCallBack(prize) {
-      console.log(prize, this.btnType, 111)
+    async endCallBack() {
       if (this.rewardList.length === 0) {
         // 点击免费抽奖后，重新调用页面接口获取信息
         await this.init(true)
       }
-      console.log(333)
       this.isClickedDrawBtn = false
       this.isShowPrize = true
     },
@@ -218,7 +216,6 @@ export default {
     // 关闭奖品弹窗(点击关闭弹窗，如果获奖列表还有数据，会继续转盘弹窗，奖励其实已经全部发放)
     closePrizePop() {
       this.isShowPrize = false
-      console.log(this.isShowPrize, this.rewardList, 2222)
       this.$forceUpdate()
       if (this.rewardList.length > 0) {
         this.startCallBack()
@@ -231,7 +228,6 @@ export default {
     // 初始化页面(flag=true是获取抽奖后，重新刷新抽奖按钮状态)
     async init(flag) {
       let res = await getPrizeListFetch(this.activityId)
-      console.log(res, 222)
       if (res.code === 100 && res.data) {
         this.luckBtns = res.data.fragmentPrizeLotteryDrawTypeVOList
         if (!flag) {
@@ -293,26 +289,8 @@ export default {
       activityId: this.activityId
     })
   },
-  created() {
-    // document.cookie = 'vId=a7ba06a02283404ea13dbf09e8b4dc84'
-    // document.addEventListener('touchstart', touchstartFun, false)
-  },
-  watch: {
-    // isShowPrize() {
-    //   if (this.isShowPrize) {
-    //     document.body.style.overflow = 'hidden'
-    //   } else {
-    //     document.body.style.overflow = ''
-    //   }
-    // },
-    // isClickedDrawBtn() {
-    //   if (this.isClickedDrawBtn) {
-    //     document.removeEventListener('touchstart', touchstartFun, false)
-    //   } else {
-    //     document.addEventListener('touchstart', touchstartFun, false)
-    //   }
-    // }
-  }
+  created() {},
+  watch: {}
 }
 </script>
 
