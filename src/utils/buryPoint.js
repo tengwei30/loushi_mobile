@@ -1,6 +1,8 @@
 // import { post } from '@/config/axios.config'
 import axios from 'axios'
 import BROWSER from './browser'
+import bk from 'bayread-bridge'
+const isProd = process.env.VUE_APP_DEVELOP_ENV === 'false'
 
 /**
  * 获取设备类型
@@ -41,5 +43,24 @@ export function mBuryPoint(eventKey=null, eventValue = {}) {
     params: { ...defaultData, ...eventValue }
   }).then(() => {}).catch(err => {
     console.error('error ----> ', err)
+  })
+}
+
+/**
+ * 通知Native进行友盟埋点
+ * @param {*} eventKey  事件名 --- 命名要求：1、 H5_页面名_自定义名称 2、全大写
+ * @param {*} eventValue 埋点参数
+ */
+export function nBuryPoint(eventKey=null, eventValue = {}) {
+  const defaultData = {
+    isProd,
+    url: window.location.href,
+    eventTime: Date.now(),
+    platformId: window.localStorage.getItem('platformId') || ''
+  }
+  console.log('Native 埋点', eventKey, eventValue)
+  bk.call('buryingPoint', {
+    eventName: eventKey,
+    map: { ...defaultData, ...eventValue }
   })
 }
