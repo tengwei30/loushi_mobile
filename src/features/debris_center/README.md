@@ -36,3 +36,13 @@ zhangsong<zhangsong@bayread.com>
  - 碎片活动二期，活动规则变更, 10:30 tag -- 1.5.6
 - 2021.01.13
   - 碎片活动 洋葱和坚果上线规则更改
+- 2021.01.27
+  - 碎片二期相关内容
+  - 方案原型连接：
+  - https://www.wulihub.com.cn/go/WkyoBR/start.html
+  - TAPD：【ID1000495】碎片2期
+  - https://www.tapd.cn/30855541/prong/stories/view/1130855541001000495
+  - 碎片2期设计稿链接：https://lanhuapp.com/url/uZL8X-Pp976
+  - 二期接口文档： http://wiki.bayread.com/pages/viewpage.action?pageId=6258718
+- 2021.02.24
+  - 代码code_review 合并准备上线

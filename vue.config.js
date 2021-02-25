@@ -166,6 +166,13 @@ module.exports = {
             reuseExistingChunk: true,
             chunks: 'all'
           },
+          'chunk-vue-luck-draw': {
+            name: 'chunk-vue-luck-draw',
+            priority: 20,
+            test: /[\\/]node_modules[\\/]_?vue-luck-draw(.*)/,
+            reuseExistingChunk: true,
+            chunks: 'all'
+          },
         }
       })
       config.plugin('AutoInjectPlugin').use(AutoInjectPlugin)
@@ -226,12 +233,11 @@ module.exports = {
         // ws: true,
         changeOrigin: true,
       },
-    // proxy: {
-    //   '/*': {
-    //     target: 'http://192.168.0.188:28092/',
-    //     // ws: true,
-    //     changeOrigin: true,
-    //   },
+      // '/*': {
+      //   target: 'http://192.168.1.36:28089/',
+      //   // ws: true,
+      //   changeOrigin: true,
+      // },
       // '/api': {
       //   target: 'http://testapi.ibreader.com/',
       //   // ws: true,

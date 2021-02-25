@@ -17,8 +17,7 @@
 export default {
   props: {
     avatarUrl: {
-      type: String,
-      required: true,
+      type: String || null,
       default: ''
     },
     userId: {
@@ -49,7 +48,7 @@ export default {
   },
   methods: {
     goAwardCenter() {
-      this.$emit('goAwardCenter')
+      this.$emit('goAwardCenter', '查看更多')
     }
   }
 }
@@ -70,7 +69,7 @@ export default {
       display flex
       flex-direction column
       justify-content: space-around
-      padding 0 24px 0 10px
+      padding 0 20px 0 10px
       span.user_ID
         font-size 12px
         height 17px
@@ -92,15 +91,20 @@ export default {
       font-size 12px
       font-family PingFangSC-Regular, PingFang SC
       font-weight 400
-      color #FFFFFF
+      max-width 106px
+      color #F43939
       line-height 22px
       height 22px
-      padding 0 12px
-      text-align center
-      background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
-      border-radius 11px
+      padding 0 13px 0 22px
+      position relative
+      &:before
+        content ''
+        absolute(top 1px left 0)
+        background url('../../../assets/debris_center/gongxi@3x.png') no-repeat center center
+        background-size cover
+        size(16px 16px)
   .comment_desc
-    margin 14px 0 15px
+    margin 14px 0 10px
     width 310px
     min-height 55px
     background #FFF7EE

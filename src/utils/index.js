@@ -7,7 +7,7 @@ import {
 import { compareVersion } from '@/utils/string'
 import { getCookie } from '@/utils/utils'
 import { routerToNative, jumpBookDetail } from '@/utils/native'
-import { mBuryPoint } from '@/utils/buryPoint'
+import { mBuryPoint, nBuryPoint } from '@/utils/buryPoint'
 import {
   throttle,
   formatIsoTime,
@@ -16,7 +16,6 @@ import {
   requestAnimFrame,
 } from '@/utils/utils'
 import BROWSER from '@/utils/browser'
-
 
 import { skipUrl } from './nativeToH5/index'
 
@@ -35,6 +34,7 @@ export {
   getCookie,
   routerToNative,
   mBuryPoint,
+  nBuryPoint,
   jumpBookDetail,
   skipUrl
 }
