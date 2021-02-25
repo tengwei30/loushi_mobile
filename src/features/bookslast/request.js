@@ -5,10 +5,11 @@ import { post } from '@/config/axios.config'
  * @param {*} bookId
  * @param {*} pageNum
  * @param {*} mId
+ * @param {*} readBookId
  */
-export const getEndCategoryBook = (bookId, pageNum, mId) => {
+export const getEndCategoryBook = (bookId, pageNum, mId, readBookId) => {
   return post('/api/read/endCategoryBook', {
-    bookId, pageNum, mId
+    bookId, pageNum, mId, readBookId
   })
 }
 

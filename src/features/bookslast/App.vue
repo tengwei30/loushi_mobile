@@ -22,12 +22,18 @@
       v-on:commentHandler="commentHandler"
       v-on:rewardHandler="rewardHandler"
     )
+  BookMore(
+    v-if="recommendBookVO.bookInfoVOList.length !== 0"
+    :booklist="recommendBookVO.bookInfoVOList"
+    :title='recommendBookVO.bookListTitle'
+    v-on:handleGoBookDetail="gotoRead"
+    :expGroup="expGroup"
+  )
   BookContent(
-    v-if="content && !showVideo"
+    v-if="(content || boostList.length !== 0) && !showVideo"
     :boostTitle="boostTitle"
     :boostList="boostList"
     :endCategoryBook="endCategoryBook"
-    :videoobj="videoobj"
     :bookInfo="bookInfo"
     :mId="mId"
     :showtip="showtip"
@@ -35,7 +41,7 @@
     :platform="platform"
     :contentTitle="contentTitle"
     :content="content"
-    v-on:handleGoBookDetail="handleGoBookDetail"
+    v-on:handleGoBookDetail="gotoRead"
     v-on:refreshHandler="refreshHandler"
     v-on:addShelf="addShelf"
     v-on:addShelfAndRead="addShelfAndRead"
@@ -47,6 +53,16 @@
     v-on:gotoRead="gotoRead"
     v-on:gotoShelf="gotoShelf"
   )
+  .book_test_A_content
+    BookMore(
+      title="读完本书的人还在读"
+      isExchange=true
+      :booklist='pointsBarrelBookList'
+      :mId="mId"
+      v-if="pointsBarrelBookList.length !== 0"
+      @refreshHandler="refreshHandler"
+      v-on:handleGoBookDetail="addShelfAndRead"
+      :expGroup="expGroup")
 </template>
 
 <script>
@@ -59,7 +75,8 @@ export default {
     FreeVip: () => import('./components/FreeVip.vue'),
     Score: () => import('./components/Score.vue'),
     BookContent: () => import('./components/BookContent.vue'),
-    VideoContent: () => import('./components/VideoContent.vue')
+    VideoContent: () => import('./components/VideoContent.vue'),
+    BookMore: () => import('./components/BookMore.vue')
   },
   data() {
     const bookId = getQueryString('bookId') || ''
@@ -75,6 +92,7 @@ export default {
       pageNum: 1,
       boostList: [], // 补量位的书籍列表
       boostTitle: '', // 补量为的标题,
+      contentTitle: '',
       bookInfo: {},
       endCategoryBook: {},
       content: '',  // 正文内容s
@@ -86,7 +104,13 @@ export default {
       showNotification: false,
       showNotificationResume: false,
       buttonStatus: '1',
-      currbookId
+      currbookId,
+      recommendBookVO: {
+        bookInfoVOList: [],
+        bookListTitle: ''
+      },
+      pointsBarrelBookList: [],
+      expGroup: 'B'
     }
   },
   created() {
@@ -101,17 +125,18 @@ export default {
     window.notificationResume = this.notificationResume
   },
   mounted() {
-    getEndInfo(this.bookId, this.mId).then(res => {
+    getEndInfo(this.bookId, this.mId).then(res => { // 正文尾页信息
       if (!res.data) return
       if (!res.data.bookInfo) {
         res.data.bookInfo = {}
       }
-      const { bookInfo, ItemInfo } = res.data
+      const { bookInfo, ItemInfo, recommendBookVO } = res.data
       if (typeof bookInfo.isSerial !== 'number') {
         bookInfo.isSerial = 0
       }
       this.endInfo = res.data
       this.bookInfo =bookInfo
+      this.recommendBookVO = recommendBookVO || this.recommendBookVO
       this.handleDealBoostList(ItemInfo)
       this.version = localStorage.getItem('version')
       this.platform =localStorage.getItem('platformId')
@@ -161,7 +186,7 @@ export default {
     },
     getEndCategoryBookCommon() {
       //  整合进入文章阅读页面
-      getEndCategoryBook(this.bookId, this.pageNum, this.mId).then(res => {
+      getEndCategoryBook(this.bookId, this.pageNum, this.mId, this.currbookId).then(res => {
         this.endCategoryBookResponseHandler(res.data)
         mBuryPoint('11', {
           bookTailEnter: 'bookTailEnter',
@@ -174,19 +199,18 @@ export default {
     gotoShelf() {
       window.location.assign('breader://bookstore/library')
     },
-    gotoRead(item) {
-      // 点击去阅读
-      window.location.assign(`breader://www.bayread.com/bookview/bookread?bookId=${item.book.bookId}&source=bookslast&chapterNum=0`)
+    gotoRead(item) { // 点击去阅读
+      window.location.assign(`breader://www.bayread.com/bookview/bookread?bookId=${item.bookId}&source=bookslast&chapterNum=0`)
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
         enterType: '2',
         clickRead: 'clickRead',
-        bookId: item.book.bookId,
-        vedioId: item.id
+        bookId: item.bookId,
+        vedioId: item.id || '',
+        reportInfo: item.reportInfo || {}
       })
     },
-    clickVideo(item) {
-      // 点击去看视频
+    clickVideo(item) { // 点击去看视频
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
         enterType: '2',
@@ -201,7 +225,7 @@ export default {
         console.log('播放视频')
       })
     },
-    urgeforbook() {
+    urgeforbook() { // 催更/开启通知
       if (!this.showNotification) {
         // 点击催更的点
         mBuryPoint('11', {
@@ -215,13 +239,10 @@ export default {
         })
       } else {
         // 点击开启通知
-        console.log('--点击开启通知--')
         bk.call('notificationOpen', {}, () => {})
       }
     },
-    rewardHandler() {
-      console.log('-- 点击打赏作者 --')
-      // 打赏作者
+    rewardHandler() { // 打赏作者
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
         clickReward: 'clickReward',
@@ -230,9 +251,7 @@ export default {
       const rewardUrl = `breader://reward?bookId=${this.currbookId}`
       window.location = rewardUrl
     },
-    commentHandler() {
-      console.log('-- 点击参与评分 --')
-      // 参与评分
+    commentHandler() { // 参与评分
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
         clickScore: 'clickScore',
@@ -247,8 +266,7 @@ export default {
       }
       window.location = 'breader://comment'
     },
-    addShelf() {
-      //  加入书架
+    addShelf() { //  加入书架
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
         enterType: '1',
@@ -258,21 +276,15 @@ export default {
       const addBookShelfUrl = `breader://addBookshelf?bookId=${this.bookId}&goRead=0&source=${this.source}`
       window.location = addBookShelfUrl
     },
-    addShelfAndRead() {
-      // 加入书架并继续阅读
+    addShelfAndRead(book = { bookId: this.bookId }) { // 加入书架并继续阅读
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
         enterType: '1',
         addBookShelfAndRead: 'addBookShelfAndRead',
-        bookId: this.bookId
+        bookId: book.bookId
       })
-
-      const addBookShelfAndReadUrl = `breader://addBookshelf?bookId=${this.bookId}&goRead=1&source=${this.source}`
-      console.log('加入书架并阅读', addBookShelfAndReadUrl)
+      const addBookShelfAndReadUrl = `breader://addBookshelf?bookId=${book.bookId}&goRead=1&source=${this.source}`
       window.location = addBookShelfAndReadUrl
-    },
-    handleGoBookDetail(target) {
-      window.location.href = target.scheme + '&userPath=' + this.source
     },
     receiveforbook() {  // 领取VIP
       // 点击领取的点
@@ -312,7 +324,12 @@ export default {
       }
     },
     endCategoryBookResponseHandler(res) {
-      if (!res) return
+      if (res.expGroup && res.expGroup === 'A') { // 走 test A
+        // res.pointsBarrelBookList[1].bookCoverUrl = 'http://cdn.ibreader.com/group1/M00/59/24/a.jpg'
+        this.pointsBarrelBookList = res.pointsBarrelBookList
+      }
+      this.expGroup = res.expGroup
+      if (!res || !res.bookInfo) return
       const { bookName, isSerial, bookId } = res.bookInfo
       this.bookId = bookId
       let _bookName = ''
@@ -335,6 +352,7 @@ export default {
       const newGrade = String(grade).length > 1 ? grade : grade + '.0'
       res.bookInfo.grade = newGrade
       this.endCategoryBook = res.bookInfo
+
       if (res.hasOwnProperty('tag')) {
         this.showTag = true
       } else {
@@ -346,32 +364,9 @@ export default {
       this.pageNum = res.pageNum
       this.content = res.bookShare.content
       this.contentTitle = res.bookShare.title
-      if (res.bookShare.type === 1) {
-        this.videoobj = null
-        setTimeout(() => {
-          this.videoobj = {
-            vurl: res.bookShare.videoRes,
-            pic: res.bookShare.pgPic,
-            bg: require('@/assets/bookslast/bg.png')
-          }
-        }, 0)
-      } else {
-        this.videoobj = null
-      }
-    },
-    handleScroll() {
-      // 设备/屏幕高度
-      let scrollObj = document.getElementById('parent') // 滚动区域
-      let scrollTop = scrollObj.scrollTop // div 到头部的距离
-      // 滚动条到底部的条件
-      if (scrollTop > 0) {
-        this.showtip = false
-      } else {
-        this.showtip = true
-      }
     },
     refreshHandler() {  // 换一本
-      getEndCategoryBook(this.bookId, Number(this.pageNum) + 1, this.mId).then(res => {
+      getEndCategoryBook(this.bookId, Number(this.pageNum) + 1, this.mId, this.currbookId).then(res => {
         this.endCategoryBookResponseHandler(res.data)
         const result = {
           action: 'endCategoryBook',
@@ -380,9 +375,6 @@ export default {
         mBuryPoint(null, result)
       })
     }
-  },
-  destroyed() {
-    window.removeEventListener('scroll', this.handleScroll) //  离开页面清除（移除）滚轮滚动事件
   },
 }
 </script>

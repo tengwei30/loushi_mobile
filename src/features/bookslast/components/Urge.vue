@@ -5,7 +5,8 @@
     .header-top-book-done-other {{ title }}
   .header-top-button.header-top-mark-button-fetch-common(
     @click="urgeforbook"
-    v-if="endInfo.urgeInfo.status === 0 && !showNotificationResume") {{ showNotification ? '开启通知' : '我要催更'}}
+    v-if="endInfo.urgeInfo.status === 0 && !showNotificationResume")
+    span.text {{ showNotification ? '开启通知' : '我要催更'}}
   .header-top-mark-button-fetch-common.header-top-mark-button-fetch-success(
     v-if="showNotificationResume"
   ) 已开启
