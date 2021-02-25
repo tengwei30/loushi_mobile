@@ -419,7 +419,7 @@ export default {
         'source': this.from,
         'activityId': this.activityId
       })
-      const url = `${window.location.origin}/BKH5-debris_award_list.html?from=${this.from}`
+      const url = `${window.location.origin}/BKH5-debris_award_list.html?from=${this.from}&activityId=${this.activityId}`
       routerToNative(url)
     },
     goSignRecord() {
