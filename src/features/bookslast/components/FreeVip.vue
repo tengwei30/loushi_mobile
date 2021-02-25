@@ -7,14 +7,15 @@
   .header-top-mark-button-fetch-common.header-top-mark-button-fetch(
     v-if="endInfo.vipExperienceCardInfo.status === 0 &&!vipExperienceCardInfoControl"
     @click="receiveforbook"
-    ) 领取会员卡
+    )
+      span.text 领取会员卡
   .header-top-mark-button-fetch-common.header-top-mark-button-fetch-success(
     v-if="vipExperienceCardInfoControl"
   ) 已领取
   .header-top-book-desc-done(
     v-if="endInfo.vipExperienceCardInfo.status === 1"
     ) 本书已完结，去阅读更多好书吧
-    img(src="@/assets/bookslast/bookslast_7.png")
+    //- img(src="@/assets/bookslast/bookslast_7.png")
 </template>
 <script>
 export default {
