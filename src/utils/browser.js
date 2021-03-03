@@ -6,6 +6,9 @@ const BROWSER = (function() {
   var ua = navigator.userAgent.toLowerCase()
   var isAndroid = ua.indexOf('android') !== -1 ? 1 : 0
 
+  const isAndroidOSVersion = ua.match(/android\s([0-9\.]*)/)  // 获取安卓版本号
+  const isiOSOSVersion = ua.match(/cpu iphone os (.*?) like mac os/)  // 获取ios版本号
+
   return {
     isAndroid,
     isiOS: !!ua.match(/\(i[^;]+;( u;)? cpu.+mac os x/),
@@ -14,7 +17,9 @@ const BROWSER = (function() {
     isWeChat: ua.indexOf('micromessenger') !== -1 ? 1 : 0,
     isQQ: !!ua.match(/QQ/i),
     isWeiBo: !!ua.match(/Weibo/i),
-    androidVersion: isAndroid ? ua.substr(ua.indexOf('android') + 8, 1) : false
+    androidVersion: isAndroid ? ua.substr(ua.indexOf('android') + 8, 1) : false,
+    isAndroidOSVer: isAndroidOSVersion ? isAndroidOSVersion[1] : false,
+    isiOSOSVer: isiOSOSVersion ? isiOSOSVersion[1] : false
   }
 })()
 export function isIphoneX() {

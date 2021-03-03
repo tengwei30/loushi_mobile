@@ -23,7 +23,13 @@
     Sign(v-on:openCalendarSignNotice="openCalendarSignNotice"
       v-on:goSignRecord="goSignRecord"
       :imgUrl="imgUrl"
-      v-if="checkinRewardInfoList.length !== 0"
+      v-if="checkinRewardInfoList.length !== 0 && isAndroidOSVer > 5"
+      :checkinRewardInfoList="checkinRewardInfoList"
+      :checkinInfo="checkinInfo")
+    SignLow(v-on:openCalendarSignNotice="openCalendarSignNotice"
+      v-on:goSignRecord="goSignRecord"
+      :imgUrl="imgUrl"
+      v-if="checkinRewardInfoList.length !== 0 && isAndroidOSVer < 6"
       :checkinRewardInfoList="checkinRewardInfoList"
       :checkinInfo="checkinInfo")
   .task_module(v-if="chapterTaskInfoList && taskInfoList.length !== 0")
@@ -104,7 +110,7 @@
 
 <script>
 import bk from 'bayread-bridge'
-import { getQueryString, routerToNative, throttle, nBuryPoint } from '@/utils/index'
+import { getQueryString, routerToNative, throttle, nBuryPoint, BROWSER } from '@/utils/index'
 import { toast } from '@/utils/nativeToH5/index'
 import { getDebrislist } from './request'
 export default {
@@ -113,6 +119,7 @@ export default {
     Comment: () => import('./components/comment'),
     Award: () => import('./components/award'),
     Sign: () => import('./components/sign'),
+    SignLow: () => import('./components/sign_low_version'),
     Guidance: () => import('./components/guidance')
   },
   data() {
@@ -157,6 +164,7 @@ export default {
       showGuidance: false,
       fragmentPrizeTwoEnable: 0,
       excitationSingleBookInfoVOList: [],  // 专享书籍列表
+      isAndroidOSVer: 5
     }
   },
   computed: {
@@ -175,6 +183,8 @@ export default {
     }
   },
   created() {
+    this.isAndroidOSVer = (BROWSER.isAndroidOSVer.split('.'))[0]
+    console.log('OSVer', this.isAndroidOSVer)
     bk.call('getTodayReadTaskChapterNum', {}, data => { // 初始化碎片信息
       const { todayTotalReadChapterNum, nextTaskNeedNum, chipNum   } = JSON.parse(data)
       this.todayTotalReadChapterNum = todayTotalReadChapterNum
