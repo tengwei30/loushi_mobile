@@ -4,13 +4,13 @@ body,html
   size(100%,100%)
 .bookslast-container
   width 10rem
-  background #F2F2F2
+  background #ffffff
   position absolute
   overflow auto
   height 100%
 .bookslast-header
   padding 0 0.51rem 0 0.4rem
-  background #ffffff
+  background #F7F7F7
 .content 
   margin 0.5rem
   font-size 0.45rem
@@ -24,15 +24,20 @@ body,html
   padding-bottom 2.6rem
 .content-title
   color #333333
-  font-size 0.5rem
+  font-size 16px
   padding-left 0.5rem
   padding-top 0.5rem
+  font-weight bold
 .bottom_parent
-  fixed(bottom 0)
+  fixed(bottom 0 left 0 right 0)
   font-size 0.42rem
-  width 100%
+  height 58px
+  background #ffffff
   box-shadow -1px -1px 10px #c8c8c8
   z-index 99
+  padding-top 7px
+  box-sizing border-box
+  box-shadow 0px 2px 10px 0px rgba(0, 0, 0, 0.15)
 .bookslast-tip 
   color rgba(139, 87, 42, 1)
   font-size 0.4rem
@@ -54,25 +59,22 @@ body,html
 .bookslast-tip img
   size(0.45rem, 0.38rem)
   margin-right 0.08rem
-.bottom_parent .left
-  size(40%, 1.4rem)
-  float left
-  display block
-  text-align center
-  background-color white
-  line-height 1.4rem
-  color #333
 .bottom_parent .right
   text-align center
-  background-color: #ff5a00
-  height 1.4rem
-  line-height 1.4rem
-  color white
+  margin 0 auto
+  width 200px
+  font-size 16px
+  line-height normal
+  padding 9px 0
+  text-align center
+  color #ffffff
+  border-radius 28px
+  background linear-gradient(235deg, #FFC87A 0%, #F43A3A 100%)
 .header-top 
   display flex
   flex-direction row
 .header-top-1 
-  margin-bottom 0.59rem
+  // margin-bottom 0.59rem
   padding-top 0.51rem
 .header-top-2
   padding-top 0.51rem
@@ -85,13 +87,11 @@ body,html
   justify-content flex-start
   align-items center
   line-height 0.67rem
-.header-top .header-top-button
-  background #FF5A00
 .header-top .header-top-numbers
   font-size 0.4rem
-  color #333333
+  color #999999
 .header-top .header-top-numbers .mark-number
-  color #FF5A00
+  color #333333
   font-size 0.4rem
 .header-top .header-top-done
   flex 1
@@ -109,10 +109,8 @@ body,html
   font-size 0.37rem
   font-family PingFangSC-Regular, PingFang SC
   font-weight 400
-  color #666666
+  color #999999
   line-height 0.53rem
-.header-top .header-top-done .header-top-book-done-other .mark-vpi
-  color #FF5A00
 .header-top .header-top-book-desc-done
   font-size 0.4rem
   color #333333
@@ -122,58 +120,66 @@ body,html
   size(0.45rem, 0.38rem)
   margin-left 0.12rem
 .header-top-mark-button-fetch-common
-  size(2.29rem, 0.8rem)
-  border-radius 0.48rem
-  font-size 0.37rem
-  color #ffffff
+  size(82px, 28px)
+  border-radius 23px
+  font-size 14px
+  color #F43A3A
   display flex
-  line-height 0.8rem
+  line-height normal
   justify-content center
   align-items center
-.header-top .header-top-mark-button-fetch
-  background #FF5A00
+.header-top .header-top-mark-button-fetch, .header-top .header-top-button
+  border-radius 23px
+  background-image: linear-gradient(235deg, rgba(255, 200, 122, 1), rgba(244, 58, 58, 1))
+.header-top .header-top-mark-button-fetch span.text, .header-top .header-top-button span.text
+  background #f7f7f7
+  border-radius 23px
+  size(80px,26px)
+  padding-top 3px
+  box-sizing border-box
+  text-align center
 .header-top .header-top-mark-button-fetch-success
-  background #D0D0D0
+  background #f7f7f7
+  color #999999
+  border 1px solid #999999
 .header-bottom
   height 1.49rem
-  padding-bottom 0.4rem
   position relative
   display flex
   flex-direction row
 .header-bottom .header-bottom-comment
   flex 1
   display flex
-  flex-direction column
+  flex-direction row
   justify-content center
   align-items center
   .comment_source
     font-size 0.48rem
-    color: #FF5A00
-    padding-bottom 0.2rem
+    color #FF6A19
+    padding-right 10px 
+    font-weight bold
     em
       font-size 0.27rem
       color #999999
+      font-weight normal
 .header-bottom .header-bottom-monry
   flex 1
   display flex
-  flex-direction column
+  flex-direction row
   justify-content center
   align-items center
+  padding-top 3px
+  box-sizing border-box
 .header-bottom .header-bottom-comment img,
 .header-bottom .header-bottom-monry img
-  size(0.59rem, 0.59rem)
-  margin-bottom 0.27rem
+  size(22px, 22px)
+  margin-right 10px
+  padding-top 3px
 .header-bottom .header-bottom-text 
   font-size 0.32rem
   color #999999
-  line-height 0.4
-.header-bottom-line
-  size(0.03rem, 0.54rem)
-  background #DFDFDF
-  position absolute
-  top 50%!important
-  left 50%!important
-  margin-top -0.54rem
+  padding-top 3px
+  box-sizing border-box
 .bookslast-content 
   background #ffffff
 .content-good-book 
@@ -181,7 +187,6 @@ body,html
   flex-direction row
   justify-content center
   align-items center
-  border-top 0.16rem solid rgba(242, 242, 242, 1)
 .content-good-book-img 
   size(3.48rem, 0.8rem)
   position relative
@@ -278,35 +283,38 @@ body,html
   height 7.63rem
 .edit-push 
   width 100%
-  margin-top 0.16rem
+  padding 20px 0 10px
 .edit-push-icon
-  size(3.57rem, 0.85rem)
-  background url('~@/assets/bookslast/editpushicon.png') no-repeat top center/100% 100%
-  margin 0 auto
-  font-size 0.43rem
-  color #8B572A
-  font-family PingFangSC-Regular, PingFang SC
-  text-align center
-  line-height 0.85rem
-  overflow hidden
-  box-sizing border-box
-  padding 0 0.2rem
+  font-size 18px
+  font-weight bold
+  color #000
+  padding-left 16px
 .edit-push-books
-  size(100%, 5.17rem)
+  width 100%
+  padding 0 16px
+  box-sizing border-box
+  margin-top 20px
+  display flex
+  flex-direction row
+  justify-content space-between
 .edit-push-book-item 
-  width 2.62rem
+  width 90px
   display inline-block
-  margin-top 0.5rem
-  margin-left 0.52rem
 .edit-push-book-item img 
-  size(100%, 3.46rem)
+  size(90px, 120px)
+  border-radius 4px
+  box-shadow 0 0 6px 0 rgba(0,0,0,0.10)
 .edit-push-bookname 
   width 100%
   text-overflow ellipsis
   white-space nowrap
   overflow hidden
-  font-size 0.37rem
+  font-size 12px
   font-family PingFangSC-Regular, PingFang SC
-  font-weight 400
-  color #333333
+  font-weight bold
+  color #000000
   padding-top 0.1rem
+.edit-push-hot
+  font-size 12px
+  font-family PingFangSC-Regular, PingFang SC
+  color #999999
