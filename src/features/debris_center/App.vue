@@ -238,6 +238,11 @@ export default {
       }, 10)
     },
     clickSignleBook: throttle(function(item) {
+      nBuryPoint('H5_DEBRIS_CENTER_CLICK_SINGLE_BOOK', {
+        'bookId': item.bookId,
+        'source': this.from,
+        'activityId': this.activityId
+      })
       window.location.assign(`breader://www.bayread.com/bookview/bookread?bookId=${item.bookId}&source=debrisCenter&chapterNum=0`)
     }, 30),
     closeGuidance() { // 关闭引导弹窗
