@@ -15,7 +15,7 @@
       @routeRead="routeRead")
   content(v-if="booklist.length > 2 && !isExchange")
     .book_more_three
-      .book_item(v-for="item in booklist" @click="routeRead(item)" :key="item.bookId")
+      .book_item(v-for="(item, key) in booklist" @click="routeRead(item)" :key="item.bookId" v-if="key < 3")
         img.img(:src="item.bookCoverUrl" :onerror="defaultImg")
         p.book_item_bookname {{ item.bookName }}
         p.book_item_hot {{ item.hot }}
@@ -89,10 +89,10 @@ export default {
     display flex
     flex-direction row
     justify-content space-between
-    padding-top 20px
     .book_item
       width 90px
       display inline-block
+      padding-top 20px
       .img
         width 100%
         height 120px
