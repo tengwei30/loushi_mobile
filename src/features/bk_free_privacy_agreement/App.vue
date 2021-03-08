@@ -133,7 +133,7 @@
       .td 7
       .td 魅族PUSH
       .td 推送消息
-      .td 设备标识信息
+      .td 设备标识信息、安装列表
       .td https://open.flyme.cn/open-web/views/push.html
       .td 魅族科技
     .t_line
