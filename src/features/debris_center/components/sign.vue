@@ -65,7 +65,9 @@ export default {
       }
     }
   },
-  mounted() {}
+  mounted() {
+    console.log('签到', this.checkinRewardInfoList)
+  }
 }
 </script>
 
