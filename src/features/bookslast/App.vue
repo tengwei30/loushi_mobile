@@ -192,7 +192,8 @@ export default {
           bookTailEnter: 'bookTailEnter',
           enterType: '1',
           bookId: this.currbookId,
-          buttonStatus: this.buttonStatus
+          buttonStatus: this.buttonStatus,
+          expGroup: res.data.expGroup
         })
       })
     },
@@ -207,7 +208,8 @@ export default {
         clickRead: 'clickRead',
         bookId: item.bookId,
         vedioId: item.id || '',
-        reportInfo: item.reportInfo || {}
+        reportInfo: item.reportInfo || {},
+        expGroup: this.expGroup
       })
     },
     clickVideo(item) { // 点击去看视频
@@ -216,7 +218,8 @@ export default {
         enterType: '2',
         clickVedio: 'clickVedio',
         bookId: item.book.bookId,
-        vedioId: item.id
+        vedioId: item.id,
+        expGroup: this.expGroup
       })
       // 跳转视频播放
       bk.call('RouterToVideo', {
@@ -231,7 +234,8 @@ export default {
         mBuryPoint('11', {
           bookTailEnter: 'bookTailEnter',
           clickUpdate: 'clickUpdate',
-          bookId: this.bookId
+          bookId: this.bookId,
+          expGroup: this.expGroup
         })
         // 催更
         getReadUrge(this.currbookId, this.chapterNum).then(() => {
@@ -246,7 +250,8 @@ export default {
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
         clickReward: 'clickReward',
-        bookId: this.currbookId
+        bookId: this.currbookId,
+        expGroup: this.expGroup
       })
       const rewardUrl = `breader://reward?bookId=${this.currbookId}`
       window.location = rewardUrl
@@ -255,7 +260,8 @@ export default {
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
         clickScore: 'clickScore',
-        bookId: this.currbookId
+        bookId: this.currbookId,
+        expGroup: this.expGroup
       })
       let version = this.version
       if (compareVersion('1.41.9', version) > 0) {
@@ -271,7 +277,8 @@ export default {
         bookTailEnter: 'bookTailEnter',
         enterType: '1',
         addBookShelf: 'addBookShelf',
-        bookId: this.bookId
+        bookId: this.bookId,
+        expGroup: this.expGroup
       })
       const addBookShelfUrl = `breader://addBookshelf?bookId=${this.bookId}&goRead=0&source=${this.source}`
       window.location = addBookShelfUrl
@@ -281,7 +288,8 @@ export default {
         bookTailEnter: 'bookTailEnter',
         enterType: '1',
         addBookShelfAndRead: 'addBookShelfAndRead',
-        bookId: book.bookId
+        bookId: book.bookId,
+        expGroup: this.expGroup
       })
       const addBookShelfAndReadUrl = `breader://addBookshelf?bookId=${book.bookId}&goRead=1&source=${this.source}`
       window.location = addBookShelfAndReadUrl
@@ -291,7 +299,8 @@ export default {
       mBuryPoint('11', {
         bookTailEnter: 'bookTailEnter',
         clickVip: 'clickVip',
-        bookId: this.currbookId
+        bookId: this.currbookId,
+        expGroup: this.expGroup
       })
       getVipCard(this.endInfo.vipExperienceCardInfo.id).then(() => {
         this.vipExperienceCardInfoControl = true
@@ -318,7 +327,8 @@ export default {
         let result = {
           eventKey: 2,
           type: 'exposure',
-          bookid: tempBookIds.join(',')
+          bookid: tempBookIds.join(','),
+          expGroup: this.expGroup
         }
         mBuryPoint(null, result)
       }
@@ -370,7 +380,8 @@ export default {
         this.endCategoryBookResponseHandler(res.data)
         const result = {
           action: 'endCategoryBook',
-          bookId: this.bookId
+          bookId: this.bookId,
+          expGroup: this.expGroup
         }
         mBuryPoint(null, result)
       })
