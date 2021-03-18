@@ -1,8 +1,5 @@
 <template lang="pug">
 .welfare__task__sign
-  .new__sign__title
-    | 每日签到
-    img(@click="gotoRule()" src="@/assets/welfare_task/new_sign_problem_icon.png")
   .new__sign__content
     .new__sign__days
       p.new__sign__day__item(
@@ -124,9 +121,6 @@ export default {
     goldStyle(status, key) {
       return ((Number(key) === 2 || Number(key) === 6) && (Number(status) === 2) || Number(status) === 3)
     },
-    gotoRule() {
-      this.$emit('gotoRule')
-    },
     gotoWithdraw(key, status) {
       if (key !== 2 && key !== 6) return
       // 跳转到提现页面
@@ -138,23 +132,8 @@ export default {
 <style  lang="stylus" rel="stylesheet/stylus">
 @import '../../../styles/index.styl';
 .welfare__task__sign
-  padding: 0 0.27rem;
+  padding: 1.87rem 0.27rem 0;
   box-sizing: border-box;
-  .new__sign__title
-    padding: 0.69rem 0 0.51rem;
-    font-size: 0.48rem;
-    font-family: PingFangSC-Semibold, PingFang SC;
-    font-weight: 600;
-    color: #FFFFFF;
-    line-height: 0.67rem;
-    display: flex;
-    img
-      width: 0.37rem;
-      height: 0.37rem;
-      display: inline-block;
-      margin-left: 0.11rem;
-      line-height: 0.4rem;
-      padding-top: 0.15rem;
   .new__sign__content
     width: 9.47rem;
     min-height: 3.12rem;
