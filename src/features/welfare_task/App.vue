@@ -308,7 +308,7 @@ export default {
     }
   },
   mounted() {
-    getUserInfo()
+    // getUserInfo()
   },
   async created() {
     window.titleCallBack = this.titleCallBack
@@ -318,10 +318,10 @@ export default {
       this.chapterCoinRate = chapterCoinRate
       this.historyReadChapter = historyReadChapter
     })
-    bk.register('browserPageResume', async() => {
-      this.initTask()
-      this.InitData()
-    })
+    // bk.register('browserPageResume', async() => {
+    //   this.initTask()
+    //   this.InitData()
+    // })
     bk.call('calendarSignNoticeInit', {}, data => {
       const { isOpen  } = JSON.parse(data)
       // 通知开启初始化
