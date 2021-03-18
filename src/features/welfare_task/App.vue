@@ -318,7 +318,8 @@ export default {
       this.chapterCoinRate = chapterCoinRate
       this.historyReadChapter = historyReadChapter
     })
-    bk.register('browserPageResume', async() => {
+    bk.register('browserPageResume', () => {
+      console.log('调用页面重新现方法')
       this.initTask()
       this.InitData()
     })
