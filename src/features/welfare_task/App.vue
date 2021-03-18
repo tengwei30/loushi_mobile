@@ -321,9 +321,6 @@ export default {
     bk.register('browserPageResume', async() => {
       this.initTask()
       this.InitData()
-      this.adTaskLists = await getFourAdLists()
-      this.adBannerLists = await getAdBannerLists()
-      this.userInfo = await getUserInfo()
     })
     bk.call('calendarSignNoticeInit', {}, data => {
       const { isOpen  } = JSON.parse(data)
@@ -337,7 +334,7 @@ export default {
     bk.register('calendarSignNoticeResume', () => {
       this.isOpen = 1
     })
-    // await this.initTask()
+    await this.initTask()
     if (this.showRedPackageStyle * 1 === 0) {
       setHeader({
         title: '福利中心',
@@ -348,10 +345,10 @@ export default {
         callback: 'titleCallBack'
       }, () => {})
     }
-    // this.InitData()
-    // this.adTaskLists = await getFourAdLists()
-    // this.adBannerLists = await getAdBannerLists()
-    // this.userInfo = await getUserInfo()
+    this.InitData()
+    this.adTaskLists = await getFourAdLists()
+    this.adBannerLists = await getAdBannerLists()
+    this.userInfo = await getUserInfo()
     this.showRule = true
   }
 }
