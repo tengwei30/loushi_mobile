@@ -318,9 +318,12 @@ export default {
       this.chapterCoinRate = chapterCoinRate
       this.historyReadChapter = historyReadChapter
     })
-    bk.register('browserPageResume', () => {
+    bk.register('browserPageResume', async() => {
       this.initTask()
       this.InitData()
+      this.adTaskLists = await getFourAdLists()
+      this.adBannerLists = await getAdBannerLists()
+      this.userInfo = await getUserInfo()
     })
     bk.call('calendarSignNoticeInit', {}, data => {
       const { isOpen  } = JSON.parse(data)
@@ -346,9 +349,9 @@ export default {
       }, () => {})
     }
     // this.InitData()
-    this.adTaskLists = await getFourAdLists()
-    this.adBannerLists = await getAdBannerLists()
-    this.userInfo = await getUserInfo()
+    // this.adTaskLists = await getFourAdLists()
+    // this.adBannerLists = await getAdBannerLists()
+    // this.userInfo = await getUserInfo()
     this.showRule = true
   }
 }
