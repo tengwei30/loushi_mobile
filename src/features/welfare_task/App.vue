@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { routerToNative, throttle, getCookie } from '@/utils/index'
+import { routerToNative, throttle, getCookie, compareVersion } from '@/utils/index'
 import { setHeader } from '@/utils/nativeToH5/index'
 import { getTaskLists, getFourAdLists, getAdBannerLists, getSingleBookList, getServiceAreaTaskList, getTaskFinish, getUserInfo } from './request.js'
 import bk from 'bayread-bridge'
@@ -319,8 +319,11 @@ export default {
       this.historyReadChapter = historyReadChapter
     })
     bk.register('browserPageResume', () => {
-      console.log('调用页面重新现方法')
-      this.initTask()
+      console.log('调用页面重新现方法', localStorage.getItem('version'))
+      const version = localStorage.getItem('version')
+      if (compareVersion('1.53.2', version) >= 0) {
+        this.initTask()
+      }
       this.InitData()
     })
     bk.call('calendarSignNoticeInit', {}, data => {
