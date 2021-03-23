@@ -294,6 +294,7 @@ export default {
     async initTask() {
       let data = await getTaskLists()
       if (!data) return
+      this.day = {}
       const signday = data.filter(item => item.type === 3) || [{}]
       const { extraData = null, showRedPackageStyle, userTaskRedPackageVOList = null, id = 1 } = signday[0]
       this.day = extraData
