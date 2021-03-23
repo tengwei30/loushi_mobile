@@ -292,9 +292,9 @@ export default {
       routerToNative(url)
     },
     async initTask() {
+      this.day = null
       let data = await getTaskLists()
       if (!data) return
-      this.day = {}
       const signday = data.filter(item => item.type === 3) || [{}]
       const { extraData = null, showRedPackageStyle, userTaskRedPackageVOList = null, id = 1 } = signday[0]
       this.day = extraData
@@ -305,6 +305,8 @@ export default {
       console.log(this.day, conditionStatus, 22)
       if (conditionStatus * 1 === 2) {
         this.showReadAd = true
+      } else {
+        this.showReadAd = false
       }
     }
   },
