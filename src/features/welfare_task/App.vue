@@ -294,20 +294,22 @@ export default {
     async initTask() {
       let data = await getTaskLists()
       this.day = null
-      if (!data) return
-      const signday = data.filter(item => item.type === 3) || [{}]
-      const { extraData = null, showRedPackageStyle, userTaskRedPackageVOList = null, id = 1 } = signday[0]
-      this.day = extraData
-      this.taskId = id
-      this.showRedPackageStyle = showRedPackageStyle
-      this.userTaskRedPackageVOList = userTaskRedPackageVOList
-      const { conditionStatus } = this.day || {}
-      console.log(this.day, conditionStatus, 22)
-      if (conditionStatus * 1 === 2) {
-        this.showReadAd = true
-      } else {
-        this.showReadAd = false
-      }
+      setTimeout(() => {
+        if (!data) return
+        const signday = data.filter(item => item.type === 3) || [{}]
+        const { extraData = null, showRedPackageStyle, userTaskRedPackageVOList = null, id = 1 } = signday[0]
+        this.day = extraData
+        this.taskId = id
+        this.showRedPackageStyle = showRedPackageStyle
+        this.userTaskRedPackageVOList = userTaskRedPackageVOList
+        const { conditionStatus } = this.day || {}
+        console.log(this.day, conditionStatus, 22)
+        if (conditionStatus * 1 === 2) {
+          this.showReadAd = true
+        } else {
+          this.showReadAd = false
+        }
+      }, 0)
     }
   },
   mounted() {
