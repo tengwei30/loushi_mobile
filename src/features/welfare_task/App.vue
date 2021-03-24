@@ -5,6 +5,7 @@
       v-if="day"
       :userTaskRedPackageVOList="userTaskRedPackageVOList"
       :day="day"
+      :compareVer="compareVer"
       :showRedPackageStyle="showRedPackageStyle"
       @gotoWithdraw="gotoWithdraw"
     )
@@ -51,7 +52,7 @@
 </template>
 
 <script>
-import { routerToNative, throttle, getCookie, nBuryPoint, getQueryString } from '@/utils/index'
+import { routerToNative, throttle, getCookie, nBuryPoint, getQueryString, compareVersion } from '@/utils/index'
 import { setHeader } from '@/utils/nativeToH5/index'
 import { getTaskLists, getFourAdLists, getAdBannerLists, getSingleBookList, getServiceAreaTaskList, getTaskFinish, getUserInfo } from './request.js'
 import bk from 'bayread-bridge'
@@ -110,6 +111,7 @@ export default {
       userInfo: null,
       taskId: 1,
       from: getQueryString('from') || 'tab',
+      compareVer: null
     }
   },
   methods: {
@@ -324,8 +326,12 @@ export default {
     this.taskId = id
     this.showRedPackageStyle = showRedPackageStyle
     this.userTaskRedPackageVOList = userTaskRedPackageVOList
-    const { conditionStatus } = this.day || {}
-    console.log(this.day, conditionStatus, 22)
+    const { conditionStatus, alert, gold = null } = this.day || {}
+    const version = localStorage.getItem('version')
+    this.compareVer = compareVersion('1.54.0', version)
+    if (gold && alert && this.compareVer >= 0) {
+      bk.call('taskCenterSignSuccess', { coin: gold })
+    }
     if (conditionStatus * 1 === 2) {
       this.showReadAd = true
     }
