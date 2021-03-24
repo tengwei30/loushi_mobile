@@ -106,6 +106,7 @@ body,html
       display flex
       flex-direction column
       align-items center
+      max-width 136px
       .img_show
         size(110px 134px)
         .img

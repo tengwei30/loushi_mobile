@@ -6,7 +6,6 @@
       :userTaskRedPackageVOList="userTaskRedPackageVOList"
       :day="day"
       :showRedPackageStyle="showRedPackageStyle"
-      @gotoRule='gotoRule'
       @gotoWithdraw="gotoWithdraw"
     )
   .readAdTask(v-if="showReadAd")
@@ -52,7 +51,7 @@
 </template>
 
 <script>
-import { routerToNative, throttle, getCookie } from '@/utils/index'
+import { routerToNative, throttle, getCookie, nBuryPoint, getQueryString } from '@/utils/index'
 import { setHeader } from '@/utils/nativeToH5/index'
 import { getTaskLists, getFourAdLists, getAdBannerLists, getSingleBookList, getServiceAreaTaskList, getTaskFinish, getUserInfo } from './request.js'
 import bk from 'bayread-bridge'
@@ -109,7 +108,8 @@ export default {
       isOpen: 0,
       userInfoBO: {},
       userInfo: null,
-      taskId: 1
+      taskId: 1,
+      from: getQueryString('from') || 'tab',
     }
   },
   methods: {
@@ -214,12 +214,6 @@ export default {
         }
       })
     },
-    gotoRule() {  // 跳转到规则说明页面
-      let origin = window.location.origin
-      let url = origin + '/BKH5-sign_activity_rule.html'
-      routerToNative(url)
-      return
-    },
     goReadAd(type = '') {  // 去看资讯完成补签
       bk.call('buryingPoint', {
         eventName: 'H5_WELFARE_CLICK_SIGN_AD',
@@ -296,6 +290,9 @@ export default {
     getUserInfo()
   },
   async created() {
+    nBuryPoint('H5_WELFARE_TASK', { // 新福利页面曝光
+      'source': this.from
+    })
     window.titleCallBack = this.titleCallBack
     bk.call('getTodayReadMotivationChapterNum  ', {}, data => { // 初始化碎片信息
       const { readChapterCount, chapterCoinRate, historyReadChapter } = JSON.parse(data)
