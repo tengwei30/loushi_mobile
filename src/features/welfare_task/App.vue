@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { routerToNative, throttle, getCookie, nBuryPoint, getQueryString } from '@/utils/index'
+import { routerToNative, throttle, getCookie, compareVersion } from '@/utils/index'
 import { setHeader } from '@/utils/nativeToH5/index'
 import { getTaskLists, getFourAdLists, getAdBannerLists, getSingleBookList, getServiceAreaTaskList, getTaskFinish, getUserInfo } from './request.js'
 import bk from 'bayread-bridge'
@@ -284,10 +284,30 @@ export default {
       })
       const url = `${window.location.origin}/BKH5-sign_record.html?taskId=${this.taskId}`
       routerToNative(url)
+    },
+    async initTask() {
+      let data = await getTaskLists()
+      this.day = null
+      setTimeout(() => {
+        if (!data) return
+        const signday = data.filter(item => item.type === 3) || [{}]
+        const { extraData = null, showRedPackageStyle, userTaskRedPackageVOList = null, id = 1 } = signday[0]
+        this.day = extraData
+        this.taskId = id
+        this.showRedPackageStyle = showRedPackageStyle
+        this.userTaskRedPackageVOList = userTaskRedPackageVOList
+        const { conditionStatus } = this.day || {}
+        console.log(this.day, conditionStatus, 22)
+        if (conditionStatus * 1 === 2) {
+          this.showReadAd = true
+        } else {
+          this.showReadAd = false
+        }
+      }, 0)
     }
   },
   mounted() {
-    getUserInfo()
+    // getUserInfo()
   },
   async created() {
     nBuryPoint('H5_WELFARE_TASK', { // 新福利页面曝光
@@ -301,7 +321,11 @@ export default {
       this.historyReadChapter = historyReadChapter
     })
     bk.register('browserPageResume', () => {
-      console.log('调用页面重新方法')
+      console.log('调用页面重新现方法', localStorage.getItem('version'))
+      const version = localStorage.getItem('version')
+      if (compareVersion('1.53.2', version) >= 0) {
+        this.initTask()
+      }
       this.InitData()
     })
     bk.call('calendarSignNoticeInit', {}, data => {
@@ -316,19 +340,7 @@ export default {
     bk.register('calendarSignNoticeResume', () => {
       this.isOpen = 1
     })
-    let data = await getTaskLists()
-    if (!data) return
-    const signday = data.filter(item => item.type === 3) || [{}]
-    const { extraData = null, showRedPackageStyle, userTaskRedPackageVOList = null, id = 1 } = signday[0]
-    this.day = extraData
-    this.taskId = id
-    this.showRedPackageStyle = showRedPackageStyle
-    this.userTaskRedPackageVOList = userTaskRedPackageVOList
-    const { conditionStatus } = this.day || {}
-    console.log(this.day, conditionStatus, 22)
-    if (conditionStatus * 1 === 2) {
-      this.showReadAd = true
-    }
+    await this.initTask()
     if (this.showRedPackageStyle * 1 === 0) {
       setHeader({
         title: '福利中心',
