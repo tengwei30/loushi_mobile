@@ -298,14 +298,19 @@ export default {
         this.taskId = id
         this.showRedPackageStyle = showRedPackageStyle
         this.userTaskRedPackageVOList = userTaskRedPackageVOList
-        const { conditionStatus, alert, gold=null } = this.day || {}
+        const {
+          conditionStatus,
+          // alert,
+          // gold=null
+        } = this.day || {}
 
         const version = localStorage.getItem('version')
         this.compareVer = compareVersion('1.54.0', version)
-        if (this.compareVer >= 0 && gold && alert) {
-          // 新增高于1.54.0版本走端上签到弹窗，将gold 传递给端上
-          bk.call('taskCenterSignSuccess', { coin: gold })
-        }
+        bk.call('taskCenterSignSuccess', { coin: 10 })
+        // if (this.compareVer >= 0 && gold && alert) {
+        //   // 新增高于1.54.0版本走端上签到弹窗，将gold 传递给端上
+        //   bk.call('taskCenterSignSuccess', { coin: gold })
+        // }
         console.log(this.day, conditionStatus, this.compareVer, 22)
         if (conditionStatus * 1 === 2) {
           this.showReadAd = true
