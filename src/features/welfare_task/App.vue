@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { routerToNative, throttle, getCookie, compareVersion } from '@/utils/index'
+import { routerToNative, throttle, getCookie, compareVersion, nBuryPoint, getQueryString } from '@/utils/index'
 import { setHeader } from '@/utils/nativeToH5/index'
 import { getTaskLists, getFourAdLists, getAdBannerLists, getSingleBookList, getServiceAreaTaskList, getTaskFinish, getUserInfo } from './request.js'
 import bk from 'bayread-bridge'
