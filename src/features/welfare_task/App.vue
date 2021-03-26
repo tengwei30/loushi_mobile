@@ -191,9 +191,8 @@ export default {
             })
             getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate).then(res => {
               this.dayTaskLists = []
-              this.excitationUserTaskVOList = []
               this.dayTaskLists = res.taskVOS
-              this.excitationUserTaskVOList = res.excitationUserTaskVOList
+              this.excitationUserTaskVOList = res.excitationUserTaskVOList.slice()
             })
           } else {
             bk.call('goReadBook', {}, () => {
@@ -250,13 +249,12 @@ export default {
       }, 2000)
     },
     async InitData() {  // 初始化数据
-      const { excitationUserTaskVOList = null, taskVOS, receivedCoin, totalCoin, userInfoBO } = await getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate)
+      const { excitationUserTaskVOList, taskVOS, receivedCoin, totalCoin, userInfoBO } = await getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate)
       if (taskVOS.length !== 0 && taskVOS[0].subType === 4) {
         taskVOS[0].isFinish = this.isOpen
       }
       this.dayTaskLists = taskVOS
-      // console.log('excitationUserTaskVOList', excitationUserTaskVOList)
-      this.excitationUserTaskVOList = excitationUserTaskVOList
+      this.excitationUserTaskVOList = excitationUserTaskVOList || []
       this.userInfoBO = userInfoBO
       this.receivedCoin = receivedCoin
       this.totalCoin = totalCoin

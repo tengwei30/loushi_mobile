@@ -92,7 +92,7 @@ export default {
   mounted() {
     this.$nextTick(() => {
       if (!this.day) return
-      if (this.day && this.day.alert && this.day.gold && compareVer < 0) {
+      if (this.day && this.day.alert && this.day.gold && this.compareVer < 0) {
         this.$finishModal('签到任务完成', this.day.gold)
       }
       for (let i = 0; i < this.signList.length; i++) {
