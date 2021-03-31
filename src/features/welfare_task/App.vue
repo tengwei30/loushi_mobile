@@ -303,10 +303,8 @@ export default {
         } = this.day || {}
 
         const version = localStorage.getItem('version')
-        this.compareVer = compareVersion('1.54.0', version)
-        // bk.call('taskCenterSignSuccess', { coin: 10 })
+        this.compareVer = compareVersion('1.54.2', version)
         if (this.compareVer >= 0 && gold && alert) {
-          console.log('新增高于1.54.0版本走端上签到弹窗，将gold 传递给端上')
           // 新增高于1.54.0版本走端上签到弹窗，将gold 传递给端上
           bk.call('taskCenterSignSuccess', { coin: gold })
         }
