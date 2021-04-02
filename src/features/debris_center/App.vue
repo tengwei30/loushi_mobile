@@ -164,7 +164,7 @@ export default {
       showGuidance: false,
       fragmentPrizeTwoEnable: 0,
       excitationSingleBookInfoVOList: [],  // 专享书籍列表
-      isAndroidOSVer: 5
+      isAndroidOSVer: 8
     }
   },
   computed: {

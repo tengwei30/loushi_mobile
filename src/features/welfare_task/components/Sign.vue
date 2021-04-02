@@ -31,9 +31,10 @@
         span.day__item__common.day__item__date {{key + 1}}天
 </template>
 <script>
+
 export default {
   name: 'Sign',
-  props: ['userTaskRedPackageVOList', 'day', 'showRedPackageStyle'],
+  props: ['userTaskRedPackageVOList', 'day', 'showRedPackageStyle', 'compareVer'],
   data() {
     return {
       colorActive: {
@@ -91,7 +92,7 @@ export default {
   mounted() {
     this.$nextTick(() => {
       if (!this.day) return
-      if (this.day && this.day.alert && this.day.gold) {
+      if (this.day && this.day.alert && this.day.gold && this.compareVer < 0) {
         this.$finishModal('签到任务完成', this.day.gold)
       }
       for (let i = 0; i < this.signList.length; i++) {
