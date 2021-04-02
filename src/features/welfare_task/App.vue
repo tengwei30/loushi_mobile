@@ -5,6 +5,7 @@
       v-if="day"
       :userTaskRedPackageVOList="userTaskRedPackageVOList"
       :day="day"
+      :compareVer="compareVer"
       :showRedPackageStyle="showRedPackageStyle"
       @gotoWithdraw="gotoWithdraw"
     )
@@ -110,6 +111,7 @@ export default {
       userInfo: null,
       taskId: 1,
       from: getQueryString('from') || 'tab',
+      compareVer: null
     }
   },
   methods: {
@@ -189,9 +191,8 @@ export default {
             })
             getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate).then(res => {
               this.dayTaskLists = []
-              this.excitationUserTaskVOList = []
               this.dayTaskLists = res.taskVOS
-              this.excitationUserTaskVOList = res.excitationUserTaskVOList
+              this.excitationUserTaskVOList = res.excitationUserTaskVOList.slice()
             })
           } else {
             bk.call('goReadBook', {}, () => {
@@ -248,13 +249,12 @@ export default {
       }, 2000)
     },
     async InitData() {  // 初始化数据
-      const { excitationUserTaskVOList = null, taskVOS, receivedCoin, totalCoin, userInfoBO } = await getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate)
+      const { excitationUserTaskVOList, taskVOS, receivedCoin, totalCoin, userInfoBO } = await getServiceAreaTaskList(this.readChapterCount, this.chapterCoinRate)
       if (taskVOS.length !== 0 && taskVOS[0].subType === 4) {
         taskVOS[0].isFinish = this.isOpen
       }
       this.dayTaskLists = taskVOS
-      // console.log('excitationUserTaskVOList', excitationUserTaskVOList)
-      this.excitationUserTaskVOList = excitationUserTaskVOList
+      this.excitationUserTaskVOList = excitationUserTaskVOList || []
       this.userInfoBO = userInfoBO
       this.receivedCoin = receivedCoin
       this.totalCoin = totalCoin
@@ -296,8 +296,18 @@ export default {
         this.taskId = id
         this.showRedPackageStyle = showRedPackageStyle
         this.userTaskRedPackageVOList = userTaskRedPackageVOList
-        const { conditionStatus } = this.day || {}
-        console.log(this.day, conditionStatus, 22)
+        const {
+          conditionStatus,
+          alert,
+          gold=null
+        } = this.day || {}
+
+        const version = localStorage.getItem('version')
+        this.compareVer = compareVersion('1.54.2', version)
+        if (this.compareVer >= 0 && gold && alert) {
+          // 新增高于1.54.0版本走端上签到弹窗，将gold 传递给端上
+          bk.call('taskCenterSignSuccess', { coin: gold })
+        }
         if (conditionStatus * 1 === 2) {
           this.showReadAd = true
         } else {
