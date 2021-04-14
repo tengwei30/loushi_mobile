@@ -21,6 +21,15 @@ function getOsType() {
 }
 
 /**
+ * 端上埋点带过去的公共参数
+ */
+export const nDefaultData = {
+  isProd,
+  url: window.location.href,
+  platformId: window.localStorage.getItem('platformId') || ''
+}
+
+/**
  * device string 操作系统 使用者 android、 ios、 windows、 others
  * url string 当前h5页面地址
  * eventTime bigint 埋点触发时间（ 用户设备时间）
@@ -53,14 +62,27 @@ export function mBuryPoint(eventKey=null, eventValue = {}) {
  */
 export function nBuryPoint(eventKey=null, eventValue = {}) {
   const defaultData = {
-    isProd,
-    url: window.location.href,
+    ...nDefaultData,
     eventTime: Date.now(),
-    platformId: window.localStorage.getItem('platformId') || ''
   }
   console.log('Native 埋点', eventKey, eventValue)
   bk.call('buryingPoint', {
     eventName: eventKey,
     map: { ...defaultData, ...eventValue }
+  })
+}
+
+/**
+ * 通知Native进行神策埋点
+ * @param {*} eventKey 事件名 --- 命名规范（驼峰命名：eg：PageExposure）
+ * @param {*} eventValue 事件属性 {}
+ * 埋点数据结构：http://wiki.bayread.com/pages/viewpage.action?pageId=7045418
+ * 埋点方法文档：http://wiki.bayread.com/pages/viewpage.action?pageId=1508231
+ */
+export function nSensorPoint(eventKey = null, eventValue = {}) {
+  console.log('Native 神策埋点', eventKey, eventValue)
+  bk.call('sendSensorEvent', {
+    'eventName': eventKey,
+    'eventProperties': { ...nDefaultData, ...eventValue }
   })
 }

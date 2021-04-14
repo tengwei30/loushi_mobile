@@ -7,7 +7,7 @@ import {
 import { compareVersion } from '@/utils/string'
 import { getCookie } from '@/utils/utils'
 import { routerToNative, jumpBookDetail } from '@/utils/native'
-import { mBuryPoint, nBuryPoint } from '@/utils/buryPoint'
+import { mBuryPoint, nBuryPoint, nSensorPoint } from '@/utils/buryPoint'
 import {
   throttle,
   formatIsoTime,
@@ -36,5 +36,6 @@ export {
   mBuryPoint,
   nBuryPoint,
   jumpBookDetail,
-  skipUrl
+  skipUrl,
+  nSensorPoint, // 端上神策埋点方法
 }

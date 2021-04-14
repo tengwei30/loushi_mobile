@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { routerToNative, throttle, getCookie, compareVersion, nBuryPoint, getQueryString } from '@/utils/index'
+import { routerToNative, throttle, getCookie, compareVersion, nBuryPoint, getQueryString, nSensorPoint } from '@/utils/index'
 import { setHeader } from '@/utils/nativeToH5/index'
 import { getTaskLists, getFourAdLists, getAdBannerLists, getSingleBookList, getServiceAreaTaskList, getTaskFinish, getUserInfo } from './request.js'
 import bk from 'bayread-bridge'
@@ -223,6 +223,10 @@ export default {
           type  //  txt 表示点击固定文案部分。''表示点击弹窗
         }
       })
+      nSensorPoint('ElementClick', {
+        'lw_element_name': 'sign_in_lucky_prize_enter',
+        'lw_public_page_name': 'task_page'
+      })
       window.location.href = 'breader://action/luckyPrize?new=1'
     },
     closeModal() {  // 关闭看资讯弹窗
@@ -310,6 +314,10 @@ export default {
         }
         if (conditionStatus * 1 === 2) {
           this.showReadAd = true
+          nSensorPoint('ElementExposure', {
+            'lw_element_name': 'sign_in_lucky_prize_enter',
+            'lw_public_page_name': 'task_page'
+          })
         } else {
           this.showReadAd = false
         }
