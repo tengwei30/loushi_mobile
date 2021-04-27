@@ -6,7 +6,7 @@
       em 分
     img.img(v-else src="@/assets/bookslast/comment.png")
     .header-bottom-text 参与评分
-  .header-bottom-monry(@click="rewardHandler" v-if="platform !== '15'")
+  .header-bottom-monry(@click="rewardHandler")
     img(src="@/assets/bookslast/reward.png")
     .header-bottom-text 打赏作者
 </template>

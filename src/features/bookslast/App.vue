@@ -19,7 +19,7 @@
     Score(
       :endInfo="endInfo"
       :platform='platform'
-      v-if="endInfo"
+      v-if="endInfo && platform !== '15'"
       v-on:commentHandler="commentHandler"
       v-on:rewardHandler="rewardHandler"
     )
@@ -140,7 +140,7 @@ export default {
       this.recommendBookVO = recommendBookVO || this.recommendBookVO
       this.handleDealBoostList(ItemInfo)
       this.version = localStorage.getItem('version')
-      this.platform =localStorage.getItem('platformId')
+      this.platform =localStorage.getItem('platformId') || '5'
       if (this.bookInfo.isSerial === 1 && !this.showNotification) {
         this.buttonStatus = this.endInfo.urgeInfo.status === 0 ? '4' : '5'
       } else if (this.bookInfo.isSerial === 0 && !this.showNotification) {
