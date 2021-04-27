@@ -13,6 +13,7 @@
       :vipExperienceCardInfoControl="vipExperienceCardInfoControl"
       :endInfo="endInfo"
       :mId="mId"
+      :platform="platform"
       v-on:receiveforbook="receiveforbook"
       )
     Score(
