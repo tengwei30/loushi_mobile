@@ -140,7 +140,7 @@ export default {
       this.recommendBookVO = recommendBookVO || this.recommendBookVO
       this.handleDealBoostList(ItemInfo)
       this.version = localStorage.getItem('version')
-      this.platform =localStorage.getItem('platformId') || '5'
+      this.platform =localStorage.getItem('platformId')
       if (this.bookInfo.isSerial === 1 && !this.showNotification) {
         this.buttonStatus = this.endInfo.urgeInfo.status === 0 ? '4' : '5'
       } else if (this.bookInfo.isSerial === 0 && !this.showNotification) {
