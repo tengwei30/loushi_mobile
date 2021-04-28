@@ -56,6 +56,6 @@ body,html
     .btn
       absolute(bottom 20px, left 0, right 0)
       width 200px
-      height 68px
+      height 140px
       margin 0 auto
 </style>
