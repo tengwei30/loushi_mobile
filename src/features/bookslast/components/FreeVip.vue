@@ -1,8 +1,8 @@
 <template lang="pug">
-.header-top.header-top-2(v-if="(isShowPlatform && endInfo.vipExperienceCardInfo.status === 0) || !isShowPlatform")
+.header-top.header-top-2(:style="(isNoBook && isShowPlatform) ? style : ''" v-if="(isShowPlatform && endInfo.vipExperienceCardInfo.status === 0) || !isShowPlatform")
   .header-top-done(v-if="endInfo.vipExperienceCardInfo.status === 0")
-    .header-top-book-done 本书已完结
-    .header-top-book-done-other 恭喜你读完一本书
+    .header-top-book-done(:style="{textAlign: isShowPlatform ? 'center' : 'left'}") 本书已完结
+    .header-top-book-done-other(:style="{justifyContent: isShowPlatform ? 'center' : 'flex-start'}") 恭喜你读完一本书
       span.mark-vpi(v-if="platform !== '15'") ，送你3天会员卡！
   .header-top-mark-button-fetch-common.header-top-mark-button-fetch(
     v-if="endInfo.vipExperienceCardInfo.status === 0 &&!vipExperienceCardInfoControl && !isShowPlatform "
@@ -19,7 +19,17 @@
 </template>
 <script>
 export default {
-  props: ['bookInfo', 'vipExperienceCardInfoControl', 'endInfo', 'mId', 'platform'],
+  props: ['bookInfo', 'vipExperienceCardInfoControl', 'endInfo', 'mId', 'platform', 'isNoBook'],
+  data() {
+    return {
+      style: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItem: 'center',
+        height: '100vh'
+      }
+    }
+  },
   methods: {
     receiveforbook() {
       this.$emit('receiveforbook')

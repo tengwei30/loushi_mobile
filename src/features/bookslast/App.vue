@@ -6,6 +6,7 @@
       :endInfo="endInfo"
       :showNotification="showNotification"
       :showNotificationResume="showNotificationResume"
+      :isNoBook="isNoBook"
       v-on:urgeforbook="urgeforbook")
     FreeVip(
       v-if="bookInfo.isSerial === 0 && mId === ''"
@@ -13,8 +14,9 @@
       :vipExperienceCardInfoControl="vipExperienceCardInfoControl"
       :endInfo="endInfo"
       :mId="mId"
-      :platform="platform"
       v-on:receiveforbook="receiveforbook"
+      :platform="platform"
+      :isNoBook="isNoBook"
       )
     Score(
       :endInfo="endInfo"
@@ -125,6 +127,11 @@ export default {
     })
     window.notificationResume = this.notificationResume
   },
+  computed: {
+    isNoBook() { // 底部没有推荐的书的情况
+      return this.recommendBookVO.bookInfoVOList.length === 0 && !this.content && this.boostList.length === 0 && this.pointsBarrelBookList.length === 0
+    }
+  },
   mounted() {
     getEndInfo(this.bookId, this.mId).then(res => { // 正文尾页信息
       if (!res.data) return
@@ -140,7 +147,7 @@ export default {
       this.recommendBookVO = recommendBookVO || this.recommendBookVO
       this.handleDealBoostList(ItemInfo)
       this.version = localStorage.getItem('version')
-      this.platform =localStorage.getItem('platformId')
+      this.platform =localStorage.getItem('platformId') || '15'
       if (this.bookInfo.isSerial === 1 && !this.showNotification) {
         this.buttonStatus = this.endInfo.urgeInfo.status === 0 ? '4' : '5'
       } else if (this.bookInfo.isSerial === 0 && !this.showNotification) {
