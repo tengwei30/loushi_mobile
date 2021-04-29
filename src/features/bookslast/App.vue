@@ -7,6 +7,7 @@
       :showNotification="showNotification"
       :showNotificationResume="showNotificationResume"
       :isNoBook="isNoBook"
+      :platform="platform"
       v-on:urgeforbook="urgeforbook")
     FreeVip(
       v-if="bookInfo.isSerial === 0 && mId === ''"
