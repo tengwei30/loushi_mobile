@@ -1,6 +1,6 @@
 <template lang="pug">
 .header-top.header-top-2(:style="(isNoBook && isShowPlatform) ? style : ''" v-if="(isShowPlatform && endInfo.vipExperienceCardInfo.status === 0) || !isShowPlatform")
-  .header-top-done(v-if="endInfo.vipExperienceCardInfo.status === 0")
+  .header-top-done(v-if="endInfo.vipExperienceCardInfo.status === 0" :class='{"is-no-book": isNoBook && isShowPlatform}')
     .header-top-book-done(:style="{textAlign: isShowPlatform ? 'center' : 'left'}") 本书已完结
     .header-top-book-done-other(:style="{justifyContent: isShowPlatform ? 'center' : 'flex-start'}") 恭喜你读完一本书
       span.mark-vpi(v-if="platform !== '15'") ，送你3天会员卡！
@@ -26,7 +26,10 @@ export default {
         display: 'flex',
         justifyContent: 'center',
         alignItem: 'center',
-        height: '100vh'
+        height: '100vh',
+        paddingTop: '0',
+        paddingBottom: '0',
+        boxSize: 'border-box'
       }
     }
   },
