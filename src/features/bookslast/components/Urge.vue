@@ -1,6 +1,6 @@
 <template lang="pug">
-.header-top.header-top-1
-  .header-top-done(v-if="endInfo.urgeInfo")
+.header-top.header-top-1(:style="(isNoBook && isShowPlatform) ? style : ''")
+  .header-top-done(v-if="endInfo.urgeInfo" :class='{"is-no-book": isNoBook && isShowPlatform}')
     .header-top-book-done 作者正在努力更新中…
     .header-top-book-done-other {{ title }}
   .header-top-button.header-top-mark-button-fetch-common(
@@ -17,6 +17,19 @@
 <script>
 export default {
   props: ['endInfo', 'showNotification', 'showNotificationResume', 'platform', 'isNoBook'],
+  data() {
+    return {
+      style: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItem: 'center',
+        height: '100vh',
+        paddingTop: '0',
+        paddingBottom: '0',
+        boxSize: 'border-box'
+      }
+    }
+  },
   computed: {
     title() {
       if (this.showNotificationResume) {
