@@ -1,8 +1,8 @@
 <template lang="pug">
 .header-top.header-top-1(:style="(isNoBook && isShowPlatform) ? style : ''")
   .header-top-done(v-if="endInfo.urgeInfo" :class='{"is-no-book": isNoBook && isShowPlatform}')
-    .header-top-book-done 作者正在努力更新中…
-    .header-top-book-done-other {{ title }}
+    .header-top-book-done(:style="{textAlign: isShowPlatform ? 'center' : 'left'}") 作者正在努力更新中…
+    .header-top-book-done-other(:style="{justifyContent: isShowPlatform ? 'center' : 'flex-start'}") {{ title }}
   .header-top-button.header-top-mark-button-fetch-common(
     @click="urgeforbook"
     v-if="endInfo.urgeInfo.status === 0 && !showNotificationResume && !isShowPlatform")
