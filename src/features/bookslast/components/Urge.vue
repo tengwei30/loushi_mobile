@@ -10,7 +10,7 @@
   .header-top-mark-button-fetch-common.header-top-mark-button-fetch-success(
     v-if="showNotificationResume && !isShowPlatform"
   ) 已开启
-  .header-top-numbers(v-if="endInfo.urgeInfo.status === 1 && !showNotificationResume")
+  .header-top-numbers(v-if="endInfo.urgeInfo.status === 1 && !showNotificationResume && !isShowPlatform")
     span.mark-number {{ endInfo.urgeInfo.count }}
     | 人已经催更
 </template>
