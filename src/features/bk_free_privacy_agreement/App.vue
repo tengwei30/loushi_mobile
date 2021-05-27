@@ -130,14 +130,14 @@
       .td 1
       .td 微信
       .td 微信登录、将页面分享至微信好友或朋友圈、使用微信支付
-      .td 访问网络权限、访问网络状态权限、读取设备唯一标识码
+      .td 访问网络权限、访问网络状态权限、读取设备唯一标识码（IMEI、MAC地址）
       .td https://weixin.qq.com/cgi-bin/readtemplate?lang=zh_CN&t=weixin_agreement&s=privacy
       .td 深圳市腾讯计算机系统有限公司
     .t_line
       .td 2
       .td 支付宝
       .td 支付宝支付
-      .td 设备唯一标识码、设备MAC地址、读取手机状态、写入外部存储，访问网络，访问网络信息，访问WI—FI网络信息
+      .td 设备唯一标识码（设备MAC地址、IMEI）、读取手机状态、写入外部存储，访问网络，访问网络信息，访问WI—FI网络信息
       .td https://render.alipay.com/p/c/k2cx0tg8
       .td 支付宝（中国）网络技术有限公司
     .t_line
@@ -151,35 +151,35 @@
       .td 4
       .td 小米PUSH
       .td 推送消息
-      .td 设备标识信息
+      .td 设备标识信息（IMEI、MAC地址）
       .td https://dev.mi.com/console/doc/detail?pId=1339
       .td 小米科技
     .t_line
       .td 5
       .td VIVO PUSH
       .td 推送消息
-      .td 设备标识信息
+      .td 设备标识信息（IMEI、MAC地址）
       .td https://dev.vivo.com.cn/documentCenter/doc/366
       .td 广东天宸科技有限公司
     .t_line
       .td 6
       .td OPPO PUSH
       .td 推送消息
-      .td 设备标识信息
+      .td 设备标识信息（IMEI、MAC地址）
       .td https://open.oppomobile.com/wiki/doc#id=10288
       .td 广东欢太科技有限公司
     .t_line
       .td 7
       .td 魅族PUSH
       .td 推送消息
-      .td 设备标识信息、安装列表
+      .td 设备标识信息（IMEI、MAC地址）
       .td https://open.flyme.cn/open-web/views/push.html
       .td 魅族科技
     .t_line
       .td 8
       .td 华为PUSH
       .td 推送消息
-      .td 设备标识信息
+      .td 设备标识信息（IMEI、MAC地址）
       .td https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides-V5/privacy-statement-0000001050042021-V5
       .td 华为技术有限公司
     .t_line
@@ -228,14 +228,14 @@
       .td 15
       .td 听云
       .td 实时了解App性能，部署在App应用生产环境，监控真实的App用户访问性能，实时发现和定位应用性能的问题，帮助App用户体验不断提升，迅速发现定位困扰和导致App用户流失的崩溃、黑屏、卡顿等导致用户流失的用户体验问题
-      .td 软件安装列表、设备相关信息（例如设备型号、操作系统版本、设备设置、唯一设备标识符等软硬件特征信息）、设备所在位置相关信息（例如IP地址、GPS位置以及能够提供相关信息的Wi-Fi接入点、蓝牙和基站等传感器信息）、操作日志等信息
+      .td 软件安装列表、设备相关信息（例如IMEI、MAC地址、设备型号、操作系统版本、设备设置、唯一设备标识符等软硬件特征信息）、设备所在位置相关信息（例如IP地址、GPS位置以及能够提供相关信息的Wi-Fi接入点、蓝牙和基站等传感器信息）、操作日志等信息
       .td https://www.tingyun.com/legal_declaration.html
       .td 北京基调网络服务股份有限公司
     .t_line
       .td 16
       .td 腾讯QQSDK
       .td 用户账号登录
-      .td 设备唯一识别码
+      .td 设备唯一识别码（IMEI、MAC地址）、软件安装列表
       .td https://ti.qq.com/agreement/qqface.html?appname=mqq_2019
       .td 深圳市腾讯计算机系统有限公司
     .t_line
