@@ -168,7 +168,8 @@ export default {
       })
       if (item.scheme === 'breader://app/systemspeed') {
         bk.call('goSystemSpeed', {
-          isFinish: item.isFinish
+          isFinish: item.isFinish,
+          taskId: item.id
         }, () => {
           console.log('WIFI 功能跳转')
         })
