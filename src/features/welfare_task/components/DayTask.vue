@@ -8,7 +8,7 @@
       @click="openTask(item)")
       span.task__item__title {{ item.name }}
       span.task__item__gold__common(
-        :class="item.isFinish === 1 ? 'task__item__gold__finish' : 'task__item__gold' "
+        :class="(item.isFinish === 1 && item.scheme !== 'breader://app/systemspeed') ? 'task__item__gold__finish' : 'task__item__gold' "
         )
         span.txt {{ item.isFinish === 1 ? (key === 0 ? '已完成' : item.scheme === 'breader://app/systemspeed' ? '立即清理' : '已领取') : `${item.rewardNum}金币` }}
 </template>
