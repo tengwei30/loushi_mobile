@@ -10,7 +10,7 @@
       span.task__item__gold__common(
         :class="item.isFinish === 1 ? 'task__item__gold__finish' : 'task__item__gold' "
         )
-        span.txt {{ item.isFinish === 1 ? (key === 0 ? '已完成' : '已领取') : `${item.rewardNum}金币` }}
+        span.txt {{ item.isFinish === 1 ? (key === 0 ? '已完成' : item.scheme === 'breader://app/systemspeed' ? '立即清理' : '已领取') : `${item.rewardNum}金币` }}
 </template>
 <script>
 export default {
@@ -23,9 +23,7 @@ export default {
       this.$emit('openTask', item)
     }
   },
-  mounted() {
-    console.log('dayTaskLists', this.dayTaskLists)
-  }
+  mounted() {}
 }
 </script>
 <style lang="stylus">
