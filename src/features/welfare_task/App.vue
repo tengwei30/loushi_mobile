@@ -156,7 +156,7 @@ export default {
         this.$showToast('您已经领取过了哦！')
       }
     }, 30),
-    openTask: throttle(function(item) { // 开启阅读任务
+    openTask: throttle(function(item) { // 开启阅读任务ren
       bk.call('buryingPoint', {
         eventName: 'H5_WELFARE_CLICK_TASK',
         map: {
@@ -166,6 +166,14 @@ export default {
           isProd
         }
       })
+      if (item.scheme === 'breader://app/systemspeed') {
+        bk.call('goSystemSpeed', {
+          isFinish: item.isFinish
+        }, () => {
+          console.log('WIFI 功能跳转')
+        })
+        return
+      }
       if (item.isFinish * 1 === 0) {
         if (item.subType === 4) {
           bk.call('handleCalendarSignNotice', {
