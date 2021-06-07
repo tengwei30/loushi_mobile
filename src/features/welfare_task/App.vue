@@ -157,6 +157,26 @@ export default {
       }
     }, 30),
     openTask: throttle(function(item) { // 开启阅读任务ren
+      if (item.scheme === 'breader://app/systemspeed') {
+        bk.call('buryingPoint', {
+          eventName: 'H5_WELFARE_CLICK_TASK_SYSTEMSPEED',
+          map: {
+            taskId: item.id,
+            registerDay: this.userInfoBO && this.userInfoBO.registerDay,
+            from: 'welfarePage',
+            isFinish: item.isFinish,
+            isProd
+          }
+        })
+        bk.call('goSystemSpeed', {
+          isFinish: item.isFinish,
+          taskId: item.id,
+          rewardNum: item.rewardNum
+        }, () => {
+          console.log('WIFI 功能跳转')
+        })
+        return
+      }
       bk.call('buryingPoint', {
         eventName: 'H5_WELFARE_CLICK_TASK',
         map: {
@@ -166,15 +186,6 @@ export default {
           isProd
         }
       })
-      if (item.scheme === 'breader://app/systemspeed') {
-        bk.call('goSystemSpeed', {
-          isFinish: item.isFinish,
-          taskId: item.id
-        }, () => {
-          console.log('WIFI 功能跳转')
-        })
-        return
-      }
       if (item.isFinish * 1 === 0) {
         if (item.subType === 4) {
           bk.call('handleCalendarSignNotice', {
@@ -348,7 +359,6 @@ export default {
       this.historyReadChapter = historyReadChapter
     })
     bk.register('browserPageResume', () => {
-      console.log('调用页面重新现方法', localStorage.getItem('version'))
       const version = localStorage.getItem('version')
       if (compareVersion('1.53.2', version) >= 0) {
         this.initTask()
