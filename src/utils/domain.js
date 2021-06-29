@@ -5,11 +5,9 @@ const env =
 const windowURL = window.location.origin
 export const domainConfig = {
   development: {
-    // domain: 'http://testapi.ibreader.com',
     domain: windowURL,
   },
   production: {
-    // domain: 'https://api.ibreader.com',
     domain: windowURL,
   },
 }

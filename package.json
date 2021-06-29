@@ -1,12 +1,12 @@
 {
-  "name": "Breader_Task_H5",
-  "version": "1.6.20",
+  "name": "you_fang_wang",
+  "version": "0.0.1",
   "author": "zhangsong@bayread.com",
   "private": true,
   "scripts": {
     "dev": "node build/selectFeatures.js",
     "serve": "vue-cli-service serve --mode development",
-    "build": "npx --max_old_space_size=4096 vue-cli-service build && npm run build:complie",
+    "build": "npx --max_old_space_size=4096 vue-cli-service build",
     "dev-build": "npx --max_old_space_size=4096 vue-cli-service build --mode test && npm run build:complie",
     "lint": "vue-cli-service lint",
     "cli-create": "sh ./cli/create.sh",
@@ -14,8 +14,7 @@
     "e2e:run": "cypress run",
     "e2e:gui": "cypress open",
     "commit": "npx git-cz",
-    "commit-msg": "sh ./cli/commit-msg.sh",
-    "build:complie": "node build/browserify.babely.js"
+    "commit-msg": "sh ./cli/commit-msg.sh"
   },
   "dependencies": {
     "@babel/preset-es2015": "^7.0.0-beta.53",
@@ -26,7 +25,6 @@
     "alife-logger": "^1.8.13",
     "axios": "^0.18.0",
     "babelify": "^10.0.0",
-    "bayread-bridge": "^0.1.15",
     "better-scroll": "^1.15.2",
     "browserify": "^16.5.2",
     "dsbridge": "^3.1.3",
@@ -36,6 +34,7 @@
     "js-base64": "^2.6.3",
     "latest": "^0.2.0",
     "lottie-web": "^5.4.4",
+    "mint-ui": "^2.2.13",
     "moment": "^2.24.0",
     "postcss-px2rem": "^0.3.0",
     "raven-js": "^3.27.2",
@@ -64,6 +63,7 @@
     "crypto-js": "^3.1.9-1",
     "cypress": "^3.8.0",
     "cz-conventional-changelog": "^3.0.2",
+    "deepmerge": "^4.2.2",
     "es6-promise": "^4.2.8",
     "eslint": "^5.8.0",
     "eslint-config-prettier": "^4.1.0",
@@ -83,6 +83,8 @@
     "pug-plain-loader": "^1.0.0",
     "qs": "^6.9.1",
     "raw-loader": "^1.0.0",
+    "sass": "^1.32.13",
+    "sass-loader": "^12.1.0",
     "shelljs": "^0.8.3",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",

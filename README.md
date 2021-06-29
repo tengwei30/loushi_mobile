@@ -1,10 +1,6 @@
-# Breader_Task_H5
+# you_fang_wang
 
 ### 项目介绍
-
-- 负责为原生的项目提供内嵌 H5 页面
-- 包含功能性页面
-- 包含运营活动页
 
 ### 项目目录
 
@@ -44,10 +40,6 @@
 ```
 
 ### 开发规范
-  需求分支基于master去创建feature/*
-  feature/* 开发完成之后合并到develop 进行测试，
-  develop测试通过后将feature/*分支合并到master
-  基于master 打tag上线
 
 ### 常用命令
 
@@ -55,8 +47,6 @@
 # 开发本地开发服务器
 $ npm run dev
 # build 测试环境项目
-$ npm run dev-build
-# build 生产环境项目
 $ npm build
 # 输入webpack配置文件
 $ npm run inspect > webpack.js

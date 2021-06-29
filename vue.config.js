@@ -12,7 +12,7 @@ const isDev = process.env.VUE_APP_DEVELOP_ENV === 'true'
 
 
 // CDN 地址
-const bkReadCDN = 'https://scdn.ibreader.com'
+const bkReadCDN = '/'
 
 // package
 const pkg = require('./package.json')
@@ -33,10 +33,9 @@ const pagesMaker = () => {
     let pathInfo = pages[pathname]
     const folderName = pathInfo.split('/').splice(-2)[0]
     const fileName = `${folderName}.html`
-    const filePrefix = 'BKH5-'
     let conf = {
       template: pathInfo,
-      filename: `${filePrefix}${fileName}`,
+      filename: `${fileName}`,
       entry: [`src/features/${pathname}/index.js`],
       chunks: ['chunk-vendors', 'chunk-common', pathname],
     }
@@ -56,7 +55,7 @@ const pagesMaker = () => {
 const pages = pagesMaker()
 module.exports = {
   publicPath: isDev ? './' : bkReadCDN,
-  assetsDir: isProd ? `Breader_Task_H5/${pkg.version}` : 'Breader_Task_H5', // isDev ? 'bkh5-static' :
+  assetsDir: 'youfang', // isDev ? 'bkh5-static' :
   indexPath: 'index.html',
   filenameHashing: !isProd,
   pages,
@@ -228,40 +227,11 @@ module.exports = {
     disableHostCheck: true, // 配置内网穿透
     // sockHost: 'localhost:80',
     proxy: {
-      '/*': {
-        target: 'http://testapi.ibreader.com/',
+      '/api': {
+        target: 'http://123.57.32.164:8280',
         // ws: true,
         changeOrigin: true,
       },
-      // '/*': {
-      //   target: 'http://192.168.1.36:28089/',
-      //   // ws: true,
-      //   changeOrigin: true,
-      // },
-      // '/api': {
-      //   target: 'http://testapi.ibreader.com/',
-      //   // ws: true,
-      //   changeOrigin: true,
-      // },
-      // '/community': {
-      //   target: 'http://testapi.ibreader.com/',
-      //   // ws: true,
-      //   changeOrigin: true,
-      // },
-      // '/activity_api': {
-      //   target: 'http://testapi.ibreader.com/',
-      //   // ws: true,
-      //   changeOrigin: true,
-      // },
-      // '/task_api': {
-      //   target: 'http://testtask.ibreader.com/',
-      //   // ws: true,
-      //   changeOrigin: true,
-      // },
-      // '/api': {
-      //   target: 'http://test.cartoon1.ibreader.com/',
-      //   changeOrigin: true
-      // }
     },
   },
 }
