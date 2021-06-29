@@ -50,5 +50,8 @@ $ npm run dev
 $ npm build
 # 输入webpack配置文件
 $ npm run inspect > webpack.js
+
+# 创建页面
+$ npm run cli-create
 ```
 
